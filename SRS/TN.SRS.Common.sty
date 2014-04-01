@@ -1,0 +1,309 @@
+\newcommand{\clientname}{ТехноНИКОЛЬ}
+\newcommand{\projectname}{<<Создание B2B-портала для ТехноНИКОЛЬ>>}
+\newcommand{\edition}{DRAFT}
+\newcommand{\version}{1.0}
+
+\usepackage[bookmarks=true,pdftex,unicode,bookmarksopen,bookmarksdepth=6]{hyperref}
+\usepackage{chngcntr}
+\usepackage{xparse}
+
+
+% висячие строчки
+\widowpenalty10000
+\clubpenalty10000
+
+% название документа на двух языках
+
+\usepackage{ulem}
+\usepackage{bold-extra}
+
+\newcommand{\key}[1]{<<\uline{\textsc{\textbf{#1}}}>> \index{#1} }
+
+\newcounter{reqsection}
+\newcounter{req}
+\setcounter{req}{0}
+
+% устанавливаем содержание более глубокого уровня + нумерацию до глубокого уровня
+
+\setcounter{secnumdepth}{6}
+\setcounter{tocdepth}{6}
+
+\pdfcompresslevel=9
+\hypersetup{
+    bookmarks=true,    % show bookmarks bar?
+    pdftitle={\projectname \documentname},    % title
+    pdfauthor={Алиев Рауф},                     % author
+    pdfsubject={TeX and LaTeX},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=red,        % color of external links
+    linktoc=all            % only page is linked
+}%
+
+
+% cursection далее будет заполняться названием текущего раздела, какого бы он уровня не был
+\newcommand{\cursection}{}
+
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}}
+\newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}}
+
+\renewcommand\theparagraph{\Alph{paragraph}}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {0.0001pt \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {0.0001pt \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+
+\counterwithin{paragraph}{subsubsection}
+\counterwithin{subparagraph}{paragraph}
+\makeatother
+
+% страшная штука ниже нужна для работы с переменными. setproperty устанаваливает значение, getproperty его вытаскивает
+% правда, нужно понимать, что это не совсем переменные, а макросы. 
+% взято отсюда: http://tex.stackexchange.com/questions/37094/what-is-the-recommended-way-to-assign-a-value-to-a-variable-and-retrieve-it-for
+
+\ExplSyntaxOn
+\NewDocumentCommand{\setproperty}{ O{standard} m m }
+  {
+   \cs_if_exist:cF { g_citr_#1_prop } { \prop_new:c { g_citr_#1_prop } }
+   \prop_gput:cnn { g_citr_#1_prop } { #2 } { #3 }
+  }
+\NewDocumentCommand{\getproperty}{ O{standard} m }
+  {
+   \cs_if_exist:cTF { g_citr_#1_prop }
+     {
+      \prop_get:cnN { g_citr_#1_prop } { #2 } \l_citr_value_tl
+      \quark_if_no_value:NTF \l_citr_value_tl
+        {
+         Inexistent~property~#2
+        }
+        {
+         \tl_use:N \l_citr_value_tl
+        }
+     }
+     {
+      Inexistent~family~#1
+     }
+  }
+\prop_new:N \g_citr_standard_prop
+\tl_new:N \l_citr_value_tl
+\ExplSyntaxOff
+
+
+% далее переопределяются теги для рубрик. 
+% все теги в осноном документе двуязычные. 
+% выбирается указанный язык 
+
+\newcommand{\mysection}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+   \section{#1} 
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	
+  	\vspace*{0.5mm}
+  	
+    {\Large\bfseries \thesection. #2}
+  \end{minipage}
+  \renewcommand{\cursection}{\thesection} \setcounter{req}{0} 
+\else
+	\section{\ifeng #2 \else #1 \fi  }
+	\renewcommand{\cursection}{\thesection} \setcounter{req}{0} 
+\fi
+}
+
+\newcommand{\mysubsection}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+   \subsection{#1} 
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	
+  	\vspace*{0.5mm}
+  	
+    {\large\bfseries \thesubsection. #2}
+  \end{minipage}
+  \renewcommand{\cursection}{\thesubsection} \setcounter{req}{0} 
+\else
+	\subsection{\ifeng #2 \else #1 \fi  }
+	\renewcommand{\cursection}{\thesubsection} \setcounter{req}{0} 
+\fi
+}
+
+\newcommand{\mysubsubsection}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+   \subsubsection{#1} 
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	
+  	\vspace*{0.5mm}
+  	
+    {\normalfont\bfseries \thesubsubsection. #2}
+  \end{minipage}
+  \renewcommand{\cursection}{\thesubsubsection} \setcounter{req}{0} 
+\else
+	\subsubsection{\ifeng #2 \else #1 \fi  }
+	\renewcommand{\cursection}{\thesubsubsection} \setcounter{req}{0} 
+\fi
+}
+
+\newcommand{\mysubsubsubsection}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+   \subsubsubsection{#1} 
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	
+  	\vspace*{0.5mm}
+  	
+    {\normalfont\bfseries \theparagraph. #2}
+  \end{minipage}
+  \renewcommand{\cursection}{\theparagraph} \setcounter{req}{0} 
+\else
+	\subsubsubsection{\ifeng #2 \else #1 \fi  }
+	\renewcommand{\cursection}{\theparagraph} \setcounter{req}{0} 
+\fi
+}
+
+\newcommand{\mychapter}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+   \chapter{#1} 
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	
+  	\vspace*{15mm}
+  	
+    {\Huge\bfseries \thechapter. #2}
+  \end{minipage}
+    \renewcommand{\cursection}{\thechapter} \setcounter{req}{0} 
+\else
+	\chapter{\ifeng #2 \else #1 \fi  }
+	\renewcommand{\cursection}{\thechapter} \setcounter{req}{0} 
+\fi
+}
+
+
+\newcommand{\myitem}[2]{
+\iftwocolumns
+ \begin{minipage}[t]{0.49\linewidth} 
+     #1
+ \end{minipage}  
+  \begin{minipage}[t]{0.49\linewidth} 
+  	  #2
+  \end{minipage}  
+\else
+    \ifeng #2 \else #1 \fi
+\fi
+}
+
+\newcommand{\myindex}[2]{\index{\ifeng #2 \else #1 \fi}}
+
+\newenvironment{requirements}[1]{\addtocounter{reqsection}{1}}{}
+
+% ссылка на объявленное выше \requirement 
+
+\newcommand{\clonerequirement}[1]
+{
+\begin{mdframed}[roundcorner=5pt,backgroundcolor=black!10, linecolor=white]
+
+Копия требования п. \ref{#1}, стр. \pageref{#1}
+
+%
+  \ifeng%
+%  \item {\textsc{\textbf{#1}}} #3
+{\noindent\textsf{  \getproperty{#1}}}
+  \else%
+%  \item {\textsc{\textbf{#1}}} #2
+{\noindent\textsf{  \getproperty{#1}}}
+  \fi
+\end{mdframed}
+
+}
+\newcommand{\reqbox}[2]{
+	\begin{mdframed}[roundcorner=5pt,backgroundcolor=white!25, linecolor=black]
+	\stepcounter{req}{\fontseries{bx}\selectfont \textsf{\textbf{\tiny \textbf{ \cursection.\thereq  \hspace*{\fill} #1}}}}
+
+	{\textsf{#2}}
+	
+	\end{mdframed}
+}
+\newcommand{\requirement}[4]{
+
+\iftwocolumns
+\begin{minipage}[t]{0.49\linewidth}
+\reqbox{#1}{#2} 
+\end{minipage}
+\begin{minipage}[t]{0.49\linewidth}
+\reqbox{#1}{#3} %\\ 
+\end{minipage}
+
+\else
+
+  \ifeng%
+{\reqbox{#1}{#3}}
+  \else%
+{
+
+\reqbox{#1}{#2 
+\newline
+\textsf\footnotesize{\tiny \textit / #4 /}\hspace*{\fill}\textsf\footnotesize{\tiny \textit / #3 /}}}
+
+  \fi
+
+\fi
+
+  
+
+
+\setproperty{#1}{\textit{#2}}
+}
+
+\usepackage[framemethod=TikZ]{mdframed}
+
+\newcommand{\question}[1] { \ifeng \else \begin{tabular}{p{1cm}p{13cm}} {\Huge{\textbf{!!!}}} & \textbf{Вопрос к \cursection.\thereq} { \color{red} \textbf{#1} } \end{tabular} \fi }
+
+\newcommand{\mytitlepage}{\begin{titlepage}
+    \thispagestyle{firststyle}
+    \vspace*{3cm}
+
+    \begin{tabular}{p{0.4\textwidth}rp{0.4\textwidth}}
+        & \multicolumn{2}{c}{\hspace{2cm} {\Large {\textsf{УТВЕРЖДАЮ}}}} \\
+        \vspace{0.2cm} & \\
+        & Дата: \rule {0.4\textwidth}{0.5pt} \\
+        \vspace{0.2cm} & \\
+        & Подпись: \rule{0.4\textwidth}{0.5pt} \\
+    \end{tabular}
+
+    \vspace{3cm}
+\ifeng
+    {\noindent \Huge \begin{center}\textbf{\documentname \linebreak[4] \projectname \linebreak in \clientname}\end{center}}
+
+\else
+    {\noindent \Huge \begin{center}\textbf{\documentname \linebreak[4] \projectname \linebreak}\end{center}}
+\fi
+
+    \vspace{8cm}
+
+    \begin{center}
+    \ifeng
+        Total pages: \pageref{LastPage}
+    \else
+        Всего страниц -- \pageref{LastPage}
+    \fi
+    \end{center}
+
+    \vspace*{1cm}
+
+\end{titlepage}}
+

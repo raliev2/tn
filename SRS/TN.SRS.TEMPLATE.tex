@@ -1,0 +1,44 @@
+\documentclass{scrreprt}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{makeidx}
+
+
+\makeindex
+
+\newif\ifeng
+\engfalse
+
+\newif\iftwocolumns
+\twocolumnsfalse
+
+\newcommand{\stageone}{Спецификация требований на первый этап}
+\newcommand{\stageonetobeagreed}{Требования-кандидаты на включение в спецификацию на первый этап}
+\newcommand{\stagetwo}{Спецификация требований на второй этап}
+
+\newcommand{\documentname}{\OOOOdocumentnameOOOO}
+
+\usepackage{TN.SRS.Common}	
+\usepackage{TN.Document.Common}
+
+
+
+\begin{document}
+
+\mytitlepage
+
+\tableofcontents 	
+
+\renewcommand{\indexname}{Index}
+\addcontentsline{toc}{chapter}{Index}
+
+\newpage
+
+\printindex
+
+\newpage
+
+\input {OOOOfilenameOOOO.csv}
+
+\end{document} 					

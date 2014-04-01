@@ -1,0 +1,149 @@
+\usepackage{cmap/cmap}
+\usepackage{listings}
+\usepackage{underscore}
+\usepackage{lastpage}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{makeidx}
+\usepackage{hanging}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{framed}
+\usepackage{epstopdf}
+\usepackage[bookmarks=true,pdftex,unicode]{hyperref}
+\usepackage{datetime}        %Change format of `\today' with commands for current time
+\usepackage[lmargin=2.500000cm,rmargin=2.500000cm,tmargin=2.500000cm,bmargin=2.500000cm]{geometry}        %Flexible and complete interface to document dimensions
+
+\clubpenalty=10000
+\widowpenalty=10000
+
+
+\pdfcompresslevel=9
+\hypersetup{
+    bookmarks=true,    % show bookmarks bar?
+    pdftitle={\projectname \documentname},    % title
+    pdfauthor={Алиев Рауф},                     % author
+    pdfsubject={TeX and LaTeX},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=red,        % color of external links
+    linktoc=all            % only page is linked
+}%
+
+
+\makeindex
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{2mm}
+\definecolor{gray}{rgb}{0,0,1}
+
+% Определение макросов
+
+% headerr - выводит колонтитул. Единственный параметр - что выводить в правом вернем углу. Это либо пусто, либо \hfill{}\textbf{\thepage}
+
+
+
+
+\newcommand{\headerr}[6] {\tiny%
+\begin{tabular}{p{2cm}p{5.5cm}p{2.5cm}p{4cm}}
+\\
+	    Документ:
+		 &
+		\textbf{#1}%УСТАВ ПРОЕКТА
+		 &
+	    Версия:
+		 &
+		\textbf{#2}%1.1		
+\\ 		Заказчик:
+ 		&
+ 		\textbf{#3}%ООО <<АромаЛюкс>>
+ 		&
+ 		Статус:  	
+ 		&
+ 		\textbf{#4}%Финальная редакция
+\\
+ 		Исполнитель:
+ 		&
+ 		\textbf{#5}%ООО <<ТИМИДЕЯ ГРУПП>>
+
+ 	&
+ 		Дата редакции:
+ 		& 	
+  		#6%\today
+        \end{tabular}%
+        \vspace{0.3cm}}
+
+%Общий блок кода, оформляющий колонтитулы.
+
+\newcommand {\headstyle}[1]
+{
+    \fancyfootoffset[R]{-12cm}
+    \fancyfoot{}
+
+    \fancyhead[LE, LO]{%
+    \color{gray}\large{\textbf{\projectname}}#1
+    \headerr
+     {\documentname}
+     {\version}
+     {\clientname}
+     {\edition}	
+     {\raggedleft{ООО\hspace{1mm}<<ТИМИДЕЯ\hspace{1mm}ГРУПП>>\linebreak[4] \textbf{TeamIdea}}}
+     {\today}
+    }
+}
+
+\renewcommand{\dateseparator}{-}
+\renewcommand{\headrulewidth}{0.5000000pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt}
+
+% Колонтитулы
+
+\pagestyle{fancy}
+
+\fancyhead{} \fancyfoot{}
+\headstyle{\hfill{}\textbf{\thepage}}
+
+
+\fancypagestyle{plain}
+{
+    \fancyhead{} \fancyfoot{}
+    \headstyle{\hfill{}\textbf{\thepage}}
+}
+
+\fancypagestyle{firststyle}
+{
+  \headstyle{}
+}
+
+\def\oldsec{}
+\def\oldsubsec{}
+\def\oldsubsubsec{}
+\def\emptysting{}
+
+\newcommand{\secl}[1]{
+\def\newsec{#1}
+\ifx\newsec\oldsec  \else \def\oldsec{#1} \mychapter{\newsec}{} \fi
+}
+
+\newcommand{\subsecl}[1]{
+\def\newsubsec{#1}
+\ifx\newsubsec\oldsubsec  \else \def\oldsubsec{#1} 
+\ifx \newsubsec\emptystring \else \mysection{\newsubsec}{} \fi \fi
+}
+
+\newcommand{\subsubsecl}[1]{
+\def\newsubsubsec{#1}
+\ifx\newsubsubsec\empty \else
+\ifx\newsubsubsec\oldsubsubsec  \else \def\oldsubsubsec{#1} \ifx \newsubsubsec\emptystring \else \mysubsection{\newsubsubsec}{} \fi \fi
+\fi
+}
+
+
+\patchcmd{\@afterheading}%
+    {\clubpenalty \@M}{\clubpenalties 3 \@M \@M 0}{}{}
+\patchcmd{\@afterheading}%
+    {\clubpenalty \@clubpenalty}{\clubpenalties 2 \@clubpenalty 0}{}{}
