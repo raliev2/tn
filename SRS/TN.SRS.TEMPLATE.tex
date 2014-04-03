@@ -1,10 +1,13 @@
+
+
+
+
 \documentclass{scrreprt}
 \usepackage[russian]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
 \usepackage{makeidx}
-
-
+\usepackage{ulem}
 \makeindex
 
 \newif\ifeng
@@ -12,10 +15,47 @@
 
 \newif\iftwocolumns
 \twocolumnsfalse
+\newcommand{\stageone}{Приложение №2. Спецификация требований}
+\newcommand{\stageonetitle}{Спецификация требований}
 
-\newcommand{\stageone}{Спецификация требований на первый этап}
 \newcommand{\stageonetobeagreed}{Требования-кандидаты на включение в спецификацию на первый этап}
+\newcommand{\stageonetobeagreedtitle}{Требования на согласование}
+
 \newcommand{\stagetwo}{Спецификация требований на второй этап}
+\newcommand{\stagetwotitle}{Спецификация требований на II этап}
+
+
+\newcommand{\firstpagetitle}{
+%
+\Huge{\textbf{\uwave{\OOOOdocumentnameOOOOtitle}}}
+%
+\break \noindent 
+%
+\vspace*{25mm} \break
+%
+\large{\textbf{по проекту}} 
+%
+\break \vspace*{5mm} \break
+%
+\LARGE{\textbf{<<Адаптация и внедрение платформы SAP hybris}} 
+%
+\break \noindent \vspace{3mm} \break
+%
+\LARGE{\textbf{на базе B2B Accelerator}}
+%
+\break \noindent \vspace{3mm} \break
+%
+\LARGE{\textbf{в компании <<ТехноНИКОЛЬ>>}}
+%
+\break \vspace*{18mm} \break
+%
+\large{Приложение \No 2 к ДС \No 02 от 14.04.2014 г. 
+%
+\break \noindent  
+%
+к Договору \No 0302/С-14 от 03.03.2014г.}
+%
+}
 
 \newcommand{\documentname}{\OOOOdocumentnameOOOO}
 
@@ -26,7 +66,18 @@
 
 \begin{document}
 
-\mytitlepage
+\thispagestyle{empty}
+
+%\mytitlepage
+
+\null\vfill 
+
+\begin{center}
+\firstpagetitle
+\end{center}
+
+\vfill\null
+
 
 \tableofcontents 	
 
@@ -42,3 +93,4 @@
 \input {OOOOfilenameOOOO.csv}
 
 \end{document} 					
+

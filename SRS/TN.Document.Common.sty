@@ -47,7 +47,7 @@
 
 
 
-\newcommand{\headerr}[6] {\tiny%
+\newcommand{\headerr}[8] {\tiny%
 \begin{tabular}{p{2cm}p{5.5cm}p{2.5cm}p{4cm}}
 \\
 	    Документ:
@@ -73,8 +73,20 @@
  		Дата редакции:
  		& 	
   		#6%\today
+  		
+\\
+  		
+  		
         \end{tabular}%
+    %
+    \break \noindent
+    %
+    	Основание:      	
+      		\textbf{#7}
+     % 	
         \vspace{0.3cm}}
+
+
 
 %Общий блок кода, оформляющий колонтитулы.
 
@@ -92,6 +104,7 @@
      {\edition}	
      {\raggedleft{ООО\hspace{1mm}<<ТИМИДЕЯ\hspace{1mm}ГРУПП>>\linebreak[4] \textbf{TeamIdea}}}
      {\today}
+     {\contract}
     }
 }
 
@@ -105,8 +118,7 @@
 \pagestyle{fancy}
 
 \fancyhead{} \fancyfoot{}
-\headstyle{\hfill{}\textbf{\thepage}}
-
+\headstyle{\hfill{}\Large{Стр. \textbf{\thepage}}}
 
 \fancypagestyle{plain}
 {
