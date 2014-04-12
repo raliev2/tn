@@ -16,6 +16,8 @@
 
 % название документа на двух языках
 
+\usepackage{needspace}
+
 \usepackage{ulem}
 \usepackage{bold-extra}
 
@@ -106,6 +108,7 @@
 % выбирается указанный язык 
 
 \newcommand{\mysection}[2]{
+\needspace{3in}
 \iftwocolumns
  \begin{minipage}[t]{0.49\linewidth} 
    \section{#1} 
@@ -124,6 +127,7 @@
 }
 
 \newcommand{\mysubsection}[2]{
+\needspace{3in}
 \iftwocolumns
  \begin{minipage}[t]{0.49\linewidth} 
    \subsection{#1} 
@@ -142,6 +146,7 @@
 }
 
 \newcommand{\mysubsubsection}[2]{
+\needspace{2.5in}
 \iftwocolumns
  \begin{minipage}[t]{0.49\linewidth} 
    \subsubsection{#1} 
@@ -160,6 +165,7 @@
 }
 
 \newcommand{\mysubsubsubsection}[2]{
+\needspace{2.5in}
 \iftwocolumns
  \begin{minipage}[t]{0.49\linewidth} 
    \subsubsubsection{#1} 
@@ -178,6 +184,7 @@
 }
 
 \newcommand{\mychapter}[2]{
+\needspace{2in}
 \iftwocolumns
  \begin{minipage}[t]{0.49\linewidth} 
    \chapter{#1} 
@@ -230,16 +237,31 @@
 {\noindent\textsf{  \getproperty{#1}}}
   \fi
 \end{mdframed}
-
 }
+
+\usepackage{titlesec}
+\usepackage{needspace}
+
+
+
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
+
 \newcommand{\reqbox}[2]{
+\begin{absolutelynopagebreak}
 	\begin{mdframed}[roundcorner=5pt,backgroundcolor=white!25, linecolor=black]
 	\stepcounter{req}{\fontseries{bx}\selectfont \textsf{\textbf{\tiny \textbf{ \cursection.\thereq  \hspace*{\fill} #1}}}}
 
 	{\textsf{#2}}
 	
 	\end{mdframed}
+\end{absolutelynopagebreak}	
 }
+
+
 \newcommand{\requirement}[4]{
 
 \iftwocolumns

@@ -13,7 +13,7 @@
 \usepackage{epstopdf}
 \usepackage[bookmarks=true,pdftex,unicode]{hyperref}
 \usepackage{datetime}        %Change format of `\today' with commands for current time
-\usepackage[lmargin=2.500000cm,rmargin=2.500000cm,tmargin=2.500000cm,bmargin=2.500000cm]{geometry}        %Flexible and complete interface to document dimensions
+\usepackage[lmargin=2.500000cm,rmargin=2.500000cm,tmargin=4.00000cm,bmargin=2.500000cm, bottom=2.5cm]{geometry}        %Flexible and complete interface to document dimensions
 
 \clubpenalty=10000
 \widowpenalty=10000
@@ -89,7 +89,6 @@
 
 
 %Общий блок кода, оформляющий колонтитулы.
-
 \newcommand {\headstyle}[1]
 {
     \fancyfootoffset[R]{-12cm}
@@ -117,18 +116,27 @@
 
 \pagestyle{fancy}
 
-\fancyhead{} \fancyfoot{}
-\headstyle{\hfill{}\Large{Стр. \textbf{\thepage}}}
+\usepackage{rotating}
+\usepackage{eso-pic}
+%\usepackage{textpos}
+
+
+   \usepackage{textpos}
+
+
+
+%\fancyhead{} \fancyfoot{}
+%\headstyle{\hfill{}\Large{Стр. \textbf{\thepage}}}
 
 \fancypagestyle{plain}
 {
-    \fancyhead{} \fancyfoot{}
-    \headstyle{\hfill{}\textbf{\thepage}}
+   % \fancyhead{} \fancyfoot{}
+   % \headstyle{\hfill{}\textbf{\thepage}}
 }
 
 \fancypagestyle{firststyle}
 {
-  \headstyle{}
+  %\headstyle{}
 }
 
 \def\oldsec{}
@@ -138,19 +146,19 @@
 
 \newcommand{\secl}[1]{
 \def\newsec{#1}
-\ifx\newsec\oldsec  \else \def\oldsec{#1} \mychapter{\newsec}{} \fi
+\ifx\newsec\oldsec  \else \def\oldsec{#1} \mysection{\newsec}{} \fi
 }
 
 \newcommand{\subsecl}[1]{
 \def\newsubsec{#1}
 \ifx\newsubsec\oldsubsec  \else \def\oldsubsec{#1} 
-\ifx \newsubsec\emptystring \else \mysection{\newsubsec}{} \fi \fi
+\ifx \newsubsec\emptystring \else \mysubsection{\newsubsec}{} \fi \fi
 }
 
 \newcommand{\subsubsecl}[1]{
 \def\newsubsubsec{#1}
 \ifx\newsubsubsec\empty \else
-\ifx\newsubsubsec\oldsubsubsec  \else \def\oldsubsubsec{#1} \ifx \newsubsubsec\emptystring \else \mysubsection{\newsubsubsec}{} \fi \fi
+\ifx\newsubsubsec\oldsubsubsec  \else \def\oldsubsubsec{#1} \ifx \newsubsubsec\emptystring \else \mysubsubsection{\newsubsubsec}{} \fi \fi
 \fi
 }
 
