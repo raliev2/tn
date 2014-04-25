@@ -78,7 +78,7 @@
 
 \vfill\null
 
-
+\thispagestyle{empty} 
 \tableofcontents 	
 
 \renewcommand{\indexname}{Index}
@@ -90,7 +90,21 @@
 
 \newpage
 
+\chapter{Введение}
+
+\input {beforefunc.tex}
+
+\chapter{Функциональные требования}
+
 \input {OOOOfilenameOOOO.csv}
+
+\chapter{Сценарии использования}
+
+\input{usecaselist.tex}
+
+\chapter{Нефункциональные требования}
+
+\input {afterfunc.tex}
 
 \end{document} 					
 
