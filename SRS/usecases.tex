@@ -1,0 +1,32 @@
+\documentclass{book}
+\usepackage[russian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{color}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\makeindex
+
+\mdfsetup{%   
+   linewidth=1pt,
+   roundcorner=20pt}
+
+\renewcommand{\subsubsection}[2]{
+
+\vspace{5mm}
+
+\begin{mdframed}[frametitle=#2]
+#1
+\end{mdframed}
+
+}
+
+\begin{document}
+
+\tableofcontents 	
+
+\newpage
+\chapter{Сценарии использования}
+\input{usecaselist.tex}
+\end{document}
