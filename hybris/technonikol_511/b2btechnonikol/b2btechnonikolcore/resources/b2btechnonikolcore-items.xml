@@ -197,28 +197,12 @@
 						<defaultvalue>java.lang.Boolean.TRUE</defaultvalue>
 						<description>Determines if category is active.</description>
 					</attribute>
-					<attribute qualifier="techStaged" type="java.lang.String">
-						<persistence type="property"/>
-						<modifiers read="true" write="false" search="false" optional="true"/>
-						<description>System field. Flag: STAGED</description>
-					</attribute>
-				</attributes>
-			</itemtype>
-			
-			<itemtype code="TNCreditLimitPermission" jaloclass="com.teamidea.platform.technonikol.core.jalo.b2bunit.TNCreditLimitPermission"
-				extends="B2BOrderThresholdPermission" autocreate="true" generate="true">
-				<attributes>
 				</attributes>
 			</itemtype>
 			
 			<itemtype code="TNPartner" jaloclass="com.teamidea.platform.technonikol.core.jalo.b2bunit.TNPartner"
 				extends="B2BUnit" autocreate="true" generate="true">
 				<attributes>
-					<attribute qualifier="creditLimit" type="TNCreditLimitPermission">
-						<persistence type="property"/>
-						<modifiers read="true" write="false" search="false" optional="true"/>
-						<description>Credit limit of the Partner</description>
-					</attribute>
 				</attributes>
 			</itemtype>
 			
