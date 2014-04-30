@@ -279,8 +279,144 @@
 					</attribute>
 				</attributes>
 			</itemtype>
-			
-			
+
+
+			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
+				<description>Extending Product type with additional attributes.</description>
+				<attributes>
+					<attribute qualifier="supplierCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Supplier Code</description>
+					</attribute>
+					<attribute qualifier="manufacturerCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Manufacturer Code</description>
+					</attribute>
+					<attribute qualifier="documentCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Normative Document(GOST/TU)</description>
+					</attribute>
+					<attribute qualifier="ETIMCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>ETIM code</description>
+					</attribute>
+					<attribute qualifier="barcode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product barcode (number)</description>
+					</attribute>
+					<attribute qualifier="producer" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Producer name</description>
+					</attribute>
+					<attribute qualifier="productionCountry" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product production country name</description>
+					</attribute>
+					<attribute qualifier="supplier" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Supplier name</description>
+					</attribute>
+					<attribute qualifier="productType" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product type name</description>
+					</attribute>
+					<attribute qualifier="productSubtype" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product Subtype name</description>
+					</attribute>
+					<attribute qualifier="productModel" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product model</description>
+					</attribute>
+					<attribute qualifier="productPurpose" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product purpose name</description>
+					</attribute>
+					<attribute qualifier="productProperties" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product Main technical properties list</description>
+					</attribute>
+					<attribute qualifier="productContent" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product content description</description>
+					</attribute>
+					<attribute qualifier="unreplenishable" type="java.lang.Boolean">
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<defaultvalue>Boolean.FALSE</defaultvalue>
+						<persistence type="property"/>
+						<description>Forbidden for purchase (unreplenishable)</description>
+					</attribute>
+					<attribute qualifier="archiveDate" type="java.util.Date">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Archive date</description>
+					</attribute>
+					<attribute qualifier="quantityInPackage" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Number of products in package</description>
+					</attribute>
+					<attribute qualifier="weightGross" type="java.lang.Double">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Gross weight (kg)</description>
+					</attribute>
+					<attribute qualifier="weightNet" type="java.lang.Double">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Net weight (kg)</description>
+					</attribute>
+					<attribute qualifier="volume" type="java.lang.Double">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Volume (m3)</description>
+					</attribute>
+					<attribute qualifier="lengthGross" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Gross length (mm)</description>
+					</attribute>
+					<attribute qualifier="lengthNet" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Net length (mm)</description>
+					</attribute>
+					<attribute qualifier="widthGross" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Gross width (mm)</description>
+					</attribute>
+					<attribute qualifier="widthNet" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Net width (mm)</description>
+					</attribute>
+					<attribute qualifier="heightGross" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Gross height (mm)</description>
+					</attribute>
+					<attribute qualifier="heightNet" type="java.lang.Integer">
+						<modifiers read="true" write="true"/>
+						<persistence type="property"/>
+						<description>Net height (mm)</description>
+					</attribute>
+				</attributes>
+			</itemtype>
 		</typegroup>
 	</itemtypes>
 
