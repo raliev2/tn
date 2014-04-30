@@ -1,0 +1,9 @@
+#Ant properties
+#Thu Apr 03 23:15:44 CEST 2014
+builddate=20140403 2315
+description=b2btechnonikolcore
+name=b2btechnonikolcore
+releasedate=20140217 1217
+vendor=hybris
+version=5.1.1.0
+version.api=5.1.1

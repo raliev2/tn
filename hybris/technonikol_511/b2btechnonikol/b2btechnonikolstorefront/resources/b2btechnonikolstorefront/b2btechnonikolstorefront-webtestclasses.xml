@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testclasses>
+  <b2btechnonikolstorefront>
+    <testclass>com.teamidea.platform.technonikol.storefront.interceptors.i18n.SetLanguageBeforeControllerHandlerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductReferencesComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.DefaultCMSComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.filters.CommonResourcesAddOnFilterTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductCarouselComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.pages.SearchPageControllerUnitTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.PurchasedCategorySuggestionComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.CategoryFeatureComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.security.cookie.EnhancedCookieGeneratorTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.NavigationBarComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.MiniCartComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.filters.AbstractAddOnFilterTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.filters.TagResourcesAddOnFilterTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.filters.AcceleratorAddOnFilterTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductFeatureComponentControllerTest</testclass>
+  </b2btechnonikolstorefront>
+</testclasses>
