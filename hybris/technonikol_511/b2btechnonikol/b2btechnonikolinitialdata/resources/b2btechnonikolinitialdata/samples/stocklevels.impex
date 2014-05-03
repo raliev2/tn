@@ -1,0 +1,14 @@
+# ImpEx for Importing Products Stock Levels
+
+# Macros / Replacement Parameter definitions
+$productCatalog=powertoolsProductCatalog
+$productCatalogVersion=Staged
+$vendor=technonikol
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default=$productCatalog:$productCatalogVersion]
+
+INSERT_UPDATE StockLevel;productCode[unique=true];warehouse(code)[unique=true,default=tnwh01];inStockStatus(code);stockDeliverySource(code);changed[dateformat=dd.MM.yyyy];available;reserved[default=0];inSoftReserve[default=0];inSupplierStock[default=0];inSupplierReserve[default=0];maxPreOrder[default=1];maxStockLevelHistoryCount[default=-1];overSelling[default=0];preOrder[default=0];
+;2613282;tnwh01;notSpecified;technonikol;03.05.2014;150;10;
+
+UPDATE Product;code[unique=true];stockLevels(productCode,warehouse(code));vendors(code)[default=$vendor];$catalogVersion
+;2613282;2613282:tnwh01

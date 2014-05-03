@@ -1,0 +1,25 @@
+﻿#
+# Import Two Sample B2B Organizations
+#
+
+$passwordEncoding=md5
+$defaultPassword=12341234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+INSERT_UPDATE B2BCreditLimit;code[unique=true];alertRateType(code,itemtype(code));alertThreshold;amount;currency(isocode);
+;Monthly40KRUBAlert10Percent;PERCENTAGE:B2BRateType;10;40000;RUB;
+
+INSERT_UPDATE TNPartner;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId);&B2BUnitID;accountManager(uid);creditLimit(code);approvalProcessCode;
+;PartnerTOP	;TNPartner1	;Partner #1	;Partner #1	;Партнер №1	;		;TNPartner1;TNPartner1AddrID1,TNPartner1AddrID3,TNPartner1AddrID4;TNPartner1AddrID1;TNPartner1AddrID3;TNPartner1AddrID4;TNPartner1ID1;AcctMgrA;Monthly40KRUBAlert10Percent;accApproval;
+;Partner Unit A	;Partner Retail	;Partner Retail	;Partner Retail	;Партнер Ретэйл	;TNPartner1	;TNPartner1;TNPartner1AddrID2;;;;TNPartner1ID2;;;
+
+INSERT_UPDATE Address;streetname[unique=true];postalcode[unique=true];town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;middlename;email;title(code);&addId;owner(&B2BUnitID)[unique=true];
+;Ленинский пр-т. д.12;143005;Москва;RU;TRUE;TRUE;TRUE;TRUE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID1;TNPartner1ID1;
+;Ленинский пр-т. д.13;143005;Москва;RU;FALSE;TRUE;FALSE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID3;TNPartner1ID1;
+;Ленинский пр-т. д.14;143005;Москва;RU;FALSE;FALSE;TRUE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID4;TNPartner1ID1;
+;Красная площадь д.1;123654;Москва;RU;TRUE;TRUE;TRUE;TRUE;Петр;Иванов;Сергеевич;namager2@tn.tn;mr;TNPartner1AddrID2;TNPartner1ID2;
+
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;name;title(code);groups(uid);permissionGroups(uid);sessionCurrency(isocode)[default='RUB'];$setPassword;
+;Администратор А;petrov.ivan@tn.ru;petrov.ivan@tn.ru;petrov.ivan@tn.ru;Петров Иван;ms;TNPartner1,b2badmingroup;;;;;
+;Заказчик А;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;Сидоров Иван;ms;Partner Retail,b2bcustomergroup,standardPermissions;;;;;
+

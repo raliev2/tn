@@ -419,3 +419,88 @@ INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lan
 ;JP;JP-06;06;"Yamagata"
 ;JP;JP-35;35;"Yamaguchi"
 ;JP;JP-19;19;"Yamanashi"
+
+#Russia Regions
+INSERT_UPDATE Region;country(isocode[default=RU]);name[lang=en];isocode[unique=true];isocodeShort;active[default=true]
+;;Adygeja;RU-AD;
+;;Altai (Republik);RU-AL;
+;;Baschkortostan;RU-BA;
+;;Burjatien;RU-BU;
+;;Chakassien;RU-KK;
+;;Dagestan;RU-DA;
+;;Inguschetien;RU-IN;
+;;Kabardino-Balkarien;RU-KB;
+;;Kalmückien;RU-KL;
+;;Karatschai-Tscherkessien;RU-KC;
+;;Karelien;RU-KR;
+;;Komi;RU-KO
+;;Mari El;RU-ME;
+;;Mordwinien;RU-MO;
+;;Nordossetien-Alanien;RU-SE;
+;;Sacha (Jakutien);RU-SA;
+;;Tatarstan;RU-TA;
+;;Tschetschenien;RU-CE;
+;;Tschuwaschien;RU-CU;
+;;Tuwa;RU-TY;
+;;Udmurtien;RU-UD;
+;;Altai (Region);RU-ALT
+;;Chabarowsk;RU-KHA
+;;Kamtschatka;RU-KAM
+;;Krasnodar;RU-KDA
+;;Krasnojarsk;RU-KYA
+;;Perm;RU-PER
+;;Primorje;RU-PRI
+;;Stawropol;RU-STA
+;;Transbaikalien;RU-ZAB
+;;Amur;RU-AMU
+;;Archangelsk;RU-ARK
+;;Astrachan;RU-AST
+;;Belgorod;RU-BEL
+;;Brjansk;RU-BRY
+;;Irkutsk;RU-IRK
+;;Iwanowo;RU-IVA
+;;Jaroslawl;RU-YAR
+;;Kaliningrad;RU-KGD
+;;Kaluga;RU-KLU
+;;Kemerowo;RU-KEM
+;;Kirow;RU-KIR
+;;Kostroma;RU-KOS
+;;Kurgan;RU-KGN
+;;Kursk;RU-KRS
+;;Leningrad;RU-LEN
+;;Lipezk;RU-LIP
+;;Magadan;RU-MAG
+;;Murmansk;RU-MUR
+;;Moskau (Oblast);RU-MOS
+;;Nischni Nowgorod;RU-NIZ
+;;Nowgorod;RU-NGR
+;;Nowosibirsk;RU-NVS
+;;Omsk;RU-OMS
+;;Orenburg;RU-ORE
+;;Orjol;RU-ORL
+;;Pensa;RU-PNZ
+;;Pskow;RU-PSK
+;;Rjasan;RU-RYA
+;;Rostow am Don;RU-ROS
+;;Sachalin;RU-SAK
+;;Samara;RU-SAM
+;;Saratow;RU-SAR
+;;Smolensk;RU-SMO
+;;Swerdlowsk;RU-SVE
+;;Tambow;RU-TAM
+;;Tjumen;RU-TYU
+;;Tomsk;RU-TOM
+;;Tscheljabinsk;RU-CHE
+;;Tula;RU-TUL
+;;Twer;RU-TVE
+;;Uljanowsk;RU-ULY
+;;Wladimir;RU-VLA
+;;Wolgograd;RU-VGG
+;;Wologda;RU-VLG
+;;Woronesch;RU-VOR
+;;Moskau (Stadt);RU-MOW
+;;Sankt Petersburg;RU-SPE
+;;Chanten und Mansen;RU-KHM
+;;Jamal-Nenzen;RU-YAN
+;;Nenzen;RU-NEN
+;;Tschuktschen;RU-CHU

@@ -1,0 +1,19 @@
+﻿# ImpEx for Importing Categories into Technonikol Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=powertoolsProductCatalog
+$productCatalogVersion=Staged
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default=$productCatalog:$productCatalogVersion]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+# Insert Categories
+INSERT_UPDATE Category;code[unique=true];name[lang=ru];description[lang=ru];name[lang=en];description[lang=en];active[default=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+;categoryCode1;Категория #1;Категория #1;Category #1;Category #1;true;
+;categoryCode2;Категория #2;Категория #2;Category #2;Category #2;;
+;categoryCode3;Категория #3;Категория #3;Category #3;Category #3;false;
+
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;categoryCode2;categoryCode1
+;categoryCode3;categoryCode2
+

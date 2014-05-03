@@ -1,0 +1,3 @@
+# ImpEx for Importing Order Status
+INSERT_UPDATE Order;code[unique=true];versionID[unique=true];status(code);statusDate[dateformat=dd.MM.yyyy HH:mm];
+;00001000;;SUSPENDED;03.05.2014 20:15

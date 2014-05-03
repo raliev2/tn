@@ -18,15 +18,14 @@
 # Languages
 INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
 ;en;;;
-;de;en;;
-;ja;en;;
-;zh;en;;
+;ru;en;;
 
 # Currencies
-INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol
-;EUR;1;2;€
-;USD;1,4;2;$
-;CAD;1,4;2;C$
+INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol;active[default=true];base
+;EUR;1;2;€;;true
+;USD;1,4;2;$;;false
+;RUB;53;2;Ք;;false
+
 
 # Vendor
 INSERT_UPDATE Vendor;code[unique=true];name
@@ -48,10 +47,6 @@ UPDATE CMSPageType;code[unique=true];previewDisabled
 INSERT_UPDATE Title;code[unique=true]
 ;mr
 ;mrs
-;miss
-;ms
-;dr
-;rev
 
 #Media Folders
 INSERT_UPDATE MediaFolder;qualifier[unique=true];path[unique=true]

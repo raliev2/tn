@@ -169,10 +169,16 @@
 						<defaultvalue>java.lang.Boolean.TRUE</defaultvalue>
 						<description>Determines if warehouse is active.</description>
 					</attribute>
-					<attribute qualifier="shipmentTime" type="java.lang.String">
+					<attribute qualifier="regionPriority" type="int">
+						<persistence type="property"/>
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<defaultvalue>Integer.valueOf(0)</defaultvalue>
+						<description>Priority of warehouse within the region</description>
+					</attribute>
+					<attribute qualifier="shipmentTime" type="localized:java.lang.String">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="false" optional="true"/>
-						<description>CLARIFY: ??Information??: shipment time</description>
+						<description>Shipment time (Information only)</description>
 					</attribute>
 				</attributes>
 			</itemtype>
