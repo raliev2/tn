@@ -1,0 +1,15 @@
+﻿$productCatalog=powertoolsProductCatalog
+$productCatalogVersion=Staged
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default='$productCatalog:$productCatalogVersion']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;TN_B2B_PKA_PGA_PRICE_GROUP;PriceKindA-PriceGroupA;
+;TN_B2B_PKB_PGA_PRICE_GROUP;PriceKindB-PriceGroupA;
+;TN_B2B_PKC_PGA_PRICE_GROUP;PriceKindC-PriceGroupA;
+
+UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;
+;2613282;TN_B2B_PKA_PGA_PRICE_GROUP 1 pieces = 16 RUB N, TN_B2B_PKB_PGA_PRICE_GROUP 1 pieces = 25 RUB N, TN_B2B_PKC_PGA_PRICE_GROUP 1 pieces = 35 RUB N

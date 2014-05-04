@@ -23,3 +23,13 @@ INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;name;ti
 ;Администратор А;petrov.ivan@tn.ru;petrov.ivan@tn.ru;petrov.ivan@tn.ru;Петров Иван;ms;TNPartner1,b2badmingroup;;;;;
 ;Заказчик А;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;Сидоров Иван;ms;Partner Retail,b2bcustomergroup,standardPermissions;;;;;
 
+INSERT_UPDATE B2BUserGroup;uid[unique=true];name;unit(uid);
+;partner1PriceAGroupAPermissions;TNPartner1 PriceA-GroupA Permissions;TNPartner1;
+;partner1PriceBGroupAPermissions;TNPartner1 PriceB-GroupA Permissions;TNPartner1;
+;partner1PriceCGroupAPermissions;TNPartner1 PriceC-GroupA Permissions;TNPartner1;
+
+
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
+;TN_B2B_PKA-PGA_PRICE_GROUP;Price group PriceKindA-PriceGroupA;
+;TN_B2B_PKB-PGA_PRICE_GROUP;Price group PriceKindB-PriceGroupA;
+;TN_B2B_PKC-PGA_PRICE_GROUP;Price group PriceKindC-PriceGroupA;
