@@ -1,0 +1,8 @@
+$productCatalog=powertoolsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$lang=ru
+
+UPDATE TNBrand;$catalogVersion;code[unique=true];name[lang=$lang];description[lang=$lang]
+;;brand_1;Бренд 1;Описание бренда 1
+;;brand_2;Бренд 2;Описание бренда 2
+;;brand_3;Бренд 3;Описание бренда 3
