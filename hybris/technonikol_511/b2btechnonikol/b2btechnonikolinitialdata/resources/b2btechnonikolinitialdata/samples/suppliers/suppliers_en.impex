@@ -1,0 +1,9 @@
+$productCatalog=powertoolsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$lang=en
+
+UPDATE TNSupplier;$catalogVersion;code[unique=true];name[lang=$lang]
+;;spl_1;Supplier 1
+;;spl_2;Supplier 2
+;;spl_3;Supplier 3
+

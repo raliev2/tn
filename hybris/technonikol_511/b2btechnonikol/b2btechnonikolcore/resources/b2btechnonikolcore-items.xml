@@ -35,8 +35,17 @@
 			<value code="technonikol" />
 			<value code="supplier" />
 		</enumtype>
-		
+
+		<enumtype code="ArticleApprovalStatus" autocreate="false" generate="false">
+			<value code="deleted"/>
+		</enumtype>
 	</enumtypes>
+
+	<maptypes>
+		<maptype code="ProductUnitsMap"
+			argumenttype="java.lang.String" returntype="java.lang.Double"
+			autocreate="true" generate="true"/>
+	</maptypes>
 	
 	<itemtypes>
 		<!-- Add your item definitions here -->
@@ -61,20 +70,17 @@
 			</attributes>
 		</itemtype>
 		
-		<itemtype code="PowertoolsSizeVariantProduct" extends="VariantProduct"
-          autocreate="true" generate="true"
-          jaloclass="com.teamidea.platform.technonikol.core.jalo.PowertoolsSizeVariantProduct">
-				 <description>Powertools size variant type that contains additional attribute describing variant size.
-				</description>
-				<attributes>
-					<attribute qualifier="size" type="localized:java.lang.String"
-					           metatype="VariantAttributeDescriptor">
-						<description>Size of the product.</description>
-						<modifiers/>
-						<persistence type="property"/>
-					</attribute>
-				</attributes>
-			</itemtype>
+		<itemtype code="PowertoolsSizeVariantProduct" extends="VariantProduct" autocreate="true" generate="true"
+				jaloclass="com.teamidea.platform.technonikol.core.jalo.PowertoolsSizeVariantProduct">
+			<description>Powertools size variant type that contains additional attribute describing variant size.</description>
+			<attributes>
+				<attribute qualifier="size" type="localized:java.lang.String" metatype="VariantAttributeDescriptor">
+					<description>Size of the product.</description>
+					<modifiers/>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
 
 		<typegroup name="btg">
 			<itemtype code="OrganizationOrderStatistics" autocreate="true" generate="true"
@@ -286,19 +292,165 @@
 				</attributes>
 			</itemtype>
 
+			<itemtype code="TNBrand" autocreate="true" generate="true" extends="GenericItem" jaloclass="com.teamidea.platform.technonikol.core.jalo.TNBrand">
+				<description>Dictionary for brands</description>
+				<deployment table="Brands" typecode="20001"/>
+				<custom-properties>
+					<property name="catalogItemType">
+						<value>java.lang.Boolean.TRUE</value>		
+					</property>
+					<property name="catalogVersionAttributeQualifier">
+						<value>"catalogVersion"</value>		
+					</property>
+					<property name="uniqueKeyAttributeQualifier">
+						<value>"code"</value>		
+					</property>
+				</custom-properties>
+				<attributes>
+					<attribute qualifier="catalogVersion" type="CatalogVersion">
+						<modifiers optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Catalog version</description>
+					</attribute>
+					<attribute qualifier="code" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Brand code</description>
+					</attribute>
+					<attribute qualifier="name" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Brand localized name</description>
+					</attribute>
+					<attribute qualifier="description" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Brand localized description</description>
+					</attribute>
+					<attribute qualifier="logo" type="localized:Media">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Brand localized logotip</description>
+					</attribute>
+					<attribute qualifier="image" type="localized:Media">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Brand localized image</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="TNSupplier" autocreate="true" generate="true">
+				<description>Dictionary for suppliers.</description>
+				<deployment table="Suppliers" typecode="20002"/>
+				<custom-properties>
+					<property name="catalogItemType">
+						<value>java.lang.Boolean.TRUE</value>		
+					</property>
+					<property name="catalogVersionAttributeQualifier">
+						<value>"catalogVersion"</value>		
+					</property>
+					<property name="uniqueKeyAttributeQualifier">
+						<value>"code"</value>		
+					</property>
+				</custom-properties>
+				<attributes>
+					<attribute qualifier="catalogVersion" type="CatalogVersion">
+						<modifiers optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Catalog version</description>
+					</attribute>
+					<attribute qualifier="code" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Supplier code</description>
+					</attribute>
+					<attribute qualifier="name" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Supplier localized name</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="TNProductType" autocreate="true" generate="true">
+				<description>Dictionary for product types.</description>
+				<deployment table="ProductTypes" typecode="20003"/>
+				<custom-properties>
+					<property name="catalogItemType">
+						<value>java.lang.Boolean.TRUE</value>		
+					</property>
+					<property name="catalogVersionAttributeQualifier">
+						<value>"catalogVersion"</value>		
+					</property>
+					<property name="uniqueKeyAttributeQualifier">
+						<value>"code"</value>		
+					</property>
+				</custom-properties>
+				<attributes>
+					<attribute qualifier="catalogVersion" type="CatalogVersion">
+						<modifiers optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Catalog version</description>
+					</attribute>
+					<attribute qualifier="code" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Product type code</description>
+					</attribute>
+					<attribute qualifier="name" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Product type localized name</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="TNProductionCountry" autocreate="true" generate="true">
+				<description>Dictionary for production countries.</description>
+				<deployment table="ProductType" typecode="20004"/>
+				<custom-properties>
+					<property name="catalogItemType">
+						<value>java.lang.Boolean.TRUE</value>		
+					</property>
+					<property name="catalogVersionAttributeQualifier">
+						<value>"catalogVersion"</value>		
+					</property>
+					<property name="uniqueKeyAttributeQualifier">
+						<value>"code"</value>		
+					</property>
+				</custom-properties>
+				<attributes>
+					<attribute qualifier="catalogVersion" type="CatalogVersion">
+						<modifiers optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Catalog version</description>
+					</attribute>
+					<attribute qualifier="code" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
+						<persistence type="property"/>
+						<description>Production country code</description>
+					</attribute>
+					<attribute qualifier="name" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Production country localized name</description>
+					</attribute>
+				</attributes>
+			</itemtype>
 
 			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
 				<description>Extending Product type with additional attributes.</description>
 				<attributes>
-					<attribute qualifier="supplierCode" type="java.lang.String">
-						<modifiers read="true" write="true" search="true"/>
-						<persistence type="property"/>
-						<description>Supplier Code</description>
-					</attribute>
 					<attribute qualifier="manufacturerCode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Manufacturer Code</description>
+					</attribute>
+					<attribute qualifier="supplierCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Supplier Code</description>
 					</attribute>
 					<attribute qualifier="documentCode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
@@ -315,22 +467,22 @@
 						<persistence type="property"/>
 						<description>Product barcode (number)</description>
 					</attribute>
-					<attribute qualifier="producer" type="java.lang.String">
+					<attribute qualifier="brand" type="TNBrand">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Producer name</description>
 					</attribute>
-					<attribute qualifier="productionCountry" type="java.lang.String">
-						<modifiers read="true" write="true" search="true"/>
-						<persistence type="property"/>
-						<description>Product production country name</description>
-					</attribute>
-					<attribute qualifier="supplier" type="java.lang.String">
+					<attribute qualifier="supplier" type="TNSupplier">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Supplier name</description>
 					</attribute>
-					<attribute qualifier="productType" type="java.lang.String">
+					<attribute qualifier="productionCountry" type="TNProductionCountry">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Product production country name</description>
+					</attribute>
+					<attribute qualifier="productType" type="TNProductType">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product type name</description>
@@ -390,6 +542,11 @@
 						<modifiers read="true" write="true"/>
 						<persistence type="property"/>
 						<description>Volume (m3)</description>
+					</attribute>
+					<attribute qualifier="units" type="ProductUnitsMap">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Product additional units</description>
 					</attribute>
 					<attribute qualifier="lengthGross" type="java.lang.Integer">
 						<modifiers read="true" write="true"/>
