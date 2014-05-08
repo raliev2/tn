@@ -206,6 +206,22 @@
 				</attributes>
 			</itemtype>
 			
+			<itemtype code="Employee" autocreate="false" generate="false">
+				<description>Extending Employee type with additional attributes.</description>
+				<attributes>
+					<attribute qualifier="phone1" type="java.lang.String">
+						<persistence type="property"/>
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<description>Phone number</description>
+					</attribute>
+					<attribute qualifier="contactEmail" type="java.lang.String">
+						<persistence type="property"/>
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<description>Contact email</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
 			<itemtype code="TNPartner" jaloclass="com.teamidea.platform.technonikol.core.jalo.b2bunit.TNPartner"
 				extends="B2BUnit" autocreate="true" generate="true">
 				<attributes>
@@ -252,17 +268,17 @@
 						<modifiers read="true" write="false" search="true" optional="false"/>
 						<description>The date and time when the status is changed</description>
 					</attribute>
-					<attribute type="int" qualifier="inSoftReserve">
+					<attribute qualifier="inSoftReserve" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute type="int" qualifier="inSupplierStock">
+					<attribute qualifier="inSupplierStock" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute type="int" qualifier="inSupplierReserve">
+					<attribute qualifier="inSupplierReserve" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
