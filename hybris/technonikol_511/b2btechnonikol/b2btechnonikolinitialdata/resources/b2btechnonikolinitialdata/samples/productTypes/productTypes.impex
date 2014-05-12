@@ -1,0 +1,7 @@
+$productCatalog=powertoolsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+INSERT_UPDATE TNProductType;code[unique=true];$catalogVersion
+;pt_1;
+;pt_2;
+;pt_3;
