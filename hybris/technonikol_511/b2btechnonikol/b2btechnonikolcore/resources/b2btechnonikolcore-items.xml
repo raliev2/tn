@@ -542,6 +542,11 @@
 						<persistence type="property"/>
 						<description>Product additional units</description>
 					</attribute>
+					<attribute qualifier="vat" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>VAT value, %</description>
+					</attribute>
 				</attributes>
 			</itemtype>
 		</typegroup>
