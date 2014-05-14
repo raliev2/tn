@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testclasses>
+  <b2btechnonikolservices>
+    <testclass>com.teamidea.platform.technonikol.services.jalo.B2btechnonikolservicesTest</testclass>
+  </b2btechnonikolservices>
+</testclasses>

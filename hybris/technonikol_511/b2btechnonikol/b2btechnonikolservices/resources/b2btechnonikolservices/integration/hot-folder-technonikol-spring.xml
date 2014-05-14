@@ -23,6 +23,9 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- General setup -->
+	<bean id="cleanupHelper" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.CleanupSrcBeforeTransHelper">
+		<property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+	</bean>
 	<bean id="baseDirectoryTechnonikol" class="java.lang.String">
         <constructor-arg value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.basefolder')}/${tenantId}/technonikol" />
     </bean>
@@ -43,6 +46,23 @@
 		<property name="net" value="false" />
 		<property name="storeBaseDirectory" ref="baseDirectoryTechnonikol" />
 		<property name="encoding" value="UTF-8" />
+	</bean>
+	
+	<!-- 3) run impex import -->
+	<int:service-activator input-channel="batchFilesTran" output-channel="batchFilesImp" ref="batchRunnerTask"
+		method="execute" />
+	<bean id="batchRunnerTask" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.AbstractTechnonikolImpexRunnerTask">
+		<property name="sessionService" ref="sessionService" />
+		<property name="importService" ref="importService" />
+		<lookup-method name="getImportConfig" bean="importConfig" /> 
+	</bean>
+	<bean id="importConfig" class="de.hybris.platform.servicelayer.impex.ImportConfig" scope="prototype">
+		<property name="removeOnSuccess" value="true" />
+		<property name="failOnError" value="true" />
+		<property name="synchronous" value="true" />
+		<property name="legacyMode" value="false" />
+		<property name="maxThreads" value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.max-threads')}" />
+		<property name="locale" value="en"/>
 	</bean>
 
 </beans>
