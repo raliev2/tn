@@ -472,7 +472,7 @@
 						<persistence type="property"/>
 						<description>Product barcode (number)</description>
 					</attribute>
-					<attribute qualifier="brand" type="	">
+					<attribute qualifier="brand" type="TNBrand">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Producer name</description>
