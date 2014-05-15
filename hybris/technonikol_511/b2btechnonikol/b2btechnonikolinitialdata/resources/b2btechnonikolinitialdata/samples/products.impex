@@ -3,8 +3,23 @@
 $productCatalog=powertoolsProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
 $supercategories=supercategories(code, $catalogVersion)
+$products=products(code, $catalogVersion)
 $approved=approvalstatus(code)[default='check']
 
 # Insert Products
-INSERT_UPDATE TNProduct;$catalogVersion;code[unique=true];name[lang=ru];manufacturerCode;documentCode;unit(code);brand(code,$catalogVersion);supplier(code,$catalogVersion);productionCountry(code,$catalogVersion);productType(code,$catalogVersion);productSubtype;productModel;productPurpose;productProperties;productContent;unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;units[map-delimiter=|];$supercategories;$approved;
-;;111;product 111;br_111;dc_111;1A;brand_1;spl_1;pcnt_1;pt_1;subtype;model;purpose;key properties;content;false;01-05-2014;1;20;5;4C->2|4G->6;categoryCode1;
+INSERT_UPDATE TNProduct;$catalogVersion;code[unique=true];manufacturerCode;documentCode;brand(code,$catalogVersion);supplier(code,$catalogVersion);productionCountry(code,$catalogVersion);productType(code,$catalogVersion);unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;vat;unit(code);sunit(code);units[map-delimiter=|];$approved;
+;;111;br_111;dc_111;brand_1;spl_1;pcnt_1;pt_1;false;;1;20;5;18;1A;4C;4C->2|4G->6;
+;;222;br_222;dc_222;brand_2;spl_2;pcnt_2;pt_2;false;01-05-2014;10;1;20;5;1A;4C;4C->2|4G->6;deleted
+
+# Update Product set category list
+UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories
+;;111;categoryCode1,categoryCode2
+;;222;categoryCode3
+
+# Update Product add category
+UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories[mode=append]
+;;111;categoryCode3
+
+# Update Product remove category
+UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories[mode=remove]
+;;111;categoryCode3

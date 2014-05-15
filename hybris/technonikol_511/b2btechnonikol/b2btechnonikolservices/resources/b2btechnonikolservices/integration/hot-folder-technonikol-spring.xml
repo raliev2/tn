@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2014 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:file="http://www.springframework.org/schema/integration/file"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- General setup -->
+	<bean id="cleanupHelper" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.CleanupSrcBeforeTransHelper">
+		<property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+	</bean>
+	<bean id="baseDirectoryTechnonikol" class="java.lang.String">
+        <constructor-arg value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.basefolder')}/${tenantId}/technonikol" />
+    </bean>
+    
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="batchFilesTechnonikol" directory="#{baseDirectoryTechnonikol}"
+        filename-regex="^(.*)-(\d+)\.impex" comparator="fileOrderComparator">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+ 
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="batchFilesTechnonikol" reply-channel="batchFilesTechnonikolProc" 
+    	directory="#{baseDirectoryTechnonikol}/processing" delete-source-files="true" />
+    <int:service-activator input-channel="batchFilesTechnonikolProc" output-channel="batchFilesTran"
+		ref="technonikolHeaderSetupTask" method="execute" />
+	<bean id="technonikolHeaderSetupTask" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.SimpleHeaderSetupTask">
+		<property name="catalog" value="powertoolsProductCatalog" />
+		<property name="net" value="false" />
+		<property name="storeBaseDirectory" ref="baseDirectoryTechnonikol" />
+		<property name="encoding" value="UTF-8" />
+	</bean>
+	
+	<!-- 3) run impex import -->
+	<int:service-activator input-channel="batchFilesTran" output-channel="batchFilesImp" ref="batchRunnerTask"
+		method="execute" />
+	<bean id="batchRunnerTask" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.AbstractTechnonikolImpexRunnerTask">
+		<property name="sessionService" ref="sessionService" />
+		<property name="importService" ref="importService" />
+		<lookup-method name="getImportConfig" bean="importConfig" /> 
+	</bean>
+	<bean id="importConfig" class="de.hybris.platform.servicelayer.impex.ImportConfig" scope="prototype">
+		<property name="removeOnSuccess" value="true" />
+		<property name="failOnError" value="true" />
+		<property name="synchronous" value="true" />
+		<property name="legacyMode" value="false" />
+		<property name="maxThreads" value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.max-threads')}" />
+		<property name="locale" value="en"/>
+	</bean>
+
+</beans>

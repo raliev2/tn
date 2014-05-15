@@ -9,11 +9,11 @@ $categories=target(code, $catalogVersion)[unique=true]
 
 # Insert Categories
 INSERT_UPDATE Category;code[unique=true];name[lang=ru];description[lang=ru];name[lang=en];description[lang=en];active[default=true];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
-;categoryCode1;Категория #1;Категория #1;Category #1;Category #1;true;
-;categoryCode2;Категория #2;Категория #2;Category #2;Category #2;;
-;categoryCode3;Категория #3;Категория #3;Category #3;Category #3;false;
+;categoryCode11;Категория #11;Категория #11;Category #11;Category #11;true;
+;categoryCode21;Категория #21;Категория #21;Category #21;Category #21;;
+;categoryCode31;Категория #31;Категория #31;Category #31;Category #31;false;
 
 INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
-;categoryCode2;categoryCode1
-;categoryCode3;categoryCode2
+;categoryCode21;categoryCode11
+;categoryCode31;categoryCode21
 

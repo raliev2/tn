@@ -212,6 +212,22 @@
 				</attributes>
 			</itemtype>
 			
+			<itemtype code="Employee" autocreate="false" generate="false">
+				<description>Extending Employee type with additional attributes.</description>
+				<attributes>
+					<attribute qualifier="phone1" type="java.lang.String">
+						<persistence type="property"/>
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<description>Phone number</description>
+					</attribute>
+					<attribute qualifier="contactEmail" type="java.lang.String">
+						<persistence type="property"/>
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<description>Contact email</description>
+					</attribute>
+				</attributes>
+			</itemtype>
+			
 			<itemtype code="TNPartner" jaloclass="com.teamidea.platform.technonikol.core.jalo.b2bunit.TNPartner"
 				extends="B2BUnit" autocreate="true" generate="true">
 				<attributes>
@@ -258,17 +274,17 @@
 						<modifiers read="true" write="false" search="true" optional="false"/>
 						<description>The date and time when the status is changed</description>
 					</attribute>
-					<attribute type="int" qualifier="inSoftReserve">
+					<attribute qualifier="inSoftReserve" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute type="int" qualifier="inSupplierStock">
+					<attribute qualifier="inSupplierStock" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute type="int" qualifier="inSupplierReserve">
+					<attribute qualifier="inSupplierReserve" type="int">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
@@ -446,6 +462,11 @@
 						<persistence type="property"/>
 						<description>ETIM code</description>
 					</attribute>
+					<attribute qualifier="EClassCode" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>EClass code</description>
+					</attribute>
 					<attribute qualifier="barcode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
@@ -471,27 +492,27 @@
 						<persistence type="property"/>
 						<description>Product type name</description>
 					</attribute>
-					<attribute qualifier="productSubtype" type="java.lang.String">
+					<attribute qualifier="productSubtype" type="localized:java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product Subtype name</description>
 					</attribute>
-					<attribute qualifier="productModel" type="java.lang.String">
+					<attribute qualifier="productModel" type="localized:java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product model</description>
 					</attribute>
-					<attribute qualifier="productPurpose" type="java.lang.String">
+					<attribute qualifier="productPurpose" type="localized:java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product purpose name</description>
 					</attribute>
-					<attribute qualifier="productProperties" type="java.lang.String">
+					<attribute qualifier="productProperties" type="localized:java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product Main technical properties list</description>
 					</attribute>
-					<attribute qualifier="productContent" type="java.lang.String">
+					<attribute qualifier="productContent" type="localized:java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product content description</description>
@@ -527,40 +548,20 @@
 						<persistence type="property"/>
 						<description>Volume (m3)</description>
 					</attribute>
+					<attribute qualifier="sunit" type="Unit">
+						<modifiers read="true" write="true" search="true" optional="false"/>
+						<persistence type="property"/>
+						<description>Product sale units</description>
+					</attribute>
 					<attribute qualifier="units" type="ProductUnitsMap">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Product additional units</description>
 					</attribute>
-					<attribute qualifier="lengthGross" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
+					<attribute qualifier="vat" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
-						<description>Gross length (mm)</description>
-					</attribute>
-					<attribute qualifier="lengthNet" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
-						<persistence type="property"/>
-						<description>Net length (mm)</description>
-					</attribute>
-					<attribute qualifier="widthGross" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
-						<persistence type="property"/>
-						<description>Gross width (mm)</description>
-					</attribute>
-					<attribute qualifier="widthNet" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
-						<persistence type="property"/>
-						<description>Net width (mm)</description>
-					</attribute>
-					<attribute qualifier="heightGross" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
-						<persistence type="property"/>
-						<description>Gross height (mm)</description>
-					</attribute>
-					<attribute qualifier="heightNet" type="java.lang.Integer">
-						<modifiers read="true" write="true"/>
-						<persistence type="property"/>
-						<description>Net height (mm)</description>
+						<description>VAT value, %</description>
 					</attribute>
 				</attributes>
 			</itemtype>
