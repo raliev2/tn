@@ -1,4 +1,4 @@
-﻿$productCatalog=powertoolsProductCatalog
+﻿$productCatalog=tnProductCatalog
 $productCatalogVersion=Staged
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default='$productCatalog:$productCatalogVersion']
 $prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]

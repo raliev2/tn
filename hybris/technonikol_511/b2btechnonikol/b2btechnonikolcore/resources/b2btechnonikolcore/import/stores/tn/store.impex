@@ -1,0 +1,30 @@
+# 
+# Create the Powertools BaseStore
+#
+
+$productCatalog=tnProductCatalog
+$classificationCatalog=tnClassification
+$currencies=RUB
+$net=true
+$storeUid=firstplatform
+$defaultCurrency=RUB
+$languages=ru
+$defaultLanguage=ru
+$deliveryCountries=RU
+$submitOrderProcessCode=order-process
+$paymentProvider=Mockup
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;tnPromoGrp;
+
+# Base Store
+INSERT_UPDATE BaseStore;uid[unique=true];catalogs(id);currencies(isocode);net;taxGroup(code);storelocatorDistanceUnit(code);defaultCurrency(isocode);languages(isocode);defaultLanguage(isocode);deliveryCountries(isocode);submitOrderProcessCode;paymentProvider;
+;$storeUid;$productCatalog,$classificationCatalog;$currencies;$net;us-taxes;miles;$defaultCurrency;$languages;$defaultLanguage;$deliveryCountries;$submitOrderProcessCode;$paymentProvider;
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;firstplatform;premium-net
+;firstplatform;standard-net
+;firstplatform;premium-gross
+;firstplatform;standard-gross
+;firstplatform;free-standard-shipping
+

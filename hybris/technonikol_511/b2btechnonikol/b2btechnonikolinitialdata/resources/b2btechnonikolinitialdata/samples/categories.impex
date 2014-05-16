@@ -1,7 +1,7 @@
 ﻿# ImpEx for Importing Categories into Technonikol Store
 
 # Macros / Replacement Parameter definitions
-$productCatalog=powertoolsProductCatalog
+$productCatalog=tnProductCatalog
 $productCatalogVersion=Staged
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default=$productCatalog:$productCatalogVersion]
 $supercategories=source(code, $catalogVersion)[unique=true]

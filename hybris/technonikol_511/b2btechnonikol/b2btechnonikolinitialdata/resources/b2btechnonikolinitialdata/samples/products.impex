@@ -1,6 +1,6 @@
 # ImpEx for Importing Products
 
-$productCatalog=powertoolsProductCatalog
+$productCatalog=tnProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
 $supercategories=supercategories(code, $catalogVersion)
 $products=products(code, $catalogVersion)

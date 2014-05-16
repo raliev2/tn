@@ -1,0 +1,12 @@
+# 
+# Import the Powertools BaseStore
+#
+# Localization en
+#
+
+$lang=ru
+
+$storeUid=firstplatform
+
+UPDATE BaseStore;uid[unique=true];name[lang=$lang]
+;$storeUid;"First Platform Store";

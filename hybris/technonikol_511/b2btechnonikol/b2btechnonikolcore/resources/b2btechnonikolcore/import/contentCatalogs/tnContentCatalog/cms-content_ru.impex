@@ -1,0 +1,30 @@
+# Import the CMS content for the Powertools site
+#
+$contentCatalog=tnContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang=ru
+
+# Content Pages
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+ ;;account;Личный кабинет;
+ ;;add-edit-address;Добавить/редактировать адрес;
+ ;;address-book;Справочник адресов;
+ ;;cartPage;Корзина;
+ ;;checkout-login;Авторизация для оформления заказа;
+ ;;homepage;Главная страница;
+ ;;login;Аутентификация;
+ ;;multiStepCheckoutPage;Оформление заказа;
+ ;;my-quotes;Мои запросы на предложеняи;
+ ;;my-replenishment-orders;Мои автозаказы;
+ ;;notFound;Страница не найдена;
+ ;;order;Заказы;
+ ;;orderConfirmationPage;Подтверждение заказа;
+ ;;orders;История заказов;
+ ;;payment-details;Детали оплаты;
+ ;;profile;Профиль;
+ ;;searchAdvancedEmpty;Расширенный поиск;
+ ;;searchEmpty;Нет результатов;
+ ;;singleStepCheckoutSummaryPage;Оформление заказа;
+ ;;storefinderPage;Найти магазин;
+ ;;termsAndConditions;Условия;
+ ;;updatePassword;Изменить пароль;

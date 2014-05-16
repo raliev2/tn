@@ -1,0 +1,67 @@
+$contentCatalog=tnContentCatalog
+$productCatalog=tnProductCatalog
+$storeName=firstplatform
+
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=tnProductCatalog
+$productCatalogName=tnProductCatalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$siteResource=jar:de.hybris.platform.ytelcoacceleratorinitialdata.setup.InitialDataSystemSetup&/ytelcoacceleratorinitialdata/import/contentCatalogs/$contentCatalog
+$productResource=
+$jarResourceCms=
+
+$classCatalogVersion=catalogversion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true,default='TelcoClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
+
+# Language (for dummy values)
+$defaultLang=ru
+$placeholder=DUMMY
+
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true]
+# catalogVersion;uid;position;page;contentSlot
+;tnContentCatalog:Staged;Section1-Homepage;Section1;homepage:tnContentCatalog:Staged;Section1Slot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section2C-Homepage;Section2C;homepage:tnContentCatalog:Staged;Section2CSlot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section2A-Homepage;Section2A;homepage:tnContentCatalog:Staged;Section2ASlot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section2B-Homepage;Section2B;homepage:tnContentCatalog:Staged;Section2BSlot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section3-Homepage;Section3;homepage:tnContentCatalog:Staged;Section3Slot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section4-Homepage;Section4;homepage:tnContentCatalog:Staged;Section4Slot-Homepage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-singleStepCheckoutSummaryPage;SideContent;singleStepCheckoutSummaryPage:tnContentCatalog:Staged;SideContent-singleStepCheckoutSummaryPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-multiStepCheckoutPage;SideContent;multiStepCheckoutPage:tnContentCatalog:Staged;SideContent-multiStepCheckoutPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section4-search;Section4;search:tnContentCatalog:Staged;Section4Slot-search:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Staged;MiddleContent-cartPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-cartPage;SideContent;cartPage:tnContentCatalog:Staged;SideContent-cartPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Top-cartPage;TopContent;cartPage:tnContentCatalog:Staged;TopContent-cartPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-checkoutLogin;SideContent;checkout-login:tnContentCatalog:Staged;SideContent-checkoutLogin:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-StoreFinderPage;SideContent;storefinderPage:tnContentCatalog:Staged;SideContent-StoreFinderPage:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-login;SideContent;login:tnContentCatalog:Staged;SideContent-login:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Side-searchEmpty;SideContent;searchEmpty:tnContentCatalog:Staged;SideContent-searchEmpty:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Middle-searchEmpty;MiddleContent;searchEmpty:tnContentCatalog:Staged;MiddleContent-searchEmpty:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section2B-TermsAndConditions;Section2B;termsAndConditions:tnContentCatalog:Staged;Section2BSlot-TermsAndConditions:tnContentCatalog:Staged
+;tnContentCatalog:Staged;Section2A-TermsAndConditions;Section2A;termsAndConditions:tnContentCatalog:Staged;Section2ASlot-TermsAndConditions:tnContentCatalog:Staged
+;tnContentCatalog:Online;Section2B-Homepage;Section2B;homepage:tnContentCatalog:Online;Section2BSlot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section2C-Homepage;Section2C;homepage:tnContentCatalog:Online;Section2CSlot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section1-Homepage;Section1;homepage:tnContentCatalog:Online;Section1Slot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section2A-Homepage;Section2A;homepage:tnContentCatalog:Online;Section2ASlot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section3-Homepage;Section3;homepage:tnContentCatalog:Online;Section3Slot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section4-Homepage;Section4;homepage:tnContentCatalog:Online;Section4Slot-Homepage:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-singleStepCheckoutSummaryPage;SideContent;singleStepCheckoutSummaryPage:tnContentCatalog:Online;SideContent-singleStepCheckoutSummaryPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Section4-search;Section4;search:tnContentCatalog:Online;Section4Slot-search:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-multiStepCheckoutPage;SideContent;multiStepCheckoutPage:tnContentCatalog:Online;SideContent-multiStepCheckoutPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Top-cartPage;TopContent;cartPage:tnContentCatalog:Online;TopContent-cartPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-cartPage;SideContent;cartPage:tnContentCatalog:Online;SideContent-cartPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-checkoutLogin;SideContent;checkout-login:tnContentCatalog:Online;SideContent-checkoutLogin:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-StoreFinderPage;SideContent;storefinderPage:tnContentCatalog:Online;SideContent-StoreFinderPage:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-login;SideContent;login:tnContentCatalog:Online;SideContent-login:tnContentCatalog:Online
+;tnContentCatalog:Online;Middle-searchEmpty;MiddleContent;searchEmpty:tnContentCatalog:Online;MiddleContent-searchEmpty:tnContentCatalog:Online
+;tnContentCatalog:Online;Side-searchEmpty;SideContent;searchEmpty:tnContentCatalog:Online;SideContent-searchEmpty:tnContentCatalog:Online
+;tnContentCatalog:Online;Section2B-TermsAndConditions;Section2B;termsAndConditions:tnContentCatalog:Online;Section2BSlot-TermsAndConditions:tnContentCatalog:Online
+;tnContentCatalog:Online;Section2A-TermsAndConditions;Section2A;termsAndConditions:tnContentCatalog:Online;Section2ASlot-TermsAndConditions:tnContentCatalog:Online

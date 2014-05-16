@@ -1,0 +1,10 @@
+#
+# Import the Powertools Content Catalog
+#
+# Localization ru
+#
+$lang=ru
+$contentCatalog=tnContentCatalog
+
+UPDATE ContentCatalog;id[unique=true];name[lang=$lang];
+ ;$contentCatalog;"TN Content Catalog";
