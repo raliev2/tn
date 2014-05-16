@@ -46,14 +46,16 @@
     urlcolor=red,        % color of external links
     linktoc=all            % only page is linked
 }%
-
+\newcommand{\lastid}{}
 \newcommand{\UCsubsubsection}[3]{
 
 \vspace{5mm}
-
+\renewcommand{\lastid}{#2}
 \begin{mdframed}[frametitle=#2]
 #1
 \end{mdframed}
+
+#3
 
 }
 
@@ -236,7 +238,7 @@
 {
 \begin{mdframed}[roundcorner=5pt,backgroundcolor=black!10, linecolor=white]
 
-Копия требования п. \ref{#1}, стр. \pageref{#1}
+п. #1 (\ref{#1}), стр. \pageref{#1}
 
 %
   \ifeng%
