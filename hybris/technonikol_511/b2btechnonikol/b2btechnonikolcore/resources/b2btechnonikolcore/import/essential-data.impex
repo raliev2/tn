@@ -17,13 +17,10 @@
 
 # Languages
 INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
-;en;;;
 ;ru;en;;
 
 # Currencies
 INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol;active[default=true];base
-;EUR;1;2;€;;true
-;USD;1,4;2;$;;false
 ;RUB;53;2;Ք;;false
 
 

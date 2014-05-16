@@ -406,7 +406,7 @@ public class B2BAcceleratorTestOrderData
 			final BillingInfo billingInfo)
 	{
 		// Lookup the site
-		final CMSSiteModel cmsSite = getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.POWERTOOLS_SITE);
+		final CMSSiteModel cmsSite = getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.TN_SITE);
 		// Lookup the customer
 		final B2BCustomerModel customer = getUserService().getUserForUID(customerUid.toLowerCase(), B2BCustomerModel.class);
 
@@ -451,7 +451,7 @@ public class B2BAcceleratorTestOrderData
 		final B2BCustomerModel customer = getUserService().getUserForUID(customerUid.toLowerCase(), B2BCustomerModel.class);
 
 		final ImpersonationContext ctx = new ImpersonationContext();
-		ctx.setSite(getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.POWERTOOLS_SITE));
+		ctx.setSite(getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.TN_SITE));
 		ctx.setUser(customer);
 		ctx.setCurrency(i18nService.getCurrency(CURRENCY_ISO_CODE));
 
@@ -512,7 +512,7 @@ public class B2BAcceleratorTestOrderData
 		final B2BCustomerModel customer = getUserService().getUserForUID(customerUid.toLowerCase(), B2BCustomerModel.class);
 
 		final ImpersonationContext ctx = new ImpersonationContext();
-		ctx.setSite(getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.POWERTOOLS_SITE));
+		ctx.setSite(getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.TN_SITE));
 		ctx.setUser(customer);
 		ctx.setCurrency(i18nService.getCurrency(CURRENCY_ISO_CODE));
 
@@ -563,7 +563,7 @@ public class B2BAcceleratorTestOrderData
 			final B2BCustomerModel customer)
 	{
 		LOG.info(String.format("Creating order for [%s] for site [%s]", customer.getUid(),
-				B2btechnonikolTestConstants.POWERTOOLS_SITE));
+				B2btechnonikolTestConstants.TN_SITE));
 
 		final List<OrderModel> orderList = getCustomerAccountService().getOrderList(customer,
 				getBaseStoreSelectorStrategy().getCurrentBaseStore(), null);
@@ -571,7 +571,7 @@ public class B2BAcceleratorTestOrderData
 		if (containsOrder(orderList, purchaseOrderNumber))
 		{
 			LOG.info(String.format("Not creating order because purchaseOrderNumber %s for [%s] for site [%s] already exists. ",
-					purchaseOrderNumber, customer.getUid(), B2btechnonikolTestConstants.POWERTOOLS_SITE));
+					purchaseOrderNumber, customer.getUid(), B2btechnonikolTestConstants.TN_SITE));
 
 			return false;
 		}
@@ -661,7 +661,7 @@ public class B2BAcceleratorTestOrderData
 
 	protected B2BOrderApprovalData b2bApproverApproveThisOrder(final String orderCode)
 	{
-		final CMSSiteModel cmsSite = getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.POWERTOOLS_SITE);
+		final CMSSiteModel cmsSite = getCmsAdminSiteService().getSiteForId(B2btechnonikolTestConstants.TN_SITE);
 		final B2BCustomerModel customer = getUserService().getUserForUID(B2btechnonikolTestConstants.APPROVER_UID.toLowerCase(),
 				B2BCustomerModel.class);
 

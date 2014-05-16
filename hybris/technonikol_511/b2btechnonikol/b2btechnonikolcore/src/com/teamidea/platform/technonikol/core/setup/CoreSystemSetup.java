@@ -46,7 +46,7 @@ public class CoreSystemSetup extends AbstractSystemSetup
 	public static final String IMPORT_ACCESS_RIGHTS = "accessRights";
 	public static final String ACTIVATE_SOLR_CRON_JOBS = "activateSolrCronJobs";
 
-	public static final String POWERTOOLS = "powertools";
+	public static final String CatalogName = "tn";
 
 
 
@@ -100,15 +100,15 @@ public class CoreSystemSetup extends AbstractSystemSetup
 
 		if (importSites)
 		{
-			importProductCatalog(context, POWERTOOLS);
+			importProductCatalog(context, CatalogName);
 
-			importContentCatalog(context, POWERTOOLS);
+			importContentCatalog(context, CatalogName);
 
-			executeCatalogSyncJob(context, POWERTOOLS);
+			executeCatalogSyncJob(context, CatalogName);
 
-			importStore(context, POWERTOOLS);
+			importStore(context, CatalogName);
 
-			createAndActivateSolrIndex(context, POWERTOOLS);
+			createAndActivateSolrIndex(context, CatalogName);
 
 			((ValidationService) Registry.getApplicationContext().getBean("validationService")).reloadValidationEngine();
 		}
@@ -145,11 +145,11 @@ public class CoreSystemSetup extends AbstractSystemSetup
 			importImpexFile(context, "/b2btechnonikolcore/import/mcc-sites-links.impex");
 		}
 
-		final ImportData powertoolsImportData = new ImportData();
-		powertoolsImportData.setProductCatalogName(POWERTOOLS);
-		powertoolsImportData.setContentCatalogNames(Arrays.asList(POWERTOOLS));
-		powertoolsImportData.setStoreNames(Arrays.asList(POWERTOOLS));
-		getEventService().publishEvent(new CoreDataImportedEvent(context, Arrays.asList(powertoolsImportData)));
+		final ImportData tnImportData = new ImportData();
+		tnImportData.setProductCatalogName(CatalogName);
+		tnImportData.setContentCatalogNames(Arrays.asList(CatalogName));
+		tnImportData.setStoreNames(Arrays.asList(CatalogName));
+		getEventService().publishEvent(new CoreDataImportedEvent(context, Arrays.asList(tnImportData)));
 
 	}
 
@@ -168,7 +168,7 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		if (syncCatalogs)
 		{
 			logInfo(context, "Executing catalogs sync job  [" + catalogName + "]");
-			syncCronJobResult = super.executeCatalogSyncJob(context, POWERTOOLS + "Catalog");
+			syncCronJobResult = super.executeCatalogSyncJob(context, CatalogName + "Catalog");
 			logInfo(context, "Executed catalogs sync job  [" + catalogName + "]");
 		}
 		return syncCronJobResult;

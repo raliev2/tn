@@ -7,14 +7,10 @@ $lang=ru
 
 # Languages
 UPDATE Language;isocode[unique=true];name[lang=$lang]
-;de;German;
-;en;English;
 ;ru;Русский;
 
 # Currencies
 UPDATE Currency;isocode[unique=true];name[lang=$lang]
-;EUR;Euro;
-;USD;US Dollar;
 ;RUB;Рубль;
 
 
@@ -36,7 +32,6 @@ UPDATE CreditCardType;code[unique=true];name[lang=$lang]
 # DistanceUnits for Storelocator 
 UPDATE DistanceUnit;code[unique=true];name[lang=$lang]
 ;km;км;
-;miles;миль;
 
 # Media Formats
 UPDATE MediaFormat;qualifier[unique=true];name[lang=$lang];

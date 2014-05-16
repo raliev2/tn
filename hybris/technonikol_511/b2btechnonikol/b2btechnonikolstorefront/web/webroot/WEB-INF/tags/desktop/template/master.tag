@@ -9,63 +9,33 @@
 <%@ taglib prefix="analytics" tagdir="/WEB-INF/tags/shared/analytics" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
-<html lang="${currentLanguage.isocode}">
-	<head>
-		<title>${not empty pageTitle ? pageTitle : not empty cmsPage.title ? cmsPage.title : 'Accelerator Title'}</title>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Главная</title>
+    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/style.css" />
+    <script src="${themeResourcePath}/js/lib/less-1.3.3.min.js" type="text/javascript"></script>
 
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	
-		<%-- Additional meta tags --%>
-		<c:forEach var="metatag" items="${metatags}">
-			<c:if test="${not empty metatag.content}" >
-				<meta name="${metatag.name}" content="${metatag.content}" />
-			</c:if>
-		</c:forEach>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
+    <script>if( !window.jQuery )document.write('<script src="js/lib/jquery-1.11.1.min.js" charset="utf-8"><'+'/script>');</script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
+    <link rel="stylesheet" href="${themeResourcePath}/css/anythingslider.css">
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.anythingslider.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.min.js"></script>
+</head>
+<body>
+<div id="wrapper">
 
-		<spring:theme code="img.favIcon" text="/" var="favIconPath"/>
-        <link rel="shortcut icon" type="image/x-icon" media="all" href="${originalContextPath}${favIconPath}" />
-
-		<%-- CSS Files Are Loaded First as they can be downloaded in parallel --%>
-		<template:styleSheets />
-
-		<%-- Inject any additional CSS required by the page --%>
-		<jsp:invoke fragment="pageCss"/>
-		
-		<analytics:analytics />
-		
-		<template:javaScriptVariables/>
-		
-	</head>
-
-	<body class="${pageBodyCssClasses} ${cmsPageRequestContextData.liveEdit ? ' yCmsLiveEdit' : ''} language-${currentLanguage.isocode}">
-
-		<%-- Inject the page body here --%>
 		<jsp:doBody/>
-		
-		
-		<%-- Load JavaScript required by the site --%>
-		<template:javaScript />
-		
-		<%-- Inject any additional JavaScript required by the page --%>
-		<jsp:invoke fragment="pageScripts"/>
 
-		<script type="text/javascript" src="${commonResourcePath}/js/jquery.pstrength.custom-1.2.0.js"></script>
-		<script type="text/javascript">
-			/*<![CDATA[*/
-				$(function() {
-					$('.strength').pstrength({ verdicts:["<spring:theme code="password.strength.veryweak" />",
-														 "<spring:theme code="password.strength.weak" />",
-														 "<spring:theme code="password.strength.medium" />",
-														 "<spring:theme code="password.strength.strong" />",
-														 "<spring:theme code="password.strength.verystrong" />"],
-											   tooShort: "<spring:theme code="password.strength.tooshortpwd" />",
-											   minCharText: "<spring:theme code="password.strength.minchartext"/>" });
-				});
-			/*]]>*/
-		</script>
-
-	</body>
-
-	<%-- <template:debugFooter /> --%>
-</html>
+</div>
+<script src="${themeResourcePath}/js/scripts.js"></script>
+</body>
+</html>		

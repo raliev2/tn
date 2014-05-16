@@ -1,7 +1,7 @@
 # ImpEx for Importing Products Stock Levels
 
 # Macros / Replacement Parameter definitions
-$productCatalog=powertoolsProductCatalog
+$productCatalog=tnProductCatalog
 $productCatalogVersion=Staged
 $vendor=technonikol
 
