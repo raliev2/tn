@@ -19,9 +19,8 @@
     <div class="g-float-right">
         <div class="auth_links">
             <ul>
-                <li class="hello">Здравствуйте, Антон</li>
-                <li><a href="javascript:void(0)">Вы не Антон?</a></li>
-                <li><a href="javascript:void(0)">Выйти</a></li>
+                <li><a href="javascript:void(0)">Вход</a></li>
+                <li><a href="javascript:void(0)">Регистрация</a></li>
                 <li><a href="javascript:void(0)">Обслуживание клиентов</a></li>
             </ul>
         </div>
@@ -30,7 +29,7 @@
         </div>
         <div>
             <a href="javascript:void(0)" class="gray-link">Каталог</a>
-            <a href="javascript:void(0)" class="link-cart">В корзине (2) товара</a>
+            <a href="javascript:void(0)" class="link-cart">Ваша корзина пуста</a>
         </div>
     </div>
 </header>
