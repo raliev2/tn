@@ -16,7 +16,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <title>Первая платформа</title>
+    <title><spring:theme code="site.title"/></title>
 
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/reset.less" />
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
