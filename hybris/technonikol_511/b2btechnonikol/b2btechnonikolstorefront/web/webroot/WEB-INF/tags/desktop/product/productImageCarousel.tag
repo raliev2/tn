@@ -3,13 +3,14 @@
 
 <%@ attribute name="galleryImages" required="true" type="java.util.List" %>
 
-
+[[[[
 <div class="scroller">
 		<ul id="carousel_alternate" class="jcarousel-skin alt">
 			<c:forEach items="${galleryImages}" var="container" varStatus="varStatus">
 				<li>
 					<span class="thumb">
 						<a href="#">
+                                ===${container.thumbnail.url}===
 							<img src="${container.thumbnail.url}" data-primaryimagesrc="${container.product.url}" data-galleryposition="${varStatus.index}" alt="${product.name}" title="${product.name}" />
 						</a>
 					</span>
@@ -17,3 +18,4 @@
 			</c:forEach>
 		</ul>
 	</div>
+]]]

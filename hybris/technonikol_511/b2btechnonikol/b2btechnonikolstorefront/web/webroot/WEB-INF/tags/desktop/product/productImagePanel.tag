@@ -5,7 +5,6 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 
 
