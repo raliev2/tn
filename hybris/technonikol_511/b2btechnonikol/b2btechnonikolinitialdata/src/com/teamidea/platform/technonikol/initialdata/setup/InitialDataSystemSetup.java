@@ -53,7 +53,7 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 	private static final Logger LOG = Logger.getLogger(InitialDataSystemSetup.class);
 
 	private static final String IMPORT_SAMPLE_DATA = "importSampleData";
-	private static final String SAMPLE_DATA_IMPORT_FOLDER = "b2bacceleratorsampledata";
+	private static final String SAMPLE_DATA_IMPORT_FOLDER = "b2btechnonikolsampledata";
 
 	public static final String TN = "tn";
 
