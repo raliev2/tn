@@ -22,7 +22,9 @@
     <div class="clearfix"></div>
     <section class="product-card">
         <product:productDetailsPanel product="${product}" galleryImages="${galleryImages}"/>
-
+        <cms:pageSlot position="Section2" var="comp" element="div">
+            <cms:component component="${comp}"/>
+        </cms:pageSlot>
         <div class="block-chars">
             <div class="block-chars__header">Похожие товары</div>
             <div class="carousel-product__carousel clearfix">
