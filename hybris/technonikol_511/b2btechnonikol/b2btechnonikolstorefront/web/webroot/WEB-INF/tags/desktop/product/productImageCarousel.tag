@@ -12,7 +12,7 @@
         <c:set value="${ycommerce:productImage(product, 'zoom')}" var="zoomImage"/>
         <c:set value="${ycommerce:productImage(product, 'product')}" var="primaryImage"/>
         <div class="slider-pager clearfix">
-            <a data-index="${varStatus.index}" href="javascript:void(0)" data-img-mid="${primaryImage.url}" data-img-big="${zoomImage.url}" class="g-hidden"></a>
+            <a data-index="${varStatus.index}" href="javascript:void(0)" data-img-mid="${primaryImage.url}" data-img-big="${zoomImage.url}" class="slider-pager__hidden"></a>
         </div>
     </c:when>
 
