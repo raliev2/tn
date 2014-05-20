@@ -38,8 +38,11 @@
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
                 </div>
                 <div class="characteristics-line__col2 characteristics-line__col_border-right">
-                    <div class="to-cart"><span class="g-italic">Кол-во:</span> <input type="text" value="1" class="g-input" size="5" />
-                        <a href="javascript:void(0)" class="button">В корзину</a></div>
+
+                    <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart">
+                        <cms:component component="${component}"/>
+                    </cms:pageSlot>
+
                     <div class="in-wishlist g-float-right"><a href="javascript:void(0)" class="g-link-blue">+ В список<br />желаний</a></div>
                 </div>
                 <div class="characteristics-line__col3">
@@ -106,6 +109,13 @@
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div class="block-chars">
+        <div class="block-chars__header">Описание продукта</div>
+        <div class="block-chars__body">
+            ${product.description}
         </div>
     </div>
 
