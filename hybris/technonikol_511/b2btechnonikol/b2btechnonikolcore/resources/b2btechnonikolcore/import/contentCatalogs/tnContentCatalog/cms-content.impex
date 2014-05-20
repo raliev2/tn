@@ -677,3 +677,20 @@ INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterT
 ;;productGrid;Product Grid;ProductGridPageTemplate;false;
 ;;category;Default Category Page;CategoryPageTemplate;false;
 
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
+;;tn_similar_prods_component;Similar Products Component;SIMILAR;10;tn_similar_prods_component
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2-ProductDetails;Section2;;Section2Slot-Product-Details;;;
+
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
+;;tn_similar_prods_component;Похожие товары
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;tn_similar_prods_component;Similar Products
