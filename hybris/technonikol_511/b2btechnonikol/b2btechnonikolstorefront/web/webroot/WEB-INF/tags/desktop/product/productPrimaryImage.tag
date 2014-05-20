@@ -13,6 +13,6 @@
         <img src="${primaryImage.url}" alt="<c:out value='${product.name}' />" title="<c:out value="${product.name}" />" class="productImgMain" data-img-size="mid" data-index="0" />
 	</c:when>
 	<c:otherwise>
-		<theme:image code="img.missingProductImage.${format}" alt="${fn:escapeXml(product.name)}" title="${fn:escapeXml(product.name)}" class="productImgMain"/>
+		<theme:image code="img.missingProductImage.${format}" alt="${fn:escapeXml(product.name)}" title="${fn:escapeXml(product.name)}"/>
 	</c:otherwise>
 </c:choose>
