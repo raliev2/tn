@@ -15,17 +15,14 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 
 <section class="clearfix">
-    <div class="product-img">
-        <a href="${themeResourcePath}/images/products/prod2-big.jpg" class="img-zoom">
-            <img src="${themeResourcePath}/images/products/prod2-mid.jpg" class="product-img__img" alt="Двухсторонняя акриловая лента, 7 футов" class="photo" data-url="${themeResourcePath}/images/products/prod2-big.jpg" title="Двухсторонняя акриловая лента, 7 футов" />
-        </a>
-        <div class="open-img js-open-img_open"></div>
-        <div class="g-close g-hidden"><a href="javascript:void(0)">Закрыть</a></div>
+    <div class="product-images">
+        <product:productImagePanel product="${product}"/>
+        <product:productImageCarousel galleryImages="${galleryImages}" product="${product}"/>
     </div>
 
     <div class="product-info">
         <div class="product-name">
-            <h1 class="fn">Двухсторонняя акриловая лента, 7 футов</h1>
+            <h1 class="fn">${product.name}</h1>
         </div>
         <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">Roberts</a></div>
         <div class="product-info__characteristics">
@@ -41,8 +38,11 @@
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
                 </div>
                 <div class="characteristics-line__col2 characteristics-line__col_border-right">
-                    <div class="to-cart"><span class="g-italic">Кол-во:</span> <input type="text" value="1" class="g-input" size="5" />
-                        <a href="javascript:void(0)" class="button">В корзину</a></div>
+
+                    <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart">
+                        <cms:component component="${component}"/>
+                    </cms:pageSlot>
+
                     <div class="in-wishlist g-float-right"><a href="javascript:void(0)" class="g-link-blue">+ В список<br />желаний</a></div>
                 </div>
                 <div class="characteristics-line__col3">
@@ -64,7 +64,7 @@
                     <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>
                     <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li>
                     <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>
-                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">0.81 lbs</span></li>
+                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightNet}</span></li>
                 </ul>
             </div>
             <div class="product-country">
@@ -109,6 +109,13 @@
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div class="block-chars">
+        <div class="block-chars__header">Описание продукта</div>
+        <div class="block-chars__body">
+            ${product.description}
         </div>
     </div>
 

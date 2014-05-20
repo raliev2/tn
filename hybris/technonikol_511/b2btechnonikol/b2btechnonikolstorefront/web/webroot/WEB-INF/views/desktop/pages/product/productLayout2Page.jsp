@@ -357,19 +357,9 @@
             </div>
         </div>
 
-    <div class="block-chars">
-        <div class="block-chars__header">Альтернативные поисковые запросы</div>
-        <div class="block-chars__body clearfix">
-            <ul>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Инструменты для пола</a> (148)</li>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Другие инструменты для пола</a> (59)</li>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Инструменты</a> (14)</li>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Для пола</a> (9)</li>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Инструменты пола</a> (18)</li>
-                <li class="alt-search-request"><a href="javascript:void(0)" class="g-link-blue">Другие инструменты пола</a> (5)</li>
-            </ul>
+        <div class="block-chars">
+            <product:productAlternativeSearches product="${product}" />
         </div>
-    </div>
 
     <div class="reviews hreview-aggregate">
 
@@ -405,8 +395,8 @@
             </div>
         </div>
         <div class="reviews__disclaimer">
-            <p class="g-strong">Product Reviews Disclaimer:</p>
-            <p>Grainger is neither responsible for, nor does it endorse, the content of any product review or statement posted. Any statements posted constitute the statements of the poster and are not the statements of Grainger. The statements posted by Grainger employees with the Grainger employee badge represent the views of such employees and are not the statements of Grainger. Grainger makes no representations as to the appropriateness, accuracy, completeness, correctness, currentness, suitability, or validity of any product review or statements posted, including those posted by employees with the Grainger employee badge, and is not liable for any losses, injuries or damages which may result from any such product review or statements. Use of any linked web site provided in a product review or post is at the user's own risk.</p>
+            <p class="g-strong">Правовая оговорка отзывов о продукции:</p>
+            <p>1Платформа ни ответственен за, и при этом он не подтверждает, содержание никакого обзора продукции или опубликованного заявления. Любые опубликованные заявления составляют заявления плаката и не являются заявлениями 1Платформа. Заявления, опубликованные сотрудниками 1Платформасо значком сотрудника 1Платформа, представляют взгляды таких сотрудников и не являются заявлениями 1Платформа. 1Платформа не делает представления относительно уместности, точности, полноты, правильности, актуальности, пригодности или законности никакого обзора продукции 1Платформазаявлений объявленными, включая отправленных сотрудниками со значком сотрудника 1Платформа, и не ответственен ни за какие потери, раны или убытки, которые могут следов ать из любого такого обзора продукции или заявлений. Использование любого связанного веб-сайта, обеспеченного в обзоре продукции или почте, в собственном риске пользователя.</p>
         </div>
     </div>
 </section>
