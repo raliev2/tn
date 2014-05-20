@@ -13,7 +13,7 @@
 
 -->
 
-<project name="b2btechnonikolservices" default="all">
+<project name="b2bacceleratorservices" default="all">
 	<property file="platformhome.properties" />
 
 	<!-- next line is only for eclipse to get rid of warnings -->

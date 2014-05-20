@@ -439,7 +439,7 @@
 				</attributes>
 			</itemtype>
 
-			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
+			<itemtype code="Product" autocreate="false" generate="false"> <!--extends="Product">-->
 				<description>Extending Product type with additional attributes.</description>
 				<attributes>
 					<attribute qualifier="manufacturerCode" type="java.lang.String">
@@ -565,6 +565,9 @@
 					</attribute>
 				</attributes>
 			</itemtype>
+                            <itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
+		            </itemtype>
+
 		</typegroup>
 	</itemtypes>
 

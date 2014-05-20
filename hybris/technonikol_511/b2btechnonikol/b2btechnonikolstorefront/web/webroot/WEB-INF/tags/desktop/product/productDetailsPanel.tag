@@ -64,7 +64,7 @@
                     <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>
                     <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li>
                     <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>
-                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">0.81 lbs</span></li>
+                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightNet}</span></li>
                 </ul>
             </div>
             <div class="product-country">
