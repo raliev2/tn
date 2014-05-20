@@ -25,33 +25,6 @@
         <cms:pageSlot position="Section2" var="comp" element="div">
             <cms:component component="${comp}"/>
         </cms:pageSlot>
-        <div class="block-chars">
-            <div class="block-chars__header">Похожие товары</div>
-            <div class="carousel-product__carousel clearfix">
-                <ul>
-                    <li class="product-carousel__item product-carousel__item_930px">
-                        <div class="product-carousel-item__img product-carousel-item__img_930px">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod1.jpg" alt="Двухсторонняя акриловая лента, 15ft" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Двухсторонняя акриловая лента, 15ft</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул: <a href="javascript:void(0)">12L728</a>
-                                <p>ROBERTS</p>
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: <span class="product-carousel-item__price_green">400,00&nbsp;<span class='g-rouble'>P</span></span>
-                        </div>
-                        <div class="product-carousel-item__to-compare">
-                            <input type="checkbox" id="to_compare1" /> <label for="to_compare1">К сравнению</label>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
         <div class="block-chars">
             <div class="block-chars__header">С этим товаром часто смотрят</div>
