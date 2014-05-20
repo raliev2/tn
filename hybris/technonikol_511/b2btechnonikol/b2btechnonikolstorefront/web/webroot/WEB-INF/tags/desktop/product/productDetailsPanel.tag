@@ -57,7 +57,7 @@
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
-                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">5HXE0</span></li>
+                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
                     <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>
                     <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li>
                     <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>
@@ -77,32 +77,32 @@
             <ul>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Наименование</div><div class="value-char">Двухсторонняя акриловая лента</div>
+                        <div class="name-char">Наименование</div><div class="value-char">${product.name}</div>
                     </div>
                 </li>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Количество</div><div class="value-char">1 шт.</div>
+                        <div class="name-char">Количество</div><div class="value-char">(?) 1 шт.</div>
                     </div>
                 </li>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Размеры</div><div class="value-char">1-7/8” x 75ft.</div>
+                        <div class="name-char">Размеры</div><div class="value-char">(?) 1-7/8” x 75ft.</div>
                     </div>
                 </li>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Конструкция</div><div class="value-char">Нетоксична</div>
+                        <div class="name-char">Конструкция</div><div class="value-char">(?) Нетоксична</div>
                     </div>
                 </li>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Назначение</div><div class="value-char">Для внутренних и наружных работ потому что в 2 строки</div>
+                        <div class="name-char">Назначение</div><div class="value-char">(?) Для внутренних и наружных работ потому что в 2 строки</div>
                     </div>
                 </li>
                 <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Использовать с</div><div class="value-char">Корвровое нечто</div>
+                        <div class="name-char">Использовать с</div><div class="value-char">(?) Корвровое нечто</div>
                     </div>
                 </li>
             </ul>
