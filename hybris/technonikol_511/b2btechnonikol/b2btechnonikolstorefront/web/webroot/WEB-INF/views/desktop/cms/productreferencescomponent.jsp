@@ -17,22 +17,30 @@
                 <c:url value="${productReference.target.url}/quickView" var="productQuickViewUrl"/>
                 <li class="product-carousel__item product-carousel__item_930px">
                     <div class="product-carousel-item__img product-carousel-item__img_930px">
-                        <a href="${productQuickViewUrl}"><img src="${themeResourcePath}/images/products/prod1.jpg" alt="${productReference.target.name}" /></a>
+                        <a href="${productQuickViewUrl}"><product:productPrimaryImage product="${productReference.target}" format="thumbnail"/></a>
                     </div>
                     <div class="product-carousel-item__info">
+                        <c:if test="${component.displayProductTitles}">
                         <div class="product-carousel-item__name">
                             <a href="${productQuickViewUrl}">${productReference.target.name}</a>
                         </div>
+                        </c:if>
                         <div class="product-carousel-item__articul">
-                            Артикул: <a href="${productQuickViewUrl}">${productReference.target.code}</a>
-                            <p>ROBERTS</p>
+                            <spring:theme code="page.productDetails.article"/>: <a href="${productQuickViewUrl}">${productReference.target.code}</a>
+                            <p>${productReference.target.manufacturer}</p>
                         </div>
                     </div>
+                    <c:if test="${component.displayProductPrices}">
                     <div class="product-carousel-item__price">
-                        Цена: <span class="product-carousel-item__price_green">400,00&nbsp;<span class='g-rouble'>P</span></span>
+                        <spring:theme code="page.productDetails.price"/>:
+                        <span class="product-carousel-item__price_green">
+                            <format:fromPrice priceData="${productReference.target.price}"/>
+                        </span>
                     </div>
+                    </c:if>
                     <div class="product-carousel-item__to-compare">
-                        <input type="checkbox" id="to_compare1" /> <label for="to_compare1"><spring:theme code="page.productDetails.toCampare"/></label>
+                        <c:set var="toCompareId" value="to_compare_${productReference.target.code}"/>
+                        <input type="checkbox" id="${toCompareId}" /> <label for="${toCompareId}"><spring:theme code="page.productDetails.toCampare"/></label>
                     </div>
                 </li>
             </c:forEach>
