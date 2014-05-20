@@ -22,7 +22,7 @@
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/anythingslider.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/jquery.rating.css" />
-    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/jquery.jqzoom.css" />
+    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/easyzoom.css">
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
@@ -34,8 +34,9 @@
     <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.anythingslider.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.rating-2.0.js"></script>
-    <script type='text/javascript' src='${themeResourcePath}/js/lib/jquery.jqzoom-core.js'></script>
-    <script src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
+    <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
+    <script type='text/javascript' src='${themeResourcePath}/js/lib/easyzoom.js'></script>
+    <script type='text/javascript' src='${themeResourcePath}/js/jquery.sliderImages.js'></script>
     <!--[if lt IE 9]>
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->

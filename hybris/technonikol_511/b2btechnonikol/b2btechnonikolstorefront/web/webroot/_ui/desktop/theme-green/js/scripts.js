@@ -15,6 +15,7 @@ function buildSlider(selector) {
     });
     $(selector).anythingSlider({
         mode                : 'f',
+        /*resizeContents      : false,*/
         navigationSize      : 5,
         navigationFormatter : function(index, panel){
             return alts[index - 1];
@@ -29,11 +30,11 @@ function buildSlider(selector) {
 }
 $(document).ready(function() {
     $('.menu__item,.inner-menu__item').hover(function() {
-        $('.js-inner-menu',this).show();
-    },
-    function() {
-        $('.js-inner-menu',this).hide();
-    });
+            $('.js-inner-menu',this).show();
+        },
+        function() {
+            $('.js-inner-menu',this).hide();
+        });
 
     $('.prod-categories__header').click(function() {
         $('.prod-categories__list').slideToggle();
@@ -95,39 +96,5 @@ $(document).ready(function() {
             image : themeResourcePath + '/images/rating-stars.png'
         });
     }
-
-    $('.js-open-img_open').click(function(event) {
-        var newImg = $('.product-img img').attr('data-url');
-        $('.product-img img').attr('data-url',$('.product-img img').attr('src'));
-        $('.product-img img').attr('src',newImg);
-        $('.product-img .g-close').toggle();
-        if ($(this).hasClass('js-open-img_close')) {
-            $('.product-img').removeClass('product-img_big');
-            $('.product-info').removeClass('product-info_big');
-            $(this).addClass('js-open-img_open');
-            $(this).removeClass('js-open-img_close');
-            return;
-        }
-        $('.product-img').addClass('product-img_big');
-        $('.product-info').addClass('product-info_big');
-        $(this).removeClass('js-open-img_open');
-        $(this).addClass('js-open-img_close');
-    });
-
-    $('.product-img .g-close').click(function(){
-        $('.product-img').removeClass('product-img_big');
-        $('.product-info').removeClass('product-info_big');
-        $('.open-img').addClass('js-open-img_open');
-        $('.open-img').removeClass('js-open-img_close');
-        var newImg = $('.product-img img').attr('data-url');
-        $('.product-img img').attr('data-url',$('.product-img img').attr('src'));
-        $('.product-img img').attr('src',newImg);
-        $('.product-img .g-close').toggle();
-    });
-
-    $('.img-zoom').jqzoom({
-        zoomType: 'innerzoom',
-        title : false
-    });
 
 });

@@ -14,19 +14,10 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 
-<div class="span-4">
-    <product:productImageCarousel galleryImages="${galleryImages}"/>
-</div>
-
-<div class="span-8">
-    <product:productImagePanel product="${product}"/>
-</div>
-
 <section class="clearfix">
-    <div class="product-img">
-        <img src="${themeResourcePath}/images/products/prod2-mid.jpg" class="product-img__img" alt="Двухсторонняя акриловая лента, 7 футов" class="photo" data-url="${themeResourcePath}/images/products/prod2-big.jpg" title="Двухсторонняя акриловая лента, 7 футов" />
-        <div class="open-img js-open-img_open"></div>
-        <div class="g-close g-hidden"><a href="javascript:void(0)">Закрыть</a></div>
+    <div class="product-images">
+        <product:productImagePanel product="${product}"/>
+        <product:productImageCarousel galleryImages="${galleryImages}" product="${product}"/>
     </div>
 
     <div class="product-info">
