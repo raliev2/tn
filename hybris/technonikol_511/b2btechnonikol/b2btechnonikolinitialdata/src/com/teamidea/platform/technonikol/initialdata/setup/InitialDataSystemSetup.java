@@ -106,8 +106,8 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		{
 			importCommonData(context, SAMPLE_DATA_IMPORT_FOLDER);
 
-			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, "tn", "tn",
-					Collections.singletonList("tn"));
+			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, "firstplatform", "firstplatform",
+					Collections.singletonList("firstplatform"));
 
 			final ImportData tnImportData = new ImportData();
 			tnImportData.setProductCatalogName(TN);
