@@ -680,13 +680,18 @@ INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterT
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
 ;;tn_similar_prods_component;Similar Products Component;SIMILAR;10;tn_similar_prods_component
 
+# CMS ProductAddToCart Components
+INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;tn_add_to_cart_component;Add to Cart Component;tn_add_to_cart_component
+
 # ContentSlot
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
 ;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component;
-
+;;AddToCartSlot-Product-Details;Add to Cart Slot Product Details;true;tn_add_to_cart_component;
 # ContentSlotForPage
 INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
 ;;Section2-ProductDetails;Section2;;Section2Slot-Product-Details;;;
+;;AddToCartSlot-Product-Details;AddToCart;;AddToCartSlot-Product-Details;;;
 
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
