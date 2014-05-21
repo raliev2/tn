@@ -679,6 +679,8 @@ INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterT
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
 ;;tn_similar_prods_component;Similar Products Component;SIMILAR;10;tn_similar_prods_component
+;;tn_crosselling_prods_component;Cross-selling Products Component;CROSSELLING;10;tn_crosselling_prods_component
+;;tn_upselling_prods_component;Up-selling Products Component;UPSELLING;10;tn_upselling_prods_component
 
 # CMS ProductAddToCart Components
 INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
@@ -686,7 +688,7 @@ INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true]
 
 # ContentSlot
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
-;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component;
+;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component,tn_upselling_prods_component,tn_crosselling_prods_component;
 ;;AddToCartSlot-Product-Details;Add to Cart Slot Product Details;true;tn_add_to_cart_component;
 # ContentSlotForPage
 INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
@@ -696,6 +698,10 @@ INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];positi
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
 ;;tn_similar_prods_component;Похожие товары
+;;tn_crosselling_prods_component;С этим товаром часто покупают
+;;tn_upselling_prods_component;С этим товаром часто смотрят
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
 ;;tn_similar_prods_component;Similar Products
+;;tn_crosselling_prods_component;Cross-selling Products
+;;tn_upselling_prods_component;Up-selling Products
