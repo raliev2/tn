@@ -21,23 +21,10 @@
 	</jsp:attribute>
 
 	<jsp:body>
-		<div id="wrapper">
-			<div id="page" data-currency-iso-code="${currentCurrency.isocode}">
-				<spring:theme code="text.skipToContent" var="skipToContent"/>
-				<a href="#skip-to-content" class="skiptocontent">${skipToContent}</a>
-				<spring:theme code="text.skipToNavigation" var="skipToNavigation"/>
-				<a href="#skiptonavigation" class="skiptonavigation">${skipToNavigation}</a>
 				<header:header/>
-				<a id="skiptonavigation"></a>
 				<nav:topNavigation/>
-				<cart:addToCart/>
-				<div id="content">
-				<a id="skip-to-content"></a>
-					<jsp:doBody/>
-				</div>
+				<jsp:doBody/>
 				<footer:footer/>
-			</div>
-		</div>
 
 	</jsp:body>
 	

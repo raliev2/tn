@@ -1,0 +1,12 @@
+# 
+# Import the Product Catalog and Classification Catalog
+#
+# Localization en
+#
+
+$lang=ru
+
+$productCatalog=tnProductCatalog
+
+UPDATE Catalog;id[unique=true];name[lang=$lang]
+;$productCatalog;"TN Product Catalog";

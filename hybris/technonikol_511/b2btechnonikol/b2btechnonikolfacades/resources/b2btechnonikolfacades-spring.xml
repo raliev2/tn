@@ -78,7 +78,7 @@
 				<entry key="VOLUME_PRICES" value-ref="productVolumePricesPopulator"/>
 				<entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator"/>
 				<entry key="URL" value-ref="productUrlPopulator"/>
-				<entry key="IMAGES" value-ref="productPrimaryImagePopulator"/>
+				<entry key="IMAGES" value-ref="productPrimaryImagePopulator"/>			
 			</map>
 		</property>
 	</bean>
@@ -198,6 +198,41 @@
 	<bean id="variantCommerceSearchResultProductPopulator"
 		  class="com.teamidea.platform.technonikol.facades.search.converters.populator.VariantSearchResultProductPopulator"
 		  parent="defaultCommerceSearchResultProductPopulator">
+	</bean>
+
+<!--
+<alias name="acceleratorProductConverter" alias="productConverter"/>
+<bean id="acceleratorProductConverter" scope="tenant" parent="defaultProductConverter"  class="com.teamidea.platform.technonikol.facades.product.converters.TNProductConverter" >
+    <lookup-method bean="TNProductData" name="createTarget"/>
+    <property name="populators">
+        <list>
+            <ref bean="TNProductPopulator"/>
+        </list>
+    </property>
+</bean>
+-->
+
+<!--
+<bean id="TNProductPopulator" class="de.hybris.platform.acceleratorfacades.converters.populator.TNProductPopulator" scope="tenant">
+</bean>
+-->
+
+<!--<alias name="acceleratorProductConverter" alias="productConverter"/>
+
+<bean id="acceleratorProductConverter" class="de.hybris.platform.acceleratorfacades.converters.AcceleratorProductConverter" scope="tenant" parent="defaultProductConverter">
+    <property name="TNProductPopulator" ref="TNProductPopulator"/>
+</bean>
+-->
+
+	<alias name="technonikolProductPopulator" alias="productPopulator"/>
+
+	<bean id="technonikolProductPopulator"
+	      class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
+	      parent="defaultProductPopulator">
+<!--		<property name="productBasicPopulator" ref="productBasicPopulator"/>
+		<property name="variantSelectedPopulator" ref="variantSelectedPopulator"/>
+		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
+-->
 	</bean>
 
 

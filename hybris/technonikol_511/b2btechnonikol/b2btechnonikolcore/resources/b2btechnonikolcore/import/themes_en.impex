@@ -3,7 +3,7 @@
 # Localization en
 #
 
-$lang=en
+$lang=ru
 
 UPDATE SiteTheme;code[unique=true];name[lang=$lang]
 ;green;Green;

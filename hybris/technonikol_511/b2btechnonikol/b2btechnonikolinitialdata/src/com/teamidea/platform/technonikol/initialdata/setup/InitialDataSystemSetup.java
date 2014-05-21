@@ -53,9 +53,9 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 	private static final Logger LOG = Logger.getLogger(InitialDataSystemSetup.class);
 
 	private static final String IMPORT_SAMPLE_DATA = "importSampleData";
-	private static final String SAMPLE_DATA_IMPORT_FOLDER = "b2bacceleratorsampledata";
+	private static final String SAMPLE_DATA_IMPORT_FOLDER = "b2btechnonikolsampledata";
 
-	public static final String POWERTOOLS = "powertools";
+	public static final String TN = "tn";
 
 
 	/**
@@ -106,15 +106,15 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		{
 			importCommonData(context, SAMPLE_DATA_IMPORT_FOLDER);
 
-			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, "powertools", "powertools",
-					Collections.singletonList("powertools"));
+			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, "tn", "tn",
+					Collections.singletonList("tn"));
 
-			final ImportData powertoolsImportData = new ImportData();
-			powertoolsImportData.setProductCatalogName(POWERTOOLS);
-			powertoolsImportData.setContentCatalogNames(Arrays.asList(POWERTOOLS));
-			powertoolsImportData.setStoreNames(Arrays.asList(POWERTOOLS));
+			final ImportData tnImportData = new ImportData();
+			tnImportData.setProductCatalogName(TN);
+			tnImportData.setContentCatalogNames(Arrays.asList(TN));
+			tnImportData.setStoreNames(Arrays.asList(TN));
 			// Send an event to notify any AddOns that the initial data import is complete
-			getEventService().publishEvent(new SampleDataImportedEvent(context, Arrays.asList(powertoolsImportData)));
+			getEventService().publishEvent(new SampleDataImportedEvent(context, Arrays.asList(tnImportData)));
 		}
 	}
 

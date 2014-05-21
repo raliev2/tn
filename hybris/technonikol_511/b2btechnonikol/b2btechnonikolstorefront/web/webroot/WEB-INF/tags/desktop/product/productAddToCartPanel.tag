@@ -1,3 +1,4 @@
+<%@ tag pageEncoding="UTF-8" %>
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 
@@ -18,42 +19,31 @@
 	</c:otherwise>
 </c:choose>
 
-<div class="prod_add_to_cart">
+<form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
+    <c:if test="${(product.purchasable) || (true)}">
+        <label for="qty" class="g-italic">Кол-во:</label>
+        <input type="text" value="1" id="qty" name="qty" class="g-input" size="3" />
+    </c:if>
+    <input type="hidden" name="productCodePost" value="${product.code}"/>
 
-	<form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
-		<div class="span-8">
-			<c:if test="${product.purchasable}">
-				<label for="qty"><spring:theme code="basket.page.quantity" /></label>
-				<input type="text" maxlength="3"  size="1" id="qty" name="qty" class="qty" value="1">
-			</c:if>
-			<input type="hidden" name="productCodePost" value="${product.code}"/>
+    <!--span class="prod_results">
+        <%--<product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />--%>
+    </span-->
 
-			<span class="prod_results">
-				<product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
-			</span>
-		</div>
+    <c:set var="buttonType">button</c:set>
+    <c:if test="${allowAddToCart and product.purchasable and product.stock.stockLevelStatus.code ne 'outOfStock' }">
+        <c:set var="buttonType">submit</c:set>
+    </c:if>
 
-		<div class="span-8 viewDetailButton">
-		
-			<c:set var="buttonType">button</c:set>
-			<c:if test="${allowAddToCart and product.purchasable and product.stock.stockLevelStatus.code ne 'outOfStock' }">
-				<c:set var="buttonType">submit</c:set>
-			</c:if>
+    <button id="addToCartButton" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+        В корзину
+    </button>
 
-			<spring:theme code="text.addToCart" var="addToCartText"/>
-			<button id="addToCartButton" type="${buttonType}" disabled="true" class="add_to_cart_button positive large <c:if test="${fn:contains(buttonType, 'button')}">out-of-stock</c:if>">
-				<spring:theme code="text.addToCart" var="addToCartText"/>
-				<spring:theme code="basket.add.to.basket" />
-			</button>
+    <c:if test="${multiDimensionalProduct}" >
+        <sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
+            <c:url value="${product.url}/orderForm" var="productOrderFormUrl"/>
+            <a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
+        </sec:authorize>
+    </c:if>
 
-			<c:if test="${multiDimensionalProduct}" >
-				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
-					<c:url value="${product.url}/orderForm" var="productOrderFormUrl"/>
-					<a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
-				</sec:authorize>
-			</c:if>
-		</div>
-
-	</form>
-
-</div>
+</form>

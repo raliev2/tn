@@ -35,7 +35,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 
-import static com.teamidea.platform.technonikol.test.constants.B2btechnonikolTestConstants.POWERTOOLS_SITE;
+import static com.teamidea.platform.technonikol.test.constants.B2btechnonikolTestConstants.TN_SITE;
 
 
 public class AccountManagerApproveScheduleService
@@ -90,7 +90,7 @@ public class AccountManagerApproveScheduleService
 	protected BaseStoreModel getCurrentBaseStore(final UserModel user)
 	{
 		final ImpersonationContext ctx = new ImpersonationContext();
-		ctx.setSite(getCmsAdminSiteService().getSiteForId(POWERTOOLS_SITE));
+		ctx.setSite(getCmsAdminSiteService().getSiteForId(TN_SITE));
 		ctx.setUser(user);
 
 

@@ -1,0 +1,195 @@
+
+
+
+
+
+
+
+
+\documentclass{scrreprt}
+\usepackage[russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{makeidx}
+\usepackage{ulem}
+\usepackage{longtable}
+\makeindex
+
+\newif\ifeng
+\engfalse
+
+\newif\ifcand
+\candtrue
+
+\newif\iftwocolumns
+\twocolumnsfalse
+\newcommand{\stageone}{Приложение №2. Спецификация требований}
+\newcommand{\stageonetitle}{Спецификация требований}
+
+\newcommand{\stageonetobeagreed}{Требования-кандидаты на включение в спецификацию на первый этап}
+\newcommand{\stageonetobeagreedtitle}{Требования на согласование}
+
+\newcommand{\stagetwo}{Спецификация требований на второй этап}
+\newcommand{\stagetwotitle}{Спецификация требований на II этап}
+
+
+
+
+
+\newenvironment{wiki}
+{
+ \begin{longtable}{p{0.2\textwidth}|p{0.8\textwidth}}
+\textbf{\textsf{ЦИТАТА}} & {\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+ \end{longtable}
+}
+
+\newenvironment{wikilong}
+{ 
+\begin{quotation}
+\textbf{\textsf{ЦИТАТА}}
+{\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+\end{quotation}
+}
+
+
+\newenvironment{teamidea}
+{
+ \begin{longtable}{p{0.2\textwidth}|p{0.8\textwidth}}
+\textbf{\textsf{ЗАМЕЧАНИЕ TEAMIDEA}} & {\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+ \end{longtable}
+}
+
+\newenvironment{hybris}
+{
+ \begin{longtable}{p{0.2\textwidth}|p{0.8\textwidth}}
+\textbf{\textsf{ЗАМЕЧАНИЕ HYBRIS}} & {\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+ \end{longtable}
+}
+
+\newenvironment{itogo}
+{
+\color{red}
+ \begin{longtable}{p{0.2\textwidth}|p{0.8\textwidth}}
+\textbf{\textsf{\lastid}} & {\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+ \end{longtable}
+ \color{black}
+}
+
+\newenvironment{itogolong}
+{
+\color{red}
+ \begin{quotation}
+\textbf{\textsf{\lastid}} 
+{\Huge{\textbf{<<}}}\it
+}
+{
+ \normalfont{\Huge \textbf{>>}}
+ \end{quotation}
+ \color{black}
+}
+
+\newcommand{\sect}[1]{\textbf{\textsf{\uline{#1}}}}
+
+\newcommand{\firstpagetitle}{
+%
+\Huge{\textbf{\uwave{\stageonetitle}}}
+%
+\break \noindent 
+%
+\vspace*{25mm} \break
+%
+\large{\textbf{по проекту}} 
+%
+\break \vspace*{5mm} \break
+%
+\LARGE{\textbf{<<Адаптация и внедрение платформы SAP hybris}} 
+%
+\break \noindent \vspace{3mm} \break
+%
+\LARGE{\textbf{на базе B2B Accelerator}}
+%
+\break \noindent \vspace{3mm} \break
+%
+\LARGE{\textbf{в компании <<ТехноНИКОЛЬ>>}}
+%
+\break \vspace*{18mm} \break
+%
+\large{ %Приложение \No 2 к ДС \No 02 от 14.04.2014 г. 
+%
+\break \noindent  
+%
+Результат работ по ДС \No 01 от 03.03.2014 г. 
+%к 
+к Договору \No 0302/С-14 от 03.03.2014г.
+}
+%
+}
+
+\newcommand{\documentname}{\stageone}
+
+\usepackage{TN.SRS.Common}	
+\usepackage{TN.Document.Common}
+
+
+
+\begin{document}
+
+\thispagestyle{empty}
+
+%\mytitlepage
+
+\null\vfill 
+
+\begin{center}
+\firstpagetitle
+\end{center}
+
+\vfill\null
+
+\thispagestyle{empty} 
+\tableofcontents 	
+
+\renewcommand{\indexname}{Index}
+\addcontentsline{toc}{chapter}{Index}
+
+\newpage
+
+\printindex
+
+\newpage
+
+
+
+\chapter{Введение}
+
+\input {beforefunc.tex}
+
+\chapter{Функциональные требования}\label{funcreqs} 
+
+\input {stage1.utf8.csv}
+
+\chapter{Сценарии использования}
+
+\input{usecaselist.tex}
+
+\chapter{Нефункциональные требования}
+
+\input {afterfunc.tex}
+
+\end{document} 					
+
