@@ -2,24 +2,27 @@
 
 $productCatalog=tnProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
-$supercategories=supercategories(code, $catalogVersion)
-$products=products(code, $catalogVersion)
+$products=target(code, $catalogVersion)[unique=true]
+$supercategories=source(code, $catalogVersion)[unique=true]
 $approved=approvalstatus(code)[default='check']
 
-# Insert Products
-INSERT_UPDATE TNProduct;$catalogVersion;code[unique=true];manufacturerCode;documentCode;brand(code,$catalogVersion);supplier(code,$catalogVersion);productionCountry(code,$catalogVersion);productType(code,$catalogVersion);unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;vat;unit(code);sunit(code);units[map-delimiter=|];$approved;
-;;111;br_111;dc_111;brand_1;spl_1;pcnt_1;pt_1;false;;1;20;5;18;1A;4C;4C->2|4G->6;
-;;222;br_222;dc_222;brand_2;spl_2;pcnt_2;pt_2;false;01-05-2014;10;1;20;5;1A;4C;4C->2|4G->6;deleted
+$product=source(code, $catalogVersion)[unique=true]
+$units=target(code, $catalogVersion)[unique=true]
 
-# Update Product set category list
-UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories
-;;111;categoryCode1,categoryCode2
-;;222;categoryCode3
+# Insert Products
+INSERT_UPDATE Product;$catalogVersion;code[unique=true];manufacturerCode;documentCode;brand(code,$catalogVersion);productionCountry(isocode,$catalogVersion);productType(code,$catalogVersion);unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;vat;unit(code);sunit(code);units[map-delimiter=|];$approved;
+;;111;br_111;dc_111;brand_1;RU;pt_1;false;;1;20;5;18;1A;4C;4C->2|4G->6;
+;;222;br_222;dc_222;brand_2;RU;pt_2;false;01-05-2014;10;1;20;5;1A;4C;4C->2|4G->6;deleted
 
 # Update Product add category
-UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories[mode=append]
-;;111;categoryCode3
+INSERT_UPDATE CategoryProductRelation;$products;$supercategories
+;111;fb063656-3abd-11e2-bdd5-00505601010b
 
 # Update Product remove category
-UPDATE TNProduct;$catalogVersion;code[unique=true];$supercategories[mode=remove]
-;;111;categoryCode3
+REMOVE CategoryProductRelation;$products;$supercategories
+;111;fb063656-3abd-11e2-bdd5-00505601010b
+
+# Update Product add unit conversion
+INSERT_UPDATE ProductUnitRelation;$product;$units;conversion
+;111;4C;2
+;111;3A;6

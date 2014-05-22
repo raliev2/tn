@@ -1,8 +1,0 @@
-$productCatalog=tnProductCatalog
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
-$lang=ru
-
-UPDATE TNProductionCountry;$catalogVersion;code[unique=true];name[lang=$lang]
-;;pcnt_1;Страна производства 1
-;;pcnt_2;Страна производства 2
-;;pcnt_3;Страна производства 3
