@@ -9,9 +9,11 @@
 <c:if test="${not empty productReferences}">
 	<c:if test="${component.maximumNumberProducts > 0}">
 
+        <c:set var="referenceType" value="${productReferences[0].referenceType}"/>
+
     <div class="block-chars">
         <div class="block-chars__header">${component.title}</div>
-        <div class="carousel-product__carousel clearfix">
+            <div class="carousel-product__carousel <c:if test="${referenceType != 'SIMILAR'}">carousel-product__carousel_height</c:if> clearfix">
             <ul>
             <c:forEach end="${component.maximumNumberProducts}" items="${productReferences}" var="productReference">
                 <c:url value="${productReference.target.url}/quickView" var="productQuickViewUrl"/>
@@ -27,21 +29,31 @@
                         </c:if>
                         <div class="product-carousel-item__articul">
                             <spring:theme code="page.productDetails.article"/>: <a href="${productQuickViewUrl}">${productReference.target.code}</a>
-                            <p>${productReference.target.manufacturer}</p>
+                                <p class="product-carousel-item__manufacturer">${productReference.target.manufacturer}</p>
                         </div>
                     </div>
+
                     <c:if test="${component.displayProductPrices}">
                     <div class="product-carousel-item__price">
                         <spring:theme code="page.productDetails.price"/>:
                         <span class="product-carousel-item__price_green">
+	                    <c:if test="${productReference.target.price}">
                             <format:fromPrice priceData="${productReference.target.price}"/>
+			    </c:if>
                         </span>
                     </div>
                     </c:if>
+                        <c:if test="${referenceType != 'SIMILAR'}">
+                            <div class="product-carousel-item__in-cart">
+                         		<input type="text" class="in-cart__input" value="1" />
+                         		<a href="javascript:void(0)" class="button">В корзину</a>
+                         	</div>
+                        </c:if>
                     <div class="product-carousel-item__to-compare">
                         <c:set var="toCompareId" value="to_compare_${productReference.target.code}"/>
                         <input type="checkbox" id="${toCompareId}" /> <label for="${toCompareId}"><spring:theme code="page.productDetails.toCampare"/></label>
                     </div>
+
                 </li>
             </c:forEach>
             </ul>

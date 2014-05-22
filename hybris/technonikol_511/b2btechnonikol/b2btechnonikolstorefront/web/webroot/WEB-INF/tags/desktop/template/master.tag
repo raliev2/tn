@@ -41,6 +41,8 @@
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+    <template:javaScriptVariables/>	
+
 </head>
 <body>
 <div class="g-wrapper">
@@ -48,7 +50,26 @@
 
     <jsp:doBody/>
 
+		<template:javaScript />	
+		<jsp:invoke fragment="pageScripts"/>
+
+		<script type="text/javascript" src="${commonResourcePath}/js/jquery.pstrength.custom-1.2.0.js"></script>
+		<script type="text/javascript">
+			/*<![CDATA[*/
+				$(function() {
+					$('.strength').pstrength({ verdicts:["<spring:theme code="password.strength.veryweak" />",
+														 "<spring:theme code="password.strength.weak" />",
+														 "<spring:theme code="password.strength.medium" />",
+														 "<spring:theme code="password.strength.strong" />",
+														 "<spring:theme code="password.strength.verystrong" />"],
+											   tooShort: "<spring:theme code="password.strength.tooshortpwd" />",
+											   minCharText: "<spring:theme code="password.strength.minchartext"/>" });
+				});
+			/*]]>*/
+		</script>
+
+
 </div>
-<script src="${themeResourcePath}/js/scripts.js"></script>
+
 </body>
 </html>		

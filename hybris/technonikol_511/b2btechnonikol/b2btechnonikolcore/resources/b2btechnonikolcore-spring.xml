@@ -17,7 +17,7 @@
 		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
     <!-- Spring Integration -->
-    <import resource="classpath:/b2btechnonikolcore/integration/hot-folder-store-powertools-spring.xml"/>
+    <import resource="classpath:/b2btechnonikolcore/integration/hot-folder-store-tn-spring.xml"/>
 
     <!-- SystemSetup for the b2btechnonikolcore -->
     <bean id="b2bAcceleratorCoreSystemSetup" class="com.teamidea.platform.technonikol.core.setup.CoreSystemSetup"  parent="abstractCoreSystemSetup">
@@ -43,12 +43,12 @@
         <property name="priceService" ref="priceService"/>
     </bean>
 
-    <bean id="powertoolsCategorySource" parent="variantCategorySource">
+    <bean id="tnCategorySource" parent="variantCategorySource">
         <property name="rootCategory" value="1"/> <!-- '1' is the root icecat category -->
     </bean>
-    <bean id="powertoolsVariantCategorySource" parent="variantCategorySource"/>
+    <bean id="tnVariantCategorySource" parent="variantCategorySource"/>
 
-    <bean id="powertoolsBrandCategorySource" parent="defaultCategorySource">
+    <bean id="tnBrandCategorySource" parent="defaultCategorySource">
         <property name="rootCategory" value="brands"/> <!-- 'brands' is the root of the brands hierarchy -->
     </bean>
 
@@ -61,22 +61,22 @@
         <property name="commonI18NService" ref="commonI18NService"/>
     </bean>
 
-    <bean id="powertoolsCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
-        <property name="categorySource" ref="powertoolsCategorySource"/>
+    <bean id="tnCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="tnCategorySource"/>
     </bean>
-    <bean id="powertoolsBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
-        <property name="categorySource" ref="powertoolsBrandCategorySource"/>
+    <bean id="tnBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="tnBrandCategorySource"/>
     </bean>
-    <bean id="powertoolsVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
-        <property name="categorySource" ref="powertoolsVariantCategorySource"/>
+    <bean id="tnVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+        <property name="categorySource" ref="tnVariantCategorySource"/>
     </bean>
 
 
-    <bean id="powertoolsCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
-        <property name="categorySource" ref="powertoolsCategorySource"/>
+    <bean id="tnCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="tnCategorySource"/>
     </bean>
-    <bean id="powertoolsBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
-        <property name="categorySource" ref="powertoolsBrandCategorySource"/>
+    <bean id="tnBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+        <property name="categorySource" ref="tnBrandCategorySource"/>
     </bean>
 
     <bean id="image515ValueProvider" parent="abstractImageValueProvider">
@@ -307,7 +307,7 @@
         <property name="flexibleSearchService" ref="flexibleSearchService"/>
     </bean>
 
-    <bean id="powertoolsCatalogSyncJobPerformable" class="com.teamidea.platform.technonikol.core.setup.MultipleCatalogsSyncJobPerformable" parent="abstractJobPerformable"  >
+    <bean id="tnCatalogSyncJobPerformable" class="com.teamidea.platform.technonikol.core.setup.MultipleCatalogsSyncJobPerformable" parent="abstractJobPerformable"  >
         <property name="setupSyncJobService" ref="setupSyncJobService"/>
     </bean>
 
@@ -325,7 +325,7 @@
                 <value>CAD</value>
             </list>
         </property>
-        <property name="catalog" value="powertoolsProductCatalog"/>
+        <property name="catalog" value="tnProductCatalog"/>
     </bean>
 
     <bean id="organizationCategoryPurchasedReportingJob"
@@ -347,7 +347,7 @@
                 <value>1360</value>
             </list>
         </property>
-        <property name="catalog" value="powertoolsProductCatalog"/>
+        <property name="catalog" value="tnProductCatalog"/>
 
     </bean>
 

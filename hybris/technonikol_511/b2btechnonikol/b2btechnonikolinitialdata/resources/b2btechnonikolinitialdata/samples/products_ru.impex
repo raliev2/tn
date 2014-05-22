@@ -3,10 +3,9 @@
 $productCatalog=tnProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
 $supercategories=supercategories(code, $catalogVersion)
-$approved=approvalstatus(code)[default='check']
 $lang=ru
 
 # Insert Products
 UPDATE TNProduct;$catalogVersion;code[unique=true];name[lang=$lang];productSubtype[lang=$lang];productModel[lang=$lang];productPurpose[lang=$lang];productProperties[lang=$lang];productContent[lang=$lang]
-;;111;product 111;subtype 111;model 111;purpose 111;key properties 111;content 111
-;;222;product 222;subtype 222;model 222;purpose 222;key properties 222;content 222
+;;111;"product 111";"subtype 111";"model 111";"purpose 111";"key properties 111";"content 111"
+;;222;"product 222";"subtype 222";"model 222";"purpose 222";"key properties 222";"content 222"

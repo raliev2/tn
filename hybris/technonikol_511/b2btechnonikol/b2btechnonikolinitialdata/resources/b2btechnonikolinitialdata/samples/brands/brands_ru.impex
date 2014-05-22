@@ -3,6 +3,6 @@ $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[defa
 $lang=ru
 
 UPDATE TNBrand;$catalogVersion;code[unique=true];name[lang=$lang];description[lang=$lang]
-;;brand_1;Бренд 1;Описание бренда 1
-;;brand_2;Бренд 2;Описание бренда 2
-;;brand_3;Бренд 3;Описание бренда 3
+;;brand_1;"Бренд 1";"Описание бренда 1"
+;;brand_2;"Бренд 2";"Описание бренда 2"
+;;brand_3;"Бренд 3";"Описание бренда 3"

@@ -17,16 +17,19 @@
 
 # Languages
 INSERT_UPDATE Language;isocode[unique=true];fallbackLanguages(isocode);active[default=true]
+;en;;;
 ;ru;en;;
 
 # Currencies
 INSERT_UPDATE Currency;isocode[unique=true];conversion;digits;symbol;active[default=true];base
-;RUB;53;2;Ք;;false
-
+;USD;0,0289;2;$;;false
+;RUB;1;2;Ք;;true
 
 # Vendor
 INSERT_UPDATE Vendor;code[unique=true];name
 ;default;Default Vendor
+;technonikol;Technonikol
+
 
 # Warehouse
 INSERT_UPDATE Warehouse;code[unique=true];name;vendor(code)[default=default];default[default=true]
