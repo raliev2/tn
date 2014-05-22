@@ -15,6 +15,67 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 
 <section class="clearfix">
+    <div class="also-viewed">
+        <div class="also-viewed__head">Customers Also Viewed</div>
+        <div class="also-viewed__product">
+            <div class="also-viewed-product__img">
+                <a href="javasxript:void(0)">
+                    <img src="${themeResourcePath}/images/products/prod7.jpg" alt="Двухсторонняя акриловая лента, 7 футов" title="Двухсторонняя акриловая лента, 7 футов" />
+                </a>
+            </div>
+            <div class="also-viewed-product__info">
+                <p><a href="javascript:void(0)">Cordless Impact Wrench Kit,9/2 In.L</a></p>
+                <p>Артикул # <a href="javascript:void(0)">2L728HKE92J</a></p>
+                <p>ROBERTS</p>
+            </div>
+            <div class="search-item__price">
+                Цена: <span class="price-value">234 532 <span class="g-rouble">P</span></span>
+            </div>
+            <div class="to-cart">
+                <input type="text" value="1" name="qty" class="g-input" size="2">
+                <a href="javascript:void(0)" class="button">В корзину</a>
+            </div>
+        </div>
+        <div class="also-viewed__product">
+            <div class="also-viewed-product__img">
+                <a href="javasxript:void(0)">
+                    <img src="${themeResourcePath}/images/products/prod9.jpg" alt="Двухсторонняя акриловая лента, 7 футов" title="Двухсторонняя акриловая лента, 7 футов" />
+                </a>
+            </div>
+            <div class="also-viewed-product__info">
+                <p><a href="javascript:void(0)">Cordless Impact Wrench Kit,9/2 In.L</a></p>
+                <p>Артикул # <a href="javascript:void(0)">2L728HKE92J</a></p>
+                <p>ROBERTS</p>
+            </div>
+            <div class="search-item__price">
+                Цена: <span class="price-value">234 532 <span class="g-rouble">P</span></span>
+            </div>
+            <div class="to-cart">
+                <input type="text" value="1" name="qty" class="g-input" size="2">
+                <a href="javascript:void(0)" class="button">В корзину</a>
+            </div>
+        </div>
+        <div class="also-viewed__product">
+            <div class="also-viewed-product__img">
+                <a href="javasxript:void(0)">
+                    <img src="${themeResourcePath}/images/products/prod8.jpg" alt="Двухсторонняя акриловая лента, 7 футов" title="Двухсторонняя акриловая лента, 7 футов" />
+                </a>
+            </div>
+            <div class="also-viewed-product__info">
+                <p><a href="javascript:void(0)">Cordless Impact Wrench Kit,9/2 In.L</a></p>
+                <p>Артикул # <a href="javascript:void(0)">2L728HKE92J</a></p>
+                <p>ROBERTS</p>
+            </div>
+            <div class="search-item__price">
+                Цена: <span class="price-value">234 532 <span class="g-rouble">P</span></span>
+            </div>
+            <div class="to-cart">
+                <input type="text" value="1" name="qty" class="g-input" size="2">
+                <a href="javascript:void(0)" class="button">В корзину</a>
+            </div>
+        </div>
+    </div>
+
     <div class="product-images">
         <product:productImagePanel product="${product}"/>
         <product:productImageCarousel galleryImages="${galleryImages}" product="${product}"/>
@@ -27,19 +88,18 @@
         <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">Roberts</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
-                <div class="characteristics-line__col1 characteristics-line__col_border-right">
-                    <p class="regularPrice">Цена:
-                        <span class="regularPrice__price price">
-                            <span class="value-title" title="320 RUB">
-                                320,00&nbsp;<span class='g-rouble'>P</span>
-                            </span>
+                <div class="characteristics-line__col1">
+                    <p class="regularPrice">Розничная цена:</p>
+                    <span class="regularPrice__price price">
+                        <span class="value-title" title="320 RUB">
+                            320,00&nbsp;<span class='g-rouble'>P</span>
                         </span>
-                    </p>
+                    </span>
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
                 </div>
-                <div class="characteristics-line__col2 characteristics-line__col_border-right">
+                <div class="characteristics-line__col2">
 
-                    <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart">
+                    <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
 
@@ -53,7 +113,7 @@
                 </div>
             </div>
             <div class="characteristics__line b-rating clearfix">
-                <div class="rating__stars js-rating">
+                <div class="rating__stars js-rating js-rating_readOnly">
                     <input type="hidden" name="val" value="2.5" />
                 </div>
                 <div class="anchors"><a href="#reviews" class="g-link-blue js-write-review">Написать отзыв</a> | <a href="javascript:void(0)" class="g-link-blue">Вопрос-ответ</a></div>

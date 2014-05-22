@@ -11,7 +11,7 @@
 
 <template:page pageTitle="${pageTitle}">
 <jsp:body>
-    <section class="g-main-content clearfix hproduct">
+    <section class="g-main-content g-main-content_over-view clearfix hproduct">
 
     <div class="bread-crumbs category">
         <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
@@ -347,7 +347,7 @@
             <div class="reviews__tab js-reviews__tab_all-reviews">
                 <div class="reviews-tab__head clearfix">
                     <div class="amout-reviews"><span class="votes"><span class="value-title" title="1">0</span></span> Отзывов</div>
-                    <div class="rating__stars js-rating">
+                    <div class="rating__stars js-rating js-rating_readOnly">
                         <input type="hidden" name="val" value="0" />
                     </div>
                     <div class="numeric-rating rating">
@@ -356,7 +356,7 @@
                     </div>
                 </div>
                 <div class="reviews-tab__items">
-                    <div class="rating__stars js-rating">
+                    <div class="rating__stars js-rating js-rating_readOnly">
                         <input type="hidden" name="val" value="0" />
                     </div>
                     <div class="clearfix"></div>
