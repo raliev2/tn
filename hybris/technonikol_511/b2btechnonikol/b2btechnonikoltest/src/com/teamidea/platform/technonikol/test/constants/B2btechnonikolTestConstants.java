@@ -31,7 +31,7 @@ public final class B2btechnonikolTestConstants extends GeneratedB2btechnonikolTe
 
 	public static final String ACCOUNTMANAGERUID = "QAAccMnr";
 
-	public static final String TN_SITE = "tn";
+	public static final String TN_SITE = "firstplatform";
 
 
 

@@ -65,7 +65,7 @@
 		<property name="synchronous" value="true" />
 		<property name="legacyMode" value="false" />
 		<property name="maxThreads" value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.max-threads')}" />
-		<property name="locale" value="en"/>
+		<property name="locale" value="ru"/>
 	</bean>
 
 </beans>

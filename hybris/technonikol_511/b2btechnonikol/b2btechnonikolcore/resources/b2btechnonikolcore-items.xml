@@ -225,12 +225,12 @@
 				<attributes>
 					<attribute qualifier="phone1" type="java.lang.String">
 						<persistence type="property"/>
-						<modifiers read="true" write="true" search="true" optional="false"/>
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Phone number</description>
 					</attribute>
 					<attribute qualifier="contactEmail" type="java.lang.String">
 						<persistence type="property"/>
-						<modifiers read="true" write="true" search="true" optional="false"/>
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Contact email</description>
 					</attribute>
 				</attributes>
