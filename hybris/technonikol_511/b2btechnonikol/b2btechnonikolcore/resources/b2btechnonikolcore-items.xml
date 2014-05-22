@@ -46,7 +46,15 @@
 			argumenttype="java.lang.String" returntype="java.lang.Double"
 			autocreate="true" generate="true"/>
 	</maptypes>
-	
+
+	<relations>
+		<relation code="ProductUnitRelation" generate="true" localized="false" autocreate="true">
+			<deployment table="Product2UnitConversion" typecode="20005"/>
+			<sourceElement type="Product" qualifier="products" collectiontype="set" cardinality="many" ordered="false"/>
+			<targetElement type="Unit" qualifier="units" collectiontype="set" cardinality="many" ordered="false"/>
+		</relation>
+	</relations>
+
 	<itemtypes>
 		<!-- Add your item definitions here -->
 
@@ -217,12 +225,12 @@
 				<attributes>
 					<attribute qualifier="phone1" type="java.lang.String">
 						<persistence type="property"/>
-						<modifiers read="true" write="true" search="true" optional="false"/>
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Phone number</description>
 					</attribute>
 					<attribute qualifier="contactEmail" type="java.lang.String">
 						<persistence type="property"/>
-						<modifiers read="true" write="true" search="true" optional="false"/>
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Contact email</description>
 					</attribute>
 				</attributes>
@@ -439,7 +447,17 @@
 				</attributes>
 			</itemtype>
 
-			<itemtype code="Product" autocreate="false" generate="false"> <!--extends="Product">-->
+			<itemtype code="ProductUnitRelation" extends="Link" autocreate="false" generate="true">
+				<deployment table="Product2UnitConversion" typecode="20005"/>
+				<attributes>
+					<attribute qualifier="conversion" type="java.lang.Double">
+						<modifiers optional="true"/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="Product" autocreate="false" generate="false"> 
 				<description>Extending Product type with additional attributes.</description>
 				<attributes>
 					<attribute qualifier="manufacturerCode" type="java.lang.String">
@@ -482,7 +500,7 @@
 						<persistence type="property"/>
 						<description>Supplier name</description>
 					</attribute>
-					<attribute qualifier="productionCountry" type="TNProductionCountry">
+					<attribute qualifier="productionCountry" type="Country">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
 						<description>Product production country name</description>
@@ -553,7 +571,7 @@
 						<persistence type="property"/>
 						<description>Product sale units</description>
 					</attribute>
-					<attribute qualifier="units" type="ProductUnitsMap">
+					<attribute qualifier="unitsMap" type="ProductUnitsMap">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Product additional units</description>
@@ -565,8 +583,9 @@
 					</attribute>
 				</attributes>
 			</itemtype>
-                            <itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
-		            </itemtype>
+
+			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
+			</itemtype>
 
 		</typegroup>
 	</itemtypes>
