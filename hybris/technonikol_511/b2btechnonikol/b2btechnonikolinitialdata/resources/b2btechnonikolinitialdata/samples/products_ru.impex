@@ -3,7 +3,6 @@
 $productCatalog=tnProductCatalog
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
 $supercategories=supercategories(code, $catalogVersion)
-$approved=approvalstatus(code)[default='check']
 $lang=ru
 
 # Insert Products
