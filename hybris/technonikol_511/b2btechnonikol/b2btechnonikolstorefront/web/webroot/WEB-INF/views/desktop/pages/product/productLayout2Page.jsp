@@ -13,9 +13,8 @@
 <jsp:body>
     <section class="g-main-content g-main-content_over-view clearfix hproduct">
 
-    <div class="bread-crumbs category">
-        <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
-    </div>
+    <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
+
     <div class="g-float-right block-buttons">
         <product:productButtonsPrintShare product="${product}" />
     </div>
