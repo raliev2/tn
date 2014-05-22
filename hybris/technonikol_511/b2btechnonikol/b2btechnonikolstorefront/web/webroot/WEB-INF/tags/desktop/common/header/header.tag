@@ -32,4 +32,9 @@
             <a href="javascript:void(0)" class="link-cart">Ваша корзина пуста</a>
         </div>
     </div>
+
+<%--	<cms:pageSlot position="MiniCart" var="cart" limit="1">
+		<cms:component component="${cart}"/>
+	</cms:pageSlot> --%>
+
 </header>

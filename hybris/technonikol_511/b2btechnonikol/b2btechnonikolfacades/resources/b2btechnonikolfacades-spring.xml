@@ -129,7 +129,7 @@
 		<property name="contextResolutionStrategy" ref="b2bProcessContextResolutionStrategy"/>
 		<property name="emailContextVariables">
 			<map merge="true">
-				<entry key="themeResourceUrl-powertools" value="{baseUrl}/_ui/{theme}"/>
+				<entry key="themeResourceUrl-tn" value="{baseUrl}/_ui/{theme}"/>
 			</map>
 		</property>
 	</bean>

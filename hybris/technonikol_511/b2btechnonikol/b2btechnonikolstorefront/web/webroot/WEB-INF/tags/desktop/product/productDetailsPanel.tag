@@ -13,6 +13,8 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <section class="clearfix">
     <div class="product-images">
@@ -24,7 +26,7 @@
         <div class="product-name">
             <h1 class="fn">${product.name}</h1>
         </div>
-        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">Roberts</a></div>
+        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">EGGER</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1 characteristics-line__col_border-right">
@@ -61,9 +63,9 @@
             <div class="characteristics__line clearfix">
                 <ul>
                     <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
-                    <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>
-                    <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li>
-                    <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>
+                    <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>                  
+		  <!--  <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
+                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
                     <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightNet}</span></li>
                 </ul>
             </div>
@@ -84,6 +86,12 @@
                     </div>
                 </li>
                 <li class="block-chars-list__item">
+                    <div class="block-chars-item__inner clearfix">
+                        <div class="name-char">Объем</div><div class="value-char"><fmt:formatNumber pattern="#,##0" value="${product.volume}" /></div>
+                    </div>
+                </li>
+
+<!--                <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
                         <div class="name-char">Количество</div><div class="value-char">(?) 1 шт.</div>
                     </div>
@@ -108,6 +116,7 @@
                         <div class="name-char">Использовать с</div><div class="value-char">(?) Корвровое нечто</div>
                     </div>
                 </li>
+-->
             </ul>
         </div>
     </div>

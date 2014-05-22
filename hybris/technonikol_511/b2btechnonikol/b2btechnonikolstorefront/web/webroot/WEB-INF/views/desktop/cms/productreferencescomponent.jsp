@@ -30,18 +30,23 @@
                             <p>${productReference.target.manufacturer}</p>
                         </div>
                     </div>
+
                     <c:if test="${component.displayProductPrices}">
                     <div class="product-carousel-item__price">
                         <spring:theme code="page.productDetails.price"/>:
                         <span class="product-carousel-item__price_green">
+	                    <c:if test="${productReference.target.price}">
                             <format:fromPrice priceData="${productReference.target.price}"/>
+			    </c:if>
                         </span>
                     </div>
                     </c:if>
+
                     <div class="product-carousel-item__to-compare">
                         <c:set var="toCompareId" value="to_compare_${productReference.target.code}"/>
                         <input type="checkbox" id="${toCompareId}" /> <label for="${toCompareId}"><spring:theme code="page.productDetails.toCampare"/></label>
                     </div>
+
                 </li>
             </c:forEach>
             </ul>
