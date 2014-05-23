@@ -6,6 +6,7 @@ package com.teamidea.platform.technonikol.services.dataimport.batch.task;
 import de.hybris.platform.acceleratorservices.dataimport.batch.BatchHeader;
 import de.hybris.platform.acceleratorservices.dataimport.batch.HeaderTask;
 import de.hybris.platform.acceleratorservices.dataimport.batch.util.BatchDirectoryUtils;
+import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.cronjob.model.JobLogModel;
 import de.hybris.platform.servicelayer.impex.ImpExResource;
 import de.hybris.platform.servicelayer.impex.ImportConfig;
@@ -14,6 +15,7 @@ import de.hybris.platform.servicelayer.impex.ImportService;
 import de.hybris.platform.servicelayer.impex.impl.StreamBasedImpExResource;
 import de.hybris.platform.servicelayer.session.Session;
 import de.hybris.platform.servicelayer.session.SessionService;
+import de.hybris.platform.servicelayer.user.UserService;
 import de.hybris.platform.util.CSVConstants;
 
 import java.io.BufferedWriter;
@@ -50,6 +52,8 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 
 	private SessionService sessionService;
 	private ImportService importService;
+	private UserService userService;
+	private String sessionUser;
 
 	private static final String ERROR_FILE_PREFIX = "error_";
 	private static final String STATUS_FILE_PREFIX = "status_";
@@ -71,6 +75,7 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 			final Session localSession = getSessionService().createNewSession();
 			try
 			{
+				replaceSessionUser();
 				for (final File file : header.getTransformedFiles())
 				{
 					processFile(file, header.getEncoding());
@@ -82,6 +87,15 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 			}
 		}
 		return header;
+	}
+
+	private void replaceSessionUser()
+	{
+		final UserModel sessionUserModel = getUserService().getUserForUID(getSessionUser());
+		if (sessionUserModel != null)
+		{
+			getUserService().setCurrentUser(sessionUserModel);
+		}
 	}
 
 	/**
@@ -291,6 +305,34 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 	public void setImportService(final ImportService importService)
 	{
 		this.importService = importService;
+	}
+
+	/**
+	 * @return the userService
+	 */
+	public UserService getUserService()
+	{
+		return userService;
+	}
+
+	@Required
+	public void setUserService(final UserService userService)
+	{
+		this.userService = userService;
+	}
+
+	/**
+	 * @return the sessionUser
+	 */
+	public String getSessionUser()
+	{
+		return sessionUser;
+	}
+
+	@Required
+	public void setSessionUser(final String sessionUser)
+	{
+		this.sessionUser = sessionUser;
 	}
 
 	/**

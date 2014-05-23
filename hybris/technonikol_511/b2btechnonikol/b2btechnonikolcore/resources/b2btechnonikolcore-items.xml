@@ -14,8 +14,7 @@
 <items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
 
 	<collectiontypes>
-		<collectiontype elementtype="Catalog" code="DependentCatalogs"
-						autocreate="true" type="list"/>
+		<collectiontype elementtype="Catalog" code="DependentCatalogs" autocreate="true" type="list"/>
 	</collectiontypes>
 	
 	<enumtypes>
@@ -46,6 +45,20 @@
 			argumenttype="java.lang.String" returntype="java.lang.Double"
 			autocreate="true" generate="true"/>
 	</maptypes>
+	
+	<relations>
+		<relation code="UserGroup2UserPriceGroupRel" generate="true" localized="false" autocreate="true">
+			<description>This relation links userGroup with one or more priceGroup.</description>
+			<sourceElement qualifier="userGroup" type="UserGroup" cardinality="one">
+				<description>The Parent UserGroup</description>
+				<modifiers read="true" write="true" search="true" optional="false" />
+			</sourceElement>
+			<targetElement qualifier="allUserPriceGroups" type="UserPriceGroup" cardinality="many" collectiontype="set">
+				<description>PriceGroup associated to a Parent UserGroup</description>
+				<modifiers read="true" write="true" search="true" />
+			</targetElement>
+		</relation>
+	</relations>
 	
 	<itemtypes>
 		<!-- Add your item definitions here -->
@@ -212,14 +225,20 @@
 				</attributes>
 			</itemtype>
 			
-			<itemtype code="Employee" autocreate="false" generate="false">
-				<description>Extending Employee type with additional attributes.</description>
+			<itemtype code="User" autocreate="false" generate="false">
+				<description>Extending User type with additional attributes.</description>
 				<attributes>
 					<attribute qualifier="phone1" type="java.lang.String">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Phone number</description>
 					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="Employee" autocreate="false" generate="false">
+				<description>Extending Employee type with additional attributes.</description>
+				<attributes>
 					<attribute qualifier="contactEmail" type="java.lang.String">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
@@ -565,8 +584,11 @@
 					</attribute>
 				</attributes>
 			</itemtype>
-                            <itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
-		            </itemtype>
+            
+			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
+				<attributes>
+				</attributes>
+		    </itemtype>
 
 		</typegroup>
 	</itemtypes>
