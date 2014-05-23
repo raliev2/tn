@@ -33,15 +33,13 @@
                         </div>
                     </div>
 
-                    <c:if test="${component.displayProductPrices}">
-                    <div class="product-carousel-item__price">
-                        <spring:theme code="page.productDetails.price"/>:
-                        <span class="product-carousel-item__price_green">
-	                    <c:if test="${productReference.target.price}">
+                    <c:if test="${component.displayProductPrices and not empty productReference.target.price}">
+                        <div class="product-carousel-item__price">
+                            <spring:theme code="page.productDetails.price"/>:
+                            <span class="product-carousel-item__price_green">
                             <format:fromPrice priceData="${productReference.target.price}"/>
-			    </c:if>
-                        </span>
-                    </div>
+                            </span>
+                        </div>
                     </c:if>
                         <c:if test="${referenceType != 'SIMILAR'}">
                             <div class="product-carousel-item__in-cart">
