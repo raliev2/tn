@@ -91,10 +91,16 @@ $(document).ready(function() {
     });
 
     if ($('.js-rating').length) {
-        $('.js-rating').rating({
+        $('.js-rating_readOnly').rating({
             readOnly : true,
             image : themeResourcePath + '/images/rating-stars.png'
         });
     }
+
+    $('.filter-block__header').click(function() {
+        $(this).next('.filter-block__body').slideToggle();
+        $(this).toggleClass('filter-block__header_top');
+        $(this).toggleClass('filter-block__header_down');
+    });
 
 });

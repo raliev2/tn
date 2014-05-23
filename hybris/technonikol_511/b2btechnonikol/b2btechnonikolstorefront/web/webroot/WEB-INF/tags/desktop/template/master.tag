@@ -26,20 +26,17 @@
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
-    <script>if( !window.jQuery )document.write('<script src="js/lib/jquery-1.11.1.min.js" charset="utf-8"><'+'/script>');</script>
+    <script>if( !window.jQuery )document.write('<script src="${themeResourcePath}/js/lib/jquery-1.11.1.min.js" charset="utf-8"><'+'/script>');</script>
     <script>
         var themeResourcePath = '${themeResourcePath}';
     </script>
     <script src="${themeResourcePath}/js/lib/less-1.3.3.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.anythingslider.js"></script>
-    <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
-    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.rating-2.0.js"></script>
-    <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
-    <script type='text/javascript' src='${themeResourcePath}/js/lib/easyzoom.js'></script>
-    <script type='text/javascript' src='${themeResourcePath}/js/jquery.sliderImages.js'></script>
+
     <!--[if lt IE 9]>
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <template:javaScriptVariables/>	
 
 </head>
 <body>
@@ -48,7 +45,31 @@
 
     <jsp:doBody/>
 
+		<template:javaScript />	
+		<jsp:invoke fragment="pageScripts"/>
+
+		<script type="text/javascript" src="${commonResourcePath}/js/jquery.pstrength.custom-1.2.0.js"></script>
+		<script type="text/javascript">
+			/*<![CDATA[*/
+				$(function() {
+					$('.strength').pstrength({ verdicts:["<spring:theme code="password.strength.veryweak" />",
+														 "<spring:theme code="password.strength.weak" />",
+														 "<spring:theme code="password.strength.medium" />",
+														 "<spring:theme code="password.strength.strong" />",
+														 "<spring:theme code="password.strength.verystrong" />"],
+											   tooShort: "<spring:theme code="password.strength.tooshortpwd" />",
+											   minCharText: "<spring:theme code="password.strength.minchartext"/>" });
+				});
+			/*]]>*/
+		</script>
+    <script type='text/javascript' src='${themeResourcePath}/js/lib/easyzoom.js'></script>
+    <script type='text/javascript' src='${themeResourcePath}/js/jquery.sliderImages.js'></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.rating-2.0.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.anythingslider.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
+    <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/scripts.js"></script>
 </div>
-<script src="${themeResourcePath}/js/scripts.js"></script>
+
 </body>
 </html>		

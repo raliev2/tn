@@ -1,7 +1,0 @@
-$productCatalog=tnProductCatalog
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
-
-INSERT_UPDATE TNProductionCountry;code[unique=true];$catalogVersion
-;pcnt_1;
-;pcnt_2;
-;pcnt_3;

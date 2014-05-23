@@ -20,15 +20,14 @@
 </c:choose>
 
 <form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
+    <%--span class="prod_results">
+        <product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
+    </span--%>
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
         <input type="text" value="1" id="qty" name="qty" class="g-input" size="3" />
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
-
-    <!--span class="prod_results">
-        <%--<product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />--%>
-    </span-->
 
     <c:set var="buttonType">button</c:set>
     <c:if test="${allowAddToCart and product.purchasable and product.stock.stockLevelStatus.code ne 'outOfStock' }">

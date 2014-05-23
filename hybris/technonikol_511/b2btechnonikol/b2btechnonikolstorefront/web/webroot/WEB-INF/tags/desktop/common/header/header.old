@@ -49,6 +49,7 @@
 		<cms:pageSlot position="SearchBox" var="component">
 			<cms:component component="${component}"/>
 		</cms:pageSlot>
+		<script type="text/javascript" src="${sharedResourcePath}/js/analyticsmediator.js"></script>
 	</div>
 	<div class="clear"></div>
 </div>
