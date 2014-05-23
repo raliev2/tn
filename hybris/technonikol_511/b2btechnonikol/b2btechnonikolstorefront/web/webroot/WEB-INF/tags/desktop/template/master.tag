@@ -36,7 +36,7 @@
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <template:javaScriptVariables/>	
+    <template:javaScriptVariables/>
 
 </head>
 <body>
@@ -45,7 +45,7 @@
 
     <jsp:doBody/>
 
-		<template:javaScript />	
+		<template:javaScript />
 		<jsp:invoke fragment="pageScripts"/>
 
 		<script type="text/javascript" src="${commonResourcePath}/js/jquery.pstrength.custom-1.2.0.js"></script>
@@ -72,4 +72,4 @@
 </div>
 
 </body>
-</html>		
+</html>

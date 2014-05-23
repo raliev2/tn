@@ -1,5 +1,5 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
-<%@ tag pageEncoding="UTF-8" %>
+
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -9,20 +9,17 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <ycommerce:testId code="searchPage_price_label_${product.code}">
-    <div class="prod-list-item__price">
-        Цена:
-        <!-- if product is multidimensional with different prices, show range, else, show unique price -->
-        <span class="price-value">
-        <c:choose>
-            <c:when test="${product.multidimensional and (product.priceRange.minPrice.value ne product.priceRange.maxPrice.value)}">
-                <format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>
-            </c:when>
-            <c:otherwise>
-                <format:price priceData="${product.price}"/>
-            </c:otherwise>
-        </c:choose>
-        </span>
-    </div>
+	<p class="price">
+		<!-- if product is multidimensional with different prices, show range, else, show unique price -->
+		<c:choose>
+			<c:when test="${product.multidimensional and (product.priceRange.minPrice.value ne product.priceRange.maxPrice.value)}">
+				<format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>
+			</c:when>
+			<c:otherwise>
+				<format:price priceData="${product.price}"/>
+			</c:otherwise>
+		</c:choose>
+	</p>
 </ycommerce:testId>
 
 <c:if test="${product.volumePricesFlag}">
