@@ -1,7 +1,8 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
-
+<%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 <%@ attribute name="isOrderForm" required="false" type="java.lang.Boolean" %>
+<%@ attribute name="index1" required="false" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
@@ -17,62 +18,51 @@
 <spring:theme code="text.addToCart" var="addToCartText"/>
 <c:url value="${product.url}" var="productUrl"/>
 
-<div class="prod_list">
-	<ycommerce:testId code="test_searchPage_wholeProduct">
-		<product:productListerItemDetails product="${product}" />
-		<div class="cart">
-			<product:productListerItemPrice product="${product}" />
-			<ycommerce:testId code="searchPage_addToCart_button_${product.code}">
+<div class="prod-list__item clearfix">
+    <div class="prod-list-item__product clearfix">
+        <div class="prod-list-item__img">
+            <a href="${productUrl}">
+                <product:productPrimaryImage product="${product}" format="thumbnail"/>
+            </a>
+        </div>
+        <c:choose>
+            <%-- Verify if products is a multidimensional product --%>
+            <c:when test="${product.multidimensional}">
+                <div class="search-item__about">
+                    <a href="javascript:void(0)" class="search-item-about__name"><c:out value="${product.name}" /></a>
+                    <p class="search-item-about__manufacturer">${product.manufacturer}</p>
+                    <p class="search-item-about__variants">Несколько вариантов продукта<br />доступны </p>
+                </div>
+                <div class="search-item__actions g-float-right">
+                    <product:productListerItemPrice product="${product}" />
+                    <div>
+                        <a href="${productUrl}" class="button-other-products">Еще 2 товара</a>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="prod-list-item__about">
+                    <a href="${productUrl}" class="prod-list-item-about__name"><c:out value="${product.name}" /></a>
+                    <p class="prod-list-item-about__manufacturer">${product.manufacturer}</p>
+                    <p>Артикул: <span class="g-strong">${product.code}</span></p>
+                </div>
+                <div class="prod-list-item__actions g-float-right">
+                    <product:productListerItemPrice product="${product}" />
 
-			<c:choose>
-				<%-- Verify if products is a multidimensional product --%>
-				<c:when test="${product.multidimensional}">
-					<div class="span-4 viewDetailButton">
-						<c:url value="${productUrl}" var="backToProductUrl"/>
-						<a href="${backToProductUrl}" ><spring:theme code="product.view.details" /></a>
-					</div>
-					
-					<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
-						<div class="span-4">
-							<c:url value="${product.url}/orderForm" var="productOrderFormUrl"/>
-							<a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
-						</div>
-					</sec:authorize>
-
-				</c:when>
-				<c:otherwise>
-					<c:set var="buttonType">submit</c:set>
-					<c:if test="${product.stock.stockLevelStatus.code eq 'outOfStock' or empty product.price}">
-						<c:set var="buttonType">button</c:set>
-						<spring:theme code="text.addToCart.outOfStock" var="addToCartText"/>
-					</c:if>
-					<c:if test="${empty isOrderForm || not isOrderForm}">
-						<form id="addToCartForm${product.code}" action="<c:url value="/cart/add"/>" method="post" class="add_to_cart_form">
-							<input type="hidden" name="productCodePost" value="${product.code}"/>
-							<button type="${buttonType}" disabled="true" class="add_to_cart_button positive large <c:if test="${fn:contains(buttonType, 'button')}">out-of-stock</c:if>" <c:if test="${fn:contains(buttonType, 'button')}">disabled="true" aria-disabled="true"</c:if>>
-								<theme:image code="img.addToCartIcon" alt="${addToCartText}" title="${addToCartText}"/>
-								${addToCartText}
-							</button>
-						</form>
-					</c:if>
-					<c:if test="${not empty isOrderForm && isOrderForm}">
-						<label for="qty"><spring:theme code="basket.page.quantity" /></label>
-						<input type=hidden id="productPrice[${sessionScope.skuIndex}]" value="${product.price.value}" />
-						<input type="hidden" class="${product.code} sku"  name="productQuantities[${sessionScope.skuIndex}].sku" id="productQuantities[${sessionScope.skuIndex}].sku" value="${product.code}" />
-						<input type="text" maxlength="3"  size="1" id="productQuantities[${sessionScope.skuIndex}].quantity" name="productQuantities[${sessionScope.skuIndex}].quantity" class="sku-quantity" value="0">
-
-						<c:set var="skuIndex" scope="session" value="${sessionScope.skuIndex + 1}"/>
-					</c:if>
-				</c:otherwise>
-			</c:choose>
-			
-			<c:if test="${isOrderForm and !product.multidimensional}">
-				<span class="prod prod_results">
-					<product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
-				</span>
-			</c:if>
-			
-			</ycommerce:testId>
-		</div>
-	</ycommerce:testId>
+                    <div class="stock in-stock g-float-right"><span>Есть на складе</span>
+                        <div class="g-info"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="to-cart">
+                        <label for="qty${index1}">Кол-во:</label>
+                        <input type="text" value="1" id="qty${index1}" name="qty" class="g-input" size="3" />
+                        <a href="javascript:void(0)" class="button">В корзину</a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <a href="javascript:void(0)" class="g-link-blue add-to-list">+ Добавить в список</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </div>
+

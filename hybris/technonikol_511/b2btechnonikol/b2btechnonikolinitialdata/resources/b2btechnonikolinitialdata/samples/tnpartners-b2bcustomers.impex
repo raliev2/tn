@@ -1,4 +1,4 @@
-﻿#
+#
 # Import Two Sample B2B Organizations
 #
 
@@ -6,30 +6,30 @@ $passwordEncoding=md5
 $defaultPassword=12341234
 $setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
 
-INSERT_UPDATE B2BCreditLimit;code[unique=true];alertRateType(code,itemtype(code));alertThreshold;amount;currency(isocode);
-;Monthly40KRUBAlert10Percent;PERCENTAGE:B2BRateType;10;40000;RUB;
+# Ответственный менеджер
+INSERT_UPDATE Employee;UID[unique=true];description;name;phone1;contactEmail;groups(uid)[default=accountmanagergroup];sessionLanguage(isocode)[default=ru];$setPassword;
+;managerP1;Manager Petr;Петр Иванов;7(926)7412589;managerA@tn.ru;;;;
 
-INSERT_UPDATE TNPartner;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId);&B2BUnitID;accountManager(uid);creditLimit(code);approvalProcessCode;
-;PartnerTOP	;TNPartner1	;Partner #1	;Partner #1	;Партнер №1	;		;TNPartner1;TNPartner1AddrID1,TNPartner1AddrID3,TNPartner1AddrID4;TNPartner1AddrID1;TNPartner1AddrID3;TNPartner1AddrID4;TNPartner1ID1;AcctMgrA;Monthly40KRUBAlert10Percent;accApproval;
-;Partner Unit A	;Partner Retail	;Partner Retail	;Partner Retail	;Партнер Ретэйл	;TNPartner1	;TNPartner1;TNPartner1AddrID2;;;;TNPartner1ID2;;;
+# Партнеры-родители
+INSERT_UPDATE TNPartner;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId);accountManager(uid);;;
+;PartnerTOP	;TNPartner1	;Partner #1	;Partner #1	;Партнер №1	; ;TNPartner1;TNPartner1AddrID1,TNPartner1AddrID3,TNPartner1AddrID4;TNPartner1AddrID1;TNPartner1AddrID3;TNPartner1AddrID4;managerP1;;;
+;Partner Unit A	;Partner Retail;Partner Retail	;Partner Retail	;Партнер Ретэйл	;TNPartner1	;TNPartner1;TNPartner1AddrID2;
 
-INSERT_UPDATE Address;streetname[unique=true];postalcode[unique=true];town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;middlename;email;title(code);&addId;owner(&B2BUnitID)[unique=true];
-;Ленинский пр-т. д.12;143005;Москва;RU;TRUE;TRUE;TRUE;TRUE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID1;TNPartner1ID1;
-;Ленинский пр-т. д.13;143005;Москва;RU;FALSE;TRUE;FALSE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID3;TNPartner1ID1;
-;Ленинский пр-т. д.14;143005;Москва;RU;FALSE;FALSE;TRUE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;mr;TNPartner1AddrID4;TNPartner1ID1;
-;Красная площадь д.1;123654;Москва;RU;TRUE;TRUE;TRUE;TRUE;Петр;Иванов;Сергеевич;namager2@tn.tn;mr;TNPartner1AddrID2;TNPartner1ID2;
+# Партнеры-контрагенты
+INSERT_UPDATE TNContractor;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];inn;kpp;okpo;privatePerson[default=FALSE];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId)
+;Contractor A;TNContractorA;Contractor A;Contractor A;Контрагент А;778596254125;447854125;3564789541412564;TRUE;"TNPartner1	";TNPartner1;TNContractor1AddrID1,TNContractor1AddrID2,TNContractor1AddrID3;TNContractor1AddrID1;TNContractor1AddrID2;TNContractor1AddrID3
 
-INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;name;title(code);groups(uid);permissionGroups(uid);sessionCurrency(isocode)[default='RUB'];$setPassword;
-;Администратор А;petrov.ivan@tn.ru;petrov.ivan@tn.ru;petrov.ivan@tn.ru;Петров Иван;ms;TNPartner1,b2badmingroup;;;;;
-;Заказчик А;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;Сидоров Иван;ms;Partner Retail,b2bcustomergroup,standardPermissions;;;;;
+# Список адресов партнеров
+INSERT_UPDATE Address;&addId;owner(TNPartner.uid|TNContractor.uid)[unique=true];streetname[unique=true];postalcode;town;country(isocode)[default=RU];billingAddress[default=TRUE];contactAddress[default=TRUE];shippingAddress[default=TRUE];unloadingAddress[default=TRUE];firstname;lastname;middlename;email;
+;TNPartner1AddrID1;TNPartner1;1117001, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;Иван;Сидоров;Петрович;manager1@tn.ru;
+;TNPartner1AddrID3;TNPartner1;1117001, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;
+;TNPartner1AddrID4;TNPartner1;1117001, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;
+;TNPartner1AddrID2;Partner Retail;1117001, Москва, Красная площадь д.1;;;;TRUE;TRUE;TRUE;TRUE;Петр;Иванов;Сергеевич;namager2@tn.tn;
+;TNContractor1AddrID1;TNContractorA;143005, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;Иван;;;;
+;TNContractor1AddrID2;TNContractorA;143005, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;Иван;;;;
+;TNContractor1AddrID3;TNContractorA;143005, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;Иван;;;;
 
-INSERT_UPDATE B2BUserGroup;uid[unique=true];name;unit(uid);
-;partner1PriceAGroupAPermissions;TNPartner1 PriceA-GroupA Permissions;TNPartner1;
-;partner1PriceBGroupAPermissions;TNPartner1 PriceB-GroupA Permissions;TNPartner1;
-;partner1PriceCGroupAPermissions;TNPartner1 PriceC-GroupA Permissions;TNPartner1;
-
-
-INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
-;TN_B2B_PKA-PGA_PRICE_GROUP;Price group PriceKindA-PriceGroupA;
-;TN_B2B_PKB-PGA_PRICE_GROUP;Price group PriceKindB-PriceGroupA;
-;TN_B2B_PKC-PGA_PRICE_GROUP;Price group PriceKindC-PriceGroupA;
+# Контактные лица партнера
+INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;phone1;name;groups(uid);sessionCurrency(isocode)[default='RUB'];$setPassword
+;Контактное лицо Партнера ТОП;petrov.ivan@tn.ru;petrov.ivan@tn.ru;petrov.ivan@tn.ru;7(926)7412589;Петров Иван;TNPartner1,b2badmingroup;;
+;Контактное лицо Партнера А;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;sidorov.ivan@tn.ru;7(926)7412589;Сидоров Иван;Partner Retail,b2badmingroup;;

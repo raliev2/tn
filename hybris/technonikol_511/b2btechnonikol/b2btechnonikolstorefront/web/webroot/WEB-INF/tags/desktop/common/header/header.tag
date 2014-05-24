@@ -21,14 +21,12 @@
             <ul>
                 <li><a href="javascript:void(0)">Вход</a></li>
                 <li><a href="javascript:void(0)">Регистрация</a></li>
-                <li><a href="javascript:void(0)">Обслуживание клиентов</a></li>
             </ul>
         </div>
         <div class="custom-message">
-            <a href="javascript:void(0)">[+] Что вы думаете о новой версии сайта 1 Платформа?<span class="web-symbols">&#215;</span></a>
+
         </div>
         <div>
-            <a href="javascript:void(0)" class="gray-link">Каталог</a>
             <a href="javascript:void(0)" class="link-cart">Ваша корзина пуста</a>
         </div>
     </div>

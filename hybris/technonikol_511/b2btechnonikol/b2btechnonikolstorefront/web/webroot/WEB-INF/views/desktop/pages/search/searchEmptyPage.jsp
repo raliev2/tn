@@ -12,43 +12,43 @@
 <%@ taglib prefix="breadcrumb" tagdir="/WEB-INF/tags/desktop/nav/breadcrumb" %>
 
 <template:page pageTitle="${pageTitle}">
-	<div id="breadcrumb" class="breadcrumb">
-		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
-	</div>
-	
-	<c:if test="${not empty message}">
-		<spring:theme code="${message}"/>
-	</c:if>
+    <section class="g-main-content">
+        <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
 
-	<div id="globalMessages">
-		<common:globalMessages/>
-	</div>
-	<div class="span-24">
-		<cms:pageSlot position="SideContent" var="feature" element="div" class="span-4 side-content-slot cms_disp-img_slot">
-			<cms:component component="${feature}"/>
-		</cms:pageSlot>	
-		<div class="span-20 right last">
-			<div class="item_container_holder">
-				<div class="title_holder">
-					<div class="title">
-						<div class="title-top">
-							<span></span>
-						</div>
-					</div>
-					<h2><spring:theme code="search.no.results" text="No Results Found"/></h2>
-				</div>
-				
-				<cms:pageSlot position="MiddleContent" var="comp" element="div" class="item_container">
-					<cms:component component="${comp}"/>
-				</cms:pageSlot>
-				
-				<div class="item_container">
-					<nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
-				</div>
-			</div>
-			<cms:pageSlot position="BottomContent" var="comp" element="div" class="span-20 cms_disp-img_slot right last">
-				<cms:component component="${comp}"/>
-			</cms:pageSlot>			
-		</div>
-	</div>
+        <c:if test="${not empty message}">
+            <spring:theme code="${message}"/>
+        </c:if>
+
+        <div id="globalMessages">
+            <common:globalMessages/>
+        </div>
+        <div class="span-24">
+            <cms:pageSlot position="SideContent" var="feature" element="div" class="span-4 side-content-slot cms_disp-img_slot">
+                <cms:component component="${feature}"/>
+            </cms:pageSlot>
+            <div class="span-20 right last">
+                <div class="item_container_holder">
+                    <div class="title_holder">
+                        <div class="title">
+                            <div class="title-top">
+                                <span></span>
+                            </div>
+                        </div>
+                        <h2><spring:theme code="search.no.results" text="No Results Found"/></h2>
+                    </div>
+
+                    <cms:pageSlot position="MiddleContent" var="comp" element="div" class="item_container">
+                        <cms:component component="${comp}"/>
+                    </cms:pageSlot>
+
+                    <div class="item_container">
+                        <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
+                    </div>
+                </div>
+                <cms:pageSlot position="BottomContent" var="comp" element="div" class="span-20 cms_disp-img_slot right last">
+                    <cms:component component="${comp}"/>
+                </cms:pageSlot>
+            </div>
+        </div>
+    </section>
 </template:page>

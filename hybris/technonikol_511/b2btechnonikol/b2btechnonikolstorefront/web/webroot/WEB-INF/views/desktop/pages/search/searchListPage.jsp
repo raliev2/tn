@@ -1,4 +1,5 @@
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
@@ -16,60 +17,69 @@
 	<jsp:attribute name="pageScripts">
 		<script type="text/javascript" src="${commonResourcePath}/js/acc.productlisting.js"></script>
 	</jsp:attribute>
-	
-	<jsp:body>
-	<div id="breadcrumb" class="breadcrumb">
-		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
-	</div>
-		
-	<div id="globalMessages">
-		<common:globalMessages/>
-	</div>
-	<div class="span-4">
-		<nav:facetNavAppliedFilters pageData="${searchPageData}"/>
-		<nav:facetNavRefinements pageData="${searchPageData}"/>
-	</div>
 
-	<div class="span-20 last">
-		<cms:pageSlot position="Section2" var="feature" element="div" class="span-20">
-			<cms:component component="${feature}" element="div" class="section2 cms_disp-img_slot"/>
-		</cms:pageSlot>
-			
-		<div class="span-20">
-			<div class="span-16">
-				<div class="results">
-					<h1><spring:theme code="search.page.searchText" arguments="${searchPageData.freeTextSearch}"/></h1>
-				</div>
-				
-				<nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
-				<nav:pagination top="true"  supportShowPaged="false" 
-											supportShowAll="false" 
-											searchPageData="${searchPageData}" 
-											searchUrl="${searchPageData.currentQuery.url}" 
-											numberPagesShown="${numberPagesShown}" 
-											/>
-		
-				<c:url value="/search" var="currentURL"/>
-				<div id="currentPath" data-current-path="${currentURL}"></div>
-			
-				<div id="resultsList" data-isOrderForm="false">
-					<c:forEach items="${searchPageData.results}" var="product">
-						<product:productListerItem product="${product}"/>
-					</c:forEach>
-				</div>
-				
-				<common:infiniteScroll/>
-				<nav:pagination top="false"  supportShowPaged="false" 
-											 supportShowAll="false" 
-											 searchPageData="${searchPageData}" 
-											 searchUrl="${searchPageData.currentQuery.url}" 
-											 numberPagesShown="${numberPagesShown}"/>
-			</div>
-	
-			<cms:pageSlot position="Section4" var="feature">
-				<cms:component component="${feature}" element="div" class="span-4 section4 cms_disp-img_slot last"/>
-			</cms:pageSlot>
-		</div>
-	</div>
-	</jsp:body>
+    <jsp:body>
+        <div id="globalMessages">
+            <common:globalMessages/>
+        </div>
+
+        <section class="g-main-content g-main-content_no-padding clearfix">
+            <aside class="g-left-col g-left-col_right-shadow">
+                <div class="filter-block filter-block_border-bottom">
+                    <div class="filter-block__header_red">Фильтр</div>
+                </div>
+                <nav:facetNavAppliedFilters pageData="${searchPageData}"/>
+                <nav:facetNavRefinements pageData="${searchPageData}"/>
+            </aside>
+
+            <section class="g-right-col">
+                <div class="g-float-right block-buttons">
+                    <a href="javascript:void(0)" class="g-button-white">Печать</a>
+                </div>
+                <div class="clearfix"></div>
+                <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="bread-crumbs_mini" />
+                <div class="clearfix"></div>
+                <div class="search-string">
+                        ${searchPageData.freeTextSearch}
+                </div>
+                <div class="found-amount">
+                    Найдено ${searchPageData.pagination.totalNumberOfResults} товаров
+                </div>
+                <nav:searchSorts top="true"  supportShowPaged="false"
+                                 supportShowAll="false"
+                                 searchPageData="${searchPageData}"
+                                 searchUrl="${searchPageData.currentQuery.url}"
+                                 numberPagesShown="${numberPagesShown}"
+                        />
+
+                <nav:pagination top="true"  supportShowPaged="false"
+                                supportShowAll="false"
+                                searchPageData="${searchPageData}"
+                                searchUrl="${searchPageData.currentQuery.url}"
+                                numberPagesShown="${numberPagesShown}"
+                        />
+                <section class="search-results" id="resultsList" data-isOrderForm="false">
+                    <c:forEach items="${searchPageData.results}" var="product" varStatus="varStatus">
+                        <product:productListerItem product="${product}" index1="${varStatus.index}" />
+                    </c:forEach>
+                </section>
+                <nav:pagination top="true"  supportShowPaged="false"
+                                supportShowAll="false"
+                                searchPageData="${searchPageData}"
+                                searchUrl="${searchPageData.currentQuery.url}"
+                                numberPagesShown="${numberPagesShown}"
+                        />
+                <nav:searchSorts top="true"  supportShowPaged="false"
+                                 supportShowAll="false"
+                                 searchPageData="${searchPageData}"
+                                 searchUrl="${searchPageData.currentQuery.url}"
+                                 numberPagesShown="${numberPagesShown}"
+                        />
+
+
+            </section>
+        </section>
+        <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
+        <common:infiniteScroll/>
+    </jsp:body>
 </template:page>
