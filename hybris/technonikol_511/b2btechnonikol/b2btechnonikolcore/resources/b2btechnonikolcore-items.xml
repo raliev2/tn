@@ -414,39 +414,6 @@
 				</attributes>
 			</itemtype>
 
-			<itemtype code="TNProductionCountry" autocreate="true" generate="true">
-				<description>Dictionary for production countries.</description>
-				<deployment table="ProductType" typecode="20004"/>
-				<custom-properties>
-					<property name="catalogItemType">
-						<value>java.lang.Boolean.TRUE</value>		
-					</property>
-					<property name="catalogVersionAttributeQualifier">
-						<value>"catalogVersion"</value>		
-					</property>
-					<property name="uniqueKeyAttributeQualifier">
-						<value>"code"</value>		
-					</property>
-				</custom-properties>
-				<attributes>
-					<attribute qualifier="catalogVersion" type="CatalogVersion">
-						<modifiers optional="false" unique="true"/>
-						<persistence type="property"/>
-						<description>Catalog version</description>
-					</attribute>
-					<attribute qualifier="code" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
-						<persistence type="property"/>
-						<description>Production country code</description>
-					</attribute>
-					<attribute qualifier="name" type="localized:java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true"/>
-						<persistence type="property"/>
-						<description>Production country localized name</description>
-					</attribute>
-				</attributes>
-			</itemtype>
-
 			<itemtype code="ProductUnitRelation" extends="Link" autocreate="false" generate="true">
 				<deployment table="Product2UnitConversion" typecode="20005"/>
 				<attributes>
