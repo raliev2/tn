@@ -63,6 +63,8 @@
             <div class="characteristics__line clearfix">
                 <ul>
                     <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
+                    <li class="one-characteristic identifier"><span class="type" title="mpn">Возвращаемый</span>: <span class="one-characteristic__value value">${product.unreplenishable}</span></li>
+
                     <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>                  
 		  <!--  <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
