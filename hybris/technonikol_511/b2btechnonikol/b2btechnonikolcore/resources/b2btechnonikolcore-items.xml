@@ -443,6 +443,11 @@
 			<itemtype code="Product" autocreate="false" generate="false"> 
 				<description>Extending Product type with additional attributes.</description>
 				<attributes>
+					<attribute qualifier="ekn" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>EKN Code</description>
+					</attribute>
 					<attribute qualifier="manufacturerCode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
@@ -574,5 +579,6 @@
 
 		</typegroup>
 	</itemtypes>
+
 
 </items>

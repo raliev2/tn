@@ -7,22 +7,22 @@ $lang=ru
 $indexedType=tnProductType
 
 UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$indexedType];name[unique=true];displayName[lang=$lang]
- ;;allPromotions;Promotion;
- ;;brand;Brand;
- ;;category;Category;
- ;;code;Code;
- ;;description;Description;
- ;;manufacturerName;Manufacturer Name;
- ;;name;Name;
- ;;price;Price;
- ;;summary;Summary;
+ ;;allPromotions;Акция;
+ ;;brand;Бренд;
+ ;;category;Категория;
+ ;;code;Код;
+ ;;description;Описание;
+ ;;manufacturerName;Производитель;
+ ;;name;Имя;
+ ;;price;Цена;
+ ;;summary;Описание;
 
 
 # Define the available sorts
 UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[unique=true];name[lang=$lang]
- ;;name-asc;Name (ascending);
- ;;name-desc;Name (descending);
- ;;price-asc;Price (lowest first);
- ;;price-desc;Price (highest first);
- ;;relevance;Relevance;
- ;;topRated;Top Rated;
+ ;;name-asc;По имени;
+ ;;name-desc;Обратно по имени;
+ ;;price-asc;По возрастанию цены;
+ ;;price-desc;По уменьшению цены;
+ ;;relevance;По релевантности;
+ ;;topRated;По продажам;

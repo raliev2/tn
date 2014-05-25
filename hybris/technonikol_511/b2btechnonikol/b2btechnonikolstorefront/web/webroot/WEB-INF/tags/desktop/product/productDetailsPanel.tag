@@ -115,12 +115,12 @@
             <div class="characteristics__line clearfix">
                 <ul>
                     <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
-                    <li class="one-characteristic identifier"><span class="type" title="mpn">Возвращаемый</span>: <span class="one-characteristic__value value">${product.unreplenishable}</span></li>
 
                     <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>                  
-		  <!--  <li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
+		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
                     <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightNet}</span></li>
+
                 </ul>
             </div>
             <div class="product-country">
@@ -134,7 +134,41 @@
         <div class="block-chars__header">Технические характеристики</div>
         <div class="block-chars__list clearfix">
             <ul>
-                <li class="block-chars-list__item">
+
+
+<!--- ПЕРЕВЕРСТАТЬ --->
+<c:if test="${not empty product.classifications}">
+	<c:forEach items="${product.classifications}" var="classification">
+		<!--<h4>${classification.name}</h4>-->
+					<c:forEach items="${classification.features}" var="feature">
+							<li class="block-chars-list__item">
+					                    <div class="block-chars-item__inner clearfix">
+					                        <div class="name-char">${feature.name}: </div>
+                 							
+								<div class="value-char">
+								<c:forEach items="${feature.featureValues}" var="value" varStatus="status">
+									${value.value}
+									<c:choose>
+										<c:when test="${feature.range}">
+											${not status.last ? '-' : feature.featureUnit.symbol}
+										</c:when>
+										<c:otherwise>
+											${feature.featureUnit.symbol}
+											${not status.last ? '<br/>' : ''}
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								</div>
+   						          </div>
+							</li>
+					</c:forEach>
+	</c:forEach>
+</c:if>
+
+<!----/ПЕРЕВЕРСТАТЬ--->		
+
+
+<!--                <li class="block-chars-list__item">
                     <div class="block-chars-item__inner clearfix">
                         <div class="name-char">Наименование</div><div class="value-char">${product.name}</div>
                     </div>
@@ -144,6 +178,7 @@
                         <div class="name-char">Объем</div><div class="value-char"><fmt:formatNumber pattern="#,##0" value="${product.volume}" /></div>
                     </div>
                 </li>
+-->
             </ul>
         </div>
     </div>

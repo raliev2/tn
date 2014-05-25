@@ -18,6 +18,7 @@
 	<!--<description>Product Fields</description>-->
 	
 	    <property name="manufacturerCode" type="java.lang.String"/>
+        <property name="ekn" type="java.lang.String"/>
         <property name="supplierCode" type="java.lang.String"/>
         <property name="documentCode" type="java.lang.String"/>
         <property name="ETIMCode" type="java.lang.String"/>
