@@ -1,0 +1,457 @@
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+$productCatalogName=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$lang=ru
+
+INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true];name[lang=ru]
+;342e79f7-86de-11da-80bc-8cd41ea1455e;;м2
+;46699607-7f81-11db-82a6-0030482e7c09;;т
+;04df1927-4508-11e2-8620-005056010626;;м
+;04df1928-4508-11e2-8620-005056010626;;м3
+;04df1929-4508-11e2-8620-005056010626;;кг
+;04df192a-4508-11e2-8620-005056010626;;шт
+;6d1bbbf0-8ada-11e2-8bdf-005056010274;;усл.
+;0026b835-e670-11db-8c4d-000347302863;;см2
+;c5b6524a-f14f-11db-8de9-000347302863;;пачка  (10 плит)
+;c5b6524c-f14f-11db-8de9-000347302863;;пачка  (8 плит)
+;c5b6524e-f14f-11db-8de9-000347302863;;пачка  (7 плит)
+;5380ab62-7612-11da-8f25-0007e93fb69e;;мм
+;2aea92c4-1ed0-11db-911d-0030482e7c09;;плита
+;0382dd0a-d22a-11e1-91d0-00505601010b;;мл
+;b4b20fda-53ad-11e0-92b8-cff7ffdef424;;барабан
+;b2642f43-55da-11e0-92b8-cff7ffdef424;;пачка  (18 плит)
+;4282f257-15bf-11e1-92e7-00505601010b;;кор.#1
+;e7ef8f1f-4115-11de-92f9-000423d38bac;;пачка  (13 плит)
+;47086e8c-2b87-11db-9797-0030482e7c09;;пачка  (2 плиты)
+;47086e8e-2b87-11db-9797-0030482e7c09;;пачка  (4 плиты)
+;47086e91-2b87-11db-9797-0030482e7c09;;пачка  (5 плит)
+;47086e92-2b87-11db-9797-0030482e7c09;;пачка  (6 плит)
+;47086e9c-2b87-11db-9797-0030482e7c09;;пачка  (12 плит)
+;b0a2c56c-2c3d-11db-9797-0030482e7c09;;т
+;314ec4ed-dbf4-11da-97b6-0030482e7c09;;поддон#1
+;fd15d260-d666-11e2-9919-005056010274;;шт
+;471ca8c2-5f46-11db-99f1-0002a5e708e2;;упак
+;471ca8c7-5f46-11db-99f1-0002a5e708e2;;л.
+;471ca8c9-5f46-11db-99f1-0002a5e708e2;;пог. м
+;55fd171b-5400-11de-9a1f-000423d38bac;;рул#1
+;53269ba6-68eb-11db-9b0d-0002a5e708e2;;рол.
+;7220a24d-cfee-11dd-9bd4-000423d38bac;;пачка  (16 плит)
+;7220a24e-cfee-11dd-9bd4-000423d38bac;;пачка  (11 плит)
+;0b5eb17b-6b87-11e2-9d45-005056010274;;бут
+;d880c48e-456d-11dc-9e37-0030482e7c09;;тн2
+;40bf9a9f-0704-11de-9e82-000423d38bac;;поддон#2
+;1e3095dd-95f9-11e2-9eaa-001a646acc13;;шт.
+;bc88211f-e8bc-11d9-a329-505054503030;;м.п.
+;ac3b340d-4781-11da-a334-505054503030;;пак
+;a992b62d-4a03-11da-a334-505054503030;;уп.50шт
+;f457d0e2-c5e5-11d9-a337-000e0c316cd3;;м3
+;b33d0c7f-4e40-11e1-a3d5-00505601010b;;кор.#2
+;ba8eee86-4e0a-11dc-a489-0015170c4c6a;;контейнер
+;943b5f5f-8e60-11da-a6eb-000ea663b0eb;;мешок
+;55c8c87b-8487-11dd-a7ae-000423d38bac;;тн3
+;19ebc1fc-902a-11db-a7e5-0002a5e708e2;;Гкал
+;cb0a2009-b68f-11db-a8c5-0030482e7c09;;банка
+;c9768318-6fe0-11db-ab95-0002a5e708e2;;вед.
+;4d3659e5-59e6-11db-acc7-0030482cad86;;сСт
+;c89da6e2-6f57-11e2-ad3a-005056010274;;мес.
+;d4608f87-6927-11e2-ad8f-005056010274;;ч
+;d4608f8c-6927-11e2-ad8f-005056010274;;Пара
+;384a6f92-4e6e-11dd-ae0d-000423d38bac;;пачка  (9 плит)
+;48de61e0-683d-11dd-ae0d-000423d38bac;;пачка  (1 плита)
+;426937aa-722f-11da-ae34-000e0c4ead1c;;брикет
+;e07f4d68-7ddb-11da-ae35-000e0c4ead1c;;боб
+;e07f4d69-7ddb-11da-ae35-000e0c4ead1c;;бут
+;e07f4d70-7ddb-11da-ae35-000e0c4ead1c;;кВт.ч
+;e07f4d73-7ddb-11da-ae35-000e0c4ead1c;;кор.
+;e07f4d75-7ddb-11da-ae35-000e0c4ead1c;;лист
+;e07f4d7b-7ddb-11da-ae35-000e0c4ead1c;;пачка
+;e07f4d7e-7ddb-11da-ae35-000e0c4ead1c;;рул
+;e07f4d7f-7ddb-11da-ae35-000e0c4ead1c;;т
+;7c91a95c-7de1-11da-ae35-000e0c4ead1c;;об. ОС
+;4f8ab0ad-0d3d-11e2-ae4f-001a646ac857;;шт
+;c9bcd51f-6c63-11e2-ae84-005056010274;;квт
+;3733611e-4d6b-11db-afc8-0030482cad86;;компл
+;1400899b-5846-11db-afcd-0030482cad86;;кг/м2
+;b1581bee-73b4-11da-b74f-000423bfb732;;поддон
+;e83fd496-b218-11dd-b751-000423d38bac;;пачка  (15 плит)
+;bb3c296a-5f27-11df-b84a-000423d38bac;;поддон#3
+;afd9065e-9aa1-11e2-b876-005056010274;;бук
+;b32fa316-abd2-11dd-b959-000423d38bac;;пачка  (20 плит)
+;adcf22cb-87f0-11da-bb01-000423be53d0;;палл
+;5fc7de07-fb66-11da-bb27-000423be53d0;;Сут
+;b6dc06c6-33c7-11dd-bb8c-000423d38bac;;пачка  (3 плиты)
+;2314701a-9071-11e2-bd5c-00505601010b;;пачка  (14 плит)
+
+
+# Insert Categories
+INSERT_UPDATE Category;code[unique=true];name[lang=$lang];allowedPrincipals(uid)[default='customergroup'];$catalogVersion
+;TNOpenCatalog;TNOpenCatalog;
+;ФУНДАМЕНТЫ ГИДРОИЗОЛЯЦИЯ;ФУНДАМЕНТЫ, ГИДРОИЗОЛЯЦИЯ
+;Традиционные кровельные материалы;Традиционные кровельные материалы
+;Штукатурные смеси универсальные;Штукатурные смеси универсальные
+;Битумные Премиум;Битумные Премиум
+;Рубероид;Рубероид
+;Рулонные кровельные материалы;Рулонные кровельные материалы
+;Мастики битумные;Мастики битумные
+;СКАТНЫЕ КРОВЛИ;СКАТНЫЕ КРОВЛИ
+;Полимерные мембраны ;Полимерные мембраны 
+;Комплектующие;Комплектующие
+;Категория 3;Категория 3
+;Категория 1;Категория 1
+;Декоративный облицовочный камень;Декоративный, облицовочный камень
+;Гибкая черепица;Гибкая черепица
+;Категория 2;Категория 2
+;ПЛОСКИЕ КРОВЛИ;ПЛОСКИЕ КРОВЛИ
+;Подкладочные ковры;Подкладочные ковры
+;Полимерные мембраны;Полимерные мембраны
+;Мастики и праймеры;Мастики и праймеры
+;Logicroof T-SL;Logicroof T-SL
+;Новый рубрикатор;Новый рубрикатор
+;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ
+;Штукатурные фасады;Штукатурные фасады
+
+
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
+;ФУНДАМЕНТЫ ГИДРОИЗОЛЯЦИЯ;TNOpenCatalog
+;Традиционные кровельные материалы;ПЛОСКИЕ КРОВЛИ
+;Штукатурные смеси универсальные;Штукатурные фасады
+;Битумные Премиум;Рулонные кровельные материалы
+;Рубероид;Традиционные кровельные материалы
+;Рулонные кровельные материалы;ПЛОСКИЕ КРОВЛИ
+;Мастики битумные;Мастики и праймеры
+;СКАТНЫЕ КРОВЛИ;TNOpenCatalog
+;Полимерные мембраны ;ПЛОСКИЕ КРОВЛИ
+;Комплектующие;Полимерные мембраны 
+;Категория 3;Категория 2
+;Категория 1;TNOpenCatalog
+;Декоративный облицовочный камень;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ
+;Гибкая черепица;СКАТНЫЕ КРОВЛИ
+;Категория 2;Категория 1
+;ПЛОСКИЕ КРОВЛИ;TNOpenCatalog
+;Подкладочные ковры;Гибкая черепица
+;Полимерные мембраны;ФУНДАМЕНТЫ ГИДРОИЗОЛЯЦИЯ
+;Мастики и праймеры;ПЛОСКИЕ КРОВЛИ
+;Logicroof T-SL;Полимерные мембраны
+;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ;TNOpenCatalog
+;Новый рубрикатор;TNOpenCatalog
+;Штукатурные фасады;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ
+
+INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true];name[lang=ru]
+;342e79f7-86de-11da-80bc-8cd41ea1455e;;м2;м2
+;46699607-7f81-11db-82a6-0030482e7c09;;т;т
+;04df1927-4508-11e2-8620-005056010626;;м;м
+;04df1928-4508-11e2-8620-005056010626;;м3;м3
+;04df1929-4508-11e2-8620-005056010626;;кг;кг
+;04df192a-4508-11e2-8620-005056010626;;шт;шт
+;6d1bbbf0-8ada-11e2-8bdf-005056010274;;усл.;усл.
+;0026b835-e670-11db-8c4d-000347302863;;см2;см2
+;c5b6524a-f14f-11db-8de9-000347302863;;пачка  (10 плит);пачка  (10 плит)
+;c5b6524c-f14f-11db-8de9-000347302863;;пачка  (8 плит);пачка  (8 плит)
+;c5b6524e-f14f-11db-8de9-000347302863;;пачка  (7 плит);пачка  (7 плит)
+;5380ab62-7612-11da-8f25-0007e93fb69e;;мм;мм
+;2aea92c4-1ed0-11db-911d-0030482e7c09;;плита;плита
+;0382dd0a-d22a-11e1-91d0-00505601010b;;мл;мл
+;b4b20fda-53ad-11e0-92b8-cff7ffdef424;;барабан;барабан
+;b2642f43-55da-11e0-92b8-cff7ffdef424;;пачка  (18 плит);пачка  (18 плит)
+;4282f257-15bf-11e1-92e7-00505601010b;;кор.#1;кор.#1
+;e7ef8f1f-4115-11de-92f9-000423d38bac;;пачка  (13 плит);пачка  (13 плит)
+;47086e8c-2b87-11db-9797-0030482e7c09;;пачка  (2 плиты);пачка  (2 плиты)
+;47086e8e-2b87-11db-9797-0030482e7c09;;пачка  (4 плиты);пачка  (4 плиты)
+;47086e91-2b87-11db-9797-0030482e7c09;;пачка  (5 плит);пачка  (5 плит)
+;47086e92-2b87-11db-9797-0030482e7c09;;пачка  (6 плит);пачка  (6 плит)
+;47086e9c-2b87-11db-9797-0030482e7c09;;пачка  (12 плит);пачка  (12 плит)
+;b0a2c56c-2c3d-11db-9797-0030482e7c09;;т;т
+;314ec4ed-dbf4-11da-97b6-0030482e7c09;;поддон#1;поддон#1
+;fd15d260-d666-11e2-9919-005056010274;;шт;шт
+;471ca8c2-5f46-11db-99f1-0002a5e708e2;;упак;упак
+;471ca8c7-5f46-11db-99f1-0002a5e708e2;;л.;л.
+;471ca8c9-5f46-11db-99f1-0002a5e708e2;;пог. м;пог. м
+;55fd171b-5400-11de-9a1f-000423d38bac;;рул#1;рул#1
+;53269ba6-68eb-11db-9b0d-0002a5e708e2;;рол.;рол.
+;7220a24d-cfee-11dd-9bd4-000423d38bac;;пачка  (16 плит);пачка  (16 плит)
+;7220a24e-cfee-11dd-9bd4-000423d38bac;;пачка  (11 плит);пачка  (11 плит)
+;0b5eb17b-6b87-11e2-9d45-005056010274;;бут;бут
+;d880c48e-456d-11dc-9e37-0030482e7c09;;тн2;тн2
+;40bf9a9f-0704-11de-9e82-000423d38bac;;поддон#2;поддон#2
+;1e3095dd-95f9-11e2-9eaa-001a646acc13;;шт.;шт.
+;bc88211f-e8bc-11d9-a329-505054503030;;м.п.;м.п.
+;ac3b340d-4781-11da-a334-505054503030;;пак;пак
+;a992b62d-4a03-11da-a334-505054503030;;уп.50шт;уп.50шт
+;f457d0e2-c5e5-11d9-a337-000e0c316cd3;;м3;м3
+;b33d0c7f-4e40-11e1-a3d5-00505601010b;;кор.#2;кор.#2
+;ba8eee86-4e0a-11dc-a489-0015170c4c6a;;контейнер;контейнер
+;943b5f5f-8e60-11da-a6eb-000ea663b0eb;;мешок;мешок
+;55c8c87b-8487-11dd-a7ae-000423d38bac;;тн3;тн3
+;19ebc1fc-902a-11db-a7e5-0002a5e708e2;;Гкал;Гкал
+;cb0a2009-b68f-11db-a8c5-0030482e7c09;;банка;банка
+;c9768318-6fe0-11db-ab95-0002a5e708e2;;вед.;вед.
+;4d3659e5-59e6-11db-acc7-0030482cad86;;сСт;сСт
+;c89da6e2-6f57-11e2-ad3a-005056010274;;мес.;мес.
+;d4608f87-6927-11e2-ad8f-005056010274;;ч;ч
+;d4608f8c-6927-11e2-ad8f-005056010274;;Пара;Пара
+;384a6f92-4e6e-11dd-ae0d-000423d38bac;;пачка  (9 плит);пачка  (9 плит)
+;48de61e0-683d-11dd-ae0d-000423d38bac;;пачка  (1 плита);пачка  (1 плита)
+;426937aa-722f-11da-ae34-000e0c4ead1c;;брикет;брикет
+;e07f4d68-7ddb-11da-ae35-000e0c4ead1c;;боб;боб
+;e07f4d69-7ddb-11da-ae35-000e0c4ead1c;;бут;бут
+;e07f4d70-7ddb-11da-ae35-000e0c4ead1c;;кВт.ч;кВт.ч
+;e07f4d73-7ddb-11da-ae35-000e0c4ead1c;;кор.;кор.
+;e07f4d75-7ddb-11da-ae35-000e0c4ead1c;;лист;лист
+;e07f4d7b-7ddb-11da-ae35-000e0c4ead1c;;пачка;пачка
+;e07f4d7e-7ddb-11da-ae35-000e0c4ead1c;;рул;рул
+;e07f4d7f-7ddb-11da-ae35-000e0c4ead1c;;т;т
+;7c91a95c-7de1-11da-ae35-000e0c4ead1c;;об. ОС;об. ОС
+;4f8ab0ad-0d3d-11e2-ae4f-001a646ac857;;шт;шт
+;c9bcd51f-6c63-11e2-ae84-005056010274;;квт;квт
+;3733611e-4d6b-11db-afc8-0030482cad86;;компл;компл
+;1400899b-5846-11db-afcd-0030482cad86;;кг/м2;кг/м2
+;b1581bee-73b4-11da-b74f-000423bfb732;;поддон;поддон
+;e83fd496-b218-11dd-b751-000423d38bac;;пачка  (15 плит);пачка  (15 плит)
+;bb3c296a-5f27-11df-b84a-000423d38bac;;поддон#3;поддон#3
+;afd9065e-9aa1-11e2-b876-005056010274;;бук;бук
+;b32fa316-abd2-11dd-b959-000423d38bac;;пачка  (20 плит);пачка  (20 плит)
+;adcf22cb-87f0-11da-bb01-000423be53d0;;палл;палл
+;5fc7de07-fb66-11da-bb27-000423be53d0;;Сут;Сут
+;b6dc06c6-33c7-11dd-bb8c-000423d38bac;;пачка  (3 плиты);пачка  (3 плиты)
+;2314701a-9071-11e2-bd5c-00505601010b;;пачка  (14 плит);пачка  (14 плит)
+
+
+# ImpEx for Importing Category Classifications into tn Store;;;;;;;;
+;;;;;;;;
+# Macros / Replacement Parameter definitions;;;;;;;;
+$productCatalog=tnProductCatalog;;;;;;;;
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online];;;;;;;;
+$classCatalogVersion=catalogversion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true,default='tnClassification:1.0'];;;;;;;;
+$classSystemVersion=systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true];;;;;;;;
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true];;;;;;;;
+$supercategories=source(code, $classCatalogVersion)[unique=true];;;;;;;;
+$categories=target(code, $catalogVersion)[unique=true];;;;;;;;
+$attribute=classificationAttribute(code,$classSystemVersion)[unique=true];;;;;;;;
+$unit=unit(code,$classSystemVersion);;;;;;;;
+;;;;;;;;
+# Insert Classifications;;;;;;;;
+INSERT_UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];allowedPrincipals(uid)[default='customergroup'];;;;;
+;;cl;;;;;;
+
+# Insert Classification Attributes;;;;;;;;
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name[lang=ru];;;;;
+;;"Длина_брутто";"Длина, брутто"
+;;"Ширина_брутто";"Ширина, брутто"
+;;"Высота_брутто";"Высота, брутто"
+;;"Длина_нетто";"Длина, нетто"
+;;"Ширина_нетто";"Ширина, нетто"
+;;"Высота_нетто";"Высота, нетто"
+;;"Объем_нетто";"Объем, нетто"
+;;"Прочность_на_отрыв_слоев_кПа_не_менее__";"Прочность на отрыв слоев, кПа не менее  "
+;;"Прочность_на_сжатие_при__деформации_после_сорбционного_увлажнения_не_менее_кПа";"Прочность на сжатие при 10% деформации после сорбционного увлажнения, не менее, кПа"
+;;"Паропроницаемость_не_менее_МгмчПа";"Паропроницаемость, не менее, Мг/(м*ч*Па)"
+;;"Влажность_по_массе_не_более_";"Влажность по массе, не более, %"
+;;"Водопоглощение_по_массе__не_более";"Водопоглощение по массе, % не более"
+;;"Водопоглощение_по_объему_не_более_";"Водопоглощение по объему, не более, %"
+;;"Содержание_органических_веществ_не_более_";"Содержание органических веществ, не более, %"
+;;"Плотность_кгм";"Плотность, кг/м3"
+;;"Прочность_на_сдвиг_срез";"Прочность на сдвиг (срез)"
+;;"Водопоглощение_при_полном_погружении__по_объему";"Водопоглощение при полном погружении, % по объему"
+;;"Сжимаемость_под_нагрузкой__Па";"Сжимаемость под нагрузкой 2000 Па"
+;;"Запах";"Запах"
+;;"Прочность";"Прочность"
+;;"Нагрузки_на_бетон";"Нагрузки на бетон"
+;;"Нагрузки_на_пустотелые_материалы";"Нагрузки на пустотелые материалы"
+;;"Модуль_упругости";"Модуль упругости"
+;;"коэффициент_уплотнения";"коэффициент уплотнения"
+;;"Упругость";"Упругость"
+;;"сжимаемость";"сжимаемость"
+;;"Усилие_на_разрыв";"Усилие на разрыв"
+;;"Сцепление_между_слоями";"Сцепление между слоями"
+;;"Удлинение_при_нагреве";"Удлинение при нагреве"
+;;"Механическое_сопротивление_удару_";"Механическое сопротивление удару "
+;;"Тепловое_старение_";"Тепловое старение (%)"
+;;"Гибкость_на_брусе";"Гибкость на брусе"
+;;"Морозостойкость";"Морозостойкость"
+;;"Сопротивляемость_местным_повреждениям_";"Сопротивляемость местным повреждениям: "
+;;"Условная_вязкость_";"Условная вязкость "
+;;"Эластичность";"Эластичность"
+;;"стойкость";"стойкость"
+;;"Звукоизоляция";"Звукоизоляция"
+;;"Максимальная_фракция";"Максимальная фракция"
+;;"Время_твердения_ч";"Время твердения, ч"
+;;"Температура_применения";"Температура применения"
+;;"Водоудерживающая_способность";"Водоудерживающая способность"
+;;"Морозостойкость_раствора";"Морозостойкость раствора"
+;;"Нормальная_густота";"Нормальная густота"
+;;"Водостойкость";"Водостойкость"
+;;"Время_высыхания_ч";"Время высыхания, ч"
+;;"Глубина_проникания_иглы";"Глубина проникания иглы"
+;;"Растяжимост";"Растяжимост"
+;;"Глубина_проникания_иглы";"Глубина проникания иглы"
+;;"растворимость";"растворимость"
+;;"температура_вспышки";"температура вспышки"
+
+
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;;;;;;
+;TNOpenCatalog;cl;
+
+INSERT_UPDATE ClassAttributeAssignment;$class;$attribute;position;$unit;attributeType(code[default=string]);multiValued[default=false];range[default=false];localized[default=true]
+ ;cl;"Длина_брутто";1;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Ширина_брутто";2;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Высота_брутто";3;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Длина_нетто";4;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Ширина_нетто";5;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Высота_нетто";6;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Объем_нетто";7;04df1927-4508-11e2-8620-005056010626
+ ;cl;"Прочность_на_отрыв_слоев_кПа_не_менее__";8
+ ;cl;"Прочность_на_сжатие_при__деформации_после_сорбционного_увлажнения_не_менее_кПа";9
+ ;cl;"Паропроницаемость_не_менее_МгмчПа";10
+ ;cl;"Влажность_по_массе_не_более_";11
+ ;cl;"Водопоглощение_по_массе__не_более";12
+ ;cl;"Водопоглощение_по_объему_не_более_";13
+ ;cl;"Содержание_органических_веществ_не_более_";14
+ ;cl;"Плотность_кгм";15
+ ;cl;"Прочность_на_сдвиг_срез";16
+ ;cl;"Водопоглощение_при_полном_погружении__по_объему";17
+ ;cl;"Сжимаемость_под_нагрузкой__Па";18
+ ;cl;"Запах";19
+ ;cl;"Прочность";20
+ ;cl;"Нагрузки_на_бетон";21
+ ;cl;"Нагрузки_на_пустотелые_материалы";22
+ ;cl;"Модуль_упругости";23
+ ;cl;"коэффициент_уплотнения";24
+ ;cl;"Упругость";25
+ ;cl;"сжимаемость";26
+ ;cl;"Усилие_на_разрыв";27
+ ;cl;"Сцепление_между_слоями";28
+ ;cl;"Удлинение_при_нагреве";29
+ ;cl;"Механическое_сопротивление_удару_";30
+ ;cl;"Тепловое_старение_";31
+ ;cl;"Гибкость_на_брусе";32
+ ;cl;"Морозостойкость";33
+ ;cl;"Сопротивляемость_местным_повреждениям_";34
+ ;cl;"Условная_вязкость_";35
+ ;cl;"Эластичность";36
+ ;cl;"стойкость";37
+ ;cl;"Звукоизоляция";38
+ ;cl;"Максимальная_фракция";39
+ ;cl;"Время_твердения_ч";40
+ ;cl;"Температура_применения";41
+ ;cl;"Водоудерживающая_способность";42
+ ;cl;"Морозостойкость_раствора";43
+ ;cl;"Нормальная_густота";44
+ ;cl;"Водостойкость";45
+ ;cl;"Время_высыхания_ч";46
+ ;cl;"Глубина_проникания_иглы";47
+ ;cl;"Растяжимост";48
+ ;cl;"Глубина_проникания_иглы";49
+ ;cl;"растворимость";50
+ ;cl;"температура_вспышки";51
+
+ 
+ 
+#UTF-8: пїЅпїЅпїЅ
+# ImpEx for Importing Products into tn Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Language
+$lang=ru
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];$approved;name[lang=ru];weightGross;weightNet;volume;description[lang=ru];sunit(code)[default='pieces'];$supercategories;manufacturerName;manufacturerAID;ean;variantType(code);unit(code)[default=pieces];$catalogVersion
+;"022421";;"Рубероид ТУ РПП 300";"19.5";"1.3";"";"Рубероид активно применяется в строительстве: от кровельных работ до гидроизоляции строительных конструкций. Рубероид РПП-300 — это подлаточная модификация с пылевидным напылением. Используется для работ, связанных с нижним кровельным ковром.";;"Рубероид";"manuf";;;;
+;"376441";;"LitoFlex K80 (25kg)";"";"25.00";"";"Эластичная сухая смесь. Материал отличается быстрым схватыванием и высыханием, морозоустойчив. Применяется для внутренних и внешних работ по укладке керамогранита и натурального камня. Готовая смесь может храниться около 8 часов. При работе следует соблюдать температурный и влажностный режим.";;"Штукатурные фасады";"manuf1";;;;
+;"370784";;"Кровельный крепеж РОКС-120 (500 шт/уп)";"";"5.60";"";"Тарельчатый полимерный дюбель отличается устойчивостью к щелочам и крайне неблагоприятным погодным условиям, а также морозоустойчивостью, высокой прочностью и длительным сроком эксплуатации. Используется для крепления тепло- и гидроизоляции и демонтажа отдельных частей кровли. Применяется вместе с анкерным элементом.";;"Комплектующие";"manuf2";;;;
+;"000100";;"Техноэласт ЭПП";"46";"4.6";"4.00";"Биостойкий и пароизолирующий материал, обладающий высокой эластичностью и прочностью на разрыв. Долговечен и очень надежен. Предназначен для устройства нижнего слоя кровли и гидроизоляции фундамента в конструкциях, подверженных движению. В основе – полиэстер.";;"Битумные Премиум";"manuf3";;;;
+;"012654";;"Подкладочный ковер Унифлекс Л ЭММ 1,5";"";"";"";"Легкий подкладочный полимерный рулонный материал. Отличается чрезвычайной прочностью и гидроизоляционными свойствами. Используется для любых кровельных покрытий, при строительстве и ремонте. Может заменить временное покрытие на временной промежуток более полугода.";;"Подкладочные ковры";"manuf4";;;;
+;"224507";;"Мастика гидроизоляционная ТЕХНОНИКОЛЬ №24 (МГТН), ведро 20 к";"20";"";"";"Основным компонентом мастики (помимо минеральных добавок) является нефтяной битум. Мастика абсолютно готова к применению и идеально подходит для покрытия теплоизоляционных конструкций, изготовленных из бетона, дерева и металлов различных видов.";;"Мастики битумные";"manuf5";;;;
+;"369914";;"Ceresit CT 35 Штукатурка минеральная декоративная ""короед"",";"";"";"";"«Дышащая» штукатурка производится в двух температурных и цветовых вариантах. Материал ударопрочен и устойчив к различным погодным условиям. Штукатурка гидрофобна и соответствует экологическим нормам. Материал используется для внутренних и внешних отделочных декоративных работ с ""бороздчатой"" фактурой, а также в системах утепления фасадов.";;"Штукатурные смеси универсальные";"manuf6";;;;
+;"436969";;"Раствор теплоизоляционный кладочный с перлитом Quick-Mix LM";"";"";"";"Удобный в работе и экономичный раствор: он пластичен и хорошо удерживает воду. Существует две разновидности материала для разных температурных режимов. Раствор используется для порикирпичей и блоков, чтобы снизить потерю тепла через швы. Важно: оберегайте материал от неблагоприятных погодных условий.";;"Штукатурные смеси универсальные";"manuf7";;;;
+;"003295";;"ПВХ Logicroof Т-SL 1,5 мм мембрана желтая 2x20 м";"";"";"";"Полимерные мембраны LOGICROOF T-SL состоят из стекловолокнистой основы, покрытой смесью из битума и полимера, что обеспечивает высокую надежность. Сверху они покрыты желтой сигнальной пленкой, которая позволяет обнаруживать нарушения в гидроизоляционном слое. Материал предназначен для гидроизоляции железобетонных или цементных стен подвалов, мостов, тоннелей, фундаментов зданий и сооружений всех видов от грунтовых вод. Имеет высокую прочность и эластичность, устойчивость к прорастанию корней и воздействию микроорганизмов.";;"Logicroof T-SL";"manuf8";;;;
+;"013107";;"WHITE HILLS Искусственный камень Толедо (400-40), коричневый";"";"22.12";"";"Искусственный камень «Толедо» (400-40) имитирует вид натурального природного камня доломита. Применяется при проведении внешних и внутренних отделочных работ. Использование данного материала придаст облику дома уникальный стиль, который будет радовать глаз на протяжении многих лет.";;"Декоративный облицовочный камень";"manuf9";;;;
+# ImpEx for Importing Product Classifications into tn Store
+
+#% impex.setLocale(Locale.ENGLISH);
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$clAttrModifiers=system='tnClassification',version='1.0',translator=de.hybris.platform.catalog.jalo.classification.impex.ClassificationAttributeTranslator,lang=RU
+
+# Insert Product Classifications
+
+# Classification: Technical details (4591)
+$feature6=@Длина_брутто[$clAttrModifiers];
+$feature7=@Ширина_брутто[$clAttrModifiers];
+$feature8=@Высота_брутто[$clAttrModifiers];
+$feature11=@Длина_нетто[$clAttrModifiers];
+$feature12=@Ширина_нетто[$clAttrModifiers];
+$feature13=@Высота_нетто[$clAttrModifiers];
+$feature14=@Объем_нетто[$clAttrModifiers];
+$feature15=@Прочность_на_отрыв_слоев_кПа_не_менее__[$clAttrModifiers];
+$feature16=@Прочность_на_сжатие_при__деформации_после_сорбционного_увлажнения_не_менее_кПа[$clAttrModifiers];
+$feature17=@Паропроницаемость_не_менее_МгмчПа[$clAttrModifiers];
+$feature18=@Влажность_по_массе_не_более_[$clAttrModifiers];
+$feature19=@Водопоглощение_по_массе__не_более[$clAttrModifiers];
+$feature20=@Водопоглощение_по_объему_не_более_[$clAttrModifiers];
+$feature21=@Содержание_органических_веществ_не_более_[$clAttrModifiers];
+$feature22=@Плотность_кгм[$clAttrModifiers];
+$feature23=@Прочность_на_сдвиг_срез[$clAttrModifiers];
+$feature24=@Водопоглощение_при_полном_погружении__по_объему[$clAttrModifiers];
+$feature25=@Сжимаемость_под_нагрузкой__Па[$clAttrModifiers];
+$feature26=@Запах[$clAttrModifiers];
+$feature27=@Прочность[$clAttrModifiers];
+$feature28=@Нагрузки_на_бетон[$clAttrModifiers];
+$feature29=@Нагрузки_на_пустотелые_материалы[$clAttrModifiers];
+$feature30=@Модуль_упругости[$clAttrModifiers];
+$feature31=@коэффициент_уплотнения[$clAttrModifiers];
+$feature32=@Упругость[$clAttrModifiers];
+$feature33=@сжимаемость[$clAttrModifiers];
+$feature34=@Усилие_на_разрыв[$clAttrModifiers];
+$feature35=@Сцепление_между_слоями[$clAttrModifiers];
+$feature36=@Удлинение_при_нагреве[$clAttrModifiers];
+$feature37=@Механическое_сопротивление_удару_[$clAttrModifiers];
+$feature38=@Тепловое_старение_[$clAttrModifiers];
+$feature39=@Гибкость_на_брусе[$clAttrModifiers];
+$feature40=@Морозостойкость[$clAttrModifiers];
+$feature41=@Сопротивляемость_местным_повреждениям_[$clAttrModifiers];
+$feature42=@Условная_вязкость_[$clAttrModifiers];
+$feature43=@Эластичность[$clAttrModifiers];
+$feature44=@стойкость[$clAttrModifiers];
+$feature45=@Звукоизоляция[$clAttrModifiers];
+$feature46=@Максимальная_фракция[$clAttrModifiers];
+$feature47=@Время_твердения_ч[$clAttrModifiers];
+$feature48=@Температура_применения[$clAttrModifiers];
+$feature49=@Водоудерживающая_способность[$clAttrModifiers];
+$feature50=@Морозостойкость_раствора[$clAttrModifiers];
+$feature51=@Нормальная_густота[$clAttrModifiers];
+$feature52=@Водостойкость[$clAttrModifiers];
+$feature53=@Время_высыхания_ч[$clAttrModifiers];
+$feature54=@Глубина_проникания_иглы[$clAttrModifiers];
+$feature55=@Растяжимост[$clAttrModifiers];
+$feature56=@Глубина_проникания_иглы[$clAttrModifiers];
+$feature57=@растворимость[$clAttrModifiers];
+$feature58=@температура_вспышки[$clAttrModifiers];
+
+
+
+
+
+INSERT_UPDATE Product;code[unique=true];$feature6;$feature7;$feature8;$feature11;$feature12;$feature13;$feature14;$feature15;$feature16;$feature17;$feature18;$feature19;$feature20;$feature21;$feature22;$feature23;$feature24;$feature25;$feature26;$feature27;$feature28;$feature29;$feature30;$feature31;$feature32;$feature33;$feature34;$feature35;$feature36;$feature37;$feature38;$feature39;$feature40;$feature41;$feature42;$feature43;$feature44;$feature45;$feature46;$feature47;$feature48;$feature49;$feature50;$feature51;$feature52;$feature53;$feature54;$feature55;$feature56;$feature57;$feature58;
+;"022421";"15000";"500";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"2";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"22";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"25+0,2 ";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"80";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"376441";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"1,35";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"50";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"370784";"<ignore>";"<ignore>";"<ignore>";"140";"120";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"000100";"10 000";"1 000";"4,00";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"1";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"600/400 Н ";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"-35";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"от +120 до -35";"<ignore>";"<ignore>";"<ignore>";" ";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"012654";"<ignore>";"<ignore>";"<ignore>";"15";"1";"1,5";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"224507";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"0,4";"<ignore>";"<ignore>";"<ignore>";"2";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"  радиусом 5,0±0,2 мм при температуре -5 °С трещин нет  ";"<ignore>";"<ignore>";"10";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"-20 до + 30 ";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"369914";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"1, 5 кг/дм3";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"не менее 100 циклов";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"от +5 до +30°C";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"436969";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"< 1000 кг/м3";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"не менее 75 циклов";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"003295";"<ignore>";"<ignore>";"<ignore>";"20";"2";"1,5";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"0";"<ignore>";"<ignore>";"15";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"-50";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+;"013107";"<ignore>";"<ignore>";"<ignore>";"12-15";"320";"75";"324000";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";"<ignore>";
+                                                        
+
