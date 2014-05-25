@@ -61,7 +61,7 @@ INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories
 ;Новый рубрикатор;TNOpenCatalog
 ;Штукатурные фасады;ФАСАДЫ И СТЕНОВЫЕ МАТЕРИАЛЫ
 
-INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true];name[lang=ru]
+INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];systemVersion(catalog(id[default='tnClassification']),version[default='1.0'])[unique=true];name[lang=ru];symbol
 ;342e79f7-86de-11da-80bc-8cd41ea1455e;;м2;м2
 ;46699607-7f81-11db-82a6-0030482e7c09;;т;т
 ;04df1927-4508-11e2-8620-005056010626;;м;м
