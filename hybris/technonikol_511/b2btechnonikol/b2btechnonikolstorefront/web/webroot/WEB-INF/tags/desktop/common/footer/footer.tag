@@ -13,7 +13,7 @@
             <li class="footer__link"><a href="javascript:void(0)">Обратная связь</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Найти филиал</a></li>
         </ul>
-        <div class="g-text">Есть вопросы? Позвоните нам<br /><span class="footer__telephone">8 800 234 00 11</span></div>
+        <div class="g-text">Есть вопросы? Позвоните нам<br /><span class="footer__telephone">8 800 333 00 20</span></div>
     </div>
     <div class="col-links">
         <h6>Поддержка</h6>

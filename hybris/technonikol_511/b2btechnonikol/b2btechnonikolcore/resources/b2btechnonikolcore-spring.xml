@@ -44,7 +44,7 @@
     </bean>
 
     <bean id="tnCategorySource" parent="variantCategorySource">
-        <property name="rootCategory" value="1"/> <!-- '1' is the root icecat category -->
+        <property name="rootCategory" value="TNOpenCatalog"/> <!-- '1' is the root icecat category -->
     </bean>
     <bean id="tnVariantCategorySource" parent="variantCategorySource"/>
 
