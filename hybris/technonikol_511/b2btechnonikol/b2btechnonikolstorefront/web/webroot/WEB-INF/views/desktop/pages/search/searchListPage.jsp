@@ -43,7 +43,7 @@
                         ${searchPageData.freeTextSearch}
                 </div>
                 <div class="found-amount">
-                    Найдено ${searchPageData.pagination.totalNumberOfResults} товаров
+                    Найдено <product:productAmount amount="${searchPageData.pagination.totalNumberOfResults}" />
                 </div>
                 <nav:searchSorts top="true"  supportShowPaged="false"
                                  supportShowAll="false"

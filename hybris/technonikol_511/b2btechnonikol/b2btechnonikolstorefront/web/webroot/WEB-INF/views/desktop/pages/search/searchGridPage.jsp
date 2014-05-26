@@ -35,10 +35,6 @@
 		<div class="results">
 			<h1><spring:theme code="search.page.searchText" arguments="${searchPageData.freeTextSearch}"/></h1>
 		</div>
-		
-		<div class="span-20">
-			<nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
-		</div>
 
 		<div class="span-20">
 			<nav:pagination top="true"  supportShowPaged="${isShowPageAllowed}" supportShowAll="${isShowAllAllowed}"  searchPageData="${searchPageData}" searchUrl="${searchPageData.currentQuery.url}" numberPagesShown="${numberPagesShown}"/>
