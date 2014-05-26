@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="fileScannerAdapter" directory="#{baseDirectorytn}"
+                                  filename-regex="(\D+?)(\d+?)_(\d+?)-(\d+?).(\w+)" comparator="fileOrderComparator" prevent-duplicates="false">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="fileScannerAdapter" reply-channel="registerStep"
+                           directory="#{baseDirectorytn}/processing" delete-source-files="true"  />
+
+    <!-- 3) register file and potentially package -->
+    <int:service-activator input-channel="registerStep" output-channel="processFileStep" method="onExecute" ref="packageFileRegistrationTask"/>
+    <bean id="packageFileRegistrationTask" class="com.teamidea.platform.technonikol.core.ps.hf.PackageFileRegistrationTask" parent="abstractHotFolderTask"/>
+
+    <!-- 4) process file -->
+    <int:service-activator input-channel="processFileStep" output-channel="finalizeStep" method="onExecute" ref="impexProcessorTask"/>
+    <bean id="impexProcessorTask" class="com.teamidea.platform.technonikol.core.ps.hf.ImpexProcessorTask" parent="abstractHotFolderTask">
+        <property name="sessionService" ref="sessionService" />
+        <property name="importService" ref="importService" />
+        <property name="importConfig" ref="importConfig" />
+    </bean>
+
+    <!-- 5) finalize if neccessary -->
+    <int:service-activator input-channel="finalizeStep" output-channel="cleanUpStep" method="onExecute" ref="finalizerTask"/>
+    <bean id="finalizerTask" class="com.teamidea.platform.technonikol.core.ps.hf.FinalizerTask" parent="abstractHotFolderTask">
+        <property name="finalizerMap">
+            <map>
+                <entry key="stockLevel" value-ref="stockLevelFinalizer"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- 6) clean up step -->
+    <int:service-activator input-channel="cleanUpStep" method="onExecute" ref="cleanupTask"/>
+    <bean id="cleanupTask" class="com.teamidea.platform.technonikol.core.ps.hf.CleanupTask" parent="abstractHotFolderTask"/>
+
+    <!-- End of sequence -->
+
+
+
+    <bean id="stockLevelFinalizer" class="com.teamidea.platform.technonikol.core.ps.hf.SQLFinalizer">
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="txManager" />
+            </bean>
+        </property>
+        <property name="typeService" ref="typeService"/>
+        <property name="jdbcTemplate">
+            <bean class="org.springframework.jdbc.core.JdbcTemplate">
+                <property name="dataSource" ref="dataSource" />
+            </bean>
+        </property>
+    </bean>
+
+
+    <bean id="hotFolderPackageService" class="com.teamidea.platform.technonikol.core.ps.hf.HotFolderPackageService" parent="abstractBusinessService">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
+    <bean id="registerTask" class="com.teamidea.platform.technonikol.core.ps.hf.PackageFileRegistrationTask" parent="abstractHotFolderTask"/>
+    <bean id="importTask" class="com.teamidea.platform.technonikol.core.ps.hf.ImpexProcessorTask" parent="abstractHotFolderTask"/>
+    <bean id="finalizeTask" class="com.teamidea.platform.technonikol.core.ps.hf.FinalizerTask" parent="abstractHotFolderTask"/>
+
+
+    <bean id="abstractHotFolderTask" abstract="true" class="com.teamidea.platform.technonikol.core.ps.hf.AbstractHotFolderTask">
+        <property name="transactionTemplate">
+            <bean class="org.springframework.transaction.support.TransactionTemplate">
+                <property name="transactionManager" ref="txManager" />
+            </bean>
+        </property>
+        <property name="hotFolderPackageService" ref="hotFolderPackageService"/>
+
+    </bean>
+
+</beans>
