@@ -63,7 +63,7 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		importImpexFile(context, "/b2btechnonikolcore/import/essential-data.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/countries.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/delivery-modes.impex");
-
+        importImpexFile(context, "/b2btechnonikolcore/import/units.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/themes.impex");
 	}
 
