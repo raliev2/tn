@@ -18,8 +18,10 @@
 			extensions which are automatically required -->
 		<requires-extension name="acceleratorcms"/>
 		<requires-extension name="b2bacceleratorservices"/>
-		<requires-extension name="b2btechnonikolfulfilmentprocess"/>
 		<requires-extension name="hmc"/>
+		
+		<!-- Why there is this reference? -->
+		<requires-extension name="b2btechnonikolfulfilmentprocess"/> 
 
 		<coremodule generated="true" manager="com.teamidea.platform.technonikol.core.jalo.B2btechnonikolCoreManager" packageroot="com.teamidea.platform.technonikol.core"/>
 
