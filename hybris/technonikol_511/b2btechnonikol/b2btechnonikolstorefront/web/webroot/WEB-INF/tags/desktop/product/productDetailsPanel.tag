@@ -148,7 +148,7 @@
                                                     ${not status.last ? '-' : feature.featureUnit.symbol}
                                                 </c:when>
                                                 <c:otherwise>
-                                                    ${feature.featureUnit.symbol}
+                                                    &nbsp;${feature.featureUnit.name}
                                                     ${not status.last ? '<br/>' : ''}
                                                 </c:otherwise>
                                             </c:choose>

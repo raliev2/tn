@@ -48,9 +48,10 @@
     </bean>
     <bean id="tnVariantCategorySource" parent="variantCategorySource"/>
 
-    <bean id="tnBrandCategorySource" parent="defaultCategorySource">
-        <property name="rootCategory" value="brands"/> <!-- 'brands' is the root of the brands hierarchy -->
-    </bean>
+<!--    <bean id="tnBrandCategorySource" parent="defaultCategorySource">
+        <property name="rootCategory" value="brands"/> 
+--><!-- 'brands' is the root of the brands hierarchy -->
+   <!-- </bean>-->
 
     <bean id="abstractCategoryCodeValueProvider" abstract="true" class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider" parent="abstractPropertyFieldValueProvider" >
         <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
@@ -64,9 +65,9 @@
     <bean id="tnCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnCategorySource"/>
     </bean>
-    <bean id="tnBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+<!--    <bean id="tnBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnBrandCategorySource"/>
-    </bean>
+    </bean>-->
     <bean id="tnVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnVariantCategorySource"/>
     </bean>
@@ -75,10 +76,11 @@
     <bean id="tnCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
         <property name="categorySource" ref="tnCategorySource"/>
     </bean>
+<!--
     <bean id="tnBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
         <property name="categorySource" ref="tnBrandCategorySource"/>
     </bean>
-
+   -->
     <bean id="image515ValueProvider" parent="abstractImageValueProvider">
         <property name="mediaFormat" value="515Wx515H"/>
     </bean>
