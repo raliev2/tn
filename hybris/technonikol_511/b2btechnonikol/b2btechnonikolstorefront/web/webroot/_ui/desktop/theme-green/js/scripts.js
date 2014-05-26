@@ -103,4 +103,12 @@ $(document).ready(function() {
         $(this).toggleClass('filter-block__header_down');
     });
 
+    $('.js-show-all').click(function() {
+        $(this).next().toggle();
+        var newTxt = $(this).attr('data-text');
+        var oldTxt = $(this).text();
+        $(this).text(newTxt);
+        $(this).attr('data-text',oldTxt);
+    });
+
 });

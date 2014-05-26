@@ -1,4 +1,5 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+<%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="searchUrl" required="true" %>
 <%@ attribute name="searchPageData" required="true" type="de.hybris.platform.commerceservices.search.pagedata.SearchPageData" %>
 <%@ attribute name="numberPagesShown" required="true" type="java.lang.Integer" %>
@@ -9,7 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 
-
+<div class="search-controls__page g-float-right">
 <ul class="pager">
 	<c:set var="hasPreviousPage" value="${searchPageData.pagination.currentPage > 0}"/>
 	<c:set var="hasNextPage" value="${(searchPageData.pagination.currentPage + 1) < searchPageData.pagination.numberOfPages}"/>
@@ -19,7 +20,7 @@
 				<spring:param name="page" value="0"/>
 			</spring:url>
 			<ycommerce:testId code="firstPage_link">
-				<a href="${firstPageUrl}"><spring:theme code="${themeMsgKey}.firstPage"/></a>
+                <a href="${firstPageUrl}" class="search-controls__page-link"><span class="web-symbols">&#212;</span></a>
 			</ycommerce:testId>
 		</c:if>
 	</li>
@@ -29,11 +30,11 @@
 				<spring:param name="page" value="${searchPageData.pagination.currentPage - 1}"/>
 			</spring:url>
 			<ycommerce:testId code="searchResults_previousPage_link">
-				<a href="${previousPageUrl}" rel="prev"><spring:theme code="${themeMsgKey}.linkPreviousPage"/></a>
+				<a href="${previousPageUrl}" rel="prev" class="search-controls__page-link"><spring:theme code="${themeMsgKey}.linkPreviousPage"/></a>
 			</ycommerce:testId>
 		</c:if>
 		<c:if test="${not hasPreviousPage}">
-			<a href="#" class="hidden" onclick="return false">
+			<a href="#" class="hidden search-controls__page-link" onclick="return false">
 				<spring:theme code="${themeMsgKey}.linkPreviousPage"/>
 			</a>
 		</c:if>
@@ -77,7 +78,7 @@
 						<spring:param name="page" value="${pageNumber - 1}"/>
 					</spring:url>
 					<ycommerce:testId code="pageNumber_link">
-						<a href="${pageNumberUrl}">${pageNumber}</a>
+						<a href="${pageNumberUrl}" class="search-controls__page-link">${pageNumber}</a>
 					</ycommerce:testId>
 				</c:when>
 				<c:otherwise>
@@ -93,13 +94,13 @@
 				<spring:param name="page" value="${searchPageData.pagination.currentPage + 1}"/>
 			</spring:url>
 			<ycommerce:testId code="searchResults_nextPage_link">
-				<a href="${nextPageUrl}" rel="next">
+				<a href="${nextPageUrl}" rel="next" class="search-controls__page-link">
 					<spring:theme code="${themeMsgKey}.linkNextPage"/>
 				</a>
 			</ycommerce:testId>
 		</c:if>
 		<c:if test="${not hasNextPage}">
-			<a href="#" class="hidden" onclick="return false">
+			<a href="#" class="hidden search-controls__page-link" onclick="return false">
 				<spring:theme code="${themeMsgKey}.linkNextPage"/>
 			</a>
 		</c:if>
@@ -110,8 +111,9 @@
 				<spring:param name="page" value="${searchPageData.pagination.numberOfPages - 1}"/>
 			</spring:url>
 			<ycommerce:testId code="lastPage_link">
-				<a href="${lastPageUrl}" rel="prev"><spring:theme code="${themeMsgKey}.lastPage"/></a>
+				<a href="${lastPageUrl}" rel="prev" class="search-controls__page-link"><span class="web-symbols">&#215;</span></a>
 			</ycommerce:testId>
 		</c:if>
 	</li>
 </ul>
+</div>

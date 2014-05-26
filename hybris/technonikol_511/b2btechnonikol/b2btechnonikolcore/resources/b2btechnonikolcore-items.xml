@@ -14,8 +14,7 @@
 <items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
 
 	<collectiontypes>
-		<collectiontype elementtype="Catalog" code="DependentCatalogs"
-						autocreate="true" type="list"/>
+		<collectiontype elementtype="Catalog" code="DependentCatalogs" autocreate="true" type="list"/>
 	</collectiontypes>
 	
 	<enumtypes>
@@ -46,7 +45,7 @@
 			argumenttype="java.lang.String" returntype="java.lang.Double"
 			autocreate="true" generate="true"/>
 	</maptypes>
-
+	
 	<relations>
 		<relation code="ProductUnitRelation" generate="true" localized="false" autocreate="true">
 			<deployment table="Product2UnitConversion" typecode="20005"/>
@@ -57,8 +56,19 @@
 			<sourceElement qualifier="package" type="HFPackage" cardinality="one" />
 			<targetElement qualifier="files" type="HFPackageFile" cardinality="many" collectiontype="set" />
 		</relation>
+		<relation code="UserGroup2UserPriceGroupRel" generate="true" localized="false" autocreate="true">
+			<description>This relation links userGroup with one or more priceGroup.</description>
+			<sourceElement qualifier="userGroup" type="UserGroup" cardinality="one">
+				<description>The Parent UserGroup</description>
+				<modifiers read="true" write="true" search="true" optional="false" />
+			</sourceElement>
+			<targetElement qualifier="allUserPriceGroups" type="UserPriceGroup" cardinality="many" collectiontype="set">
+				<description>PriceGroup associated to a Parent UserGroup</description>
+				<modifiers read="true" write="true" search="true" />
+			</targetElement>
+		</relation>
 	</relations>
-
+	
 	<itemtypes>
 		<!-- Add your item definitions here -->
 
@@ -224,14 +234,20 @@
 				</attributes>
 			</itemtype>
 			
-			<itemtype code="Employee" autocreate="false" generate="false">
-				<description>Extending Employee type with additional attributes.</description>
+			<itemtype code="User" autocreate="false" generate="false">
+				<description>Extending User type with additional attributes.</description>
 				<attributes>
 					<attribute qualifier="phone1" type="java.lang.String">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>Phone number</description>
 					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="Employee" autocreate="false" generate="false">
+				<description>Extending Employee type with additional attributes.</description>
+				<attributes>
 					<attribute qualifier="contactEmail" type="java.lang.String">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
@@ -421,39 +437,6 @@
 				</attributes>
 			</itemtype>
 
-			<itemtype code="TNProductionCountry" autocreate="true" generate="true">
-				<description>Dictionary for production countries.</description>
-				<deployment table="ProductType" typecode="20004"/>
-				<custom-properties>
-					<property name="catalogItemType">
-						<value>java.lang.Boolean.TRUE</value>		
-					</property>
-					<property name="catalogVersionAttributeQualifier">
-						<value>"catalogVersion"</value>		
-					</property>
-					<property name="uniqueKeyAttributeQualifier">
-						<value>"code"</value>		
-					</property>
-				</custom-properties>
-				<attributes>
-					<attribute qualifier="catalogVersion" type="CatalogVersion">
-						<modifiers optional="false" unique="true"/>
-						<persistence type="property"/>
-						<description>Catalog version</description>
-					</attribute>
-					<attribute qualifier="code" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
-						<persistence type="property"/>
-						<description>Production country code</description>
-					</attribute>
-					<attribute qualifier="name" type="localized:java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true"/>
-						<persistence type="property"/>
-						<description>Production country localized name</description>
-					</attribute>
-				</attributes>
-			</itemtype>
-
 			<itemtype code="ProductUnitRelation" extends="Link" autocreate="false" generate="true">
 				<deployment table="Product2UnitConversion" typecode="20005"/>
 				<attributes>
@@ -467,6 +450,11 @@
 			<itemtype code="Product" autocreate="false" generate="false"> 
 				<description>Extending Product type with additional attributes.</description>
 				<attributes>
+					<attribute qualifier="ekn" type="java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>EKN Code</description>
+					</attribute>
 					<attribute qualifier="manufacturerCode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
@@ -590,9 +578,11 @@
 					</attribute>
 				</attributes>
 			</itemtype>
-
+            
 			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">
-			</itemtype>
+				<attributes>
+				</attributes>
+		    </itemtype>
 
 			<itemtype code="HFPackage" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.ps.hf.jalo.HFPackage">
 				<deployment table="hfpackage" typecode="20100"/>
@@ -674,5 +664,6 @@
 
 		</typegroup>
 	</itemtypes>
+
 
 </items>

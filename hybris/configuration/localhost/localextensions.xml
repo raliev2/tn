@@ -34,22 +34,18 @@
 		<extension name="b2bcommerce" />
 		<extension name="b2bapprovalprocess" />
 		<extension name="b2badmincockpit" />
+		<extension name="oci" />
+		<extension name="cybersource" />
 		<extension name="wishlist" />
 		<extension name="commercefacades" />
-		<!-- HYB-45
-		<extension name="oci" />
-		<extension name="cybersource" /> 
-		-->
 
 		<!-- ext-data -->
-		<extension name="commercesearchsampledata" />
-		<extension name="b2bacceleratorsampledata" />
-		<!-- HYB-45
-		<extension name="instoresampledata" />
-		<extension name="apparelstore" />
-		<extension name="electronicsstore" />
-		<extension name="sampledata" />
-		-->
+<!--		<extension name="commercesearchsampledata" />-->
+		<!--<extension name="apparelstore" />-->
+		<!--<extension name="electronicsstore" />-->
+<!--		<extension name="b2bacceleratorsampledata" />-->
+<!--		<extension name="sampledata" />
+		<extension name="instoresampledata" />-->
 
 		<!-- ext-content -->
 		<extension name="productcockpit" />
@@ -65,24 +61,21 @@
 
 		<!-- ext-channel -->
 		<extension name="cscockpit" />
-		<!-- HYB-45 
 		<extension name="mobileoptionals" />
 		<extension name="mobileservices" />
 		<extension name="instore" />
-		-->
+
 
 		<!-- ext-addon -->
 		<extension name="addonsupport" />
-		<!-- HYB-45
 		<extension name="b2ccheckoutaddon" />
-		-->
+
 
 		<!-- ext-print -->
-		<!-- HYB-45
 		<extension name="print" />
 		<extension name="printcockpit" />
 		<extension name="printhmc" />
-		-->
+
 
 		<!-- ext-template -->
 		<!--
@@ -124,6 +117,11 @@
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolstorefront"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolcockpits"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolservices"/>
+		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolsampledata"/>
+
+		 <!--
+<extension dir="${HYBRIS_BIN_DIR}/bin/custom/b2btechnonikol/b2btechnonikolsampledata"/>
+-->
 
 	</extensions>
 </hybrisconfig>

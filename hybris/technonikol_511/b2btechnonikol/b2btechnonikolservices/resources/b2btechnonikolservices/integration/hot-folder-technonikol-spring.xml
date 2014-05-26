@@ -57,6 +57,8 @@
 	<bean id="batchRunnerTask" class="com.teamidea.platform.technonikol.services.dataimport.batch.task.AbstractTechnonikolImpexRunnerTask">
 		<property name="sessionService" ref="sessionService" />
 		<property name="importService" ref="importService" />
+		<property name="userService" ref="userService" />
+		<property name="sessionUser" value="admin" />
 		<lookup-method name="getImportConfig" bean="importConfig" /> 
 	</bean>
 	<bean id="importConfig" class="de.hybris.platform.servicelayer.impex.ImportConfig" scope="prototype">

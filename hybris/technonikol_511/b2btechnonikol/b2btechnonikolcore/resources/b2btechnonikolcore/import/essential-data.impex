@@ -92,9 +92,7 @@ INSERT_UPDATE Trigger;cronJob(code)[unique=true];second;minute;hour;day;month;ye
 
 INSERT_UPDATE UserGroup;uid[unique=true];groups(uid);locname[lang=en];
 ;freedelivery;;Free Delivery Group;
-;prospectivepowerdrill;;Prospective Powerdrill;
-;usd750off10korders;;USD 750 Off 10k Orders;
-;usd50offpowertools;;USD50OffPowertools;
 ;bronzeloyalty;;Bronze Loyalty;
 ;silverloyalty;;Silver Loyalty;
 ;goldloyalty;;Gold Loyalty;
+;accountmanagergroup;cockpitgroup,employeegroup;Account Manager Group

@@ -1,0 +1,12 @@
+﻿# ImpEx for Importing Categories into Technonikol Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$productCatalogVersion=Staged
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default=$productCatalog:$productCatalogVersion]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+# Insert Categories
+UPDATE Category;code[unique=true];$catalogVersion;supercategories(code, $catalogVersion)[mode=remove]
+;categoryCode4;;categoryCode31
