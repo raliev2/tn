@@ -103,4 +103,6 @@
 			<value>;{+0};/300Wx300H/{1};/96Wx96H/{1};/1200Wx1200H/{1};/515Wx515H/{1},/96Wx96H/{1},/30Wx30H/{1};/300Wx300H/{1};/96Wx96H/{1};{1};{S}</value>
 		</property>
 	</bean>
+	<import resource="extended-hotfolder.xml"/>
 </beans>
+

@@ -104,3 +104,4 @@
 		</property>
 	</bean>
 </beans>
+<import resource="extended-hotfolder.xml"/>

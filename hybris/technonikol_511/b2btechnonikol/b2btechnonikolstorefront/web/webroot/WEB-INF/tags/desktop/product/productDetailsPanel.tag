@@ -91,7 +91,7 @@
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
-                    <p class="regularPrice">Розничная цена:</p>
+                    <p class="regularPrice">Цена:</p>
                     <span class="regularPrice__price price">
                         <span class="value-title" title="320 RUB">
                             320,00&nbsp;<span class='g-rouble'>P</span>
@@ -134,51 +134,31 @@
         <div class="block-chars__header">Технические характеристики</div>
         <div class="block-chars__list clearfix">
             <ul>
-
-
-<!--- ПЕРЕВЕРСТАТЬ --->
-<c:if test="${not empty product.classifications}">
-	<c:forEach items="${product.classifications}" var="classification">
-		<!--<h4>${classification.name}</h4>-->
-					<c:forEach items="${classification.features}" var="feature">
-							<li class="block-chars-list__item">
-					                    <div class="block-chars-item__inner clearfix">
-					                        <div class="name-char">${feature.name}: </div>
-                 							
-								<div class="value-char">
-								<c:forEach items="${feature.featureValues}" var="value" varStatus="status">
-									${value.value}
-									<c:choose>
-										<c:when test="${feature.range}">
-											${not status.last ? '-' : feature.featureUnit.symbol}
-										</c:when>
-										<c:otherwise>
-											${feature.featureUnit.symbol}
-											${not status.last ? '<br/>' : ''}
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-								</div>
-   						          </div>
-							</li>
-					</c:forEach>
-	</c:forEach>
-</c:if>
-
-<!----/ПЕРЕВЕРСТАТЬ--->		
-
-
-<!--                <li class="block-chars-list__item">
-                    <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Наименование</div><div class="value-char">${product.name}</div>
-                    </div>
-                </li>
-                <li class="block-chars-list__item">
-                    <div class="block-chars-item__inner clearfix">
-                        <div class="name-char">Объем</div><div class="value-char"><fmt:formatNumber pattern="#,##0" value="${product.volume}" /></div>
-                    </div>
-                </li>
--->
+                <c:if test="${not empty product.classifications}">
+                    <c:forEach items="${product.classifications}" var="classification">
+                        <c:forEach items="${classification.features}" var="feature">
+                            <li class="block-chars-list__item">
+                                <div class="block-chars-item__inner clearfix">
+                                    <div class="name-char">${feature.name}: </div>
+                                    <div class="value-char">
+                                        <c:forEach items="${feature.featureValues}" var="value" varStatus="status">
+                                            ${value.value}
+                                            <c:choose>
+                                                <c:when test="${feature.range}">
+                                                    ${not status.last ? '-' : feature.featureUnit.symbol}
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${feature.featureUnit.symbol}
+                                                    ${not status.last ? '<br/>' : ''}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </c:forEach>
+                </c:if>
             </ul>
         </div>
     </div>
@@ -191,9 +171,15 @@
     </div>
 
     <div class="block-chars">
-        <div class="block-chars__header">Документация</div>
+        <div class="block-chars__header">Сертификаты и техническая документация</div>
         <div class="block-chars__body">
             <a href="javascript:void(0)" class="g-link-blue">Roberts 50 550 Carpet Adhesive Tape Data Sheet</a>
         </div>
+    </div>
+
+    <div class="reviews__disclaimer">
+        <p class="g-strong">Ограничение ответственности за описание товаров:</p>
+        <p>1Платформа не несет ответственности за размещение информации о любом товаре. Информация, размещенная любыми лицами, в том числе сотрудниками 1Платформа, является мнением такого, разместившего информацию, лица, но не является заявлением 1Платформа. 1Платформа не несет ответственности за целесообразность, точность, правильность, актуальность, соответствие и полноту описания товара, а также срок действия данного описания или иной информации, размещенной каким-либо лицом, в том числе сотрудником 1Платформа. Также 1Платформа не несет ответственности за любые убытки, травмы и иной ущерб, который может возникнуть в результате использования или применения информации из указанного описания товаров.</p>
+        <p>1Платформа – это торговый знак и знак обслуживания «ТехноНИКОЛЬ 1 Платформа», принадлежащий группе компаний ТехноНИКОЛЬ.  </p>
     </div>
 </section>

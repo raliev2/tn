@@ -1,4 +1,5 @@
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -16,7 +17,76 @@
 	</jsp:attribute>
 	
 	<jsp:body>
-	<div id="breadcrumb" class="breadcrumb">
+        <div id="globalMessages">
+            <common:globalMessages/>
+        </div>
+
+        <section class="g-main-content g-main-content_no-padding clearfix">
+            <aside class="g-left-col g-left-col_right-shadow">
+                <div class="filter-block filter-block_border-bottom">
+                    <div class="filter-block__header_red">Фильтр</div>
+                </div>
+                <nav:facetNavAppliedFilters pageData="${searchPageData}"/>
+                <nav:facetNavRefinements pageData="${searchPageData}"/>
+            </aside>
+
+            <section class="g-right-col">
+                <div class="g-float-right block-buttons">
+                    <a href="javascript:void(0)" class="g-button-white">Печать</a>
+                </div>
+                <div class="clearfix"></div>
+                <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="bread-crumbs_mini" />
+                <div class="clearfix"></div>
+                <div class="search-string">
+
+                </div>
+                <div class="found-amount">
+                    <product:productAmount amount="${searchPageData.pagination.totalNumberOfResults}" />
+                </div>
+                <div class="banner-700px">
+                    <a href="javascript:void(0)">
+                        <img src="${themeResourcePath}/images/banners/westard.jpg" alt="Westward" title="Westward" />
+                    </a>
+                </div>
+                <nav:searchSorts top="true"  supportShowPaged="false"
+                                 supportShowAll="false"
+                                 searchPageData="${searchPageData}"
+                                 searchUrl="${searchPageData.currentQuery.url}"
+                                 numberPagesShown="${numberPagesShown}"
+                        />
+
+                <nav:pagination top="true"  supportShowPaged="false"
+                                supportShowAll="false"
+                                searchPageData="${searchPageData}"
+                                searchUrl="${searchPageData.currentQuery.url}"
+                                numberPagesShown="${numberPagesShown}"
+                        />
+                <section class="search-results" id="resultsList" data-isOrderForm="false">
+                    <c:forEach items="${searchPageData.results}" var="product" varStatus="varStatus">
+                        <product:productListerItem product="${product}" index1="${varStatus.index}" />
+                    </c:forEach>
+                </section>
+                <nav:pagination top="true"  supportShowPaged="false"
+                                supportShowAll="false"
+                                searchPageData="${searchPageData}"
+                                searchUrl="${searchPageData.currentQuery.url}"
+                                numberPagesShown="${numberPagesShown}"
+                        />
+                <nav:searchSorts top="true"  supportShowPaged="false"
+                                 supportShowAll="false"
+                                 searchPageData="${searchPageData}"
+                                 searchUrl="${searchPageData.currentQuery.url}"
+                                 numberPagesShown="${numberPagesShown}"
+                        />
+
+                <div class="category-description">
+                    Посмотри, огромный проволоки щипцы и выбор щипцов кабеля от Грейнджер до Вашего следующего проводки работы. Вы найдете Клещи для обжима широкого спектра кабельно-проводниковой типов и полный гаммы резки, опрессовка и зачистки задач, так что вы можете использовать только правильный инструмент для работы. Будь то коаксиальный кабель, клеммы батареи, изолированный или неизолированный электропроводка или другой тип обжима работы многих проволоки Щипцы и варианты щипцов кабеля от Грейнджер может помочь сделать вашу работу легче. Магазин уже сегодня!
+                </div>
+            </section>
+        </section>
+        <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
+        <common:infiniteScroll/>
+	<%--<div id="breadcrumb" class="breadcrumb">
 		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
 	</div>
 	<div id="globalMessages">
@@ -73,6 +143,6 @@
 				<nav:pagination top="false" supportShowPaged="false" supportShowAll="false" searchPageData="${searchPageData}" searchUrl="${searchPageData.currentQuery.url}" numberPagesShown="${numberPagesShown}"/>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 	</jsp:body>
 </template:page>

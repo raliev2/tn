@@ -69,5 +69,5 @@
 		<property name="maxThreads" value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.max-threads')}" />
 		<property name="locale" value="ru"/>
 	</bean>
-
+	<import resource="extended-hotfolder.xml"/>
 </beans>

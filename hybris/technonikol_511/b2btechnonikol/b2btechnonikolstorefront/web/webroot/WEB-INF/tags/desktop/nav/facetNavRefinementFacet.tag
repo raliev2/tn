@@ -42,7 +42,7 @@
                         <a href="javascript:void(0)" class="js-show-all filter-block__show-all" data-text="Скрыть">Показать все</a>
                     </c:if>
 
-                    <ul class="facet_block ${facetData.multiSelect ? '' : 'indent'} ${not empty facetData.topValues ? 'g-hidden' : ''}">
+                    <ul class="facet_block ${facetData.multiSelect ? '' : 'indent'} ${not empty facetData.topValues ? ' g-hidden' : ''}">
                         <c:forEach items="${facetData.values}" var="facetValue">
                             <li>
                                 <c:if test="${facetData.multiSelect}">
