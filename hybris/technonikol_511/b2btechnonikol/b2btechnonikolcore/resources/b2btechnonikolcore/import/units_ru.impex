@@ -1,0 +1,3 @@
+$lang=ru
+
+insert_update Unit;code[unique=true];name[lang=$lang]
