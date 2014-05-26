@@ -24,8 +24,6 @@ import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.core.initialization.SystemSetupParameter;
 import de.hybris.platform.core.initialization.SystemSetupParameterMethod;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
-import com.teamidea.platform.technonikol.core.setup.CoreSystemSetup;
-import com.teamidea.platform.technonikol.initialdata.constants.B2btechnonikolInitialDataConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +35,9 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import com.teamidea.platform.technonikol.core.setup.CoreSystemSetup;
+import com.teamidea.platform.technonikol.initialdata.constants.B2btechnonikolInitialDataConstants;
 
 
 /**
@@ -55,7 +56,8 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 	private static final String IMPORT_SAMPLE_DATA = "importSampleData";
 	private static final String SAMPLE_DATA_IMPORT_FOLDER = "b2btechnonikolsampledata";
 
-	public static final String TN = "tn";
+	public static final String TN_CATALOG = "tn";
+	public static final String TN_STORE = "firstplatform";
 
 
 	/**
@@ -106,13 +108,12 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		{
 			importCommonData(context, SAMPLE_DATA_IMPORT_FOLDER);
 
-			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, "firstplatform", "firstplatform",
-					Collections.singletonList("firstplatform"));
+			importStoreInitialData(context, SAMPLE_DATA_IMPORT_FOLDER, TN_STORE, TN_CATALOG, Collections.singletonList(TN_CATALOG));
 
 			final ImportData tnImportData = new ImportData();
-			tnImportData.setProductCatalogName(TN);
-			tnImportData.setContentCatalogNames(Arrays.asList(TN));
-			tnImportData.setStoreNames(Arrays.asList(TN));
+			tnImportData.setProductCatalogName(TN_CATALOG);
+			tnImportData.setContentCatalogNames(Arrays.asList(TN_CATALOG));
+			tnImportData.setStoreNames(Arrays.asList(TN_STORE));
 			// Send an event to notify any AddOns that the initial data import is complete
 			getEventService().publishEvent(new SampleDataImportedEvent(context, Arrays.asList(tnImportData)));
 		}

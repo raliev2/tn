@@ -58,8 +58,8 @@
 		</relation>
 		<relation code="UserGroup2UserPriceGroupRel" generate="true" localized="false" autocreate="true">
 			<description>This relation links userGroup with one or more priceGroup.</description>
-			<sourceElement qualifier="userGroup" type="UserGroup" cardinality="one">
-				<description>The Parent UserGroup</description>
+			<deployment table="grouppricelists" typecode="20006"/>
+			<sourceElement qualifier="userGroups" type="UserGroup" cardinality="many" collectiontype="set">
 				<modifiers read="true" write="true" search="true" optional="false" />
 			</sourceElement>
 			<targetElement qualifier="allUserPriceGroups" type="UserPriceGroup" cardinality="many" collectiontype="set">
@@ -584,7 +584,7 @@
 				</attributes>
 		    </itemtype>
 
-			<itemtype code="HFPackage" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.ps.hf.jalo.HFPackage">
+			<itemtype code="HFPackage" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.jalo.hotfolder.HFPackage">
 				<deployment table="hfpackage" typecode="20100"/>
 				<attributes>
 					<attribute type="java.lang.String" qualifier="guid">
@@ -618,7 +618,7 @@
 				</indexes>
 			</itemtype>
 
-			<itemtype code="HFPackageFile" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.ps.hf.jalo.HFPackageFile">
+			<itemtype code="HFPackageFile" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.jalo.hotfolder.HFPackageFile">
 				<deployment table="hfpackagefile" typecode="20101"/>
 				<attributes>
 					<!--TODO try to switch it to path-->
