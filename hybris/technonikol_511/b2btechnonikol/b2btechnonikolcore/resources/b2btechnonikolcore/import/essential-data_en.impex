@@ -7,27 +7,19 @@ $lang=en
 
 # Languages
 UPDATE Language;isocode[unique=true];name[lang=$lang]
-;de;German;
 ;en;English;
-;ja;Japanese;
-;zh;Chinese;
-
+;ru;Russian;
 
 # Currencies
 UPDATE Currency;isocode[unique=true];name[lang=$lang]
-;CAD;Canadian Dollar;
-;EUR;Euro;
 ;USD;US Dollar;
+;RUB;Rubble;
 
 
 # Titles
 UPDATE Title;code[unique=true];name[lang=$lang]
-;dr;Dr.;
-;miss;Miss;
 ;mr;Mr;
 ;mrs;Mrs;
-;ms;Ms;
-;rev;Rev.;
 
 
 # Credit / Debit Cards
