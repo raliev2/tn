@@ -9,6 +9,6 @@
 <c:if test="${not empty spellingSuggestion}">
 	<div class="searchSpellingSuggestionPrompt">
 		<c:url value="${spellingSuggestion.query.url}" var="spellingSuggestionQueryUrl"/>
-		<spring:theme code="search.spellingSuggestion.prompt" />&nbsp;<a href="${spellingSuggestionQueryUrl}">${spellingSuggestion.suggestion}</a>?
+		<spring:theme code="search.spellingSuggestion.prompt" />:&nbsp;<a href="${spellingSuggestionQueryUrl}" class="g-link-blue">${spellingSuggestion.suggestion}</a>?
 	</div>
 </c:if>

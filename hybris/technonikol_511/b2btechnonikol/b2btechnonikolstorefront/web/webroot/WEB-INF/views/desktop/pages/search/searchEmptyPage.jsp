@@ -26,6 +26,7 @@
             <cms:pageSlot position="SideContent" var="feature" element="div" class="span-4 side-content-slot cms_disp-img_slot">
                 <cms:component component="${feature}"/>
             </cms:pageSlot>
+            <div class="clearfix"></div>
             <div class="span-20 right last">
                 <div class="item_container_holder">
                     <div class="title_holder">

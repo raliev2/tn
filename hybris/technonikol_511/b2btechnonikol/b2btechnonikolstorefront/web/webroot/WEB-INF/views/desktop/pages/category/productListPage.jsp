@@ -27,6 +27,7 @@
                     <div class="filter-block__header_red">Фильтр</div>
                 </div>
                 <nav:facetNavAppliedFilters pageData="${searchPageData}"/>
+                <nav:searchInCategory pageData="${searchPageData}" />
                 <nav:facetNavRefinements pageData="${searchPageData}"/>
             </aside>
 

@@ -17,18 +17,19 @@
             <ul>
             <c:forEach end="${component.maximumNumberProducts}" items="${productReferences}" var="productReference">
                 <c:url value="${productReference.target.url}/quickView" var="productQuickViewUrl"/>
+                <c:url value="${productReference.target.url}" var="productUrl"/>
                 <li class="product-carousel__item product-carousel__item_930px">
                     <div class="product-carousel-item__img product-carousel-item__img_930px">
-                        <a href="${productQuickViewUrl}"><product:productPrimaryImage product="${productReference.target}" format="thumbnail"/></a>
+                        <a href="${productUrl}"><product:productPrimaryImage product="${productReference.target}" format="thumbnail"/></a>
                     </div>
                     <div class="product-carousel-item__info">
                         <c:if test="${component.displayProductTitles}">
                         <div class="product-carousel-item__name">
-                            <a href="${productQuickViewUrl}">${productReference.target.name}</a>
+                            <a href="${productUrl}">${productReference.target.name}</a>
                         </div>
                         </c:if>
                         <div class="product-carousel-item__articul">
-                            <spring:theme code="page.productDetails.article"/>: <a href="${productQuickViewUrl}">${productReference.target.code}</a>
+                            <spring:theme code="page.productDetails.article"/>: <a href="${productUrl}">${productReference.target.code}</a>
                                 <p class="product-carousel-item__manufacturer">${productReference.target.manufacturer}</p>
                         </div>
                     </div>

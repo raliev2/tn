@@ -27,6 +27,8 @@
             <cms:component component="${comp}"/>
         </cms:pageSlot>
 
+        <product:productDisclaimer />
+
     </section>
     <div class="button-up clearfix">
         <a href="javascript:void(0)" class="g-button-black button-to-up">Наверх</a>
