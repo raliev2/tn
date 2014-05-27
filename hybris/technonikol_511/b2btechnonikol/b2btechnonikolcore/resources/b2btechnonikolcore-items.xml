@@ -52,15 +52,17 @@
 			<sourceElement type="Product" qualifier="products" collectiontype="set" cardinality="many" ordered="false"/>
 			<targetElement type="Unit" qualifier="units" collectiontype="set" cardinality="many" ordered="false"/>
 		</relation>
+		
 		<relation code="HFPackageToFileRelation" autocreate="true" generate="true" localized="false">
 			<sourceElement qualifier="package" type="HFPackage" cardinality="one" />
 			<targetElement qualifier="files" type="HFPackageFile" cardinality="many" collectiontype="set" />
 		</relation>
+		
 		<relation code="UserGroup2UserPriceGroupRel" generate="true" localized="false" autocreate="true">
 			<description>This relation links userGroup with one or more priceGroup.</description>
 			<deployment table="grouppricelists" typecode="20006"/>
 			<sourceElement qualifier="userGroups" type="UserGroup" cardinality="many" collectiontype="set">
-				<modifiers read="true" write="true" search="true" optional="false" />
+				<modifiers read="true" write="true" search="true"/>
 			</sourceElement>
 			<targetElement qualifier="allUserPriceGroups" type="UserPriceGroup" cardinality="many" collectiontype="set">
 				<description>PriceGroup associated to a Parent UserGroup</description>
@@ -561,15 +563,10 @@
 						<persistence type="property"/>
 						<description>Volume (m3)</description>
 					</attribute>
-					<attribute qualifier="sunit" type="Unit">
+					<attribute qualifier="baseUnit" type="Unit">
 						<modifiers read="true" write="true" search="true" optional="false"/>
 						<persistence type="property"/>
-						<description>Product sale units</description>
-					</attribute>
-					<attribute qualifier="unitsMap" type="ProductUnitsMap">
-						<modifiers read="true" write="true" search="true" optional="true"/>
-						<persistence type="property"/>
-						<description>Product additional units</description>
+						<description>Product base units</description>
 					</attribute>
 					<attribute qualifier="vat" type="java.lang.Integer">
 						<modifiers read="true" write="true" search="true" optional="true"/>

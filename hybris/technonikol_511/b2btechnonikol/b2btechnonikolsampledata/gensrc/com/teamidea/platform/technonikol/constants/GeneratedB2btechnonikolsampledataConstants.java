@@ -1,7 +1,7 @@
 /*
  * ----------------------------------------------------------------
  * --- WARNING: THIS FILE IS GENERATED AND WILL BE OVERWRITTEN! ---
- * --- Generated at 26.05.2014 22:05:00                         ---
+ * --- Generated at 27.05.2014 17:27:39                         ---
  * ----------------------------------------------------------------
  */
 package com.teamidea.platform.technonikol.constants;

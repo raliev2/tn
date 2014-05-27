@@ -12,11 +12,7 @@
 -->
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
-
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
-
-	<!--<description>Product Fields</description>-->
-	
 	    <property name="manufacturerCode" type="java.lang.String"/>
         <property name="ekn" type="java.lang.String"/>
         <property name="supplierCode" type="java.lang.String"/>
@@ -24,13 +20,10 @@
         <property name="ETIMCode" type="java.lang.String"/>
         <property name="EClassCode" type="java.lang.String"/>
         <property name="barcode" type="java.lang.String"/>
-
-
-	<property name="brand" type="com.teamidea.platform.technonikol.core.model.TNBrandModel"/>
+		<property name="brand" type="com.teamidea.platform.technonikol.core.model.TNBrandModel"/>
         <property name="supplier" type="com.teamidea.platform.technonikol.core.model.TNSupplierModel"/>
         <property name="productionCountry" type="de.hybris.platform.core.model.c2l.CountryModel"/>
         <property name="productType" type="com.teamidea.platform.technonikol.core.model.TNProductTypeModel"/>
-
         <property name="productSubtype" type="String"/>
         <property name="productModel" type="String"/>
         <property name="productPurpose" type="String"/>
@@ -42,11 +35,7 @@
         <property name="weightGross" type="Double"/>
         <property name="weightNet" type="Double"/>
         <property name="volume" type="Double"/>
-
-        <property name="sunit" type="de.hybris.platform.core.model.product.UnitModel"/>
-        <!--<property name="unitsMap" type="ProductUnitsMap"/>-->
-
+        <property name="baseUnit" type="de.hybris.platform.core.model.product.UnitModel"/>
         <property name="vat" type="Integer"/>
-
 	</bean>
 </beans>

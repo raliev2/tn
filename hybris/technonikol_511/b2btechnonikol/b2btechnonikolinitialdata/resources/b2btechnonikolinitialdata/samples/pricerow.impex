@@ -1,15 +1,14 @@
-﻿$productCatalog=tnProductCatalog
-$productCatalogVersion=Staged
+$productCatalog=tnProductCatalog
+$productCatalogVersion=Online
 $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default='$productCatalog:$productCatalogVersion']
-$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
 
-# Set product approval status to Approved only for those products that have prices.
-$approved=approvalstatus(code)[default='approved']
+# Связь Партнер-ГруппаЦен
+INSERT_UPDATE UserGroup2UserPriceGroupRel;source(TNPartner.uid)[unique=true];target(UserPriceGroup.code)[unique=true];
+;TNPartner1;TN_B2B_PKA_PGA_PRICE_GROUP;
+;TNPartner1;TN_B2B_PKB_PGA_PRICE_GROUP;
+;Partner Retail;TN_B2B_PKC_PGA_PRICE_GROUP;
 
-INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=en];
-;TN_B2B_PKA_PGA_PRICE_GROUP;PriceKindA-PriceGroupA;
-;TN_B2B_PKB_PGA_PRICE_GROUP;PriceKindB-PriceGroupA;
-;TN_B2B_PKC_PGA_PRICE_GROUP;PriceKindC-PriceGroupA;
-
-UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;
-;2613282;TN_B2B_PKA_PGA_PRICE_GROUP 1 pieces = 16 RUB N, TN_B2B_PKB_PGA_PRICE_GROUP 1 pieces = 25 RUB N, TN_B2B_PKC_PGA_PRICE_GROUP 1 pieces = 35 RUB N
+# Цена Продукта для ГруппыЦен
+INSERT_UPDATE PriceRow;product(code,$catalogVersion)[unique=true];ug(code)[unique=true];unit(code)[unique=true,default=defunit];unitFactor[default=1];price[allownull=true];net[default=true];$catalogVersion;currency(isocode)[default=RUB];
+;022421;TN_B2B_PKA_PGA_PRICE_GROUP;;;1250.25;;;;
+"#% impex.getLastImportedItem().setUnit(impex.getLastImportedItem().getProduct().getBaseUnit() );"
