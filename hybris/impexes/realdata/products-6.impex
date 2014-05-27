@@ -7,7 +7,7 @@ $cat_products=target(code, $catalogVersion)[unique=true]
 $cat_supercategories=source(code, $catalogVersionOnline)[unique=true]
 $approved=approvalstatus(code)[default='approved']
 
-INSERT_UPDATE TNProduct;code[unique=true];ekn;name[lang=ru];sunit(code)[default=pieces];$catalogVersion;$approved
+INSERT_UPDATE TNProduct;code[unique=true];ekn;name[lang=ru];baseUnit(code)[default=pieces];$catalogVersion;$approved
 ;000100;000100;"Техноэласт ЭПП";pieces
 ;001799;001799;"Техноэласт ЭКП сланец серый";pieces
 ;000101;000101;"Техноэласт ТКП сланец серый";pieces
