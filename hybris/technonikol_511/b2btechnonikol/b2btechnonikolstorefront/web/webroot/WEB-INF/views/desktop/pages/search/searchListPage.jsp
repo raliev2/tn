@@ -29,6 +29,7 @@
                     <div class="filter-block__header_red">Фильтр</div>
                 </div>
                 <nav:facetNavAppliedFilters pageData="${searchPageData}"/>
+                <nav:searchInResults pageData="${searchPageData}" />
                 <nav:facetNavRefinements pageData="${searchPageData}"/>
             </aside>
 
@@ -76,10 +77,10 @@
                                  numberPagesShown="${numberPagesShown}"
                         />
 
-
+                <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
             </section>
         </section>
-        <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
+
         <common:infiniteScroll/>
     </jsp:body>
 </template:page>

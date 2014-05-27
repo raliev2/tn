@@ -9,12 +9,6 @@
 <%@ taglib prefix="theme" tagdir="/WEB-INF/tags/shared/theme" %>
 
 <c:if test="${not empty pageData.facets}">
-    <div class="filter-block filter-block_border-bottom">
-        <label for="search_by_category" class="g-label-mini">Поиск в найденном</label>
-        <input type="text" name="search_by_category" id="search_by_category" size="17" class="g-input" />
-        <a href="javascript:void(0)" class="g-button-black g-float-right">Найти</a>
-    </div>
-
 	<c:forEach items="${pageData.facets}" var="facet" varStatus="varStatus">
 		<c:choose>
 			<c:when test="${facet.code eq 'availableInStores'}">

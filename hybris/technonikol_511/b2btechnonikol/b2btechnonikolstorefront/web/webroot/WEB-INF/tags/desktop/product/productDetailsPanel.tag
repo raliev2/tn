@@ -116,15 +116,15 @@
                 <ul>
                     <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
 
-                    <li class="one-characteristic">Модель: <span class="one-characteristic__value">5HXE0</span></li>                  
+                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.ekn}</span></li>
 		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightNet}</span></li>
+                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightGross}</span></li>
 
                 </ul>
             </div>
             <div class="product-country">
-                Страна производитель: <span class="one-characteristic__value">США</span>
+                Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
             </div>
         </div>
     </div>
@@ -177,9 +177,4 @@
         </div>
     </div>
 
-    <div class="reviews__disclaimer">
-        <p class="g-strong">Ограничение ответственности за описание товаров:</p>
-        <p>1Платформа не несет ответственности за размещение информации о любом товаре. Информация, размещенная любыми лицами, в том числе сотрудниками 1Платформа, является мнением такого, разместившего информацию, лица, но не является заявлением 1Платформа. 1Платформа не несет ответственности за целесообразность, точность, правильность, актуальность, соответствие и полноту описания товара, а также срок действия данного описания или иной информации, размещенной каким-либо лицом, в том числе сотрудником 1Платформа. Также 1Платформа не несет ответственности за любые убытки, травмы и иной ущерб, который может возникнуть в результате использования или применения информации из указанного описания товаров.</p>
-        <p>1Платформа – это торговый знак и знак обслуживания «ТехноНИКОЛЬ 1 Платформа», принадлежащий группе компаний ТехноНИКОЛЬ.  </p>
-    </div>
 </section>
