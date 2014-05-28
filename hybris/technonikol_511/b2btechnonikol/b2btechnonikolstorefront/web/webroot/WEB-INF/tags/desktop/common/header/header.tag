@@ -11,6 +11,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="theme" tagdir="/WEB-INF/tags/shared/theme" %>
 
+		<!--<header:searchBox/>-->
+		<cms:pageSlot position="SearchBox" var="component">
+			<cms:component component="${component}"/>
+		</cms:pageSlot>
+
+
 <header class="clearfix">
     <div class="logo">
         <a href="javascript:void(0)"><img src="${themeResourcePath}/images/logo.png" alt="ТЕХНОНИКОЛЬ" title="ТЕХНОНИКОЛЬ" /></a>
