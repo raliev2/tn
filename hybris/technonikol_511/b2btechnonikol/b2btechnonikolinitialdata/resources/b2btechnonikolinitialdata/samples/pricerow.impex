@@ -10,5 +10,7 @@ INSERT_UPDATE UserGroup2UserPriceGroupRel;source(TNPartner.uid)[unique=true];tar
 
 # Цена Продукта для ГруппыЦен
 INSERT_UPDATE PriceRow;product(code,$catalogVersion)[unique=true];ug(code)[unique=true];unit(code)[unique=true,default=defunit];unitFactor[default=1];price[allownull=true];net[default=true];$catalogVersion;currency(isocode)[default=RUB];
-;022421;TN_B2B_PKA_PGA_PRICE_GROUP;;;1250.25;;;;
-"#% impex.getLastImportedItem().setUnit(impex.getLastImportedItem().getProduct().getBaseUnit() );"
+"#%afterEach: impex.getLastImportedItem().setUnit(impex.getLastImportedItem().getProduct().getBaseUnit() );"
+;000100;TN_B2B_PKA_PGA_PRICE_GROUP;;;1250.25;;;;
+;000100;TN_B2B_PKB_PGA_PRICE_GROUP;;;1000.25;;;;
+#%afterEach:end

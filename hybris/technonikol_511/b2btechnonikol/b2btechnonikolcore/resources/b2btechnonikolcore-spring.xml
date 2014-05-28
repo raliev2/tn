@@ -45,6 +45,11 @@
         <property name="priceService" ref="priceService"/>
     </bean>
 
+    <bean id="brandNameVolumeProvider" class="com.teamidea.platform.technonikol.core.solr.provider.TNBrandNameValueProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+    </bean>
+    
     <bean id="tnCategorySource" parent="variantCategorySource">
         <property name="rootCategory" value="stroitelnye_materialy"/> <!-- '1' is the root icecat category -->
     </bean>
