@@ -17,7 +17,7 @@
    <extension abstractclassprefix="Generated" classprefix="Technonikolintegration" managername="TechnonikolintegrationManager" managersuperclass="de.hybris.platform.jalo.extension.Extension" name="technonikolintegration">
                
       <!-- you should add all required extensions to this list, except platform extensions which are automatically required -->         
-      <requires-extension name="technonikolfacades"/>
+      <requires-extension name="b2btechnonikolfacades"/>
       <!--<requires-extension name="b2bacceleratorfacades"/>-->
       <requires-extension name="mediaconversion"/>
 
