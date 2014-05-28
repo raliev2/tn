@@ -1,0 +1,7 @@
+insert_update Product;code[unique=true];manufacturerCode;quantityInPackage;documentCode;unreplenishable;brand(code);
+;000021;;10;ГОСТ ххх;false;tn
+;441750;;12;ГОСТ ххх;false;isoroc
+
+insert_update Product;code[unique=true];weightGross;weightNet;volume;
+;000021;10;20;30
+;441750;10;20;30

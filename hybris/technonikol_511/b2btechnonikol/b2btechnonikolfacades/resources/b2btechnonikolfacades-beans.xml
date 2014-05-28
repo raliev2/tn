@@ -13,12 +13,12 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
 
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
-	    <property name="manufacturerCode" type="java.lang.String"/>
         <property name="ekn" type="java.lang.String"/>
         <property name="supplierCode" type="java.lang.String"/>
         <property name="documentCode" type="java.lang.String"/>
         <property name="ETIMCode" type="java.lang.String"/>
         <property name="EClassCode" type="java.lang.String"/>
+        <property name="manufacturerCode" type="java.lang.String"/>
         <property name="barcode" type="java.lang.String"/>
 		<property name="brand" type="com.teamidea.platform.technonikol.core.model.TNBrandModel"/>
         <property name="supplier" type="com.teamidea.platform.technonikol.core.model.TNSupplierModel"/>
