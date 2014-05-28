@@ -35,7 +35,7 @@
     <int:service-activator input-channel="enrich" output-channel="batchFilesTransform" ref="headerSetupTask"
                            method="execute" />
     <bean id="headerSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
-        <property name="catalog" value="powertoolsProductCatalog" />
+        <property name="catalog" value="#{configurationService.configuration.getProperty('technonikolintegration.product.catalog')}" />
         <property name="net" value="false" />
         <property name="storeBaseDirectory" ref="baseDirectoryPowertools" />
     </bean>
@@ -208,7 +208,7 @@
                 $data_sheet=data_sheet(code, $catalogVersion)
                 $medias=medias(code, $catalogVersion)
                 $galleryImages=galleryImages(qualifier, $catalogVersion)
-                INSERT_UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion
+                UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion
             </value>
         </property>
         <property name="impexRow">
