@@ -8,7 +8,7 @@ $indexedType=tnProductType
 
 UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$indexedType];name[unique=true];displayName[lang=$lang]
  ;;allPromotions;Акция;
- ;;brand;Бренд;
+ ;;brandName;Производитель;
  ;;category;Категория;
  ;;code;Код;
  ;;description;Описание;
