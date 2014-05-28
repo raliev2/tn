@@ -1,7 +1,7 @@
-insert_update Product;code[unique=true];manufacturerCode;quantityInPackage;documentCode;unreplenishable;brand(code);
-;000021;;10;ГОСТ ххх;false;tn
-;441750;;12;ГОСТ ххх;false;isoroc
+update TNProduct;code[unique=true];manufacturerCode;quantityInPackage;documentCode;unreplenishable;brand(code);productionCountry(isocode);productType(code);
+;000021;1111;10;ГОСТ ххх;false;tn;RU;type1
+;441750;2222;12;ГОСТ ххх;false;isoroc;US;type2
 
-insert_update Product;code[unique=true];weightGross;weightNet;volume;
+update TNProduct;code[unique=true];weightGross;weightNet;volume;
 ;000021;10;20;30
 ;441750;10;20;30

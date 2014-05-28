@@ -126,13 +126,14 @@
 
                     <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
 		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
-		            <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${documentCode}</span></li>
+		            <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
 
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
                     <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
                     <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
                     <li class="one-characteristic">Запрещен к закупке: <span class="one-characteristic__value">${product.unreplenishable}</span></li>
+                    <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
                 </ul>
             </div>
