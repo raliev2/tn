@@ -98,6 +98,7 @@
                         </span>
                     </span>
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
+                    <p class="auth-message">Авторизуйтесь, пожалуйста, для получения актуальной цены</p>
                 </div>
                 <div class="characteristics-line__col2">
                     <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
@@ -114,9 +115,9 @@
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
-                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
+                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
 
-                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.ekn}</span></li>
+                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
 		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
                     <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightGross}</span></li>
@@ -126,6 +127,7 @@
             <div class="product-country">
                 Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
             </div>
+            <product:productPromotionSection product="${product}"/>
         </div>
     </div>
 </section>

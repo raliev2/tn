@@ -29,7 +29,7 @@
         Список
     </div>
     <div class="search-controls__pagination">
-        Результатов на странице:   5  |  <a href="javascript:void(0)" class="g-link-blue">10</a>  |  <a href="javascript:void(0)" class="g-link-blue">20</a>
+        Результатов на странице:   <a href="javascript:void(0)" class="g-link-blue">5</a>  |  10  |  <a href="javascript:void(0)" class="g-link-blue">20</a>
     </div>
 
     <c:if test="${paginationType eq 'pagination' && (searchPageData.pagination.numberOfPages > 1)}">
