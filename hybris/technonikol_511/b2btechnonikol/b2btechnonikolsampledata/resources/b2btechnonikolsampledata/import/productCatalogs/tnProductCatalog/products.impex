@@ -11,7 +11,7 @@ $approved=approvalstatus(code)[default='approved']
 $lang=ru
 
 # Insert Products
-INSERT_UPDATE TNProduct;code[unique=true];$approved;name[lang=ru];weightGross;weightNet;volume;description[lang=ru];sunit(code)[default='pieces'];$supercategories;manufacturerName;manufacturerAID;ean;variantType(code);unit(code)[default=pieces];$catalogVersion
+INSERT_UPDATE TNProduct;code[unique=true];$approved;name[lang=ru];weightGross;weightNet;volume;description[lang=ru];baseUnit(code)[default='pieces'];$supercategories;manufacturerName;manufacturerAID;ean;variantType(code);unit(code)[default=pieces];$catalogVersion
 ;"022421";;"Рубероид ТУ РПП 300";"19.5";"1.3";"";"Рубероид активно применяется в строительстве: от кровельных работ до гидроизоляции строительных конструкций. Рубероид РПП-300 — это подлаточная модификация с пылевидным напылением. Используется для работ, связанных с нижним кровельным ковром.";;"Рубероид";"manuf";;;;
 ;"376441";;"LitoFlex K80 (25kg)";"";"25.00";"";"Эластичная сухая смесь. Материал отличается быстрым схватыванием и высыханием, морозоустойчив. Применяется для внутренних и внешних работ по укладке керамогранита и натурального камня. Готовая смесь может храниться около 8 часов. При работе следует соблюдать температурный и влажностный режим.";;"Штукатурные фасады";"manuf1";;;;
 ;"370784";;"Кровельный крепеж РОКС-120 (500 шт/уп)";"";"5.60";"";"Тарельчатый полимерный дюбель отличается устойчивостью к щелочам и крайне неблагоприятным погодным условиям, а также морозоустойчивостью, высокой прочностью и длительным сроком эксплуатации. Используется для крепления тепло- и гидроизоляции и демонтажа отдельных частей кровли. Применяется вместе с анкерным элементом.";;"Комплектующие";"manuf2";;;;

@@ -1,0 +1,20 @@
+﻿$productCatalog=tnProductCatalog
+$productCatalogVersion=Online
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='$productCatalogVersion'])[unique=true,default='$productCatalog:$productCatalogVersion']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+UPDATE TNProduct;code[unique=true];$prices;$approved;$catalogVersion;unit(code)[default=pieces]
+;000100;1 pieces = 300 RUB;
+;022421;1 pieces = 150 RUB;
+;376441;1 pieces = 130 RUB;
+;370784;1 pieces = 540 RUB;
+;000100;1 pieces = 1300 RUB;
+;012654;1 pieces = 350 RUB;
+;224507;1 pieces = 310 RUB;
+;369914;1 pieces = 710 RUB;
+;436969;1 pieces = 820 RUB;
+;003295;1 pieces = 930 RUB;
+;013107;1 pieces = 460 RUB;
