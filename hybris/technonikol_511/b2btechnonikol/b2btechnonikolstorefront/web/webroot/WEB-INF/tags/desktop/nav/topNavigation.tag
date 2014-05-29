@@ -18,7 +18,9 @@
         <li class="menu__item"><a href="javascript:void(0)" class="item-menu__link">о компании</a></li>
     </ul>
     </div>
-    <header:searchBox/>
+    <cms:pageSlot position="SearchBox" var="component">
+        <cms:component component="${component}"/>
+    </cms:pageSlot>
 </nav>
 
 <div class="fast-links fast-links_notlogin clearfix">
