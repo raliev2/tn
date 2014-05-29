@@ -11,7 +11,7 @@
 
 <template:page pageTitle="${pageTitle}">
 <jsp:body>
-    <section class="g-main-content g-main-content_over-view clearfix hproduct">
+<section class="g-main-content g-main-content_over-view clearfix hproduct">
 
     <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="category"/>
 

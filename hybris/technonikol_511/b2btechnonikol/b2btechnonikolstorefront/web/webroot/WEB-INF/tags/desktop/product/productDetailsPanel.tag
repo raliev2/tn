@@ -90,22 +90,14 @@
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
-                    <p class="regularPrice">Цена:</p>
-                    <span class="regularPrice__price price">
-                        <span class="value-title" title="320 RUB">
-<!--                            320,00&nbsp;<span class='g-rouble'>P</span>-->
-			<product:productPricePanel product="${product}"/>
-                        </span>
-                    </span>
+			        <product:productPricePanel product="${product}"/>
 
- 		    <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
-			<!--<p class="login-to-get-prices">-->
-			<c:url value='/login' var="loginUrl"/>
-			<!--!!!!!!!--> <p><a href="${loginUrl}">Авторизуйтесь для своей цены</a></p>
-			<!--</p>-->
-		   </sec:authorize>
-			
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
+
+                    <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
+                        <c:url value='/login' var="loginUrl"/>
+                        <p class="auth-message"><a href="${loginUrl}">Авторизуйтесь, пожалуйста, для получения актуальной цены</a></p>
+                    </sec:authorize>
                 </div>
                 <div class="characteristics-line__col2">
                     <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
@@ -116,7 +108,9 @@
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
                     <div class="stock in-stock"><span>В наличии</span>
-                        <div class="g-info"></div>
+                    <div class="g-info">
+                    		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
+                    		<a href="check_stock_url"></a>
                     </div>
                 </div>
             </div>
@@ -132,7 +126,18 @@
                     <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
                     <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
-                    <li class="one-characteristic">Запрещен к закупке: <span class="one-characteristic__value">${product.unreplenishable}</span></li>
+                    <li class="one-characteristic">Запрещен к закупке:
+                        <span class="one-characteristic__value">
+                            <c:choose>
+                                <c:when test="${product.unreplenishable}">
+                                    Да
+                                </c:when>
+                                <c:otherwise>
+                                    Нет
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                    </li>
                     <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
                 </ul>
@@ -140,6 +145,7 @@
             <div class="product-country">
                 Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
             </div>
+            <product:productPromotionSection product="${product}"/>
         </div>
     </div>
 </section>

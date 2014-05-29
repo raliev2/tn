@@ -13,7 +13,7 @@
 <%@ taglib prefix="breadcrumb" tagdir="/WEB-INF/tags/desktop/nav/breadcrumb"%>
 
 
-[<spring:theme code="key" var="key"/>]
+<spring:theme code="key" var="key"/>
 <template:page pageTitle="${pageTitle}">
 
 <section class="g-main-content clearfix">
