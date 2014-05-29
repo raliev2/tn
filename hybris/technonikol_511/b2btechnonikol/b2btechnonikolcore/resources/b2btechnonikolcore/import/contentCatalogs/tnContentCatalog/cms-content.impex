@@ -683,6 +683,8 @@ INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true
 ;;tn_upselling_prods_component;Up-selling Products Component;UPSELLING;10;tn_upselling_prods_component
 ;;tn_accessories_prods_component;Accessories Products Component;ACCESSORIES;10;tn_accessories_prods_component
 ;;tn_spare_part_prods_component;Spare Parts Products Component;SPAREPART;10;tn_spare_part_prods_component
+;;tn_accessories_mandatory_prods_component;Mandatory Accessories Products Component;ACCESSORIES_MANDATORY;10;tn_accessories_mandatory_prods_component
+;;tn_accessories_recommended_prods_component;Recommended Accessories Products Component;ACCESSORIES_RECOMMENDED;10;tn_accessories_recommended_prods_component
 
 # CMS ProductAddToCart Components
 INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
@@ -690,7 +692,7 @@ INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true]
 
 # ContentSlot
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
-;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component,tn_upselling_prods_component,tn_crosselling_prods_component,tn_accessories_prods_component,tn_spare_part_prods_component;
+;;Section2Slot-Product-Details;Section2 Slot Product Details;true;tn_similar_prods_component,tn_upselling_prods_component,tn_crosselling_prods_component,tn_accessories_prods_component,tn_spare_part_prods_component,tn_accessories_mandatory_prods_component,tn_accessories_recommended_prods_component;
 ;;AddToCartSlot-Product-Details;Add to Cart Slot Product Details;true;tn_add_to_cart_component;
 # ContentSlotForPage
 INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productDetails'];contentSlot(uid,$contentCV)[unique=true];;;
@@ -704,6 +706,8 @@ INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true
 ;;tn_upselling_prods_component;С этим товаром часто смотрят
 ;;tn_accessories_prods_component;Аксессуары
 ;;tn_spare_part_prods_component;Запасные части
+;;tn_accessories_mandatory_prods_component;Обязательные аксессуары
+;;tn_accessories_recommended_prods_component;Рекомендуемые аксессуары
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
 ;;tn_similar_prods_component;Similar Products

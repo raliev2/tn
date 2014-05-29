@@ -38,6 +38,13 @@
 		<enumtype code="ArticleApprovalStatus" autocreate="false" generate="false">
 			<value code="deleted"/>
 		</enumtype>
+		
+		<!-- Extend this relation (extending -> autocreate=false) -->
+		<enumtype code="ProductReferenceTypeEnum" autocreate="false" generate="true" >
+    		<value code="ACCESSORIES_MANDATORY" />
+    		<value code="ACCESSORIES_RECOMMENDED" />
+		</enumtype>
+		
 	</enumtypes>
 
 	<maptypes>

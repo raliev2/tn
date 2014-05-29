@@ -1,7 +1,7 @@
 #
 # Import Delivery Modes / Zones
 #
-#% impex.setLocale(Locale.RU)
+#% impex.setLocale(Locale.ENGLISH)
 
 # Currencies
 $usCurrency=RUB
@@ -22,8 +22,8 @@ INSERT_UPDATE ZoneDeliveryMode;code[unique=true];net;active[default=true]
 
 # USA
 INSERT_UPDATE ZoneDeliveryModeValue;deliveryMode(code)[unique=true];zone(code)[default='ru'][unique=true];currency(isocode)[unique=true];value;minimum[unique=true]
-;premium-net;;$usCurrency;16,99;0,00
-;premium-gross;;$usCurrency;19,99;0,00
-;standard-net;;$usCurrency;9,99;0,00
-;standard-gross;;$usCurrency;11,99;0,00
-;free-standard-shipping;;$usCurrency;0,00;0,00
+;premium-net;;$usCurrency;16.99;0.00
+;premium-gross;;$usCurrency;19.99;0.00
+;standard-net;;$usCurrency;9.99;0.00
+;standard-gross;;$usCurrency;11.99;0.00
+;free-standard-shipping;;$usCurrency;0.00;0.00
