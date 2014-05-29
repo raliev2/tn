@@ -63,6 +63,8 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		target.setWeightGross(weightGross);
 		final java.lang.Double weightNet = source.getWeightNet();
 		target.setWeightNet(weightNet);
+		//final String manufacturerCode = source.getManufacturerCode();
+		//target.setManufacturerCode(manufacturerCode);
 		final java.lang.Double volume = source.getVolume();
 		target.setVolume(volume);
 		final UnitModel baseUnit = source.getBaseUnit();

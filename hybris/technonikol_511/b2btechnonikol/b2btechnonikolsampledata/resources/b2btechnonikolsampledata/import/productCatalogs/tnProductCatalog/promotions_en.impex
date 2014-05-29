@@ -1,0 +1,9 @@
+#******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+# ImpEx for Promotions for TN
+
+# Language
+$lang=en
+
+#UPDATE ProductFixedPricePromotion;code[unique=true];enabled[default=true][unique=true];messageFired[lang=$lang];name[lang=$lang];
+# ;fixedprice-022421;;This Teamidea service is now only  {1} - You have saved {3}!;Teamidea discount;
+

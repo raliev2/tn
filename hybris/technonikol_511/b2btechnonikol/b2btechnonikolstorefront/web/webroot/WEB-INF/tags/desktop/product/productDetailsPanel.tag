@@ -15,7 +15,6 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <section class="clearfix">
     <div class="also-viewed">
         <div class="also-viewed__head">Customers Also Viewed</div>
@@ -87,17 +86,18 @@
         <div class="product-name">
             <h1 class="fn">${product.name}</h1>
         </div>
-        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">${product.manufacturer}</a></div>
+        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">${product.brand.name}</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
-                    <p class="regularPrice">Цена:</p>
-                    <span class="regularPrice__price price">
-                        <span class="value-title" title="320 RUB">
-                            320,00&nbsp;<span class='g-rouble'>P</span>
-                        </span>
-                    </span>
+			        <product:productPricePanel product="${product}"/>
+
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
+
+                    <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
+                        <c:url value='/login' var="loginUrl"/>
+                        <p class="auth-message"><a href="${loginUrl}">Авторизуйтесь, пожалуйста, для получения актуальной цены</a></p>
+                    </sec:authorize>
                 </div>
                 <div class="characteristics-line__col2">
                     <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
@@ -116,18 +116,36 @@
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
-                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.code}</span></li>
+                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
 
-                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.ekn}</span></li>
+                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
 		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
-                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightGross}</span></li>
+		            <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
 
+                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
+                    <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
+                    <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
+                    <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
+                    <li class="one-characteristic">Запрещен к закупке:
+                        <span class="one-characteristic__value">
+                            <c:choose>
+                                <c:when test="${product.unreplenishable}">
+                                    Да
+                                </c:when>
+                                <c:otherwise>
+                                    Нет
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                    </li>
+                    <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
+                    <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
                 </ul>
             </div>
             <div class="product-country">
                 Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
             </div>
+            <product:productPromotionSection product="${product}"/>
         </div>
     </div>
 </section>
