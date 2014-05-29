@@ -281,7 +281,7 @@
 	<alias name="technonikolProductPopulator" alias="productPopulator"/>
 
 	<bean id="technonikolProductPopulator"
-	      class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
+	      class="com.teamidea.platform.technonikol.facades.product.populators.TechnonikolProductPopulator"
 	      parent="defaultProductPopulator">
 <!--		<property name="productBasicPopulator" ref="productBasicPopulator"/>
 		<property name="variantSelectedPopulator" ref="variantSelectedPopulator"/>

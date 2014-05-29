@@ -1,40 +1,35 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+<%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 <%@ attribute name="isOrderForm" required="false" type="java.lang.Boolean" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
-	<p class="login-to-get-prices">
-		<c:url value='/login' var="loginUrl"/>
-		<a href="${loginUrl}"><spring:theme code="product.volumePrices.log.for.price"/></a>
-	</p>
-</sec:authorize>
-
+<p class="regularPrice">Цена:</p>
+<span class="regularPrice__price price">
 <c:choose>
 	<c:when test="${empty product.volumePrices}">
 		<c:choose>
 			<c:when test="${(not empty product.priceRange) and (product.priceRange.minPrice.value ne product.priceRange.maxPrice.value) and ((empty product.baseProduct) or (not empty isOrderForm and isOrderForm))}">
-				<span class="big-price">
+				<span class="value-title" title='<format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>'>
 					<format:price priceData="${product.priceRange.minPrice}"/>
-				</span>
 				-
-				<span class="big-price">
 					<format:price priceData="${product.priceRange.maxPrice}"/>
 				</span>
 			</c:when>
 			<c:otherwise>
-				<p class="big-price">
-					<format:fromPrice priceData="${product.price}"/>
-				</p>
+				<span class="value-title" title='<format:price priceData="${product.price}"/>'>
+                    <format:price priceData="${product.price}"/>
+				</span>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
-	<c:otherwise>
-		<table class="volume-prices" cellpadding="0" cellspacing="0" border="0">
+	<c:otherwise><%--
+<!--		<table class="volume-prices" cellpadding="0" cellspacing="0" border="0">
 			<thead>
 			<th class="volume-prices-quantity"><spring:theme code="product.volumePrices.column.qa"/></th>
 			<th class="volume-price-amount"><spring:theme code="product.volumePrices.column.price"/></th>
@@ -56,6 +51,7 @@
 				</tr>
 			</c:forEach>
 			</tbody>
-		</table>
+		</table>-->--%>
 	</c:otherwise>
 </c:choose>
+</span>

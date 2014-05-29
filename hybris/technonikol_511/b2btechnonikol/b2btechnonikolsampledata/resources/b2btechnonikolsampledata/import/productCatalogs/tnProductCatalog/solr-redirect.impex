@@ -1,0 +1,44 @@
+﻿
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$contentCatalog=tnContentCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$contentCatalogVersion=catalogversion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default=$contentCatalog:Online]
+
+$facetSearchConfigName=tnIndex
+$lang=ru
+
+# RPODUCT_REDIRECT
+INSERT_UPDATE SolrProductRedirect;&prdRedirect;redirectItem(code,$catalogVersion)[unique=true]
+;prd022421; 022421
+;prd376441; 376441
+;prd370784;	370784
+;prd000100;	000100
+;prd012654;	012654
+;prd224507;	224507
+;prd369914;	369914
+;prd436969;	436969
+;prd003295;	003295
+;prd013107;	013107
+
+# Product redirect keyword
+INSERT_UPDATE SolrFacetSearchKeywordRedirect;redirect(&prdRedirect);keyword[unique=true];ignoreCase[default=true];matchType(code)[default=EXACT];language(isocode)[default=ru];facetSearchConfig(name)[default=$facetSearchConfigName,unique=true]
+;prd022421; 022421
+;prd376441; 376441
+;prd370784;	370784
+;prd000100;	000100
+;prd012654;	012654
+;prd224507;	224507
+;prd369914;	369914
+;prd436969;	436969
+;prd003295;	003295
+;prd013107;	013107
+
+# URL REDIRECT
+INSERT_UPDATE SolrURIRedirect;url[unique=true];&redirectRefID
+;"/cart";$contentCatalogName-redirectRefID-cart
+
+INSERT_UPDATE SolrFacetSearchKeywordRedirect;facetSearchConfig(name)[unique=true,default=$facetSearchConfigName];language(isocode)[unique=true,default=$lang];keyword[unique=true];matchType(code)[unique=true];redirect(&redirectRefID);ignoreCase[default=true]
+;;;"cart";EXACT;$contentCatalogName-redirectRefID-cart;
+
+

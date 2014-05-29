@@ -1,0 +1,5 @@
+﻿
+INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=ru];
+;TN_B2B_PKA_PGA_PRICE_GROUP;Price group PriceKindA-PriceGroupA;
+;TN_B2B_PKB_PGA_PRICE_GROUP;Price group PriceKindB-PriceGroupA;
+;TN_B2B_PKC_PGA_PRICE_GROUP;Price group PriceKindC-PriceGroupA;

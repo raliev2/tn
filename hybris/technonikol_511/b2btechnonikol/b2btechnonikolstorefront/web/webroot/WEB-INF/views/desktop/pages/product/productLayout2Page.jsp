@@ -11,7 +11,7 @@
 
 <template:page pageTitle="${pageTitle}">
 <jsp:body>
-    <section class="g-main-content g-main-content_over-view clearfix hproduct">
+<section class="g-main-content g-main-content_over-view clearfix hproduct">
 
     <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="category"/>
 
@@ -26,6 +26,8 @@
         <cms:pageSlot position="Section2" var="comp" element="div">
             <cms:component component="${comp}"/>
         </cms:pageSlot>
+
+        <product:productDisclaimer />
 
     </section>
     <div class="button-up clearfix">

@@ -1,0 +1,21 @@
+# ImpEx for Promotions for TN Store
+
+$defaultPromoGrp=tnPromoGrp
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$siteUid=firstplatform 
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;$defaultPromoGrp;
+
+# CMS Site
+INSERT_UPDATE CMSSite;uid[unique=true];defaultPromotionGroup(Identifier)[default=$defaultPromoGrp]
+;$siteUid;
+
+##
+INSERT PromotionPriceRow;&priceId;Currency(isocode);price
+;pr022421;RUB;250
+
+INSERT_UPDATE ProductFixedPricePromotion;PromotionGroup(Identifier[default=$defaultPromoGrp]);enabled[default=true][unique=true];code[unique=true];title;description;productFixedUnitPrice(&priceId);priority;products(code,$catalogVersion)
+;;;fixedprice-022421;Fixed price 250 RUB;Акция: ВСЕ ПО 250 РУБЛЕЙ !!!;pr022421;700;022421
+

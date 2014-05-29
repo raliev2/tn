@@ -37,14 +37,11 @@
 
 
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
-
-	<!--<description>Product Fields</description>-->
-	
-	    <property name="manufacturerCode" type="java.lang.String"/>
         <property name="supplierCode" type="java.lang.String"/>
         <property name="documentCode" type="java.lang.String"/>
         <property name="ETIMCode" type="java.lang.String"/>
         <property name="EClassCode" type="java.lang.String"/>
+        <property name="manufacturerCode" type="java.lang.String"/>
         <property name="barcode" type="java.lang.String"/>
 
 	    <property name="brand" type="com.teamidea.platform.technonikol.facades.brand.data.TNBrandData"/>

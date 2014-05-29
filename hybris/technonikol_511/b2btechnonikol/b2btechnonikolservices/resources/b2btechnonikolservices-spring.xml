@@ -18,9 +18,5 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/aop
            http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-
-	<!-- Import Export Configuration -->
-	<import resource="classpath:/b2btechnonikolservices/integration/hot-folder-technonikol-spring.xml"/>
-			
+		
 </beans>

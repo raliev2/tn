@@ -9,7 +9,7 @@ $u_units=target(code)[unique=true]
 $approved=approvalstatus(code)[default='check']
 
 # Insert Products
-INSERT_UPDATE TNProduct;$catalogVersion;code[unique=true];manufacturerCode;documentCode;brand(code,$catalogVersion);productionCountry(isocode);productType(code,$catalogVersion);unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;vat;unit(code);sunit(code);$approved;
+INSERT_UPDATE TNProduct;$catalogVersion;code[unique=true];manufacturerCode;documentCode;brand(code,$catalogVersion);productionCountry(isocode);productType(code,$catalogVersion);unreplenishable;archiveDate[dateformat=dd-MM-yyyy];quantityInPackage;weightNet;volume;vat;unit(code);baseUnit(code);$approved;
 ;;111;br_111;dc_111;brand_1;RU;pt_1;false;;1;20;5;18;1A;4C;
 ;;222;br_222;dc_222;brand_2;RU;pt_2;false;01-05-2014;10;1;20;5;1A;4C;deleted
 

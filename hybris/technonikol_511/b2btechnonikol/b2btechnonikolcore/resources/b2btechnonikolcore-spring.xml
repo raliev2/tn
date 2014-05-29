@@ -21,9 +21,11 @@
 
     <context:component-scan base-package="com.teamidea.platform.technonikol.core"/>
 
-    <!-- Spring Integration -->
-    <import resource="classpath:/b2btechnonikolcore/integration/hot-folder-store-tn-spring.xml"/>
-
+	<!-- Import Export Configuration - Spring Integration -->
+	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-technonikol-spring.xml"/>
+	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-technonikol-csv-spring.xml"/>
+    <import resource="classpath:/b2btechnonikolcore/integration/hot-folder-extended.xml"/>
+    
     <!-- SystemSetup for the b2btechnonikolcore -->
     <bean id="b2bAcceleratorCoreSystemSetup" class="com.teamidea.platform.technonikol.core.setup.CoreSystemSetup"  parent="abstractCoreSystemSetup">
         <property name="setupSyncJobService" ref="b2bSetupSyncJobService"/>
@@ -48,14 +50,20 @@
         <property name="priceService" ref="priceService"/>
     </bean>
 
+    <bean id="brandNameVolumeProvider" class="com.teamidea.platform.technonikol.core.solr.provider.TNBrandNameValueProvider"  parent="abstractPropertyFieldValueProvider">
+        <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+        <property name="commonI18NService" ref="commonI18NService"/>
+    </bean>
+    
     <bean id="tnCategorySource" parent="variantCategorySource">
-        <property name="rootCategory" value="TNOpenCatalog"/> <!-- '1' is the root icecat category -->
+        <property name="rootCategory" value="stroitelnye_materialy"/> <!-- '1' is the root icecat category -->
     </bean>
     <bean id="tnVariantCategorySource" parent="variantCategorySource"/>
 
-    <bean id="tnBrandCategorySource" parent="defaultCategorySource">
-        <property name="rootCategory" value="brands"/> <!-- 'brands' is the root of the brands hierarchy -->
-    </bean>
+<!--    <bean id="tnBrandCategorySource" parent="defaultCategorySource">
+        <property name="rootCategory" value="brands"/> 
+--><!-- 'brands' is the root of the brands hierarchy -->
+   <!-- </bean>-->
 
     <bean id="abstractCategoryCodeValueProvider" abstract="true" class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider" parent="abstractPropertyFieldValueProvider" >
         <property name="fieldNameProvider" ref="solrFieldNameProvider"/>
@@ -69,9 +77,9 @@
     <bean id="tnCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnCategorySource"/>
     </bean>
-    <bean id="tnBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+<!--    <bean id="tnBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnBrandCategorySource"/>
-    </bean>
+    </bean>-->
     <bean id="tnVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
         <property name="categorySource" ref="tnVariantCategorySource"/>
     </bean>
@@ -80,10 +88,11 @@
     <bean id="tnCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
         <property name="categorySource" ref="tnCategorySource"/>
     </bean>
+<!--
     <bean id="tnBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
         <property name="categorySource" ref="tnBrandCategorySource"/>
     </bean>
-
+   -->
     <bean id="image515ValueProvider" parent="abstractImageValueProvider">
         <property name="mediaFormat" value="515Wx515H"/>
     </bean>

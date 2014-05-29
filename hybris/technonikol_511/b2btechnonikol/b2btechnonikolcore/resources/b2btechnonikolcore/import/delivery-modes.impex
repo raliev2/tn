@@ -1,7 +1,7 @@
 #
 # Import Delivery Modes / Zones
 #
-#% impex.setLocale(Locale.RUSSIA)
+#% impex.setLocale(Locale.RU)
 
 # Currencies
 $usCurrency=RUB

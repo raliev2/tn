@@ -1,0 +1,27 @@
+﻿
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$contentCatalog=tnContentCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$contentCatalogVersion=catalogversion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default=$contentCatalog:Online]
+
+$facetSearchConfigName=tnIndex
+$lang=ru
+
+INSERT_UPDATE Keyword;$catalogVersion;keyword[unique=true];language(isocode)[unique=true,default=$lang];
+;;протечка
+
+INSERT_UPDATE Product2KeywordRelation;target(code,$catalogVersion)[unique=true];source(keyword,$catalogVersion,language(isocode[default=$lang]))[unique=true];language(isocode)[unique=true,default=$lang];
+;362712;протечка
+;391279;протечка
+;009306;протечка
+;438194;протечка
+;429768;протечка
+;379780;протечка
+;387841;протечка
+;290146;протечка
+;031237;протечка
+;416910;протечка
+;387842;протечка
+;379779;протечка

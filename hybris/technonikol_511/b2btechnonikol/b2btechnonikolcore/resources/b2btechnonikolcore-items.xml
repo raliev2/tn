@@ -52,15 +52,17 @@
 			<sourceElement type="Product" qualifier="products" collectiontype="set" cardinality="many" ordered="false"/>
 			<targetElement type="Unit" qualifier="units" collectiontype="set" cardinality="many" ordered="false"/>
 		</relation>
+		
 		<relation code="HFPackageToFileRelation" autocreate="true" generate="true" localized="false">
 			<sourceElement qualifier="package" type="HFPackage" cardinality="one" />
 			<targetElement qualifier="files" type="HFPackageFile" cardinality="many" collectiontype="set" />
 		</relation>
+		
 		<relation code="UserGroup2UserPriceGroupRel" generate="true" localized="false" autocreate="true">
 			<description>This relation links userGroup with one or more priceGroup.</description>
-			<sourceElement qualifier="userGroup" type="UserGroup" cardinality="one">
-				<description>The Parent UserGroup</description>
-				<modifiers read="true" write="true" search="true" optional="false" />
+			<deployment table="grouppricelists" typecode="20006"/>
+			<sourceElement qualifier="userGroups" type="UserGroup" cardinality="many" collectiontype="set">
+				<modifiers read="true" write="true" search="true"/>
 			</sourceElement>
 			<targetElement qualifier="allUserPriceGroups" type="UserPriceGroup" cardinality="many" collectiontype="set">
 				<description>PriceGroup associated to a Parent UserGroup</description>
@@ -265,22 +267,22 @@
 			<itemtype code="TNContractor" jaloclass="com.teamidea.platform.technonikol.core.jalo.b2bunit.TNContractor"
 				extends="B2BUnit" autocreate="true" generate="true">
 				<attributes>
-					<attribute qualifier="inn" type="java.lang.String">
+					<attribute qualifier="inn" type="java.lang.String" autocreate="true" generate="true">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>INN</description>
 					</attribute>
-					<attribute qualifier="kpp" type="java.lang.String">
+					<attribute qualifier="kpp" type="java.lang.String" autocreate="true" generate="true">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true" />
 						<description>KPP</description>
 					</attribute>
-					<attribute qualifier="okpo" type="java.lang.String">
+					<attribute qualifier="okpo" type="java.lang.String" autocreate="true" generate="true">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<description>OKPO</description>
 					</attribute>
-					<attribute qualifier="privatePerson" type="java.lang.Boolean">
+					<attribute qualifier="privatePerson" type="java.lang.Boolean" autocreate="true" generate="true">
 						<persistence type="property"/>
 						<modifiers read="true" write="true" search="true" optional="false"/>
 						<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
@@ -292,27 +294,27 @@
 			<itemtype code="StockLevel" autocreate="false" generate="false">
 				<description>Extending StockLevel type with additional attributes.</description>
 				<attributes>
-					<attribute qualifier="stockDeliverySource" type="TNStockDeliverySource">
+					<attribute qualifier="stockDeliverySource" type="TNStockDeliverySource" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="true" />
 						<description>Source of the supply</description>
 						<persistence type="property" />
 					</attribute>
-					<attribute qualifier="changed" type="java.util.Date">
+					<attribute qualifier="changed" type="java.util.Date" autocreate="true" generate="true">
 						<persistence type="property"/>
 						<modifiers read="true" write="false" search="true" optional="false"/>
 						<description>The date and time when the status is changed</description>
 					</attribute>
-					<attribute qualifier="inSoftReserve" type="int">
+					<attribute qualifier="inSoftReserve" type="int" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute qualifier="inSupplierStock" type="int">
+					<attribute qualifier="inSupplierStock" type="int" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
 					</attribute>
-					<attribute qualifier="inSupplierReserve" type="int">
+					<attribute qualifier="inSupplierReserve" type="int" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" />
 						<defaultvalue>Integer.valueOf(0)</defaultvalue>
 						<persistence type="property" />
@@ -343,17 +345,17 @@
 						<persistence type="property"/>
 						<description>Catalog version</description>
 					</attribute>
-					<attribute qualifier="code" type="java.lang.String">
+					<attribute qualifier="code" type="java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
 						<persistence type="property"/>
 						<description>Brand code</description>
 					</attribute>
-					<attribute qualifier="name" type="localized:java.lang.String">
+					<attribute qualifier="name" type="localized:java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Brand localized name</description>
 					</attribute>
-					<attribute qualifier="description" type="localized:java.lang.String">
+					<attribute qualifier="description" type="localized:java.lang.String" >
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Brand localized description</description>
@@ -391,12 +393,12 @@
 						<persistence type="property"/>
 						<description>Catalog version</description>
 					</attribute>
-					<attribute qualifier="code" type="java.lang.String">
+					<attribute qualifier="code" type="java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
 						<persistence type="property"/>
 						<description>Supplier code</description>
 					</attribute>
-					<attribute qualifier="name" type="localized:java.lang.String">
+					<attribute qualifier="name" type="localized:java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Supplier localized name</description>
@@ -424,12 +426,12 @@
 						<persistence type="property"/>
 						<description>Catalog version</description>
 					</attribute>
-					<attribute qualifier="code" type="java.lang.String">
+					<attribute qualifier="code" type="java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
 						<persistence type="property"/>
 						<description>Product type code</description>
 					</attribute>
-					<attribute qualifier="name" type="localized:java.lang.String">
+					<attribute qualifier="name" type="localized:java.lang.String" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Product type localized name</description>
@@ -561,15 +563,10 @@
 						<persistence type="property"/>
 						<description>Volume (m3)</description>
 					</attribute>
-					<attribute qualifier="sunit" type="Unit">
+					<attribute qualifier="baseUnit" type="Unit" autocreate="true" generate="true">
 						<modifiers read="true" write="true" search="true" optional="false"/>
 						<persistence type="property"/>
-						<description>Product sale units</description>
-					</attribute>
-					<attribute qualifier="unitsMap" type="ProductUnitsMap">
-						<modifiers read="true" write="true" search="true" optional="true"/>
-						<persistence type="property"/>
-						<description>Product additional units</description>
+						<description>Product base units</description>
 					</attribute>
 					<attribute qualifier="vat" type="java.lang.Integer">
 						<modifiers read="true" write="true" search="true" optional="true"/>
@@ -584,7 +581,7 @@
 				</attributes>
 		    </itemtype>
 
-			<itemtype code="HFPackage" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.ps.hf.jalo.HFPackage">
+			<itemtype code="HFPackage" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.jalo.hotfolder.HFPackage">
 				<deployment table="hfpackage" typecode="20100"/>
 				<attributes>
 					<attribute type="java.lang.String" qualifier="guid">
@@ -618,7 +615,7 @@
 				</indexes>
 			</itemtype>
 
-			<itemtype code="HFPackageFile" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.ps.hf.jalo.HFPackageFile">
+			<itemtype code="HFPackageFile" autocreate="true" generate="true" jaloclass="com.teamidea.platform.technonikol.core.jalo.hotfolder.HFPackageFile">
 				<deployment table="hfpackagefile" typecode="20101"/>
 				<attributes>
 					<!--TODO try to switch it to path-->

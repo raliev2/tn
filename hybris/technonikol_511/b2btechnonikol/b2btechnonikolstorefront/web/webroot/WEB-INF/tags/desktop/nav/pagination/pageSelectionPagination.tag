@@ -83,7 +83,7 @@
 				</c:when>
 				<c:otherwise>
 					<%-- TODO: pageNumber needs to be aligned correctly with the other page numbers and bolded to indicate that it is selected--%>
-					${pageNumber}
+					<span class="search-controls__current-page">${pageNumber}</span>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>

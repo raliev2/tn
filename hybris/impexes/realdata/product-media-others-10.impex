@@ -1,0 +1,29 @@
+# ImPex for Importing additional media files for products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$siteResource=jar:com.teamidea.platform.technonikol.constants.B2btechnonikolsampledataConstants&/b2btechnonikolsampledata/import/productCatalogs/$productCatalog
+$thumbnail=thumbnail(code, $catalogVersion)
+$picture=picture(code, $catalogVersion)
+$thumbnails=thumbnails(code, $catalogVersion)
+$detail=detail(code, $catalogVersion)
+$normal=normal(code, $catalogVersion)
+$others=others(code, $catalogVersion)
+$data_sheet=data_sheet(code, $catalogVersion)
+$medias=medias(code, $catalogVersion)
+$galleryImages=galleryImages(qualifier, $catalogVersion)
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default=images]
+#000019
+;515Wx515H;/515Wx515H/000019.jpg;$siteResource/realimages/515Wx515H/000019.jpg
+;300Wx300H;/300Wx300H/000019.jpg;$siteResource/realimages/300Wx300H/000019.jpg
+;96Wx96H;/96Wx96H/000019.jpg;$siteResource/realimages/96Wx96H/000019.jpg
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$catalogVersion
+;000019;/96Wx96H/000019.jpg, /300Wx300H/000019.jpg, /515Wx515H/000019.jpg
+
+UPDATE Product;code[unique=true];$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion
+;000021;;/515Wx515H/000019.jpg,/515Wx515H/000021.jpg;/300Wx300H/000019.jpg,/300Wx300H/000021.jpg;/96Wx96H/000019.jpg,/96Wx96H/000021.jpg;000019,000021
+;441750;;/515Wx515H/441750.jpg,/515Wx515H/441940.jpg;/300Wx300H/441750.jpg,/300Wx300H/441940.jpg;/96Wx96H/441750.jpg,/96Wx96H/441940.jpg;441750,441940
+;369899;;/515Wx515H/369899.jpg,/515Wx515H/369916.jpg,/515Wx515H/369917.jpg;/300Wx300H/369899.jpg,/300Wx300H/369916.jpg,/300Wx300H/369917.jpg;/96Wx96H/369899.jpg,/96Wx96H/369916.jpg,/96Wx96H/369917.jpg;369899,369916,369917
