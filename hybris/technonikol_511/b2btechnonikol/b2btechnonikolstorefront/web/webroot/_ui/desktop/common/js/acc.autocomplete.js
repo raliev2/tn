@@ -25,7 +25,7 @@ ACC.autocomplete = {
                         return response(cache[term]);
                     }
 
-                    $.getJSON(option.autocompleteUrl, {term: request.term}, function(data) {
+                    $.getJSON(option.autocompleteUrl, {term: request.term}, function(data) {console.log(data)
                         var autoSearchData = [];
                         if(data.suggestions != null){
                             $.each(data.suggestions, function (i, obj)

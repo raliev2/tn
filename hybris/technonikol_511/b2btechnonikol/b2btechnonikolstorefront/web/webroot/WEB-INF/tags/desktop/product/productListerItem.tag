@@ -44,7 +44,7 @@
                 <div class="prod-list-item__about">
                     <a href="${productUrl}" class="prod-list-item-about__name"><c:out value="${product.name}" /></a>
                     <p class="prod-list-item-about__manufacturer">${product.manufacturer}</p>
-                    <p>Артикул: <span class="g-strong"><a href="${productUrl}">${product.code}</a></span></p>
+                    <p>Артикул: <span class="g-strong"><a href="${productUrl}">${product.manufacturerCode}</a></span></p>
                 </div>
                 <div class="prod-list-item__actions g-float-right">
                     <product:productListerItemPrice product="${product}" />
