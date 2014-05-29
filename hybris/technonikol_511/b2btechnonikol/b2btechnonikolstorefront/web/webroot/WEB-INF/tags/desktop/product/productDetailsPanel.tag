@@ -15,7 +15,6 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <section class="clearfix">
     <div class="also-viewed">
         <div class="also-viewed__head">Customers Also Viewed</div>
@@ -87,16 +86,25 @@
         <div class="product-name">
             <h1 class="fn">${product.name}</h1>
         </div>
-        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">${product.manufacturer}</a></div>
+        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">${product.brand.name}</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
                     <p class="regularPrice">Цена:</p>
                     <span class="regularPrice__price price">
                         <span class="value-title" title="320 RUB">
-                            320,00&nbsp;<span class='g-rouble'>P</span>
+<!--                            320,00&nbsp;<span class='g-rouble'>P</span>-->
+			<product:productPricePanel product="${product}"/>
                         </span>
                     </span>
+
+ 		    <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
+			<!--<p class="login-to-get-prices">-->
+			<c:url value='/login' var="loginUrl"/>
+			<!--!!!!!!!--> <p><a href="${loginUrl}">Авторизуйтесь для своей цены</a></p>
+			<!--</p>-->
+		   </sec:authorize>
+			
                     <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
                     <p class="auth-message">Авторизуйтесь, пожалуйста, для получения актуальной цены</p>
                 </div>
@@ -119,9 +127,15 @@
 
                     <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
 		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
-                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-                    <li class="one-characteristic">Вес: <span class="one-characteristic__value">${product.weightGross}</span></li>
+		            <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
 
+                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
+                    <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
+                    <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
+                    <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
+                    <li class="one-characteristic">Запрещен к закупке: <span class="one-characteristic__value">${product.unreplenishable}</span></li>
+                    <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
+                    <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
                 </ul>
             </div>
             <div class="product-country">

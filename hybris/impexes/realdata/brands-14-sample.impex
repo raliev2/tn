@@ -1,0 +1,13 @@
+$productCatalog=tnProductCatalog
+$classificationCatalog=tnClassification
+$classificationCatalogVer=1.0
+$productCatalogVer=Online
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default=$productCatalogVer])[unique=true,default=$productCatalog:$productCatalogVer]
+$classCatalogVersion=catalogversion(catalog(id[default=$classificationCatalog]),version[default=$classificationCatalogVer])[unique=true,default=$classificationCatalog:$classificationCatalogVer]
+$supercategories=source(code, $classCatalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+
+insert_update TNBrand;code[unique=true];name[lang=ru];$catalogVersion
+;isoroc;ISOROC
+;tn;ТЕХНОНИКОЛЬ

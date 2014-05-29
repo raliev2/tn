@@ -1,0 +1,14 @@
+# ImPex for Importing product references (accessories)
+
+# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+
+$source=source(code,$catalogVersion)[unique=true]
+$target=target(code,$catalogVersion)[unique=true]
+$referenceType=referenceType(code[unique=true,default='ACCESSORIES'])
+
+INSERT_UPDATE ProductReference;$source;$target;$referenceType;active[default=true];preselected[default=false]
+;000021;441750;
+;000021;369899;
+;441750;329320;

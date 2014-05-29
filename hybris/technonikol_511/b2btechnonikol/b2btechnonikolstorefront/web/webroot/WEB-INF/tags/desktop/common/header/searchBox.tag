@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
-
+<!--
 <div class="form-search">
     <form name="search_form" method="get" action="<c:url value="/search"/>">
         <ycommerce:testId code="header_search_input">
@@ -16,6 +16,7 @@
     </form>
 </div>
 <div class="siteSearch"></div>
+-->
 <%--<div class="search-advanced">
 	<a href="<c:url value="/search/advanced"/>"><spring:theme code="search.advanced" /></a>
 </div>
