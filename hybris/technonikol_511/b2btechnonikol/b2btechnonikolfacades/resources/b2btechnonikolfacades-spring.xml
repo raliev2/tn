@@ -13,10 +13,15 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<!-- Facades -->
+    <context:component-scan base-package="com.teamidea.platform.technonikol.facades"/>
+
+    <!-- Facades -->
 
 	<alias name="defaultB2BFlexibleSearchProductSearchFacade" alias="b2bProductFlexibleSearchFacade"/>
 	<bean id="defaultB2BFlexibleSearchProductSearchFacade"
@@ -199,6 +204,55 @@
 		  class="com.teamidea.platform.technonikol.facades.search.converters.populator.VariantSearchResultProductPopulator"
 		  parent="defaultCommerceSearchResultProductPopulator">
 	</bean>
+
+    <!-- Technonikol Data-->
+    <bean id="tnBrandData" class="com.teamidea.platform.technonikol.facades.brand.data.TNBrandData" scope="prototype"/>
+    <bean id="tnProductTypeData" class="com.teamidea.platform.technonikol.facades.productType.data.TNProductTypeData" scope="prototype"/>
+    <bean id="tnSupplierData" class="com.teamidea.platform.technonikol.facades.supplier.data.TNSupplierData" scope="prototype"/>
+    <bean id="unitData" class="com.teamidea.platform.technonikol.facades.unit.data.UnitData" scope="prototype"/>
+
+
+    <!-- TNBrand converter -->
+    <bean id="tnBrandConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="tnBrandData"/>
+        <property name="populators">
+            <list>
+                <ref bean="TNBrandPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- TNProductType converter -->
+    <bean id="tnProductTypeConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="tnProductTypeData"/>
+        <property name="populators">
+            <list>
+                <ref bean="TNProductTypePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- TNSupplier converter -->
+    <bean id="tnSupplierConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="tnSupplierData"/>
+        <property name="populators">
+            <list>
+                <ref bean="TNSupplierPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Unit converter -->
+    <alias name="defaultUnitConverter" alias="unitConverter"/>
+    <bean id="defaultUnitConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="unitData"/>
+        <property name="populators">
+            <list>
+                <ref bean="unitDataPopulator"/>
+            </list>
+        </property>
+    </bean>
+
 
 <!--
 <alias name="acceleratorProductConverter" alias="productConverter"/>
