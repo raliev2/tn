@@ -1,4 +1,5 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+<%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 <%@ attribute name="isOrderForm" required="false" type="java.lang.Boolean" %>
 
@@ -8,26 +9,26 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+<p class="regularPrice">Цена:</p>
+<span class="regularPrice__price price">
 <c:choose>
 	<c:when test="${empty product.volumePrices}">
 		<c:choose>
 			<c:when test="${(not empty product.priceRange) and (product.priceRange.minPrice.value ne product.priceRange.maxPrice.value) and ((empty product.baseProduct) or (not empty isOrderForm and isOrderForm))}">
-				<span class="big-price">
+				<span class="value-title" title='<format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>'>
 					<format:price priceData="${product.priceRange.minPrice}"/>
-				</span>
 				-
-				<span class="big-price">
 					<format:price priceData="${product.priceRange.maxPrice}"/>
 				</span>
 			</c:when>
 			<c:otherwise>
-				<span class="big-price">
-					<format:fromPrice priceData="${product.price}"/>
+				<span class="value-title" title='<format:price priceData="${product.price}"/>'>
+                    <format:price priceData="${product.price}"/>
 				</span>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
-	<c:otherwise>
+	<c:otherwise><%--
 <!--		<table class="volume-prices" cellpadding="0" cellspacing="0" border="0">
 			<thead>
 			<th class="volume-prices-quantity"><spring:theme code="product.volumePrices.column.qa"/></th>
@@ -50,6 +51,7 @@
 				</tr>
 			</c:forEach>
 			</tbody>
-		</table>-->
+		</table>-->--%>
 	</c:otherwise>
 </c:choose>
+</span>
