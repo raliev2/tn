@@ -14,6 +14,7 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <section class="clearfix">
     <div class="also-viewed">
@@ -113,6 +114,7 @@
                     		<a href="check_stock_url"></a>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="characteristics__line clearfix">
                 <ul>

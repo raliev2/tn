@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
-<cms:pageSlot position="SearchBox" var="component">
+111<cms:pageSlot position="SearchBox" var="component">
 			<cms:component component="${component}"/>
 		</cms:pageSlot>
 <!--
