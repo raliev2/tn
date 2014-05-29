@@ -108,7 +108,9 @@
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
                     <div class="stock in-stock"><span>В наличии</span>
-                        <div class="g-info"></div>
+                    <div class="g-info">
+                    		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
+                    		<a href="check_stock_url"></a>
                     </div>
                 </div>
             </div>
