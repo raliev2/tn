@@ -25,7 +25,7 @@
 			</c:when>
 			<c:otherwise>
 				<span class="value-title" title='<format:price priceData="${product.price}"/>'>
-                    <format:price priceData="${product.price}"/>
+                    <format:fromPrice priceData="${product.price}"/>
 				</span>
 			</c:otherwise>
 		</c:choose>
