@@ -25,7 +25,7 @@
             </ul>
         </div>
         <div class="custom-message">
-
+            <span class="header__telephone"><spring:theme code="common.telephone" /></span>
         </div>
         <cms:pageSlot position="MiniCart" var="cart" limit="1">
             <cms:component component="${cart}"/>

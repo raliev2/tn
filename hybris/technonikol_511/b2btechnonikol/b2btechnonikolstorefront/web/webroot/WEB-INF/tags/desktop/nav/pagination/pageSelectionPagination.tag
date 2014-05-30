@@ -33,11 +33,11 @@
 				<a href="${previousPageUrl}" rel="prev" class="search-controls__page-link"><spring:theme code="${themeMsgKey}.linkPreviousPage"/></a>
 			</ycommerce:testId>
 		</c:if>
-		<c:if test="${not hasPreviousPage}">
+		<%--<c:if test="${not hasPreviousPage}">
 			<a href="#" class="hidden search-controls__page-link" onclick="return false">
 				<spring:theme code="${themeMsgKey}.linkPreviousPage"/>
 			</a>
-		</c:if>
+		</c:if>--%>
 	</li>
 	<li>
 		<c:set var="limit" value="${numberPagesShown}"/>
@@ -99,11 +99,11 @@
 				</a>
 			</ycommerce:testId>
 		</c:if>
-		<c:if test="${not hasNextPage}">
+		<%--<c:if test="${not hasNextPage}">
 			<a href="#" class="hidden search-controls__page-link" onclick="return false">
 				<spring:theme code="${themeMsgKey}.linkNextPage"/>
 			</a>
-		</c:if>
+		</c:if>--%>
 	</li>
 	<li>
 		<c:if test="${hasNextPage}">
