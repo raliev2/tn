@@ -24,6 +24,9 @@
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/jquery.rating.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/easyzoom.css">
 
+    <%-- Favourite Icon --%>
+    <spring:theme code="img.favIcon" text="/" var="favIconPath"/>
+    <link rel="shortcut icon" type="image/x-icon" media="all" href="${originalContextPath}${favIconPath}" />
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
     <script>if( !window.jQuery )document.write('<script src="${themeResourcePath}/js/lib/jquery-1.11.1.min.js" charset="utf-8"><'+'/script>');</script>
