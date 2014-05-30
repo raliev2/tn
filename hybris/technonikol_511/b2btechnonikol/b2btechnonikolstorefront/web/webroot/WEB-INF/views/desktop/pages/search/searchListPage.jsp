@@ -46,6 +46,7 @@
                 <div class="found-amount">
                     Найдено <product:productAmount amount="${searchPageData.pagination.totalNumberOfResults}" />
                 </div>
+                <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
                 <nav:searchSorts top="true"  supportShowPaged="false"
                                  supportShowAll="false"
                                  searchPageData="${searchPageData}"
@@ -76,8 +77,6 @@
                                  searchUrl="${searchPageData.currentQuery.url}"
                                  numberPagesShown="${numberPagesShown}"
                         />
-
-                <nav:searchSpellingSuggestion spellingSuggestion="${searchPageData.spellingSuggestion}" />
             </section>
         </section>
 
