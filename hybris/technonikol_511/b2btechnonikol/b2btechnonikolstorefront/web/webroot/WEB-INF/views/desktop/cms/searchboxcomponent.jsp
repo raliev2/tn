@@ -17,8 +17,9 @@
             <button type="submit" class="button">Поиск</button>
         </ycommerce:testId>
     </form>
+    <div class="siteSearch"></div>
 </div>
-<div class="siteSearch"></div>
+
 
 <%--
 

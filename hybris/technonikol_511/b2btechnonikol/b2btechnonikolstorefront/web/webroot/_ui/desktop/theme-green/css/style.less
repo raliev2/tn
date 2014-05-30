@@ -309,7 +309,7 @@ nav {
   .gradient(rgb(126, 126, 126), rgb(91, 91, 91));
 }
 .menu-container {
-  width:522px;
+  width:515px;
   float:left;
 }
 .menu {
@@ -339,6 +339,7 @@ nav {
 .form-search {
   padding:8px 14px;
   text-align: center;
+  position:relative;
 }
 .form-search__input {
   color:#000;
@@ -350,6 +351,36 @@ nav {
 }
 nav .form-search {
   float:right;
+}
+.siteSearch {
+  position:absolute;
+  bottom:0;left:0;
+}
+.siteSearch .ui-autocomplete {
+  left:15px !important;
+  background: #eee;
+  font-size: 11px;
+  text-align: left;
+  color:#333;
+  border-left: 1px solid #CCC;
+  border-right: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  width:344px !important;
+  max-height: 350px;
+  overflow-y:auto;
+}
+.siteSearch .ui-menu-item a {
+  padding:6px 5px;
+  border-top:1px solid #fff;
+  display:block;
+}
+.siteSearch .ui-menu-item:hover a {
+  text-decoration: none;
+  background: #000;
+  color:#fff;
+}
+.siteSearch .ui-autocomplete .ui-menu-item:first-child a{
+  border-top: 0;
 }
 .item-menu__inner-menu {
   display:none;
@@ -1526,6 +1557,7 @@ footer {
 .title_holder {
   margin-top:15px;
 }
+
 /*END SEARCH RESULTS*/
 /*BLOCK ALSO VIEWED*/
 .also-viewed {
