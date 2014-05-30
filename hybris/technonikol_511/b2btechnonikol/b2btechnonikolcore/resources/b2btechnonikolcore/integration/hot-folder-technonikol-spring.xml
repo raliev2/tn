@@ -33,9 +33,31 @@
     <!-- 1) Scan for files -->
 
     <file:inbound-channel-adapter id="batchFilesTechnonikol" directory="#{baseDirectoryTechnonikol}"
-        filename-regex="^(.*)-(\d+)\.impex" comparator="fileOrderComparator">
+        filename-regex="^(.*)-(\d+)\.impex" comparator="technonikolFileOrderComparator" prevent-duplicates="false">
         <int:poller fixed-rate="1000" />
     </file:inbound-channel-adapter>
+    <bean id="technonikolFileOrderComparator" class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
+		<property name="prefixPriority">
+			<map>
+				<!-- default priority is 0 -->
+				<entry key="warehouses" value="100" />
+				<entry key="brands" value="100" />
+				<entry key="productTypes" value="100" />
+				<entry key="categories" value="50" />
+				<entry key="units" value="50" />
+				<entry key="classifications" value="49" />
+				<entry key="classcategories" value="48" />
+				<entry key="classificationattr" value="47" />			
+				<entry key="classattrassignments" value="46" />
+				<entry key="products" value="40" />
+				<entry key="categoryproductrelation" value="39" />
+				<entry key="features" value="38" />
+				<entry key="userpricegroup" value="30" />
+				<entry key="tnpartners" value="20" />
+				<entry key="pricerow" value="10" />
+			</map>
+		</property>
+	</bean>
  
     <!-- 2) move the file to processing and setup header -->
 
