@@ -38,6 +38,13 @@
 		<enumtype code="ArticleApprovalStatus" autocreate="false" generate="false">
 			<value code="deleted"/>
 		</enumtype>
+		
+		<!-- Extend this relation (extending -> autocreate=false) -->
+		<enumtype code="ProductReferenceTypeEnum" autocreate="false" generate="true" >
+    		<value code="ACCESSORIES_MANDATORY" />
+    		<value code="ACCESSORIES_RECOMMENDED" />
+		</enumtype>
+		
 	</enumtypes>
 
 	<maptypes>
@@ -573,7 +580,25 @@
 						<persistence type="property"/>
 						<description>VAT value, %</description>
 					</attribute>
+
+<!--
+					<attribute qualifier="maxOrderQuantity" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Max Order Quantity</description>
+					</attribute>
+
+
+					<attribute qualifier="minOrderQuantity" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true"/>
+						<persistence type="property"/>
+						<description>Min Order Quantity</description>
+					</attribute>
+-->
+
+
 				</attributes>
+
 			</itemtype>
             
 			<itemtype code="TNProduct" autocreate="true" generate="true" extends="Product">

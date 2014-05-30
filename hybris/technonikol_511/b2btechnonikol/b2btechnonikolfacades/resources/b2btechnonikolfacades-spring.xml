@@ -39,7 +39,38 @@
 	<bean id="b2bProductSearchUtil"
 		  class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BProductSearchUtil">
 	</bean>
-
+	
+	<alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>
+    <bean id="tnCommerceSearchTextPopulator" class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
+        <property name="freeTextQueryBuilders">
+            <list>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="code"/>
+                    <property name="boost" value="90"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="name"/>
+                    <property name="boost" value="80"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="description"/>
+                    <property name="boost" value="50"/>
+                </bean>
+                <bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
+                    <property name="boost" value="30"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="keywords"/>
+                    <property name="boost" value="20"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+					<property name="propertyName" value="categoryName"/>
+					<property name="boost" value="10"/>
+				</bean>
+            </list>
+        </property>
+    </bean>
+        
 	<alias alias="b2bSimpleSuggestionFacade" name="b2bDefaultSimpleSuggestionFacade"/>
 	<bean id="b2bDefaultSimpleSuggestionFacade"
 		  class="com.teamidea.platform.technonikol.facades.suggestion.impl.DefaultSimpleSuggestionFacade">
@@ -281,7 +312,7 @@
 	<alias name="technonikolProductPopulator" alias="productPopulator"/>
 
 	<bean id="technonikolProductPopulator"
-	      class="com.teamidea.platform.technonikol.facades.product.populators.TechnonikolProductPopulator"
+	      class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
 	      parent="defaultProductPopulator">
 <!--		<property name="productBasicPopulator" ref="productBasicPopulator"/>
 		<property name="variantSelectedPopulator" ref="variantSelectedPopulator"/>
