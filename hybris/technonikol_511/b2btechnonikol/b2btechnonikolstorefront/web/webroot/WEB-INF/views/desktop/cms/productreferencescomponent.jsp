@@ -48,10 +48,10 @@
                          		<a href="javascript:void(0)" class="button">В корзину</a>
                          	</div>
                         </c:if>
-                    <div class="product-carousel-item__to-compare">
+                    <%--<div class="product-carousel-item__to-compare">
                         <c:set var="toCompareId" value="to_compare_${productReference.target.code}"/>
                         <input type="checkbox" id="${toCompareId}" /> <label for="${toCompareId}"><spring:theme code="page.productDetails.toCampare"/></label>
-                    </div>
+                    </div>--%>
 
                 </li>
             </c:forEach>
