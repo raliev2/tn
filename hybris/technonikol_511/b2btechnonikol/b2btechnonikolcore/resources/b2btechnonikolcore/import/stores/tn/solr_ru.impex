@@ -20,9 +20,8 @@ UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$inde
 
 # Define the available sorts
 UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[unique=true];name[lang=$lang]
- ;;name-asc;По имени;
- ;;name-desc;Обратно по имени;
+ ;;name-asc;По наименованию от А до Я;
+ ;;name-desc;По наименованию от Я до А;
  ;;price-asc;По возрастанию цены;
  ;;price-desc;По уменьшению цены;
  ;;relevance;По релевантности;
- ;;topRated;По продажам;
