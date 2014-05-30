@@ -22,12 +22,12 @@
 
 <div class="search-controls g-gradient-gray clearfix">
 
-    <div class="search-controls__grid-list search-controls__grid-list_grid">
+    <%--<div class="search-controls__grid-list search-controls__grid-list_grid">
         <a href="javascript:void(0)" class="g-link-blue">Плитка</a>
     </div>
     <div class="search-controls__grid-list search-controls__grid-list_list">
         Список
-    </div>
+    </div>--%>
     <div class="search-controls__pagination">
         Результатов на странице:   <a href="javascript:void(0)" class="g-link-blue">5</a>  |  10  |  <a href="javascript:void(0)" class="g-link-blue">20</a>
     </div>
