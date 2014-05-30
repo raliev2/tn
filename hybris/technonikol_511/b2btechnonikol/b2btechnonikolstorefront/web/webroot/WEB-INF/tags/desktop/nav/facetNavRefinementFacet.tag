@@ -39,7 +39,6 @@
                                 </li>
                             </c:forEach>
                         </ul>
-                        <a href="javascript:void(0)" class="js-show-all filter-block__show-all" data-text="Скрыть">Показать все</a>
                     </c:if>
 
                     <ul class="facet_block ${facetData.multiSelect ? '' : 'indent'} ${not empty facetData.topValues ? ' g-hidden' : ''}">
@@ -64,6 +63,9 @@
                             </li>
                         </c:forEach>
                     </ul>
+                    <c:if test="${not empty facetData.topValues}">
+                        <a href="javascript:void(0)" class="js-show-all filter-block__show-all" data-text="Скрыть">Показать все</a>
+                    </c:if>
                 </div>
             </ycommerce:testId>
         </div>
