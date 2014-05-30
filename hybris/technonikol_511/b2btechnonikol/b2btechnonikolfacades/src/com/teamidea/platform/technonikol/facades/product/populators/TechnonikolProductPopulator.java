@@ -36,13 +36,13 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		final java.lang.String barcode = source.getBarcode();
 		target.setBarcode(barcode);
 		final TNBrandModel brand = source.getBrand();
-		target.setBrand(brand);
+		//target.setBrand(brand);
 		final TNSupplierModel supplier = source.getSupplier();
-		target.setSupplier(supplier);
+		//target.setSupplier(supplier);
 		final CountryModel productionCountry = source.getProductionCountry();
-		target.setProductionCountry(productionCountry);
+		//target.setProductionCountry(productionCountry);
 		final TNProductTypeModel productType = source.getProductType();
-		target.setProductType(productType);
+		//target.setProductType(productType);
 		final String productSubtype = source.getProductSubtype();
 		target.setProductSubtype(productSubtype);
 		final java.lang.String productModel = source.getProductModel();
@@ -59,6 +59,13 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		target.setArchiveDate(archiveDate);
 		final java.lang.Integer quantityInPackage = source.getQuantityInPackage();
 		target.setQuantityInPackage(quantityInPackage);
+
+/*		final java.lang.Integer maxOrderQuantity = source.getMaxOrderQuantity();
+		target.setMaxOrderQuantity(maxOrderQuantity);
+		
+		final java.lang.Integer minOrderQuantity = source.getMinOrderQuantity();
+		target.setMinOrderQuantity(minOrderQuantity);
+*/
 		final java.lang.Double weightGross = source.getWeightGross();
 		target.setWeightGross(weightGross);
 		final java.lang.Double weightNet = source.getWeightNet();
@@ -68,7 +75,7 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		final java.lang.Double volume = source.getVolume();
 		target.setVolume(volume);
 		final UnitModel baseUnit = source.getBaseUnit();
-		target.setBaseUnit(baseUnit);
+		//target.setBaseUnit(baseUnit);
 		final Integer vat = source.getVat();
 		target.setVat(vat);
 

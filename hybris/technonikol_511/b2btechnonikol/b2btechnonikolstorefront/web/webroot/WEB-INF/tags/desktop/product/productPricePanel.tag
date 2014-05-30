@@ -9,7 +9,7 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<p class="regularPrice">Цена:</p>
+<!--<p class="regularPrice">Цена:</p>-->
 <span class="regularPrice__price price">
 <c:choose>
 	<c:when test="${empty product.volumePrices}">
@@ -22,6 +22,8 @@
 				</span>
 			</c:when>
 			<c:otherwise>
+				<p class="regularPrice">Цена:</p>
+	
 				<span class="value-title" title='<format:price priceData="${product.price}"/>'>
                     <format:price priceData="${product.price}"/>
 				</span>

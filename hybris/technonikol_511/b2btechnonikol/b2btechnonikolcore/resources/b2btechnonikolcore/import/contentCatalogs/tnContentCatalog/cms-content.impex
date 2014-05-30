@@ -706,8 +706,8 @@ INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true
 ;;tn_upselling_prods_component;С этим товаром часто смотрят
 ;;tn_accessories_prods_component;Аксессуары
 ;;tn_spare_part_prods_component;Запасные части
-;;tn_accessories_mandatory_prods_component;Обязательные аксессуары
-;;tn_accessories_recommended_prods_component;Рекомендуемые аксессуары
+;;tn_accessories_mandatory_prods_component;Обязательные товары
+;;tn_accessories_recommended_prods_component;Рекомендуемые товары
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
 ;;tn_similar_prods_component;Similar Products

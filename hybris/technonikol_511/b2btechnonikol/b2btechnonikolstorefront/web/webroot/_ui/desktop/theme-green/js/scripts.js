@@ -104,7 +104,7 @@ $(document).ready(function() {
     });
 
     $('.js-show-all').click(function() {
-        $(this).next().toggle();
+        $(this).prev().toggle();
         var newTxt = $(this).attr('data-text');
         var oldTxt = $(this).text();
         $(this).text(newTxt);

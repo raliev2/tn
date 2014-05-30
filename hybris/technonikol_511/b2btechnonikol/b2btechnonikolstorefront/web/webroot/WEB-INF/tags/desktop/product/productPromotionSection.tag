@@ -8,15 +8,15 @@
 <ycommerce:testId code="productDetails_promotion_label">
     <c:if test="${not empty product.potentialPromotions}">
         <div class="bundle">
-        <h2>Акция: </h2>
-        <c:choose>
-            <c:when test="${not empty product.potentialPromotions[0].couldFireMessages}">
-                <p>${product.potentialPromotions[0].couldFireMessages[0]}</p>
-            </c:when>
-            <c:otherwise>
-                <p>${product.potentialPromotions[0].description}</p>
-            </c:otherwise>
-        </c:choose>
+            <h2>Акция: </h2>
+            <c:choose>
+                <c:when test="${not empty product.potentialPromotions[0].couldFireMessages}">
+                    <p>${product.potentialPromotions[0].couldFireMessages[0]}</p>
+                </c:when>
+                <c:otherwise>
+                    <p>${product.potentialPromotions[0].description}</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </c:if>
 </ycommerce:testId>

@@ -4,10 +4,10 @@ $systemVersion=systemVersion(catalog(id[default=$classificationCatalog]),version
 $lang=ru
 
 INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];unitType;symbol;name[lang=$lang];$systemVersion[unique=true]
-;mm;mm;mm;мм.;
-;kg;kg;kg;кг.;
-;kub_m;kub_m;kub_m;куб.м.;
-;kv_m;kv_m;kv_m;кв.м.;
+;mm;mm;mm;мм;
+;kg;kg;kg;кг;
+;kub_m;kub_m;kub_m;куб.м</sup>;
+;kv_m;kv_m;kv_m;кв.м;
 ;Vt;Vt;Vt;Вт;
 ;V;V;V;В;
 ;kPa;kPa;kPa;кПа;

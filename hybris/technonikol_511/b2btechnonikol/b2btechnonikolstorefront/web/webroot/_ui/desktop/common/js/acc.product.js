@@ -57,7 +57,7 @@ ACC.product = {
 			ACC.product.$cartPopup.hide();
 		});
 
-		ACC.product.$cartPopup.fadeIn();
+		//ACC.product.$cartPopup.fadeIn();
 		if (typeof timeoutId != 'undefined') {
 			clearTimeout(timeoutId);
 		}
@@ -66,11 +66,11 @@ ACC.product = {
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
-		window.mediator.publish('trackAddToCart', {
+		/*window.mediator.publish('trackAddToCart', {
 			productCode: productCode,
 			quantity:    quantity,
 			cartData:    cartData
-		});
+		});*/
 	},
 
 	zoomImage: function() {

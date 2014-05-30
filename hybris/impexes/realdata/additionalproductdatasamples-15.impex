@@ -5,3 +5,4 @@ update TNProduct;code[unique=true];manufacturerCode;quantityInPackage;documentCo
 update TNProduct;code[unique=true];weightGross;weightNet;volume;
 ;000021;10;20;30
 ;441750;10;20;30
+

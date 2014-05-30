@@ -48,7 +48,7 @@ UPDATE BaseSite;uid[unique=true];solrFacetSearchConfiguration(name)
 # Define price range set
 INSERT_UPDATE SolrValueRangeSet;name[unique=true];qualifier;type;solrValueRanges(&rangeValueRefID)
 ;tnPriceRangeUSD;USD;double;rangeRefUSD1,rangeRefUSD2,rangeRefUSD3,rangeRefUSD4,rangeRefUSD5
-;tnPriceRangeRUB;RUB;double;rangeRefRUB1,rangeRefRUB2,rangeRefRUB3,rangeRefRUB4,rangeRefRUB5
+;tnPriceRangeRUB;RUB;double;rangeRefRUB1,rangeRefRUB2,rangeRefRUB3,rangeRefRUB4,rangeRefRUB5,rangeRefRUB6
 
 # Define price ranges
 INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=true];name[unique=true];from;to
@@ -63,6 +63,7 @@ INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=tru
 ;rangeRefRUB3 ;tnPriceRangeRUB; 500Ք-999Ք               ;   500; 999
 ;rangeRefRUB4 ;tnPriceRangeRUB; 1000Ք-4999Ք           ;  1000; 4999
 ;rangeRefRUB5 ;tnPriceRangeRUB; 5000Ք-100,000Ք;  5000; 100000
+;rangeRefRUB6 ;tnPriceRangeRUB; 100,001Ք-1,000,000Ք;  100001; 1000000
 
 
 # Non-facet properties
@@ -97,11 +98,11 @@ INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[
 
 
 # Category facets
-INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];multiValue[default=true];facet[default=true];facetType(code);facetSort(code);priority;visible;categoryField[default=true];fieldValueProvider;facetDisplayNameProvider;topValuesProvider
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];multiValue[default=true];facet[default=true];facetType(code);facetSort(code);priority;visible;categoryField[default=true];fieldValueProvider;facetDisplayNameProvider;topValuesProvider;useForAutocomplete[default=false];
 ;$solrIndexedType; allCategories ;string;;;;Refine;Alpha;-9999;false;;categoryCodeValueProvider;
 ;$solrIndexedType; categoryPath  ;string;;;;Refine;Alpha;-9999;false;false;categoryPathValueProvider;
-;$solrIndexedType; category      ;string;true;;;Refine;Alpha; 6000;true;;categoryNameValueProvider;categoryFacetDisplayNameProvider;defaultTopValuesProvider
-;$solrIndexedType; brandName     ;string;true;;;Refine;Alpha; 5000;true;;brandNameVolumeProvider;;defaultTopValuesProvider
+;$solrIndexedType; category      ;string;;;;Refine;Alpha; 6000;true;;categoryCodeValueProvider;categoryFacetDisplayNameProvider;defaultTopValuesProvider;
+;$solrIndexedType; brandName     ;string;true;;;Refine;Alpha; 5000;true;false;brandNameVolumeProvider;;defaultTopValuesProvider;true;
 
 # Other facet properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];facet[default=true];facetType(code);facetSort(code);priority;visible;useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;facetDisplayNameProvider;customFacetSortProvider;topValuesProvider;rangeSets(name)
