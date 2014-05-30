@@ -45,7 +45,8 @@
                     <product:productAmount amount="${searchPageData.pagination.totalNumberOfResults}" />
                 </div>
                 <div class="banner-700px">
-                    <a href="javascript:void(0)">
+                    <c:url value="/строительные-материалы/плоские-кровли/мастики-и-праймеры/c/mastiki_i_prajmery" var="bannerUrl" />
+                    <a href="${bannerUrl}">
                         <img src="${themeResourcePath}/images/banners/westard.jpg" alt="Westward" title="Westward" />
                     </a>
                 </div>

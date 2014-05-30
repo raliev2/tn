@@ -18,7 +18,7 @@
                 <format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>
             </c:when>
             <c:otherwise>
-                <format:price priceData="${product.price}"/>
+                <format:fromPrice priceData="${product.price}"/>
             </c:otherwise>
         </c:choose>
         </span>

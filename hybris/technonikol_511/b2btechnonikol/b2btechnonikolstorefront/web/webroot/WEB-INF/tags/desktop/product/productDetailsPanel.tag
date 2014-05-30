@@ -93,8 +93,6 @@
                 <div class="characteristics-line__col1">
 			        <product:productPricePanel product="${product}"/>
 
-                    <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
-
                     <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
                         <c:url value='/login' var="loginUrl"/>
                         <p class="auth-message"><a href="${loginUrl}">Авторизуйтесь, пожалуйста, для получения актуальной цены</a></p>
@@ -104,7 +102,6 @@
                     <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
-                    <div class="in-wishlist g-float-right"><a href="javascript:void(0)" class="g-link-blue">+ В список<br />желаний</a></div>
                 </div>
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
@@ -135,20 +132,6 @@
                     <c:if test="${not empty product.productType.name}">
                         <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
                     </c:if>
-                    <c:if test="${not empty product.unreplenishable}">
-                        <li class="one-characteristic">Запрещен к закупке:
-                            <span class="one-characteristic__value">
-                                <c:choose>
-                                    <c:when test="${product.unreplenishable}">
-                                        Да
-                                    </c:when>
-                                    <c:otherwise>
-                                        Нет
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
-                        </li>
-                    </c:if>
                     <c:if test="${not empty product.volume}">
                         <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     </c:if>
@@ -163,6 +146,15 @@
                 </div>
             </c:if>
             <product:productPromotionSection product="${product}"/>
+            <c:if test="${not empty product.units}">
+                <div>
+                    <c:forEach items="${product.units}" var="unit" varStatus="status">
+                        <div>
+                            ${unit.code}:${unit.name}:${product.unitsMap[unit.code]}
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
         </div>
     </div>
 </section>

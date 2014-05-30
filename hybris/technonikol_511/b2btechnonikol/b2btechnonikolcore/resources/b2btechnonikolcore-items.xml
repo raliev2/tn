@@ -54,7 +54,7 @@
 	</maptypes>
 	
 	<relations>
-		<relation code="ProductUnitRelation" generate="true" localized="false" autocreate="true">
+		<relation code="ProductUnitRelation" generate="true" autocreate="true" localized="false">
 			<deployment table="Product2UnitConversion" typecode="20005"/>
 			<sourceElement type="Product" qualifier="products" collectiontype="set" cardinality="many" ordered="false"/>
 			<targetElement type="Unit" qualifier="units" collectiontype="set" cardinality="many" ordered="false"/>
@@ -446,8 +446,8 @@
 				</attributes>
 			</itemtype>
 
-			<itemtype code="ProductUnitRelation" extends="Link" autocreate="false" generate="true">
-				<deployment table="Product2UnitConversion" typecode="20005"/>
+			<itemtype code="ProductUnitRelation" extends="Link" autocreate="false" generate="true" jaloclass="com.teamidea.platform.technonikol.core.jalo.ProductUnitRelation">
+				<!--<deployment table="Product2UnitConversion" typecode="20005"/>-->
 				<attributes>
 					<attribute qualifier="conversion" type="java.lang.Double" autocreate="true" generate="true">
 						<modifiers optional="true"/>

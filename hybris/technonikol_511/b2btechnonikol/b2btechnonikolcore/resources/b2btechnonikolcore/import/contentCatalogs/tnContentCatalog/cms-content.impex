@@ -19,11 +19,13 @@ INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;fronten
 ;;SearchResultsEmptyPageTemplate;Search Results Empty Page Template;search/searchEmptyPage;ContentPage
 ;;SearchAdvancedResultsEmptyPageTemplate;Advanced Search Results Empty Page Template;search/searchAdvancedEmptyPage;ContentPage
 ;;CategoryPageTemplate;Category Page Template;category/categoryPage;CategoryPage
+;;AllCategoryPageTemplate;All Category Page Template;layout/category/categoryPage;ContentPage
 ;;LandingPage1Template;Landing Page 1 Template;layout/landingLayout1Page;CategoryPage,ContentPage
 ;;LandingPage2Template;Landing Page 2 Template;layout/landingLayout2Page;CategoryPage,ContentPage
 ;;LandingPage3Template;Landing Page 3 Template;layout/landingLayout3Page;CategoryPage,ContentPage
 ;;LandingPage4Template;Landing Page 4 Template;layout/landingLayout4Page;CategoryPage,ContentPage
 ;;LandingPage5Template;Landing Page 5 Template;layout/landingLayout5Page;CategoryPage,ContentPage
+;;LandingPage6Template;Landing Page 6 Template;layout/landingLayout6Page;CategoryPage,ContentPage
 ;;LandingPage6Template;Landing Page 6 Template;layout/landingLayout6Page;CategoryPage,ContentPage
 ;;ContentPage1Template;Content Page 1 Template;layout/contentLayout1Page;ContentPage
 
@@ -45,6 +47,7 @@ UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[tr
 ;;ProductListPageTemplate   ;$jarResourceCms/structure-view/structure_productListPageTemplate.vm
 ;;ProductGridPageTemplate   ;$jarResourceCms/structure-view/structure_productGridPageTemplate.vm
 ;;CategoryPageTemplate      ;$jarResourceCms/structure-view/structure_categoryPageTemplate.vm
+;;AllCategoryPageTemplate   ;$jarResourceCms/structure-view/structure_categoryPageTemplate.vm
 ;;LandingPage1Template      ;$jarResourceCms/structure-view/structure_landingPage1Template.vm
 ;;LandingPage2Template      ;$jarResourceCms/structure-view/structure_landingPage2Template.vm
 ;;LandingPage3Template      ;$jarResourceCms/structure-view/structure_landingPage3Template.vm
@@ -192,6 +195,19 @@ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=
 
 # Category Page Template
 INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CategoryPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;SiteLogo;;;logo
+;HeaderLinks;;;headerlinks
+;SearchBox;;;searchbox
+;MiniCart;;;minicart
+;NavigationBar;;;navigation
+;Section1;;;wide
+;Section2;;;wide
+;Section3;;;narrow
+;Section4;;;narrow
+;Footer;;;footer
+
+# AllCategory Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='AllCategoryPageTemplate'];validComponentTypes(code);compTypeGroup(code)
 ;SiteLogo;;;logo
 ;HeaderLinks;;;headerlinks
 ;SearchBox;;;searchbox
@@ -384,6 +400,14 @@ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=
 
 # Create Content Slots
 
+# CMS SearchBox Components
+INSERT_UPDATE SearchBoxComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;SearchBox;Search Box;SearchBox
+
+# Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchBoxSlot;SearchBox
+
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
 ;;SiteLogoSlot;Default Site Logo Slot;true
 ;;HomepageNavLinkSlot;Default Homepage Link;true
@@ -457,6 +481,15 @@ INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];po
 ;;Footer-SearchAdvancedResultsEmpty;Footer;;FooterSlot;true
 
 INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CategoryPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-CategoryPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-CategoryPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;HeaderLinks-CategoryPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-CategoryPage;SearchBox;;SearchBoxSlot;true
+;;MiniCart-CategoryPage;MiniCart;;MiniCartSlot;true
+;;NavigationBar-CategoryPage;NavigationBar;;NavigationBarSlot;true
+;;Footer-CategoryPage;Footer;;FooterSlot;true
+
+INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='AllCategoryPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
 ;;SiteLogo-CategoryPage;SiteLogo;;SiteLogoSlot;true
 ;;HomepageLink-CategoryPage;HomepageNavLink;;HomepageNavLinkSlot;true
 ;;HeaderLinks-CategoryPage;HeaderLinks;;HeaderLinksSlot;true
@@ -662,6 +695,7 @@ INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTe
 ;;manageUnits;Manage Units Page;AccountPageTemplate;manageUnits
 ;;manageUsergroups;Manage Usergroup Page;AccountPageTemplate;manageUsergroups
 ;;manageUnitApprovers;Manage Units Approvers Page;AccountPageTemplate;manageUnitApprovers
+;;all-categories;All Categories Page;AllCategoryPageTemplate;/all-categories
 
 # Product Details Page
 INSERT_UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
