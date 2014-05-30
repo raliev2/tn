@@ -25,7 +25,7 @@ ACC.autocomplete = {
                         return response(cache[term]);
                     }
 
-                    $.getJSON(option.autocompleteUrl, {term: request.term}, function(data) {
+                    $.getJSON(option.autocompleteUrl, {term: request.term}, function(data) {console.log(data)
                         var autoSearchData = [];
                         if(data.suggestions != null){
                             $.each(data.suggestions, function (i, obj)
@@ -45,7 +45,7 @@ ACC.autocomplete = {
                                             desc: obj.description,
                                             manufacturer: obj.manufacturer,
                                             url: ACC.config.contextPath + obj.url,
-                                            price: obj.price.formattedValue,
+                                            price: (obj.price != null ? obj.price.formattedValue : ''),
                                             type: "productResult",
                                             image: obj.images[0].url});
                             });
@@ -80,8 +80,7 @@ ACC.autocomplete = {
                         renderHtml += "<span class='thumb'><img src='" + item.image + "' /></span><span class='desc clearfix'>";
                     }
                     renderHtml += "<span class='title'>" + item.value +
-                            "</span><span class='price'>" + item.price + "</span></span>" +
-                            "</a>";
+                            "</span>" + "</a>";
                     return $("<li class='product'>").data("item.autocomplete", item).append(renderHtml).appendTo(ul);
                 }
             };

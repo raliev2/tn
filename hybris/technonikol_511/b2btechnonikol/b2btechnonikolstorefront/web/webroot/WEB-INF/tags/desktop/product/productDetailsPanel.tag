@@ -14,6 +14,7 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <section class="clearfix">
     <div class="also-viewed">
@@ -114,37 +115,53 @@
                     </div>
                 </div>
             </div>
+            </div>
             <div class="characteristics__line clearfix">
                 <ul>
-                    <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
-
+                    <c:if test="${not empty product.manufacturerCode}">
+                        <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
+                    </c:if>
                     <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
-		  <!--  	<li class="one-characteristic">UNSPSC: <span class="one-characteristic__value">30161701</span></li> -->
-		            <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
-
+                    <c:if test="${not empty product.documentCode}">
+		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
+                    </c:if>
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-                    <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
-                    <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
-                    <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
-                    <li class="one-characteristic">Запрещен к закупке:
-                        <span class="one-characteristic__value">
-                            <c:choose>
-                                <c:when test="${product.unreplenishable}">
-                                    Да
-                                </c:when>
-                                <c:otherwise>
-                                    Нет
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
-                    </li>
-                    <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
-                    <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
+		   <c:if test="${not empty product.weightGross}">
+                        <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
+                    </c:if>
+                    <c:if test="${not empty product.weightNet}">
+                        <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
+                    </c:if>
+                    <c:if test="${not empty product.productType.name}">
+                        <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
+                    </c:if>
+                    <c:if test="${not empty product.unreplenishable}">
+                        <li class="one-characteristic">Запрещен к закупке:
+                            <span class="one-characteristic__value">
+                                <c:choose>
+                                    <c:when test="${product.unreplenishable}">
+                                        Да
+                                    </c:when>
+                                    <c:otherwise>
+                                        Нет
+                                    </c:otherwise>
+                                </c:choose>
+                            </span>
+                        </li>
+                    </c:if>
+                    <c:if test="${not empty product.volume}">
+                        <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
+                    </c:if>
+                    <c:if test="${not empty product.quantityInPackage}">
+                        <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
+                    </c:if>
                 </ul>
             </div>
-            <div class="product-country">
-                Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
-            </div>
+            <c:if test="${not empty product.productionCountry.name}">
+                <div class="product-country">
+                    Страна производитель: <span class="one-characteristic__value">${product.productionCountry.name}</span>
+                </div>
+            </c:if>
             <product:productPromotionSection product="${product}"/>
         </div>
     </div>

@@ -1,6 +1,7 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
 <%@ tag pageEncoding="UTF-8" %>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
 
@@ -13,7 +14,7 @@
             <li class="footer__link"><a href="javascript:void(0)">Обратная связь</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Найти филиал</a></li>
         </ul>
-        <div class="g-text">Есть вопросы? Позвоните нам<br /><span class="footer__telephone">8 800 333 00 20</span></div>
+        <div class="g-text">Есть вопросы? Позвоните нам<br /><span class="footer__telephone"><spring:theme code="common.telephone" /></span></div>
     </div>
     <div class="col-links">
         <h6>Поддержка</h6>

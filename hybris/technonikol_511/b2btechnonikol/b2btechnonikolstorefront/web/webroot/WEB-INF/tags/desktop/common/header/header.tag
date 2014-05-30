@@ -25,11 +25,11 @@
             </ul>
         </div>
         <div class="custom-message">
-
+            <span class="header__telephone"><spring:theme code="common.telephone" /></span>
         </div>
-        <div>
-            <a href="javascript:void(0)" class="link-cart">Ваша корзина пуста</a>
-        </div>
+        <cms:pageSlot position="MiniCart" var="cart" limit="1">
+            <cms:component component="${cart}"/>
+        </cms:pageSlot>
     </div>
 
 <%--	<cms:pageSlot position="MiniCart" var="cart" limit="1">

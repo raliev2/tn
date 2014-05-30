@@ -25,6 +25,7 @@
 				<nav:topNavigation/>
 				<jsp:doBody/>
 				<footer:footer/>
+                <cart:addToCart/>
 
 	</jsp:body>
 	

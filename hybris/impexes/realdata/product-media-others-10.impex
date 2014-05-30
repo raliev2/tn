@@ -15,7 +15,6 @@ $medias=medias(code, $catalogVersion)
 $galleryImages=galleryImages(qualifier, $catalogVersion)
 
 INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];$catalogVersion;folder(qualifier)[default=images]
-#000019
 ;515Wx515H;/515Wx515H/000019.jpg;$siteResource/realimages/515Wx515H/000019.jpg
 ;300Wx300H;/300Wx300H/000019.jpg;$siteResource/realimages/300Wx300H/000019.jpg
 ;96Wx96H;/96Wx96H/000019.jpg;$siteResource/realimages/96Wx96H/000019.jpg
