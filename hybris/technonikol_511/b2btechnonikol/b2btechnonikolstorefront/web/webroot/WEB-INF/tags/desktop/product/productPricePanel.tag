@@ -9,7 +9,9 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<p class="regularPrice">Цена:</p>
+<c:if test="${not empty product.price || not empty product.volumePrices}">
+    <p class="regularPrice">Цена:</p>
+</c:if>
 <span class="regularPrice__price price">
 <c:choose>
 	<c:when test="${empty product.volumePrices}">
