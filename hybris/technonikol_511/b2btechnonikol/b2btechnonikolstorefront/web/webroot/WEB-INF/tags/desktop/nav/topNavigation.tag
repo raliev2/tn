@@ -25,7 +25,10 @@
 
 <div class="fast-links fast-links_notlogin clearfix">
     <div class="header-banner">
-        <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/header-banner.png" alt="Новое руководство для Motormatch уже тут" /></a>
+        <c:url value="/строительные-материалы/плоские-кровли/мастики-и-праймеры/мастики-битумные/Герметик-бутил-каучуковый-ТехноНИКОЛЬ-№45-%28белый%29%2C-ведро-16/p/395727" var="headerBannerUrl" />
+        <a href="${headerBannerUrl}">
+            <img src="${themeResourcePath}/images/banners/header-banner.png" alt="Новое руководство для Motormatch уже тут" />
+        </a>
     </div>
 
 </div>

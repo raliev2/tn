@@ -21,7 +21,6 @@
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/reset.less" />
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/anythingslider.css" />
-    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/jquery.rating.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/easyzoom.css">
 
     <%-- Favourite Icon --%>
@@ -67,7 +66,6 @@
 		</script>
     <script type='text/javascript' src='${themeResourcePath}/js/lib/easyzoom.js'></script>
     <script type='text/javascript' src='${themeResourcePath}/js/jquery.sliderImages.js'></script>
-    <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.rating-2.0.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/lib/jquery.anythingslider.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
     <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
