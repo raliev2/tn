@@ -29,6 +29,10 @@
         <property name="productPurpose" type="String"/>
         <property name="productProperties" type="String"/>
         <property name="productContent" type="String"/>
+<!--
+        <property name="maxOrderQuantity" type="Integer"/>
+        <property name="minOrderQuantity" type="Integer"/>
+-->
         <property name="unreplenishable" type="Boolean"/>
         <property name="archiveDate" type="java.util.Date"/>
         <property name="quantityInPackage" type="Integer"/>
