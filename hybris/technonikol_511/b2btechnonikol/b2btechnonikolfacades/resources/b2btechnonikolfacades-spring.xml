@@ -48,6 +48,10 @@
                     <property name="boost" value="80"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="brandName"/>
+                    <property name="boost" value="70"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="description"/>
                     <property name="boost" value="50"/>
                 </bean>
