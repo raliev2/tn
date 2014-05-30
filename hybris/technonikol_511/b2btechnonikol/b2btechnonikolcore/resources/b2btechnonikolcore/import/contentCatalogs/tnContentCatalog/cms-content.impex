@@ -695,7 +695,7 @@ INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTe
 ;;manageUnits;Manage Units Page;AccountPageTemplate;manageUnits
 ;;manageUsergroups;Manage Usergroup Page;AccountPageTemplate;manageUsergroups
 ;;manageUnitApprovers;Manage Units Approvers Page;AccountPageTemplate;manageUnitApprovers
-;;all-categories;All Categories Page;AllCategoryPageTemplate;all-categories
+;;all-categories;All Categories Page;AllCategoryPageTemplate;/all-categories
 
 # Product Details Page
 INSERT_UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
