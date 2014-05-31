@@ -16,12 +16,14 @@
             <c:otherwise>
                 <c:url value="${breadcrumb.url}" var="breadcrumbUrl"/>
                 <c:if test="${not status.last}">
-                    / <a href="${breadcrumbUrl}" class="g-link-blue"> ${breadcrumb.name}</a>
+                    / <a href="${breadcrumbUrl}" class="g-link-blue"> ${breadcrumb.name}</a>		   
                 </c:if>
                 <c:if test="${status.last}">
                     / ${breadcrumb.name}
+		    <c:set var="currentsection" value="${breadcrumb.name}" scope="request"/>
                 </c:if>
             </c:otherwise>
         </c:choose>
     </c:forEach>
 </div>
+

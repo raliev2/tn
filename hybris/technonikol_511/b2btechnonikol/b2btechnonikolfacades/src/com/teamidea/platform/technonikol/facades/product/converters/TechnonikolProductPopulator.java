@@ -65,7 +65,7 @@ public class TechnonikolProductPopulator extends ProductPopulator {
     public void populate(final ProductModel source, final ProductData target) {
         super.populate(source, target);
 
-        log.debug("Calling TNProduct populator");
+        log.info("Calling TNProduct populator");
         target.setManufacturerCode(source.getManufacturerCode());
         target.setSupplierCode(source.getSupplierCode());
         target.setDocumentCode(source.getDocumentCode());
@@ -143,7 +143,7 @@ public class TechnonikolProductPopulator extends ProductPopulator {
         Map<String, Double> unitMap = new HashMap<String, Double>();
         Map<String, Double> unitMapModel = tnProductUnitRelationService.getProductUnitRelationByProduct(productModel);
         for (String key: unitMapModel.keySet())
-        //log.info("relation key:" + key + ", value: " + unitMapModel.get(key));
+        log.info("relation key:" + key + ", value: " + unitMapModel.get(key));
 
         if (productModel.getUnits() != null)
             //log.info("Found " + productModel.getUnits().size() + " units for product");
@@ -151,7 +151,7 @@ public class TechnonikolProductPopulator extends ProductPopulator {
                 final String unitPk = unitModel.getPk().toString();
                 //log.info("Looking up unit: " + unitModel.getPk() + ":" + unitModel.getCode());
                 if (unitMapModel.get(unitPk) != null) {
-                    log.debug("Adding unit: " + unitModel.getCode() + " with conversion: " + unitMapModel.get(unitModel.getPk().toString()));
+                    log.info("Adding unit: " + unitModel.getCode() + " with conversion: " + unitMapModel.get(unitModel.getPk().toString()));
                     unitList.add(unitConverter.convert(unitModel));
                     unitMap.put(unitModel.getCode(), unitMapModel.get(unitPk));
                 }
