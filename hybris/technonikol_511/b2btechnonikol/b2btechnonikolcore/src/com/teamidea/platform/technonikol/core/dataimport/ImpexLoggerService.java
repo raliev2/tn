@@ -28,7 +28,7 @@ import com.teamidea.platform.technonikol.core.dataimport.batch.utils.BatchDirect
 
 
 /**
- * @author Aleksey
+ * @author Aleksey Lubimov
  * 
  */
 public class ImpexLoggerService extends AbstractService
@@ -41,6 +41,7 @@ public class ImpexLoggerService extends AbstractService
 	private static final String ELEMENT_ERROR = "error";
 	private static final String ELEMENT_ERROR_LINE = "line";
 	private static final String ELEMENT_ERROR_DUMP = "dump";
+	private static final String ELEMENT_ERROR_MESSAGE = "message";
 
 	private String encoding;
 
@@ -125,22 +126,28 @@ public class ImpexLoggerService extends AbstractService
 	}
 
 	/**
-	 * Prints an error containing the reason of the error in XML format
 	 * 
 	 * @param file
 	 * @param errorWriter
 	 * @param unresolvedLines
 	 * @param logs
+	 * @param message
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 * @throws FileNotFoundException
 	 * @throws XMLStreamException
 	 */
 	public XMLStreamWriter writeXmlError(final File file, final XMLStreamWriter errorWriter,
-			final ImpExMediaModel unresolvedLines, final List<JobLogModel> logs) throws UnsupportedEncodingException,
-			FileNotFoundException, XMLStreamException
+			final ImpExMediaModel unresolvedLines, final List<JobLogModel> logs, final String message)
+			throws UnsupportedEncodingException, FileNotFoundException, XMLStreamException
 	{
 		final XMLStreamWriter result = writeXmlErrorHeader(file, errorWriter);
+
+		// write message
+		if (message != null)
+		{
+			writeXmlErrorMessage(result, message);
+		}
 
 		// write logs
 		if (logs != null)
@@ -157,6 +164,25 @@ public class ImpexLoggerService extends AbstractService
 		writeXmlErrorTail(result);
 
 		return result;
+	}
+
+	/**
+	 * Prints an error containing the reason of the error in XML format
+	 * 
+	 * @param file
+	 * @param errorWriter
+	 * @param unresolvedLines
+	 * @param logs
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws FileNotFoundException
+	 * @throws XMLStreamException
+	 */
+	public XMLStreamWriter writeXmlError(final File file, final XMLStreamWriter errorWriter,
+			final ImpExMediaModel unresolvedLines, final List<JobLogModel> logs) throws UnsupportedEncodingException,
+			FileNotFoundException, XMLStreamException
+	{
+		return writeXmlError(file, errorWriter, unresolvedLines, logs, null);
 	}
 
 	private XMLStreamWriter writeXmlErrorHeader(final File file, final XMLStreamWriter errorWriter)
@@ -177,6 +203,14 @@ public class ImpexLoggerService extends AbstractService
 		errorWriter.writeEndDocument();
 	}
 
+	private void writeXmlErrorMessage(final XMLStreamWriter errorWriter, final String message)
+			throws UnsupportedEncodingException, FileNotFoundException, XMLStreamException
+	{
+		errorWriter.writeStartElement(ELEMENT_ERROR_MESSAGE);
+		errorWriter.writeCData(message);
+		errorWriter.writeEndElement(); // error
+	}
+
 	private void writeXmlErrorDump(final XMLStreamWriter errorWriter, final String message) throws UnsupportedEncodingException,
 			FileNotFoundException, XMLStreamException
 	{
@@ -188,7 +222,6 @@ public class ImpexLoggerService extends AbstractService
 	private void writeXmlErrorLog(final XMLStreamWriter errorWriter, final List<JobLogModel> logs)
 			throws UnsupportedEncodingException, FileNotFoundException, XMLStreamException
 	{
-
 		errorWriter.writeStartElement(ELEMENT_ERROR);
 		for (final JobLogModel log : logs)
 		{

@@ -15,18 +15,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
 import com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService;
+import com.teamidea.platform.technonikol.core.dataimport.batch.utils.IOUtilsExt;
 import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPackageMessage;
 
 
@@ -52,9 +51,7 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 		Assert.notNull(message.getCurrentPath());
 		final Session localSession = getSessionService().createNewSession();
 
-		PrintWriter statusWriter = null;
 		XMLStreamWriter errorWriter = null;
-
 		final File currentFile = message.getCurrentPath().toFile();
 		try (InputStream fis = new FileInputStream(currentFile))
 		{
@@ -64,8 +61,6 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 			final ImportResult importResult = getImportService().importData(config);
 			if (importResult.isError())
 			{
-				statusWriter = loggerService.writeStatus(currentFile, statusWriter, "Error");
-
 				if (importResult.hasUnresolvedLines())
 				{
 					LOG.error(importResult.getUnresolvedLines().getPreview());
@@ -79,13 +74,10 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 				}
 
 				errorWriter = loggerService.writeXmlError(currentFile, errorWriter, unresolvedLines, importResult.getCronJob()
-						.getLogs());
-			}
-			else
-			{
-				statusWriter = loggerService.writeStatus(currentFile, statusWriter, "Ok");
+						.getLogs(), "Impex import failed");
 			}
 			message.setError(importResult.isError());
+			message.setImpexImportError(importResult.isError());
 			return message;
 		}
 		catch (final IOException e)
@@ -96,7 +88,7 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 		}
 		finally
 		{
-			IOUtils.closeQuietly(statusWriter);
+			IOUtilsExt.closeQuietly(errorWriter);
 			getSessionService().closeSession(localSession);
 		}
 	}

@@ -1,13 +1,7 @@
 package com.teamidea.platform.technonikol.core.dataimport.bigpackage.task;
 
-import de.hybris.platform.acceleratorservices.dataimport.batch.util.BatchDirectoryUtils;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPackageMessage;
 
@@ -17,23 +11,25 @@ import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPac
  */
 public class CleanupTask extends AbstractHotFolderTask
 {
+	private static final Logger log = Logger.getLogger(CleanupTask.class);
 
-	private static final Logger LOG = Logger.getLogger(CleanupTask.class);
+	private CleanupBigPackageHelper cleanupBigPackageHelper;
 
 	public HotFolderPackageMessage onExecute(final HotFolderPackageMessage message)
 	{
-		//final String dirName = message.isError() ? BatchDirectoryUtils.getRelativeErrorDirectory(message.getCurrentPath().toFile())
-		//		: BatchDirectoryUtils.getRelativeArchiveDirectory(message.getCurrentPath().toFile());
-		final String dirName = BatchDirectoryUtils.getRelativeArchiveDirectory(message.getCurrentPath().toFile());
-		try
-		{
-			Files.move(message.getCurrentPath(), Paths.get(dirName, message.getCurrentPath().getFileName().toString()),
-					StandardCopyOption.REPLACE_EXISTING);
-		}
-		catch (final IOException e)
-		{
-			LOG.error(e, e);
-		}
+		cleanupBigPackageHelper.cleanup(message);
 		return null;
 	}
+
+	public CleanupBigPackageHelper getCleanupBigPackageHelper()
+	{
+		return cleanupBigPackageHelper;
+	}
+
+	@Required
+	public void setCleanupBigPackageHelper(final CleanupBigPackageHelper cleanupBigPackageHelper)
+	{
+		this.cleanupBigPackageHelper = cleanupBigPackageHelper;
+	}
+
 }
