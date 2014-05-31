@@ -81,7 +81,9 @@
                                  numberPagesShown="${numberPagesShown}"
                         />
 
-                <div class="category-description">
+                <div class="category-description"></div>
+            </section>
+        </section>
                     <%-- 
 			Описание категории
 		    %-->
