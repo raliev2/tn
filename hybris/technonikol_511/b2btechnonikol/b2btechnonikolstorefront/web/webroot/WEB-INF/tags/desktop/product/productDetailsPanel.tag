@@ -88,7 +88,8 @@
         <div class="product-name">
             <h1 class="fn">${product.name}</h1>
         </div>
-        <div class="product-manufacturer"><a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3A${product.brand.name}" class="g-link-blue brand">${product.brand.name}</a></div>
+        <c:url var="brandUrl" value="/search?q=%3Arelevance%3Abrand%3A${product.brand.name}" />
+        <div class="product-manufacturer"><a href="${brandUrl}" class="g-link-blue brand">${product.brand.name}</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
@@ -147,15 +148,6 @@
                 </div>
             </c:if>
             <product:productPromotionSection product="${product}"/>
-            <c:if test="${not empty product.units}">
-                <div>
-                    <c:forEach items="${product.units}" var="unit" varStatus="status">
-                        <div>
-                            ${unit.code}:${unit.name}:${product.unitsMap[unit.code]}
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:if>
         </div>
     </div>
 </section>

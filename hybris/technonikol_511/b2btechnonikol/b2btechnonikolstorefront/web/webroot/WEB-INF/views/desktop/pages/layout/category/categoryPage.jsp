@@ -35,101 +35,141 @@
             <div class="all-categories">
                 <ul class="clearfix">
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Строительные-Материалы/Плоские-Кровли/c/ploskie_krovli" var="cat1" />
+                        <a href="${cat1}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat1.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/01_ploskie_krovli.jpg" />
                             </div>
-                            <p>Сгибатели</p>
+                            <p>Плоские кровли</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Строительные-Материалы/Скатные-Кровли/c/skatnye_krovli" var="cat2" />
+                        <a href="${cat2}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat2.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/02_skatnye_krovli.jpg" />
                             </div>
-                            <p>Средства для ковра</p>
+                            <p>Скатные кровли</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/комплектующие-для-скатной-кровли/c/komplektujushhie_dlja_skatnoj_krovli" var="cat3" />
+                        <a href="${cat3}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat3.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/03_komplektujushhie_dlja_skatnoj_krovli.jpg" />
                             </div>
-                            <p>Зажимы</p>
+                            <p>Комплектующие для скатной кровли</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/древесные-материалы/c/drevesnye_materialy" var="cat4" />
+                        <a href="${cat4}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat4.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/04_drevesnye_materialy.jpg" />
                             </div>
-                            <p>Коммуникационные инструменты</p>
-                        </a>
-                    </li>
-                    <li class="one-category_line"></li>
-                    <li class="one-category">
-                        <a href="#">
-                            <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat5.jpg" />
-                            </div>
-                            <p>Сантехнические инструменты</p>
-                        </a>
-                    </li>
-                    <li class="one-category">
-                        <a href="#">
-                            <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat6.jpg" />
-                            </div>
-                            <p>Гвоздодеры</p>
-                        </a>
-                    </li>
-                    <li class="one-category">
-                        <a href="#">
-                            <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat7.jpg" />
-                            </div>
-                            <p>Съемники и сепараторы</p>
-                        </a>
-                    </li>
-                    <li class="one-category">
-                        <a href="#">
-                            <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat8.jpg" />
-                            </div>
-                            <p>Пробойники, зубила и ручные дрели</p>
+                            <p>Древесные материалы</p>
                         </a>
                     </li>
                     <li class="one-category_line"></li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/гидро--и-пароизоляционные-пленки/c/gidro-_i_paroizoljacionnye_plenki" var="cat5" />
+                        <a href="${cat5}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat9.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/05_gidro-_i_paroizoljacionnye_plenki.jpg" />
                             </div>
-                            <p>Электрические товары</p>
+                            <p>Гидро- и пароизоляционные пленки</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/утеплители/c/utepliteli" var="cat6" />
+                        <a href="${cat6}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat10.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/06_utepliteli.jpg" />
                             </div>
-                            <p>Напильники</p>
+                            <p>Утеплители</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/заборы-и-ограждения/c/zabory_i_ograzhdenija" var="cat7" />
+                        <a href="${cat7}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat11.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/07_zabory_i_ograzhdenija.jpg" />
                             </div>
-                            <p>Молотки и ударные инструменты</p>
+                            <p>Заборы и ограждения</p>
                         </a>
                     </li>
                     <li class="one-category">
-                        <a href="#">
+                        <c:url value="/Cтроительные-материалы/фасады-и-стеновые-материалы/c/fasady_i_stenovye_materialy" var="cat8" />
+                        <a href="${cat8}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/cat12.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/08_fasady_i_stenovye_materialy.jpg" />
                             </div>
-                            <p>Ручная пила и козлы</p>
+                            <p>Фасады и стеновые материалы</p>
+                        </a>
+                    </li>
+                    <li class="one-category_line"></li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/фундаменты%2C-гидроизоляция/c/fundamenty_gidroizoljacija" var="cat9" />
+                        <a href="${cat9}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/09_fundamenty_gidroizoljacija.jpg" />
+                            </div>
+                            <p>Фундаменты, гидроизоляция</p>
+                        </a>
+                    </li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/транспортное-и-дорожное-строительство/c/transportnoe_i_dorozhnoe_stroitelstvo" var="cat10" />
+                        <a href="${cat10}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/10_transportnoe_i_dorozhnoe_stroitelstvo.jpg" />
+                            </div>
+                            <p>Транспортное и дорожное строительство</p>
+                        </a>
+                    </li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/устройство-придомовой-территории%2C-ландшафт/c/ustrojstvo_pridomovoj_territorii_landshaft" var="cat11" />
+                        <a href="${cat11}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/11_ustrojstvo_pridomovoj_territorii_landshaft.jpg" />
+                            </div>
+                            <p>Устройство придомовой территории, ландшафт</p>
+                        </a>
+                    </li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/материалы-для-внутренней-отделки/c/materialy_dlja_vnutrennej_otdelki" var="cat12" />
+                        <a href="${cat12}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/12_materialy_dlja_vnutrennej_otdelki.jpg" />
+                            </div>
+                            <p>Материалы для внутренней отделки</p>
+                        </a>
+                    </li>
+                    <li class="one-category_line"></li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/дымоходные-системы-и-вентиляционные-каналы/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly" var="cat13" />
+                        <a href="${cat13}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/13_dymohodnye_sistemy_i_ventiljacionnye_kanaly.jpg" />
+                            </div>
+                            <p>Дымоходные системы и вентиляционные каналы</p>
+                        </a>
+                    </li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/воротные-системы/c/vorotnye_sistemy" var="cat14" />
+                        <a href="${cat14}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/14_vorotnye_sistemy.jpg" />
+                            </div>
+                            <p>Воротные системы</p>
+                        </a>
+                    </li>
+                    <li class="one-category">
+                        <c:url value="/Cтроительные-материалы/бассейны/c/bassejny" var="cat15" />
+                        <a href="${cat15}">
+                            <div class="one-category__img">
+                                <img src="${themeResourcePath}/images/maincatalog/15_bassejny.jpg" />
+                            </div>
+                            <p>Бассейны</p>
                         </a>
                     </li>
                 </ul>
@@ -204,7 +244,7 @@
                             </div>
                         </li>
                         <li class="product-carousel__item product-carousel__item_930px">
-                            <c:url value="/p/393557" var="productUrl" />
+                            <c:url value="/Строительные-Материалы/Фундаменты-Гидроизоляция/Изоляция-Стыков/Герметизирующие-Ленты/лента-самоклеющаяся-Nicoband-серебристый-10м-х-10см-ГП-12830079/p/343851" var="productUrl" />
                             <div class="product-carousel-item__img product-carousel-item__img_930px">
                                 <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod17.jpg" alt="Лента самоклеющаяся Nicoband серебристый 10м х 10см ГП 12830079" /></a>
                             </div>
@@ -225,7 +265,7 @@
                             </div>
                         </li>
                         <li class="product-carousel__item product-carousel__item_930px">
-                            <c:url value="/p/393557" var="productUrl" />
+                            <c:url value="/Строительные-Материалы/Плоские-Кровли/Традиционная-Кровля/Рубероид/рубероид-ABS-ТУ-РПП-300-12000208/p/022421" var="productUrl" />
                             <div class="product-carousel-item__img product-carousel-item__img_930px">
                                 <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod18.jpg" alt="Рубероид ABS ТУ РПП 300 12000208" /></a>
                             </div>
@@ -247,7 +287,7 @@
                             </div>
                         </li>
                         <li class="product-carousel__item product-carousel__item_930px">
-                            <c:url value="/p/393557" var="productUrl" />
+                            <c:url value="/Строительные-Материалы/Утеплители/Базальтовый-Утеплитель/Утеплитель-для-Скатных-Кровель/плита-минераловатная-для-создания-разуклонки-на-кровле-Техноруф-В70-1200х600х40-мм/p/210501" var="productUrl" />
                             <div class="product-carousel-item__img product-carousel-item__img_930px">
                                 <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod19.jpg" alt="Плита минераловатная для создания разуклонки на кровле" /></a>
                             </div>
