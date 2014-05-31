@@ -47,12 +47,22 @@
 		document.getElementById('spanprice').innerHTML = a.replace(/\d(?=(\d{3})+\.)/g, '$&,') + " <span class='g-rouble'>Р<span>";
 	}
  </script>
+
+<!--${product.baseUnit.code}]-->
+
             <c:if test="${not empty product.units}">
 		    <select onChange="changeprice(this.value)" style="width:50px">
                     <c:forEach items="${product.units}" var="unit" varStatus="status">
  			<c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
-			<c:set var="formattedPrice" value='${$price}'/>
-                        <option value="${price}">${unit.name}</option>
+			<c:choose>
+				<c:when test="${unit.code == product.baseUnit.code}">		
+				  <c:set var="unitdefault" value="selected"/>
+				</c:when>
+				<c:otherwise>
+				  <c:set var="unitdefault" value=""/>			
+				</c:otherwise>			
+			</c:choose>
+                        <option value="${price}" ${unitdefault}>${unit.name}</option>
                     </c:forEach>
 		    </select>
             </c:if>
