@@ -38,32 +38,503 @@
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Сварочное оборудование</a></li>
             </ul>
         </div>
+<%--- РАУФ. НА ПЕРЕВЕРСТАТЬ --%>
+<script>
+ function switchto(a)
+   {
+	//very bad code!!!!
+      document.getElementById("letterА").style.display="none";
+      document.getElementById("letterБ").style.display="none";
+      document.getElementById("letterВ").style.display="none";
+      document.getElementById("letterГ").style.display="none";
+      document.getElementById("letterД").style.display="none";
+      document.getElementById("letterЕ").style.display="none";
+      document.getElementById("letterИ").style.display="none";
+      document.getElementById("letterК").style.display="none";
+      document.getElementById("letterЛ").style.display="none";
+      document.getElementById("letterМ").style.display="none";
+      document.getElementById("letterО").style.display="none";
+      document.getElementById("letterП").style.display="none";
+      document.getElementById("letterР").style.display="none";
+      document.getElementById("letterС").style.display="none";
+      document.getElementById("letterТ").style.display="none";
+      document.getElementById("letterУ").style.display="none";
+      document.getElementById("letterФ").style.display="none";
+      document.getElementById("letter"+a).style.display="block";
+
+   }
+</script>
         <div class="brands">
             <div class="brands__header brands__header_top">Бренды</div>
             <ul class="brands__list clearfix">
                 <li class="brands-list__item"><a href="javascript:void(0)">#</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">А</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Б</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">В</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Г</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Д</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Е</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Ж</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">З</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">И</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">К</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Л</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">М</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Н</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">О</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">П</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Р</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">С</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Т</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">У</a></li>
-                <li class="brands-list__item"><a href="javascript:void(0)">Ф</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('А');">А</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Б')">Б</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('В');">В</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Г');">Г</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Д');">Д</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Е');">Е</a></li>
+                <li class="brands-list__item"><a href="javascript:void(0);">Ж</a></li>
+                <li class="brands-list__item"><a href="javascript:void(0);">З</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('И');">И</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('К');">К</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Л');">Л</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('М');">М</a></li>
+                <li class="brands-list__item"><a href="javascript:void(0);">Н</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('О');">О</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('П');">П</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Р');">Р</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('С');">С</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Т');">Т</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('У');">У</a></li>
+                <li class="brands-list__item"><a href="javascript:switchto('Ф');">Ф</a></li>
             </ul>
+
+
+<ul>
+<div id="letterA" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AA.D.W. Klinker">	A.D.W. Klinker	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ABS	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Accord	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Aijia	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Akrimax	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Alpina	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Altec	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Anderep	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Aquamast	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Aquasystem	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ariostea	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Armstrong	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			AStone	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Atlas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Aventa Ingineering	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Avtex	</a></li>
+</div><div id="letterB" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Basis Granit	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ABaswool">	Baswool	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Bau Master	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Baukom	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			BauLux	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Baumit	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Bergauf	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			BERGhome	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Biber	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			BILTI	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Bitex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Bolderaja	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Boral	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Borge	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Braas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ABraer">	Braer	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Building Force	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Bwk	</a></li>
+</div><div id="letterC" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Calloni	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Caparol	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			CCS	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			CeramicGroup	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ceramika Nowa Gala	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ceramika Paradyz	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ceresit	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Cersanit	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Certainteed	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Charisma	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Coliseumgres	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Cosmofen	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Cyclone	</a></li>
+</div><div id="letterD" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Datang	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ADevorex">	Devorex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ADocke">	Docke	</a></li>
+</div><div id="letterE" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ecojal	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ecologips	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ecophon	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ecoplast	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Egger	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ekomix	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ELSI	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Eskaro	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AEstima">	Estima	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			EuroColori	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Eurokam	</a></li>
+</div><div id="letterF" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Fakro	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Fat Kuura	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Feldhaus Klinker	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Fiorano	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Flamenco	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Forbo	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Forman	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Foshan San Ceramics	</a></li>
+</div><div id="letterG" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AGaleco">	Galeco	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Gifas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Glunz	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AGrand Line">	Grand Line	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Grasaro	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Gres de Breda	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Guangdong Juimsi Ceramics	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AGyproc">	Gyproc	</a></li>
+</div><div id="letterH" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Hilti	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Hitom	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Holtex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Holzdorf	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Holzhof	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Holzplast	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Huiya Ceramics	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Hunter	</a></li>
+</div><div id="letterI" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ideal	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ilim Timber	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Interry Ceramics	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Isomax	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Isoroc	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ISOROC	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Isover	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Italon	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			IVC	</a></li>
+</div><div id="letterJ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Jersi	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Jingle Trading	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Juta A.S	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Juta A.S.	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Juteks	</a></li>
+</div><div id="letterK" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kast	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kerabud	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kerama Marazzi	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kerama-Marazzi	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kerko	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kiilto	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Knauf	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Koelner	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Koramic	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kosmofen	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kreisel	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kronopol	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kronospan	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kronostar	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Kronostar Europe	</a></li>
+</div><div id="letterL" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Lafarge	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Lasselsberger Ceramics	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Leister Varimat	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Litokol	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			LogicPOOL	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Logicroof	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Lord Ceramica	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Lp Canada	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Luxard	</a></li>
+</div><div id="letterM" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Macley	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Magelan	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Mainland	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Mapei	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Maxwood	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Mercor	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Mitten	</a></li>
+</div><div id="letterN" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Nailite	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Neomid	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Newpearl	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Nichiha	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ANicoband">	Nicoband	</a></li>
+</div><div id="letterO" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Omax	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Optima	</a></li>
+</div><div id="letterP" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Parade	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Paroc	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Planter	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Polaris	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3APorotherm">	Porotherm	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3APrimaplex">	Primaplex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Primet	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Profitex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Pufas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Putech	</a></li>
+</div><div id="letterQ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Quelyd	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Quick Step	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Quick-mix	</a></li>
+</div><div id="letterR" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Rigips	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Rockfon	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Rockwool	</a></li>
+</div><div id="letterS" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Saint-Gobain	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Sayga	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Schiedel Uni	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Sheetrock	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Shick	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Shiedel Uni	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AShinglas">	Shinglas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Sievert	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			SitaEasy	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Smart	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Soudal	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Stayer	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Stroeher	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Stynergy	</a></li>
+</div><div id="letterT" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Taikor	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tarkett	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tech-KREP	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tegra	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Teppako	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Terca	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Terex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			TermLife	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Termoclip-Кровля	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Texfloor	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			TianDi	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tikkurila	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3ATilercat">	Tilercat	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Titebond	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Toledo	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tytan	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Tyvek	</a></li>
+</div><div id="letterV" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Velux	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Venti-Line-М 230	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			VIPкрепеж	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Voltex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			VOX	</a></li>
+</div><div id="letterW" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Walltex	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Waterstop	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Weber	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Wellton	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Westerhof	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AWhite Hills">	White Hills	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Winto Ceramics	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			X-Glass	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Zias	</a></li>
+</div><div id="letterА" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			А.D.W. Klinker	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Аtlas	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Абсалямово	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Авантекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Аквастоп	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Албес	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Алентекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Алипай	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Альтапрофиль	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Альтернатива	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Алюком	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Амари-Дельта	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			АМФ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ангарский Гипс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Аркада	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Аркада-Маркет	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Армат-М	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Армет	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Армет П	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Атем	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Атлас	</a></li>
+</div><div id="letterБ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Батэплекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Баутекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Башнефтехимия	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Белгипс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Биант	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Бизнес Аспект Декор	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Бикарт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Бикрост	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Бикроэласт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Билимбай	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AБиполь">	Биполь	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			БН 90/10	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Боларс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Бонолит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Быстрой	</a></li>
+</div><div id="letterВ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ВГТ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ВДАК	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Велор	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Версаль	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Винербергер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Волгопласт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AВолма">	Волма	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Волошино	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Выбор мастера	</a></li>
+</div><div id="letterГ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Гавань	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Гальвамет	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Геотекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Геркулес	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Гидроизол	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Гипсополимер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Глимс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Горнозаводский цементный завод	</a></li>
+</div><div id="letterД" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Даймонд	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Декарт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Декор-1	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Декоратор	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Декот	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Диат	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Доганер	</a></li>
+</div><div id="letterЕ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Евро Смеси	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Европа	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Евроцемент	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AЕзсм">	Езсм	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ЕК Кемикал	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ефк	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ефк-Сервис	</a></li>
+</div><div id="letterИ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Идеальный Камень	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ижсинтез	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Изобокс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Изобонд	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Изоруф	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Изоруф Н	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Илим Братск	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Интерма	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Интерпан	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Интра	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Искитим	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Италон	</a></li>
+</div><div id="letterК" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Калашниково	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Калевала	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Каменный Цветок	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Каскад Оптимум	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Керама-мама	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Керамин	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Кзсм	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Киргизия	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Комитекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Красный Cтроитель	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Красный Строитель	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Крепикс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Крепс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Крептонит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Кричевцементшифер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			КСП	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			КТ трон	</a></li>
+</div><div id="letterЛ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Лакра	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Латек	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Легпром	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ленинградские Краски	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Лига	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AЛинокром">	Линокром	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Лисма	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Лука	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Люкстейп	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Люмсвет	</a></li>
+</div><div id="letterМ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Магелан	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Магма	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мастер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мастер Гарц	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мегафлекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Металкомплект	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Металл Профиль	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Металл Сервис	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Металлист	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мир Кровли	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мордовцемент	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Мосторг	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			МПЦ	</a></li>
+</div><div id="letterН" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Народная	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Нефрит-Керамика	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Норси	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Норт	</a></li>
+</div><div id="letterО" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Оазис	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Олимп	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Олови	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Оптимист	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ореол	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AОсновит">	Основит	</a></li>
+</div><div id="letterП" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Партнер-ДВ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Пенолин	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Петролит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Пиастрелла	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Пикалевский цемент	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Питерпрофиль	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Плитомикс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Плитонит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ПМЗ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ПМК Пермь	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Полином	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Полиспен	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Полистиль	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Полистрой	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Поревит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Портландцемент	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Престиж-С	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AПроминтех">	Проминтех	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Профи	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Профсталь	</a></li>
+</div><div id="letterР" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Рorothe	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Радуга	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Расцвет	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			РМЗ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Роклайт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Рокс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			РОСТ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Руст	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Русэксп	</a></li>
+</div><div id="letterС" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СВФС	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СДЛ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AСелецкий Док">	Селецкий Док	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Сильвер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Синтерос	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СНТ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Спектр	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Спецкрепеж	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СПК	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Стальинвест	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Станвек	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Старатели	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Старт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Стелс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Стефи Керамика	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СтилКон	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СтилМастер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Стинерджи	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Столит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Строби	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Строизол	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Стройка	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СтройМеталл	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СтройМикс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			СтройСмесь	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Сухоложскцемент	</a></li>
+</div><div id="letterТ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Тамак	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Твинни	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ТДМ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Текс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ТеплоKnauf	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Теплон	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Теплоролл	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Тепофол	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Терекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Термолайф	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Термостек	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ТехКреп	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноакустик	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехноблок">	Техноблок	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехновент">	Техновент	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техногрес	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Технолайт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехнониколь">	Технониколь	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТЕХНОНИКОЛЬ">	ТЕХНОНИКОЛЬ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноплекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноруф	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техносэндвич	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехнофас">	Технофас	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноэласт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноэластмост	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техполимер	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ТНН	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Т-Пласт	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Транссервисстрой	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Триоль	</a></li>
+</div><div id="letterУ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AУнифлекс">	Унифлекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Урал-Гипс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Уралхим	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Уральский Гранит	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Утеплит	</a></li>
+</div><div id="letterФ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Феникс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Форвард	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Хеттен	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			ЦСМ	</a></li>
+</div><div id="letterШ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Шахтинская плитка	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Шлосс	</a></li>
+</div><div id="letterЭ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Экон	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Экофлекс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Эксобонд	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Элитеврострой	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Эль-Блок	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Эмпилс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Эталон	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Этафом	</a></li>
+</div><div id="letterЮ" style=display:none>	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Юнис	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Юта Гипс	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ютавек	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ютафол	</a></li>
+
+
+<%--- /РАУФ ---%>
+
         </div>
+
+
+
         <div class="delivery">
             <h2 class="delivery__header">Рассылка</h2>
             <div class="delivery__text">Оставьте адрес эл. почты и будьте в курсе всех новостей.</div>
