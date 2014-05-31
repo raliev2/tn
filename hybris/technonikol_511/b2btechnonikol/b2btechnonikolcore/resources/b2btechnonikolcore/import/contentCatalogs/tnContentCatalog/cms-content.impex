@@ -490,13 +490,13 @@ INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];po
 ;;Footer-CategoryPage;Footer;;FooterSlot;true
 
 INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='AllCategoryPageTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
-;;SiteLogo-CategoryPage;SiteLogo;;SiteLogoSlot;true
-;;HomepageLink-CategoryPage;HomepageNavLink;;HomepageNavLinkSlot;true
-;;HeaderLinks-CategoryPage;HeaderLinks;;HeaderLinksSlot;true
-;;SearchBox-CategoryPage;SearchBox;;SearchBoxSlot;true
-;;MiniCart-CategoryPage;MiniCart;;MiniCartSlot;true
-;;NavigationBar-CategoryPage;NavigationBar;;NavigationBarSlot;true
-;;Footer-CategoryPage;Footer;;FooterSlot;true
+;;SiteLogo-AllCategoryPage;SiteLogo;;SiteLogoSlot;true
+;;HomepageLink-AllCategoryPage;HomepageNavLink;;HomepageNavLinkSlot;true
+;;HeaderLinks-AllCategoryPage;HeaderLinks;;HeaderLinksSlot;true
+;;SearchBox-AllCategoryPage;SearchBox;;SearchBoxSlot;true
+;;MiniCart-AllCategoryPage;MiniCart;;MiniCartSlot;true
+;;NavigationBar-AllCategoryPage;NavigationBar;;NavigationBarSlot;true
+;;Footer-AllCategoryPage;Footer;;FooterSlot;true
 
 INSERT_UPDATE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='LandingPage1Template'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
 ;;SiteLogo-LandingPage1;SiteLogo;;SiteLogoSlot;true
