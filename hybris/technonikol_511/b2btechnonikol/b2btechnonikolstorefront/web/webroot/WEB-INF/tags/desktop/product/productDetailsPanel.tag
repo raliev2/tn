@@ -17,6 +17,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <section class="clearfix">
+    <%--
     <div class="also-viewed">
         <div class="also-viewed__head">Customers Also Viewed</div>
         <div class="also-viewed__product">
@@ -77,7 +78,7 @@
             </div>
         </div>
     </div>
-
+    --%>
     <div class="product-images">
         <product:productImagePanel product="${product}"/>
         <product:productImageCarousel galleryImages="${galleryImages}" product="${product}"/>
