@@ -18,6 +18,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- General setup -->
+    <bean id="cleanupBigPackageHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
+		<property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+		<property name="loggerService" ref="loggerService"/>
+	</bean>
+	
+	<int:channel id="errorChannel" />
+	<int:service-activator input-channel="errorChannel" ref="errorBigPackageHandler" method="onError" />
+    <bean id="errorBigPackageHandler" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.ErrorBigPackageHandler" parent="errorHandler">
+		<property name="cleanupBigPackageHelper" ref="cleanupBigPackageHelper" />
+	</bean>
+    
     <!-- 1) Scan for files -->
     <file:inbound-channel-adapter id="fileScannerAdapter" directory="#{baseDirectoryTechnonikol}"
                                   filename-regex="(\D+?)(\d+?)_(\d+?)-(\d+?).ext.impex" comparator="fileOrderComparator" prevent-duplicates="false">
@@ -53,7 +66,9 @@
 
     <!-- 6) clean up step -->
     <int:service-activator input-channel="cleanUpStep" method="onExecute" ref="cleanupTask"/>
-    <bean id="cleanupTask" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupTask" parent="abstractHotFolderTask"/>
+    <bean id="cleanupTask" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupTask" parent="abstractHotFolderTask">
+    	<property name="cleanupBigPackageHelper" ref="cleanupBigPackageHelper" />
+    </bean>
 
     <!-- End of sequence -->
 

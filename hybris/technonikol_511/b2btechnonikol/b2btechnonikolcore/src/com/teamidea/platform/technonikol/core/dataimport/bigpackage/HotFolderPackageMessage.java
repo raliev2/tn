@@ -22,6 +22,7 @@ public class HotFolderPackageMessage
 	private final int sequenceNumber;
 	private final int fileNumbers;
 	private boolean isError = false;
+	private boolean isImpexImportError = false;
 
 	public HotFolderPackageMessage(final Path currentPath)
 	{
@@ -71,6 +72,23 @@ public class HotFolderPackageMessage
 	public void setError(final boolean isError)
 	{
 		this.isError = isError;
+	}
+
+	/**
+	 * @return the isImpexImportError
+	 */
+	public boolean isImpexImportError()
+	{
+		return isImpexImportError;
+	}
+
+	/**
+	 * @param isImpexImportError
+	 *           the isImpexImportError to set
+	 */
+	public void setImpexImportError(final boolean isImpexImportError)
+	{
+		this.isImpexImportError = isImpexImportError;
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 
 import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPackageMessage;
+import com.teamidea.platform.technonikol.core.dataimport.bigpackage.exceptions.BigPackageException;
 import com.teamidea.platform.technonikol.core.model.hotfolder.HFPackageModel;
 
 
@@ -40,7 +41,8 @@ public class PackageFileRegistrationTask extends AbstractHotFolderTask
 					LOG.debug("Package already exists: " + message.getPackageId() + " for file: " + filePath);
 					if (model.getFinished())
 					{
-						throw new IllegalArgumentException("Cannot process file for finished package: " + model.getFinished());
+						message.setError(true);
+						throw new BigPackageException("Cannot process file for finished package.", message);
 					}
 					getHotFolderPackageService().registerNewFile(message.getPackageId(), message.getSequenceNumber(), filePath);
 				}
