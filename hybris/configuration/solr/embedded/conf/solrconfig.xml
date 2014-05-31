@@ -1176,15 +1176,15 @@
 			<str name="buildOnOptimize">true</str>
 			<str name="accuracy">0.35</str>
 		</lst>
-        <lst name="spellchecker">
-            <str name="name">ru</str>
-            <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-            <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-            <str name="field">autosuggest_en</str>
-            <str name="buildOnCommit">true</str>
-            <str name="buildOnOptimize">true</str>
-            <str name="accuracy">0.35</str>
-        </lst>
+        	<lst name="spellchecker">
+	            <str name="name">ru</str>
+        	    <str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
+	            <str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
+        	    <str name="field">autosuggest_ru</str>
+	            <str name="buildOnCommit">true</str>
+	       	    <str name="buildOnOptimize">true</str>
+        	    <str name="accuracy">0.35</str>
+	        </lst>
 		<lst name="spellchecker">
 			<str name="name">fr</str>
 			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
@@ -1257,12 +1257,12 @@
 			<str name="buildOnCommit">true</str>
 			<str name="buildOnOptimize">true</str>
 		</lst>
-          <lst name="spellchecker">
-              <str name="name">ru</str>
-              <str name="field">spellcheck_ru</str>
-              <str name="buildOnCommit">true</str>
-              <str name="buildOnOptimize">true</str>
-          </lst>
+          	<lst name="spellchecker">
+	              <str name="name">ru</str>
+        	      <str name="field">spellcheck_ru</str>
+	              <str name="buildOnCommit">true</str>
+	              <str name="buildOnOptimize">true</str>
+        	</lst>
 		<lst name="spellchecker">
 			<str name="name">fr</str>
 			<str name="field">spellcheck_fr</str>
