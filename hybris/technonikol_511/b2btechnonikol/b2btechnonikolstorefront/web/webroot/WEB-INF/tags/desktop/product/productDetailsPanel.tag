@@ -147,15 +147,6 @@
                 </div>
             </c:if>
             <product:productPromotionSection product="${product}"/>
-            <c:if test="${not empty product.units}">
-                <div>
-                    <c:forEach items="${product.units}" var="unit" varStatus="status">
-                        <div>
-                            ${unit.code}:${unit.name}:${product.unitsMap[unit.code]}
-                        </div>
-                    </c:forEach>
-                </div>
-            </c:if>
         </div>
     </div>
 </section>
