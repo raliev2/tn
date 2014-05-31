@@ -38,7 +38,7 @@
                         <c:url value="/Строительные-Материалы/Плоские-Кровли/c/ploskie_krovli" var="cat1" />
                         <a href="${cat1}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/01_плоские кровли.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/01_ploskie_krovli.jpg" />
                             </div>
                             <p>Плоские кровли</p>
                         </a>
@@ -47,7 +47,7 @@
                         <c:url value="/Строительные-Материалы/Скатные-Кровли/c/skatnye_krovli" var="cat2" />
                         <a href="${cat2}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/02_скатные кровли.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/02_skatnye_krovli.jpg" />
                             </div>
                             <p>Скатные кровли</p>
                         </a>
@@ -56,7 +56,7 @@
                         <c:url value="/Cтроительные-материалы/комплектующие-для-скатной-кровли/c/komplektujushhie_dlja_skatnoj_krovli" var="cat3" />
                         <a href="${cat3}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/03_комплектующие для скатной кровли.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/03_komplektujushhie_dlja_skatnoj_krovli.jpg" />
                             </div>
                             <p>Комплектующие для скатной кровли</p>
                         </a>
@@ -65,7 +65,7 @@
                         <c:url value="/Cтроительные-материалы/древесные-материалы/c/drevesnye_materialy" var="cat4" />
                         <a href="${cat4}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/04_древесные материалы.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/04_drevesnye_materialy.jpg" />
                             </div>
                             <p>Древесные материалы</p>
                         </a>
@@ -75,7 +75,7 @@
                         <c:url value="/Cтроительные-материалы/гидро--и-пароизоляционные-пленки/c/gidro-_i_paroizoljacionnye_plenki" var="cat5" />
                         <a href="${cat5}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/05_гидро- и пароизоляционные пленки.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/05_gidro-_i_paroizoljacionnye_plenki.jpg" />
                             </div>
                             <p>Гидро- и пароизоляционные пленки</p>
                         </a>
@@ -84,7 +84,7 @@
                         <c:url value="/Cтроительные-материалы/утеплители/c/utepliteli" var="cat6" />
                         <a href="${cat6}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/06_утеплители.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/06_utepliteli.jpg" />
                             </div>
                             <p>Утеплители</p>
                         </a>
@@ -93,7 +93,7 @@
                         <c:url value="/Cтроительные-материалы/заборы-и-ограждения/c/zabory_i_ograzhdenija" var="cat7" />
                         <a href="${cat7}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/07_заборы и ограждения.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/07_zabory_i_ograzhdenija.jpg" />
                             </div>
                             <p>Заборы и ограждения</p>
                         </a>
@@ -102,7 +102,7 @@
                         <c:url value="/Cтроительные-материалы/фасады-и-стеновые-материалы/c/fasady_i_stenovye_materialy" var="cat8" />
                         <a href="${cat8}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/08_Фасады и стеновые материалы.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/08_fasady_i_stenovye_materialy.jpg" />
                             </div>
                             <p>Фасады и стеновые материалы</p>
                         </a>
@@ -112,7 +112,7 @@
                         <c:url value="/Cтроительные-материалы/фундаменты%2C-гидроизоляция/c/fundamenty_gidroizoljacija" var="cat9" />
                         <a href="${cat9}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/09_фундаменты, гидроизоляция.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/09_fundamenty_gidroizoljacija.jpg" />
                             </div>
                             <p>Фундаменты, гидроизоляция</p>
                         </a>
@@ -121,7 +121,7 @@
                         <c:url value="/Cтроительные-материалы/транспортное-и-дорожное-строительство/c/transportnoe_i_dorozhnoe_stroitelstvo" var="cat10" />
                         <a href="${cat10}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/10_транспортное и дорожное строительство.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/10_transportnoe_i_dorozhnoe_stroitelstvo.jpg" />
                             </div>
                             <p>Транспортное и дорожное строительство</p>
                         </a>
@@ -130,7 +130,7 @@
                         <c:url value="/Cтроительные-материалы/устройство-придомовой-территории%2C-ландшафт/c/ustrojstvo_pridomovoj_territorii_landshaft" var="cat11" />
                         <a href="${cat11}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/11_устройство придомовой территории, ландшафт.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/11_ustrojstvo_pridomovoj_territorii_landshaft.jpg" />
                             </div>
                             <p>Устройство придомовой территории, ландшафт</p>
                         </a>
@@ -139,7 +139,7 @@
                         <c:url value="/Cтроительные-материалы/материалы-для-внутренней-отделки/c/materialy_dlja_vnutrennej_otdelki" var="cat12" />
                         <a href="${cat12}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/12_материалы для внутренней отделки.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/12_materialy_dlja_vnutrennej_otdelki.jpg" />
                             </div>
                             <p>Материалы для внутренней отделки</p>
                         </a>
@@ -149,7 +149,7 @@
                         <c:url value="/Cтроительные-материалы/дымоходные-системы-и-вентиляционные-каналы/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly" var="cat13" />
                         <a href="${cat13}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/13_дымоходные системы и вентиляционные каналы.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/13_dymohodnye_sistemy_i_ventiljacionnye_kanaly.jpg" />
                             </div>
                             <p>Дымоходные системы и вентиляционные каналы</p>
                         </a>
@@ -158,7 +158,7 @@
                         <c:url value="/Cтроительные-материалы/воротные-системы/c/vorotnye_sistemy" var="cat14" />
                         <a href="${cat14}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/14_воротные системы.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/14_vorotnye_sistemy.jpg" />
                             </div>
                             <p>Воротные системы</p>
                         </a>
@@ -167,7 +167,7 @@
                         <c:url value="/Cтроительные-материалы/бассейны/c/bassejny" var="cat15" />
                         <a href="${cat15}">
                             <div class="one-category__img">
-                                <img src="${themeResourcePath}/images/maincatalog/15_бассейены.jpg" />
+                                <img src="${themeResourcePath}/images/maincatalog/15_bassejny.jpg" />
                             </div>
                             <p>Бассейны</p>
                         </a>
