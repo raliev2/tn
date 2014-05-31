@@ -55,7 +55,7 @@
                     <c:forEach items="${product.units}" var="unit" varStatus="status">
  			<c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
 			<c:choose>
-				<c:when test="${unit.code == product.baseUnit.code}">		
+				<c:when test="${product.unitsMap[unit.code] == 1}">		
 				  <c:set var="unitdefault" value="selected"/>
 				</c:when>
 				<c:otherwise>
