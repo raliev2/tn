@@ -34,14 +34,16 @@
                         </div>
                     </div>
 
-                    <c:if test="${component.displayProductPrices and not empty productReference.target.price}">
-                        <div class="product-carousel-item__price">
+
+                    <div class="product-carousel-item__price">
+                        <c:if test="${component.displayProductPrices and not empty productReference.target.price}">
                             <spring:theme code="page.productDetails.price"/>:
                             <span class="product-carousel-item__price_green">
                             <format:fromPrice priceData="${productReference.target.price}"/>
                             </span>
-                        </div>
-                    </c:if>
+                        </c:if>
+                    </div>
+
                     <div class="product-carousel-item__in-cart">
                         <input type="text" class="in-cart__input" value="1" />
                         <a href="javascript:void(0)" class="button">В корзину</a>
