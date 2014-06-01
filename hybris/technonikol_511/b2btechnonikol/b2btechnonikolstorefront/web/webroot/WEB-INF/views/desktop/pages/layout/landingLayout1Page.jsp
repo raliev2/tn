@@ -491,8 +491,7 @@
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехновент">	Техновент	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техногрес	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Технолайт	</a></li>
-	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехнониколь">	Технониколь	</a></li>
-	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТЕХНОНИКОЛЬ">	ТЕХНОНИКОЛЬ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехноНИКОЛЬ">	ТехноНИКОЛЬ	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноплекс	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноруф	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техносэндвич	</a></li>
@@ -549,10 +548,10 @@
         <section class="main-slider clearfix">
             <ul id="main-slider">
                 <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Новые мастики и герметики" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide2.jpg" alt="Кровельные материалы" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide3.jpg" alt="Гидроизоляция" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide4.jpg" alt="Профмембраны" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide3.jpg" alt="Полимерные мембраны" /></li>
+                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Кровельные материалы" /></li>
+                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Гидроизоляция" /></li>
+                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Профмембраны" /></li>
+                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Полимерные мембраны" /></li>
             </ul>
         </section>
         <section class="carousel-product">
@@ -703,7 +702,7 @@
             </div>
         </section>
         <section class="two-banners clearfix bottom-line">
-            <h3>Плюшки</h3>
+            <h3>Спецпредложения</h3>
             <div class="two-banners__banner two-banners__banner_left g-banner">
                 <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/banner1.jpg" alt="Спецовки и униформы" /></a>
             </div>
