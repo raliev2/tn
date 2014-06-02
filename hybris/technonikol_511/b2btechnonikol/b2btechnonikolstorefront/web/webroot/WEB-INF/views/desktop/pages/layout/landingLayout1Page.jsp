@@ -30,7 +30,7 @@
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Освещение</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Смазки</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Офисное оборудование</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Наруюное оборудование</a></li>
+                <li class="prod-categories-list__item"><a href="javascript:void(0)">Наружное оборудование</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Пневматика</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Электроприборы</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Насосы</a></li>
@@ -571,7 +571,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 340&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 340&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -591,7 +591,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -611,7 +611,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -631,7 +631,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -651,7 +651,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -671,7 +671,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -691,7 +691,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
