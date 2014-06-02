@@ -8,7 +8,7 @@ $indexedType=tnProductType
 
 UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$indexedType];name[unique=true];displayName[lang=$lang]
  ;;allPromotions;Акция;
- ;;brandName;Производитель;
+ ;;brand;Бренд;
  ;;category;Категория;
  ;;code;Код;
  ;;description;Описание;
@@ -23,5 +23,5 @@ UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[u
  ;;name-asc;По наименованию от А до Я;
  ;;name-desc;По наименованию от Я до А;
  ;;price-asc;По возрастанию цены;
- ;;price-desc;По уменьшению цены;
+ ;;price-desc;По убыванию цены;
  ;;relevance;По релевантности;

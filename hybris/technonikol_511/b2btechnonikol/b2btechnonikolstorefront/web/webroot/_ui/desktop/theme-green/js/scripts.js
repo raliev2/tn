@@ -105,6 +105,7 @@ $(document).ready(function() {
 
     $('.js-show-all').click(function() {
         $(this).prev().toggle();
+        $(this).closest('.facetValues').find('.topValues').toggle();
         var newTxt = $(this).attr('data-text');
         var oldTxt = $(this).text();
         $(this).text(newTxt);

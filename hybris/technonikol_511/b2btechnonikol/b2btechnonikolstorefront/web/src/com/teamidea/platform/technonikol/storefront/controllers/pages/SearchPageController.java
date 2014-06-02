@@ -29,13 +29,6 @@ import de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageDat
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.search.pagedata.PaginationData;
 import de.hybris.platform.util.Config;
-import com.teamidea.platform.technonikol.facades.search.B2BProductSearchFacade;
-import com.teamidea.platform.technonikol.storefront.breadcrumb.impl.SearchBreadcrumbBuilder;
-import com.teamidea.platform.technonikol.storefront.constants.WebConstants;
-import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
-import com.teamidea.platform.technonikol.storefront.forms.AdvancedSearchForm;
-import com.teamidea.platform.technonikol.storefront.util.MetaSanitizerUtil;
-import com.teamidea.platform.technonikol.storefront.util.XSSFilterUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +52,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.teamidea.platform.technonikol.facades.search.B2BProductSearchFacade;
+import com.teamidea.platform.technonikol.storefront.breadcrumb.impl.SearchBreadcrumbBuilder;
+import com.teamidea.platform.technonikol.storefront.constants.WebConstants;
+import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
+import com.teamidea.platform.technonikol.storefront.forms.AdvancedSearchForm;
+import com.teamidea.platform.technonikol.storefront.util.MetaSanitizerUtil;
+import com.teamidea.platform.technonikol.storefront.util.XSSFilterUtil;
 
 
 /**

@@ -11,22 +11,22 @@ INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];activ
 ;$productCatalog;Online;true;$languages;employeegroup
 
 INSERT_UPDATE Category;code[unique=true];name;active;description;supercategories(code,$catalogVersion);$catalogVersion;allowedPrincipals(uid)[default='customergroup'];
-;stroitelnye_materialy;строительные материалы;true;;;
-;ploskie_krovli;плоские кровли;true;;stroitelnye_materialy;
-;rulonnye_krovelnye_materialy;рулонные кровельные материалы;true;;ploskie_krovli;
-;bitumnye_premium;битумные премиум;true;;rulonnye_krovelnye_materialy;
-;bitumnye_biznes;битумные бизнес;true;;rulonnye_krovelnye_materialy;
-;bitumnye_standart;битумные стандарт;true;;rulonnye_krovelnye_materialy;
-;bitumnye_jekonom;битумные эконом;true;;rulonnye_krovelnye_materialy;
-;specialnye;специальные;true;;rulonnye_krovelnye_materialy;
-;tradicionnye_krovelnye_materialy;традиционные кровельные материалы;true;;ploskie_krovli;
-;pergamin;пергамин;true;;tradicionnye_krovelnye_materialy;
-;ruberoid;рубероид;true;;tradicionnye_krovelnye_materialy;
-;bitum;битум;true;;tradicionnye_krovelnye_materialy;
-;shifer;шифер;true;;tradicionnye_krovelnye_materialy;
-;mastiki_i_prajmery;мастики и праймеры;true;;ploskie_krovli;
-;mastiki_bitumnye;мастики битумные;true;;mastiki_i_prajmery;
-;prajmery_bitumnye;праймеры битумные;true;;mastiki_i_prajmery;
+;stroitelnye_materialy;Cтроительные материалы;true;;;
+;ploskie_krovli;Плоские кровли;true;;stroitelnye_materialy;
+;rulonnye_krovelnye_materialy;Рулонные кровельные материалы;true;;ploskie_krovli;
+;bitumnye_premium;Битумные премиум;true;;rulonnye_krovelnye_materialy;
+;bitumnye_biznes;Битумные бизнес;true;;rulonnye_krovelnye_materialy;
+;bitumnye_standart;Битумные стандарт;true;;rulonnye_krovelnye_materialy;
+;bitumnye_jekonom;Битумные эконом;true;;rulonnye_krovelnye_materialy;
+;specialnye;Специальные;true;;rulonnye_krovelnye_materialy;
+;tradicionnye_krovelnye_materialy;Традиционные кровельные материалы;true;;ploskie_krovli;
+;pergamin;Пергамин;true;;tradicionnye_krovelnye_materialy;
+;ruberoid;Рубероид;true;;tradicionnye_krovelnye_materialy;
+;bitum;Битум;true;;tradicionnye_krovelnye_materialy;
+;shifer;Шифер;true;;tradicionnye_krovelnye_materialy;
+;mastiki_i_prajmery;Мастики и праймеры;true;;ploskie_krovli;
+;mastiki_bitumnye;Мастики битумные;true;;mastiki_i_prajmery;
+;prajmery_bitumnye;Праймеры битумные;true;;mastiki_i_prajmery;
 ;polimernye_membrany_i_aksessuary;полимерные мембраны и аксессуары;true;;ploskie_krovli;
 ;polimernye_membrany_;полимерные мембраны ;true;;polimernye_membrany_i_aksessuary;
 ;aksessuary_k_polimernym_membranam;аксессуары к полимерным мембранам;true;;polimernye_membrany_i_aksessuary;

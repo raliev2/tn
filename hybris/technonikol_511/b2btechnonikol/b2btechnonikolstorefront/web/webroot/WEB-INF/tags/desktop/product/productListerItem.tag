@@ -59,7 +59,6 @@
                         <a href="javascript:void(0)" class="button">В корзину</a>
                     </div>
                     <div class="clearfix"></div>
-                    <a href="javascript:void(0)" class="g-link-blue add-to-list">+ Добавить в список</a>
                 </div>
             </c:otherwise>
         </c:choose>

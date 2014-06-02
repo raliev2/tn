@@ -39,13 +39,14 @@
                 <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="bread-crumbs_mini" />
                 <div class="clearfix"></div>
                 <div class="search-string">
-
+                     ${currentsection}
                 </div>
                 <div class="found-amount">
                     <product:productAmount amount="${searchPageData.pagination.totalNumberOfResults}" />
                 </div>
                 <div class="banner-700px">
-                    <a href="javascript:void(0)">
+                    <c:url value="/строительные-материалы/плоские-кровли/мастики-и-праймеры/c/mastiki_i_prajmery" var="bannerUrl" />
+                    <a href="${bannerUrl}">
                         <img src="${themeResourcePath}/images/banners/westard.jpg" alt="Westward" title="Westward" />
                     </a>
                 </div>
@@ -80,8 +81,12 @@
                                  numberPagesShown="${numberPagesShown}"
                         />
 
-                <div class="category-description">
-                    Посмотри, огромный проволоки щипцы и выбор щипцов кабеля от Грейнджер до Вашего следующего проводки работы. Вы найдете Клещи для обжима широкого спектра кабельно-проводниковой типов и полный гаммы резки, опрессовка и зачистки задач, так что вы можете использовать только правильный инструмент для работы. Будь то коаксиальный кабель, клеммы батареи, изолированный или неизолированный электропроводка или другой тип обжима работы многих проволоки Щипцы и варианты щипцов кабеля от Грейнджер может помочь сделать вашу работу легче. Магазин уже сегодня!
+                <div class="category-description"></div>
+            </section>
+        </section>
+                    <%-- 
+			Описание категории
+		    %-->
                 </div>
             </section>
         </section>

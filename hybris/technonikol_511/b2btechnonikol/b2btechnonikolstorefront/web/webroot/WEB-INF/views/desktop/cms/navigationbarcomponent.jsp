@@ -5,7 +5,7 @@
 
 <c:set value="${component.styleClass} ${dropDownLayout}" var="bannerClasses"/>
 <li class="La ${bannerClasses}">
-	<cms:component component="${component.link}" evaluateRestriction="true"/>
+	<cms:component component="${component.link}" evaluateRestriction="true"z/>
 	<c:if test="${not empty component.navigationNode.children}">
 		<ul class="Lb">
 			<c:forEach items="${component.navigationNode.children}" var="child">

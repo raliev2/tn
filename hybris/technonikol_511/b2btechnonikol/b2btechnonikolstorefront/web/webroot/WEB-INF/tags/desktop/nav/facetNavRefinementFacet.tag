@@ -17,7 +17,7 @@
             <ycommerce:testId code="facetNav_facet${facetData.name}_links">
                 <div class="facetValues">
                     <c:if test="${not empty facetData.topValues}">
-                        <ul class="facet_block ${facetData.multiSelect ? '' : 'indent'}">
+                        <ul class="facet_block ${facetData.multiSelect ? '' : 'indent'} topValues">
                             <c:forEach items="${facetData.topValues}" var="facetValue">
                                 <li>
                                     <c:if test="${facetData.multiSelect}">

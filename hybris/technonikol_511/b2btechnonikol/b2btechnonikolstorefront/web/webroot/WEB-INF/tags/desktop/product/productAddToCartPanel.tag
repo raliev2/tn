@@ -25,14 +25,49 @@
     </span--%>
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
-        <input type="text" value="1" id="qty" name="qty" class="g-input" size="3" />
+        <input type="text" value="1" id="qty" name="qty" class="g-input" size="2" />
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
 
     <c:set var="buttonType">button</c:set>
     <c:if test="${allowAddToCart and product.purchasable and product.stock.stockLevelStatus.code ne 'outOfStock' }">
         <c:set var="buttonType">submit</c:set>
-    </c:if>
+    </c:if>    
+
+<%--- ПЕРЕВЕРСТАТЬ! криво очень --%>
+ <script>
+
+    function changeprice(a)
+	{
+		pos = a.indexOf(".");
+		if (pos > 0) { 		a = a + "00"; }
+		aCel = a.substr(0,pos);
+		aDr  = a.substr(pos+1,2);
+		a = aCel + "." + aDr;
+		document.getElementById('spanprice').innerHTML = a.replace(/\d(?=(\d{3})+\.)/g, '$&,') + " <span class='g-rouble'>Р<span>";
+	}
+ </script>
+
+<!--${product.baseUnit.code}]-->
+
+            <c:if test="${not empty product.units}">
+		    <select onChange="changeprice(this.value)" style="width:50px">
+                    <c:forEach items="${product.units}" var="unit" varStatus="status">
+ 			<c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
+			<c:choose>
+				<c:when test="${product.unitsMap[unit.code] == 1}">		
+				  <c:set var="unitdefault" value="selected"/>
+				</c:when>
+				<c:otherwise>
+				  <c:set var="unitdefault" value=""/>			
+				</c:otherwise>			
+			</c:choose>
+                        <option value="${price}" ${unitdefault}>${unit.name}</option>
+                    </c:forEach>
+		    </select>
+            </c:if>
+
+
 
     <button id="addToCartButton" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
         В корзину

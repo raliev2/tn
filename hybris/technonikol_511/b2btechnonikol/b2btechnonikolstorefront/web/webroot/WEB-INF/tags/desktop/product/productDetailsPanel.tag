@@ -17,6 +17,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <section class="clearfix">
+    <%--
     <div class="also-viewed">
         <div class="also-viewed__head">Customers Also Viewed</div>
         <div class="also-viewed__product">
@@ -77,7 +78,7 @@
             </div>
         </div>
     </div>
-
+    --%>
     <div class="product-images">
         <product:productImagePanel product="${product}"/>
         <product:productImageCarousel galleryImages="${galleryImages}" product="${product}"/>
@@ -87,13 +88,12 @@
         <div class="product-name">
             <h1 class="fn">${product.name}</h1>
         </div>
-        <div class="product-manufacturer"><a href="javascript:void(0)" class="g-link-blue brand">${product.brand.name}</a></div>
+        <c:url var="brandUrl" value="/search?q=%3Arelevance%3Abrand%3A${product.brand.name}" />
+        <div class="product-manufacturer"><a href="${brandUrl}" class="g-link-blue brand">${product.brand.name}</a></div>
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
 			        <product:productPricePanel product="${product}"/>
-
-                    <p class="to-compare"><input type="checkbox" id="to_compare" /> <label for="to_compare">К сравнению</label></p>
 
                     <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
                         <c:url value='/login' var="loginUrl"/>
@@ -104,7 +104,6 @@
                     <cms:pageSlot position="AddToCart" var="component" element="div" class="to-cart g-float-left">
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
-                    <div class="in-wishlist g-float-right"><a href="javascript:void(0)" class="g-link-blue">+ В список<br />желаний</a></div>
                 </div>
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
@@ -134,20 +133,6 @@
                     </c:if>
                     <c:if test="${not empty product.productType.name}">
                         <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
-                    </c:if>
-                    <c:if test="${not empty product.unreplenishable}">
-                        <li class="one-characteristic">Запрещен к закупке:
-                            <span class="one-characteristic__value">
-                                <c:choose>
-                                    <c:when test="${product.unreplenishable}">
-                                        Да
-                                    </c:when>
-                                    <c:otherwise>
-                                        Нет
-                                    </c:otherwise>
-                                </c:choose>
-                            </span>
-                        </li>
                     </c:if>
                     <c:if test="${not empty product.volume}">
                         <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>

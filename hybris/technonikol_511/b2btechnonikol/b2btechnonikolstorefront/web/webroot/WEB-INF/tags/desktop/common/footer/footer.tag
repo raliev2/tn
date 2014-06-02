@@ -10,16 +10,17 @@
     <div class="col-links">
         <h6>Обслуживание клиентов</h6>
         <ul>
-            <li class="footer__link"><a href="javascript:void(0)">Заказать каталог</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Обратная связь</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Найти филиал</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Заказать печатный каталог</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Форма обратной связи</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">География присутствия</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Карта сайта</a></li>
         </ul>
         <div class="g-text">Есть вопросы? Позвоните нам<br /><span class="footer__telephone"><spring:theme code="common.telephone" /></span></div>
     </div>
     <div class="col-links">
         <h6>Поддержка</h6>
         <ul>
-            <li class="footer__link"><a href="javascript:void(0)">Заказы</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Заказ</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Доставка</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Возврат</a></li>
         </ul>
@@ -28,42 +29,27 @@
         <h6>О компании</h6>
         <ul>
             <li class="footer__link"><a href="javascript:void(0)">О нас</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Корпоративная и социальная ответственность</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Контакты</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Вакансии</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Политика конфиденциальности</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Социальная ответственность</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Как стать поставщиком</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Инвесторам</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Пресс-Центр</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Обзор поставщиков</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Техническое образование по всему миру</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Пресс-центр</a></li>
         </ul>
     </div>
     <div class="col-links">
-        <h6>Интернет-ресурсы</h6>
+        <h6>Онлайн-сервисы</h6>
         <ul>
-            <li class="footer__link"><a href="javascript:void(0)">Клиренс Центр</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Эксклюзивные бренды</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Популярные товары</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Скидки</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Запчасти</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Запасные части</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Вебинары</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Заявка на кредитный лимит</a></li>
+            <li class="footer__link"><a href="javascript:void(0)">Кровельный калькулятор</a></li>
         </ul>
     </div>
     <div class="col-links">
-        <h6>Услуги</h6>
-        <ul>
-            <li class="footer__link"><a href="javascript:void(0)">Каталог</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Специальные заказы</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Аварийные службы</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Управление запасами</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Услуги</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Онлайн-покупки</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Решения</a></li>
-            <li class="footer__link"><a href="javascript:void(0)">Ремонт и замены</a></li>
-        </ul>
-    </div>
-    <div class="col-links">
-        <h6>Зарегистрироваться</h6>
+        <h6>Подписка на рассылку</h6>
         <div class="g-text">Получать новости отрасли, информацию о новинках, полезные советы и многое другое</div>
-        <a href="javascript:void(0)" class="footer__button-register g-button-black">Регистрация</a>
+        <a href="javascript:void(0)" class="footer__button-register g-button-black">Подписаться</a>
         <h6>Мы в социальных сетях</h6>
         <div class="socials clearfix">
             <ul>
@@ -71,7 +57,6 @@
                 <li class="socials__item socials__item_twitter"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_linkedin"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_youtube"><a href="javascript:void(0)"></a></li>
-                <li class="socials__item socials__item_google"><a href="javascript:void(0)"></a></li>
             </ul>
         </div>
     </div>
