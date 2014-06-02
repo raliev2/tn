@@ -125,7 +125,7 @@
 		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		   <c:if test="${not empty product.weightGross}">
+		            <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
@@ -137,9 +137,9 @@
                     <c:if test="${not empty product.volume}">
                         <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     </c:if>
-                    <c:if test="${not empty product.quantityInPackage}">
+                    <%--<c:if test="${not empty product.quantityInPackage}">
                         <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
-                    </c:if>
+                    </c:if>--%>
                 </ul>
             </div>
             <c:if test="${not empty product.productionCountry.name}">
