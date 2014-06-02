@@ -30,7 +30,7 @@
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Освещение</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Смазки</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Офисное оборудование</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Наруюное оборудование</a></li>
+                <li class="prod-categories-list__item"><a href="javascript:void(0)">Наружное оборудование</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Пневматика</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Электроприборы</a></li>
                 <li class="prod-categories-list__item"><a href="javascript:void(0)">Насосы</a></li>
@@ -491,7 +491,7 @@
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехновент">	Техновент	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техногрес	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Технолайт	</a></li>
-	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехноНИКОЛЬ">	ТехноНИКОЛЬ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?text=Технониколь">	ТехноНИКОЛЬ	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноплекс	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноруф	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техносэндвич	</a></li>
@@ -571,7 +571,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 340&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 340&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -591,7 +591,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -611,7 +611,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -631,7 +631,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -651,7 +651,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -671,7 +671,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -691,7 +691,7 @@
                             </div>
                         </div>
                         <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">c</span>
+                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
                         </div>
                         <div class="product-carousel-item__in-cart">
                             <input type="text" class="in-cart__input" />
@@ -733,7 +733,7 @@
                 </div>
             </div>
             <div class="promos__item promos__item_other">
-                <div class="promos-item__header promos-item__header_other"></div>
+                <div class="promos-item__header promos-item__header_other">Запчасти</div>
                 <div class="promos-item__body clearfix">
                     <div class="promos-item-img promos-item-img_other"></div>
                     <div class="promos-item__text">Качественные и недорогие запчасти.</div>
@@ -768,9 +768,10 @@
                 </div>
             </div>
             <div class="safety__text">
-                Технониколь является ведущим дистрибьютором промышленных поставок, MRO оборудования, инструментов и материалов.
-                Имея доступ к более 900 000 видов продукции, доступных онлайн, мы оказываем обслуживание, ремонт и оперативные решения
-                для вашего бизнеса. MRO, производство, снабжение, инструменты и многое другое - для тех, кто кто знает толк.
+                1Платформа является ведущим дистрибьютором промышленных поставок, MRO оборудования, инструментов и материалов.
+                На сайте вы найдете более 100 000 товаров, доступных онлайн, а так же в нашем печатном каталоге. Мы предлагаем техническое
+                обслуживание, ремонт и оперативные решения для вашего бизнеса: MRO, производство, снабжение, инструменты и многое другое.
+                1Платформа - для тех, кто сделать дело.
             </div>
         </section>
     </section>

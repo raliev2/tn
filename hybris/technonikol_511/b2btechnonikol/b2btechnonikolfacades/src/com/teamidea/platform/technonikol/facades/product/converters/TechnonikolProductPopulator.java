@@ -3,6 +3,10 @@
  */
 package com.teamidea.platform.technonikol.facades.product.converters;
 
+import com.teamidea.platform.technonikol.facades.brand.data.TNBrandData;
+import com.teamidea.platform.technonikol.facades.productType.data.TNProductTypeData;
+import com.teamidea.platform.technonikol.facades.supplier.data.TNSupplierData;
+import com.teamidea.platform.technonikol.facades.unit.data.UnitData;
 import de.hybris.platform.commercefacades.product.converters.populator.ProductPopulator;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.commercefacades.user.data.CountryData;
