@@ -15,7 +15,7 @@ public class GeneratedB2btechnonikolsampledataConstants
 {
 	public static final String EXTENSIONNAME = "b2btechnonikolsampledata";
 	
-	protected GeneratedB2btechnonikolsampledataConstants()
+	protected GeneratedB2btechnonikolsampledataConstants() 
 	{
 		// private constructor
 	}
