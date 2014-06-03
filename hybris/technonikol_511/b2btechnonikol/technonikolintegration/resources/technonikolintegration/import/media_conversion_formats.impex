@@ -1,0 +1,23 @@
+$productCatalog=powertoolsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$languages=en
+
+
+#
+# Some Default ConversionMediaFormats
+#
+INSERT_UPDATE ConversionMediaFormat;qualifier[unique=true];name[lang=en];conversionStrategy;conversion;inputFormat(qualifier);mediaAddOns(code,catalogVersion(catalog(id),version));mimeType[default='image/jpeg'];
+;Default-WorkingFormat;Default-WorkingFormat;imageMagickMediaConversionStrategy;-resize 1200x> -colorspace RGB;
+;1200x1200;1200x1200;imageMagickMediaConversionStrategy;-resize 1200x1200;Default-WorkingFormat;
+;515x515;515x515;imageMagickMediaConversionStrategy;-resize 515x515;Default-WorkingFormat;
+;300x300;300x300;imageMagickMediaConversionStrategy;-resize 300x300;Default-WorkingFormat;
+;30x30;30x30;imageMagickMediaConversionStrategy;-resize 30x30;Default-WorkingFormat;
+;65x65;65x65;imageMagickMediaConversionStrategy;-resize 65x65;Default-WorkingFormat;
+;96x96;96x96;imageMagickMediaConversionStrategy;-resize 96x96;Default-WorkingFormat;
+
+
+#
+# Default ConversionGroup
+#
+INSERT_UPDATE ConversionGroup;code[unique=true];name[lang=en];supportedFormats(qualifier);
+;TNConversionGroup;Technonikol conversion group for images;1200x1200,515x515,300x300,96x96,65x65,30x30

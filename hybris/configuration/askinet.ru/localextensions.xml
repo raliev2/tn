@@ -104,6 +104,8 @@
 		<extension name="b2bacceleratorfacades" />
 		<extension name="b2bacceleratorservices" />
 
+		<extension name="mediaconversion" />
+
 		<!-- Original  -->
 		<!--
                 <extension name="yacceleratorfulfilmentprocess" />
@@ -125,6 +127,6 @@
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolcockpits"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolservices"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolsampledata"/>
-
-	</extensions>
+		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/technonikolintegration"/>
+</extensions>
 </hybrisconfig>
