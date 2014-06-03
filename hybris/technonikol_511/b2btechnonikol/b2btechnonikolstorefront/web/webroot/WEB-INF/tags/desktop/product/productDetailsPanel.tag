@@ -108,9 +108,8 @@
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
                     <div class="stock in-stock"><span>В наличии</span>
-                    <div class="g-info">
-                    		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
-                    		<a href="check_stock_url"></a>
+                    <c:url value="/stock/check?productCode=${product.code}&count=0" var="check_stock_url"/>
+                    <div class="g-info" onclick="window.open('${check_stock_url}', 'check in stock', 'height=100,width=200');">
                     </div>
                 </div>
             </div>
@@ -125,7 +124,7 @@
 		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		            <c:if test="${not empty product.weightGross}">
+		   <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
@@ -137,9 +136,9 @@
                     <c:if test="${not empty product.volume}">
                         <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     </c:if>
-                    <%--<c:if test="${not empty product.quantityInPackage}">
+                    <c:if test="${not empty product.quantityInPackage}">
                         <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
-                    </c:if>--%>
+                    </c:if>
                 </ul>
             </div>
             <c:if test="${not empty product.productionCountry.name}">
