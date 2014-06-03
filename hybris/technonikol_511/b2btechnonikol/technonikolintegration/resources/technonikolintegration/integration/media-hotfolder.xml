@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:file="http://www.springframework.org/schema/integration/file"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import
+            resource="classpath:/acceleratorservices/integration/hot-folder-spring.xml"/>
+    <!-- 1) Scan for files -->
+    <file:inbound-channel-adapter id="mediaScannerAdapter" directory="#{configurationService.configuration.getProperty('technonikolintegration.media.folder.location')}"
+                                  filename-regex="\d+\.jpg" prevent-duplicates="false">
+        <int:poller fixed-rate="1000" />
+    </file:inbound-channel-adapter>
+
+    <!-- 2) move the file to processing and setup header -->
+    <file:outbound-gateway request-channel="mediaScannerAdapter" reply-channel="enrich"
+                           directory="#{configurationService.configuration.getProperty('technonikolintegration.media.folder.location')}/default" delete-source-files="true"  />
+
+    <!-- 2) move the file to processing and setup header, partly site dependent -->
+    <int:service-activator input-channel="enrich" output-channel="batchFilesTransform" ref="headerSetupTask"
+                           method="execute" />
+    <bean id="headerSetupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.HeaderSetupTask">
+        <property name="catalog" value="#{configurationService.configuration.getProperty('technonikolintegration.product.catalog')}" />
+        <property name="net" value="false" />
+        <property name="storeBaseDirectory" ref="baseDirectoryPowertools" />
+    </bean>
+
+    <!-- 3) transform to impex file -->
+    <int:service-activator input-channel="batchFilesTransform" output-channel="batchFilesExec" ref="batchTransformerTask"
+                           method="execute" />
+    <bean id="batchTransformerTask"
+          class="com.hybris.ps.hf.ImpexTransformerMediaTask"
+          init-method="initConvertersMap">
+        <property name="fieldSeparator" value="," />
+        <property name="encoding" value="UTF-8" />
+        <property name="linesToSkip" value="0"/>
+        <property name="cleanupHelper" ref="cleanupHelper" />
+        <property name="converterkey" value="productmedia" />
+    </bean>
+
+    <!-- 4) run impex import -->
+    <int:service-activator input-channel="batchFilesExec" output-channel="batchFilesImp" ref="batchRunnerTask"
+                           method="execute" />
+    <bean id="batchRunnerTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.AbstractImpexRunnerTask">
+        <property name="sessionService" ref="sessionService" />
+        <property name="importService" ref="importService" />
+        <lookup-method name="getImportConfig" bean="importConfig" />
+    </bean>
+    <bean id="importConfig" class="de.hybris.platform.servicelayer.impex.ImportConfig" scope="prototype">
+        <property name="removeOnSuccess" value="true" />
+        <property name="failOnError" value="true" />
+        <property name="synchronous" value="true" />
+        <property name="legacyMode" value="false" />
+        <property name="maxThreads" value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.max-threads')}" />
+        <property name="locale" value="en"/>
+        <property name="enableCodeExecution" value="true"/>
+    </bean>
+    <!-- 5) cleanUp see hot-folder-spring.xml  -->
+
+
+
+    <!-- End of sequence -->
+
+    <!-- Overriding some default beans dealing with media -->
+
+    <alias name="defaultConvertedMediaCreationStrategy" alias="convertedMediaCreationStrategy"/>
+    <bean id="defaultConvertedMediaCreationStrategy"
+          class="com.hybris.ps.hf.TNConvertedMediaCreationStrategy">
+        <property name="modelService" ref="modelService"/>
+        <property name="mediaService" ref="mediaService"/>
+        <property name="mediaFolder" value="#{configurationService.configuration.getProperty('technonikolintegration.media.folder.location')}"/>
+    </bean>
+
+    <alias name="defaultMediaConversionJobDao" alias="mediaConversionJobDao"/>
+    <bean id="defaultMediaConversionJobDao"
+          class="com.hybris.ps.hf.MediaConversionJobDAO">
+        <property name="flexibleSearchService" ref="flexibleSearchService"/>
+    </bean>
+
+    <!-- accelerator Image Format Mappings -->
+    <alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+    <bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+        <property name="mapping">
+            <map>
+                <entry key="superZoom" value="1200x1200"/>
+                <entry key="zoom" value="515x515"/>
+                <entry key="store" value="365x246"/>
+                <entry key="product" value="300x300"/>
+                <entry key="thumbnail" value="96x96"/>
+                <entry key="cartIcon" value="65x65"/>
+                <entry key="styleSwatch" value="30x30"/>
+            </map>
+        </property>
+    </bean>
+
+    <!-- product import -->
+    <bean id="mediaImpexProductHeader" class="java.lang.String">
+        <constructor-arg>
+            <value># ImpEx for importing data into $CATALOG$
+                $productCatalog=$CATALOG$
+                $catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+                $approved=approvalstatus(code)[default='check']
+                $lang=en</value>
+        </constructor-arg>
+    </bean>
+
+    <!-- Transformer converters mappings -->
+    <bean id="mediaContainerMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="productmedia"
+          p:converter-ref="mediaContainer"/>
+
+    <bean id="mediaMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="productmedia"
+          p:converter-ref="media"/>
+
+    <bean id="mediaConversionMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="productmedia"
+          p:converter-ref="mediaConversion"/>
+
+
+    <bean id="mediaConversionJobExecMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="productmedia"
+          p:converter-ref="mediaConversionJobExec"/>
+
+    <bean id="productToMediaMapping"
+          class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.mapping.impl.DefaultConverterMapping"
+          p:mapping="productmedia"
+          p:converter-ref="productToMedia"/>
+
+
+    <!-- Converters -->
+    <bean id="mediaContainer" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{mediaImpexProductHeader}
+                INSERT_UPDATE MediaContainer;qualifier[unique=true];$catalogVersion;conversionGroup(code)
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+1};;TNConversionGroup;</value>
+        </property>
+    </bean>
+
+    <bean id="media" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{mediaImpexProductHeader}
+                INSERT_UPDATE Media;code[unique=true];mediaContainer(qualifier,$catalogVersion);$catalogVersion;mime[default='image/jpeg'];folder(qualifier)[default='images'][forceWrite=true];realfilename;mediaFormat(qualifier);@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+1};{+1};;;;{+1}.jpg;Default-WorkingFormat;file:{+2}/{+1}.jpg;</value>
+        </property>
+    </bean>
+
+    <bean id="mediaConversion" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{mediaImpexProductHeader}
+                INSERT_UPDATE MediaConversionCronJob;code[unique=true];$catalogVersion;job(code);includedFormats(qualifier);sessionLanguage(isoCode[default=$lang]);
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+1}TNMediaConversionCronJob;;mediaConversionJob;1200x1200,515x515,300x300,96x96,65x65,30x30;</value>
+        </property>
+    </bean>
+
+
+    <bean id="mediaConversionJobExec" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{mediaImpexProductHeader}
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>#% import de.hybris.platform.core.Registry
+                #% import de.hybris.platform.servicelayer.cronjob.CronJobService
+                #% CronJobService cronJobService = Registry.getApplicationContext().getBean("cronJobService")
+                #% cronJobService.performCronJob(cronJobService.getCronJob("{+1}TNMediaConversionCronJob"),true)
+            </value>
+        </property>
+    </bean>
+
+    <bean id="productToMedia" class="de.hybris.platform.acceleratorservices.dataimport.batch.converter.impl.DefaultImpexConverter">
+        <property name="header">
+            <value>#{mediaImpexProductHeader}
+                $thumbnail=thumbnail(code, $catalogVersion)
+                $picture=picture(code, $catalogVersion)
+                $thumbnails=thumbnails(code, $catalogVersion)
+                $detail=detail(code, $catalogVersion)
+                $normal=normal(code, $catalogVersion)
+                $others=others(code, $catalogVersion)
+                $data_sheet=data_sheet(code, $catalogVersion)
+                $medias=medias(code, $catalogVersion)
+                $galleryImages=galleryImages(qualifier, $catalogVersion)
+                UPDATE Product;code[unique=true];$picture;$thumbnail;$detail;$others;$normal;$thumbnails;$galleryImages;$catalogVersion
+            </value>
+        </property>
+        <property name="impexRow">
+            <value>;{+1};/300x300/{+1}.jpg;/96x96/{+1}.jpg;/1200x1200/{+1}.jpg;/515x515/{+1}.jpg,/65x65/{+1}.jpg,/30x30/{+1}.jpg;/300x300/{+1}.jpg;/96x96/{+1}.jpg;{+1}
+            </value>
+        </property>
+    </bean>
+
+
+</beans>
