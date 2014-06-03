@@ -13,8 +13,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <package.output.directory>C:\tn\tn\hybris\technonikol_511\b2btechnonikol\b2btechnonikolstorefront\lib\</package.output.directory>
-                <security.keyStore.file>C:\rg\RIVE-GAUCHE\integration_TI\rivegauche.services\rgkeystore.jks</security.keyStore.file>
+                <package.output.directory>C:\tn\tn\hybris\technonikol_511\b2btechnonikol\b2btechnonikolservices\lib\</package.output.directory>
                 <production.environment>false</production.environment>
             </properties>
         </profile>

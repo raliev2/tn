@@ -25,7 +25,7 @@
     <bean id="proxyFactoryDeliveryDate"
           class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
         <property name="serviceClass" value="ru.technonikol.ws.stocks.DeliveryDateQueryOut"/>
-        <property name="address" value="http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BS_HYB_D&receiverParty=&receiverService=&interface=DeliveryDateQuery_Out&interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate"/>
+        <property name="address" value="http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=DeliveryDateQuery_Out&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate"/>
         <property name="bus" ref="cxf" />
     </bean>
 
