@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="DeliveryDateQuery_Out" targetNamespace="http://tn.ru/po/HYB/DeliveryDate" xmlns:p2="http://tn.ru/po/UTS/DeliveryCost"
+	xmlns:p1="http://tn.ru/po/HYB/DeliveryDate" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation />
+	<wsp:UsingPolicy wsdl:required="true" />
+	<wsp:Policy wsu:Id="OP_DeliveryDateQuery_Out" />
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://tn.ru/po/UTS/DeliveryCost" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://tn.ru/po/UTS/DeliveryCost">
+			<xsd:element name="SendQueryResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="return" type="Answer" form="qualified" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SendQuery">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="QueryMessage" type="PocketQuery" form="qualified" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="MaterialsRow">
+				<xsd:sequence>
+					<xsd:element name="EKN" type="xsd:string" form="qualified" />
+					<xsd:element name="Count" type="xsd:string" form="qualified" />
+					<xsd:element name="DatePost" type="xsd:string" form="qualified" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PocketQuery">
+				<xsd:sequence>
+					<xsd:element name="NumberOrder" type="xsd:string" form="qualified" />
+					<xsd:element name="IDPartner" type="xsd:string" form="qualified" />
+					<xsd:element name="Country" type="xsd:string" form="qualified" />
+					<xsd:element name="PostIndex" type="xsd:string" form="qualified" />
+					<xsd:element name="RegionCode" type="xsd:string" form="qualified" />
+					<xsd:element name="RegionName" type="xsd:string" form="qualified" />
+					<xsd:element name="Area" type="xsd:string" form="qualified" />
+					<xsd:element name="City" type="xsd:string" form="qualified" />
+					<xsd:element name="Town" type="xsd:string" form="qualified" />
+					<xsd:element name="Street" type="xsd:string" form="qualified" />
+					<xsd:element name="House" type="xsd:string" form="qualified" />
+					<xsd:element name="Building" type="xsd:string" form="qualified" />
+					<xsd:element name="Apartment" type="xsd:string" form="qualified" />
+					<xsd:element name="AddressString" type="xsd:string" form="qualified" />
+					<xsd:element name="Materials" minOccurs="0" form="qualified">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Row" type="MaterialsRow" minOccurs="0" maxOccurs="unbounded" form="qualified" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Answer">
+				<xsd:sequence>
+					<xsd:element name="NumberOrder" type="xsd:string" form="qualified" />
+					<xsd:element name="IDPartner" type="xsd:string" form="qualified" />
+					<xsd:element name="AddressString" type="xsd:string" form="qualified" />
+					<xsd:element name="Materials" minOccurs="0" form="qualified">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Row" type="MaterialsRow" minOccurs="0" maxOccurs="unbounded" form="qualified" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="p2.SendQueryRequestMessage">
+		<wsdl:documentation />
+		<wsdl:part name="parameters" element="ns1:SendQuery" xmlns:ns1="http://tn.ru/po/UTS/DeliveryCost" />
+	</wsdl:message>
+	<wsdl:message name="p2.SendQueryResponseMessage">
+		<wsdl:documentation />
+		<wsdl:part name="parameters" element="ns1:SendQueryResponse" xmlns:ns1="http://tn.ru/po/UTS/DeliveryCost" />
+	</wsdl:message>
+	<wsdl:portType name="DeliveryDateQuery_Out">
+		<wsdl:documentation />
+		<wsdl:operation name="DeliveryDateQuery_Out">
+			<wsdl:documentation />
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP_DeliveryDateQuery_Out" />
+			</wsp:Policy>
+			<wsdl:input message="p1:p2.SendQueryRequestMessage" />
+			<wsdl:output message="p1:p2.SendQueryResponseMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DeliveryDateQuery_OutBinding" type="p1:DeliveryDateQuery_Out">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		<wsdl:operation name="DeliveryDateQuery_Out">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DeliveryDateQuery_OutService">
+		<wsdl:port name="HTTP_Port" binding="p1:DeliveryDateQuery_OutBinding">
+			<soap:address
+				location="http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=DeliveryDateQuery_Out&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+		<wsdl:port name="HTTPS_Port" binding="p1:DeliveryDateQuery_OutBinding">
+			<soap:address
+				location="https://dpo.1plt.ru:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=DeliveryDateQuery_Out&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

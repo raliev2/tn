@@ -26,4 +26,7 @@ public class B2btechnonikolCoreConstants extends GeneratedB2btechnonikolCoreCons
 		super();
 		assert false;
 	}
+
+
+	public static final String CTX_ATTRIBUTE_PRICE_LISTS = "b2bpricelist";
 }

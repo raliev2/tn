@@ -16,6 +16,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <section class="clearfix">
     <%--
     <div class="also-viewed">
@@ -107,12 +108,10 @@
                 </div>
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
-                    <div class="stock in-stock"><span>В наличии</span>
-                    <div class="g-info">
-                    		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
-                    		<a href="check_stock_url"></a>
-                    </div>
-                </div>
+                    <div class="stock in-stock">
+                   		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
+								<div id="productDeliveryInfo" onclick="getProductDeliveryInfo('${check_stock_url}');"><a href="#">Проверить наличие</a></div>                    		                  
+                		</div>
             </div>
             </div>
             <div class="characteristics__line clearfix">
@@ -125,7 +124,7 @@
 		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
                   <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		            <c:if test="${not empty product.weightGross}">
+		   <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
@@ -137,9 +136,9 @@
                     <c:if test="${not empty product.volume}">
                         <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
                     </c:if>
-                    <%--<c:if test="${not empty product.quantityInPackage}">
+                    <c:if test="${not empty product.quantityInPackage}">
                         <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
-                    </c:if>--%>
+                    </c:if>
                 </ul>
             </div>
             <c:if test="${not empty product.productionCountry.name}">

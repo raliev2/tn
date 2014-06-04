@@ -571,7 +571,7 @@
 						<description>Volume (m3)</description>
 					</attribute>
 					<attribute qualifier="baseUnit" type="Unit" autocreate="true" generate="true">
-						<modifiers read="true" write="true" search="true" optional="false"/>
+						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Product base units</description>
 					</attribute>
@@ -580,23 +580,18 @@
 						<persistence type="property"/>
 						<description>VAT value, %</description>
 					</attribute>
-
 <!--
 					<attribute qualifier="maxOrderQuantity" type="java.lang.Integer">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Max Order Quantity</description>
 					</attribute>
-
-
 					<attribute qualifier="minOrderQuantity" type="java.lang.Integer">
 						<modifiers read="true" write="true" search="true" optional="true"/>
 						<persistence type="property"/>
 						<description>Min Order Quantity</description>
 					</attribute>
 -->
-
-
 				</attributes>
 
 			</itemtype>
