@@ -1,4 +1,4 @@
-<%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+﻿<%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
 <%@ tag pageEncoding="UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -19,10 +19,21 @@
     </div>
     <div class="g-float-right">
         <div class="auth_links">
-            <ul>
-                <li><a href="javascript:void(0)">Вход</a></li>
-                <li><a href="javascript:void(0)">Регистрация</a></li>
-            </ul>
+            <ul class="nav">
+				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
+					<li class="logged_in"><ycommerce:testId code="header_LoggedUser"><spring:theme code="header.welcome" arguments="${user.firstName},${user.lastName}" htmlEscape="true"/></ycommerce:testId></li>
+				</sec:authorize>
+				<sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
+					<li><ycommerce:testId code="header_Login_link"><a href="<c:url value='/login'/>"><spring:theme code="header.link.login"/></a></ycommerce:testId></li>
+				</sec:authorize>
+				<li><ycommerce:testId code="header_myAccount"><a href="<c:url value='/my-account'/>"><spring:theme code="header.link.account"/></a></ycommerce:testId></li>
+				<sec:authorize ifAnyGranted="ROLE_B2BADMINGROUP">
+					<li><ycommerce:testId code="header_myCompany"><a href="<c:url value='/my-company/organization-management'/>"><spring:theme code="header.link.company"/></a></ycommerce:testId></li>
+				</sec:authorize>
+				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
+					<li><ycommerce:testId code="header_signOut"><a href="<c:url value='/logout'/>"><spring:theme code="header.link.logout"/></a></ycommerce:testId></li>
+				</sec:authorize>
+			</ul>
         </div>
         <div class="custom-message">
             <span class="header__telephone"><spring:theme code="common.telephone" /></span>
@@ -31,9 +42,5 @@
             <cms:component component="${cart}"/>
         </cms:pageSlot>
     </div>
-
-<%--	<cms:pageSlot position="MiniCart" var="cart" limit="1">
-		<cms:component component="${cart}"/>
-	</cms:pageSlot> --%>
 
 </header>
