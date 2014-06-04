@@ -9,29 +9,31 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 
 <template:page pageTitle="${pageTitle}">
-	<div id="breadcrumb" class="breadcrumb">
-		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
-	</div>
-	<div id="globalMessages">
-		<common:globalMessages/>
-	</div>
-	<cms:pageSlot position="SideContent" var="feature" element="div" class="span-4 side-content-slot cms_disp-img_slot">
-		<cms:component component="${feature}"/>
-	</cms:pageSlot>
-	
-	<div class="span-20 right last">
-		<cms:pageSlot position="TopContent" var="feature" element="div" class="span-20 top-content-slot cms_disp-img_slot last">
-			<cms:component component="${feature}"/>
-		</cms:pageSlot>
-		
-		<div class="span-10 last login-panel">
-			<c:url value="/j_spring_security_check" var="loginActionUrl"/>
-			<user:login actionNameKey="login.login" action="${loginActionUrl}"/>
-		</div>
-	</div>
-	<div class="span-20 right last">
-		<cms:pageSlot position="MerchantContactContent" var="feature" element="div" class="span-10 login-info">
-			<cms:component component="${feature}"/>
-		</cms:pageSlot>
-	</div>
+    <jsp:attribute name="pageScripts">
+		<user:userLoginJavascript/>
+	</jsp:attribute>
+
+    <jsp:body>
+        <div id="globalMessages">
+            <common:globalMessages/>
+        </div>
+        <cms:pageSlot position="SideContent" var="feature" element="div" class="span-4 side-content-slot cms_disp-img_slot">
+            <cms:component component="${feature}"/>
+        </cms:pageSlot>
+
+        <section class="g-main-content">
+            <cms:pageSlot position="TopContent" var="feature" element="div" class="span-20 top-content-slot cms_disp-img_slot last">
+                <cms:component component="${feature}"/>
+            </cms:pageSlot>
+
+            <c:url value="/j_spring_security_check" var="loginActionUrl"/>
+            <user:login actionNameKey="login.login" action="${loginActionUrl}"/>
+
+            <div class="span-20 right last">
+                <cms:pageSlot position="MerchantContactContent" var="feature" element="div" class="span-10 login-info">
+                    <cms:component component="${feature}"/>
+                </cms:pageSlot>
+            </div>
+        </section>
+    </jsp:body>
 </template:page>

@@ -43,4 +43,8 @@
         </cms:pageSlot>
     </div>
 
+<%--	<cms:pageSlot position="MiniCart" var="cart" limit="1">
+		<cms:component component="${cart}"/>
+	</cms:pageSlot> --%>
+
 </header>

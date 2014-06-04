@@ -28,7 +28,7 @@
 		<div class="span-20 last">
 			<cms:pageSlot position="MerchantContactContent" var="feature" >
 				<cms:component component="${feature}" element="div" class="span-10 login-info"/>
-			</cms:pageSlot>		
+			</cms:pageSlot>
 		</div>
 	</div>
 
