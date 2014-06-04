@@ -104,6 +104,20 @@ ACC.product = {
 
 };
 
+	function getProductDeliveryInfo(url){
+		$.ajax({
+			type : 'get',
+			data : {
+				count: $("#qty").val()
+			},
+			url: url,
+			dataType: 'html',
+			success: function(data){
+				$("#productDeliveryInfo").html(data);
+			}
+		})
+	}
+
 $(document).ready(function() {
 	ACC.product.bindAll();
 });
