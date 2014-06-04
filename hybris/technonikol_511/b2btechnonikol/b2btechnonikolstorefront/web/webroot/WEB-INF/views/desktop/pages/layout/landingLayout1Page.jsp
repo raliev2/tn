@@ -491,7 +491,7 @@
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехновент">	Техновент	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техногрес	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Технолайт	</a></li>
-	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?text=Технониколь">	ТехноНИКОЛЬ	</a></li>
+	<li class="prod-categories-list__item">	&nbsp;&nbsp;		<a href="/store/firstplatform/ru/RUB/search?q=%3Arelevance%3Abrand%3AТехноНИКОЛЬ">	ТехноНИКОЛЬ	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноплекс	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техноруф	</a></li>
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Техносэндвич	</a></li>
@@ -733,7 +733,7 @@
                 </div>
             </div>
             <div class="promos__item promos__item_other">
-                <div class="promos-item__header promos-item__header_other">Запчасти</div>
+                <div class="promos-item__header promos-item__header_other"></div>
                 <div class="promos-item__body clearfix">
                     <div class="promos-item-img promos-item-img_other"></div>
                     <div class="promos-item__text">Качественные и недорогие запчасти.</div>
@@ -768,10 +768,9 @@
                 </div>
             </div>
             <div class="safety__text">
-                1Платформа является ведущим дистрибьютором промышленных поставок, MRO оборудования, инструментов и материалов.
-                На сайте вы найдете более 100 000 товаров, доступных онлайн, а так же в нашем печатном каталоге. Мы предлагаем техническое
-                обслуживание, ремонт и оперативные решения для вашего бизнеса: MRO, производство, снабжение, инструменты и многое другое.
-                1Платформа - для тех, кто сделать дело.
+                Технониколь является ведущим дистрибьютором промышленных поставок, MRO оборудования, инструментов и материалов.
+                Имея доступ к более 900 000 видов продукции, доступных онлайн, мы оказываем обслуживание, ремонт и оперативные решения
+                для вашего бизнеса. MRO, производство, снабжение, инструменты и многое другое - для тех, кто кто знает толк.
             </div>
         </section>
     </section>
