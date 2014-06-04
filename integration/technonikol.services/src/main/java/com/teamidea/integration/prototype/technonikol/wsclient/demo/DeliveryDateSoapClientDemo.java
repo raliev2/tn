@@ -42,30 +42,30 @@ public class DeliveryDateSoapClientDemo
 				command = sargs[0];
 				
 				Options options = new Options();
-				options.addOption("ekn", true, "ekn");
-				options.addOption("count", true, "count");
-				options.addOption("datePost", true, "post date");
+				options.addOption("e", true, "ekn");
+				options.addOption("c", true, "count");
+				options.addOption("d", true, "post date");
 
 				PosixParser clParser = new PosixParser();
 				CommandLine line = clParser.parse(options, sargs);
 				switch (command) {
 				case "help":
 					System.out.println(String.format("Available commands:\n" +
-							" * getBalance\n" +
+							" * deliveryDateQueryOut\n" +
 							" * exit\n"));
 					
 					HelpFormatter formatter = new HelpFormatter(); 
 					formatter.printHelp( " ", options);
 					break;
-				case "getBalance":
-					String EKN = line.getOptionValue("ekn");
-					String count = line.getOptionValue("count");
-					String datePost = line.getOptionValue("datePost");
+				case "deliveryDateQueryOut":
+					String ekn = line.getOptionValue("e");
+					String count = line.getOptionValue("c");
+					String datePost = line.getOptionValue("d");
 					
-					if(!StringUtils.isEmpty(EKN)
+					if(!StringUtils.isEmpty(ekn)
 							&& !StringUtils.isEmpty(count)
 							&& !StringUtils.isEmpty(datePost)){
-						client.deliveryDateQueryOut(EKN, count, datePost);						
+						client.deliveryDateQueryOut(ekn, count, datePost);						
 					}
 				
 					break;

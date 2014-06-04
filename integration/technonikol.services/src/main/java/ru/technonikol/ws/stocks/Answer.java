@@ -3,10 +3,13 @@ package ru.technonikol.ws.stocks;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+
+import ru.technonikol.ws.stocks.PocketQuery.Materials;
 
 
 /**
@@ -213,6 +216,25 @@ public class Answer {
             return this.row;
         }
 
+    }
+    
+    @Override
+    public String toString(){
+   	 StringBuilder answer = new StringBuilder();
+   	 answer.append("Full address: " + this.getAddressString() + "; ");
+   	 answer.append("IDPartner: " + this.getIDPartner() + "; ");
+   	 answer.append("NumberOrder: " + this.getNumberOrder() + "; ");
+
+   	 Materials materials = this.getMaterials();
+   	 for(MaterialsRow row: materials.getRow()){
+   		 answer.append("{");
+   		 answer.append("EKN: " + row.getEKN() + "; ");
+   		 answer.append("Count: " + row.getCount() + "; ");
+   		 answer.append("DatePost: " + row.getDatePost() + ";");
+   		 answer.append("}; ");
+   	 }
+   	 
+   	 return answer.toString();
     }
 
 }

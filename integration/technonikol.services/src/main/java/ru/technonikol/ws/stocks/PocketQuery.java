@@ -3,6 +3,7 @@ package ru.technonikol.ws.stocks;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -521,6 +522,36 @@ public class PocketQuery {
             return this.row;
         }
 
+    }
+    
+    @Override
+    public String toString(){
+   	 StringBuilder pocketQuery = new StringBuilder();
+   	 pocketQuery.append("Full address: " + this.getAddressString() + "; ");
+   	 pocketQuery.append("Country: " + this.getCountry() + "; ");  
+   	 pocketQuery.append("RegionCode: " + this.getRegionCode() + "; ");
+   	 pocketQuery.append("RegionName: " + this.getRegionName()+ "; ");  	 
+   	 pocketQuery.append("Area: " + this.getArea() + "; ");   	 
+   	 pocketQuery.append("City: " + this.getCity() + "; ");
+   	 pocketQuery.append("Town: " + this.getTown()+ "; ");    	 
+   	 pocketQuery.append("Street: " + this.getStreet() + "; "); 	 
+   	 pocketQuery.append("Building: " + this.getBuilding() + "; ");  	 
+   	 pocketQuery.append("House: " + this.getHouse() + "; "); 	 
+   	 pocketQuery.append("Apartment: " + this.getApartment() + "; ");
+   	 pocketQuery.append("IDPartner: " + this.getIDPartner() + "; ");
+   	 pocketQuery.append("NumberOrder: " + this.getNumberOrder() + "; ");
+   	 pocketQuery.append("PostIndex: " + this.getPostIndex() + "; ");
+
+   	 Materials materials = this.getMaterials();
+   	 for(MaterialsRow row: materials.getRow()){
+   		 pocketQuery.append("{");
+   		 pocketQuery.append("EKN: " + row.getEKN() + "; ");
+   		 pocketQuery.append("Count: " + row.getCount() + "; ");
+   		 pocketQuery.append("DatePost: " + row.getDatePost() + ";");
+   		 pocketQuery.append("}; ");
+   	 }
+   	 
+   	 return pocketQuery.toString();
     }
 
 }

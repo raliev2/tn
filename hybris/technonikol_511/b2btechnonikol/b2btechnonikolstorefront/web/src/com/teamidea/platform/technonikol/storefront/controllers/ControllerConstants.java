@@ -199,6 +199,11 @@ public interface ControllerConstants
 				String CartPopup = "fragments/cart/cartPopup";
 			}
 
+			interface Stock
+			{
+				String CheckStockPopup = "fragments/stock/checkStockPopup";
+			}
+
 			interface Checkout
 			{
 				String TermsAndConditionsPopup = "fragments/checkout/termsAndConditionsPopup";
