@@ -55,7 +55,7 @@ public class CheckInStockController extends AbstractController
 		if (response == null || response.getReturn() == null || response.getReturn().getMaterials() == null)
 		{
 			LOG.debug("Error while trying to get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Ошибка при получении информации о сроках доставки товара с артикулом " + productCode);
+			model.addAttribute(ERROR_MESSAGE, "Ошибка получения данных");
 			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
 		}
 
@@ -72,15 +72,13 @@ public class CheckInStockController extends AbstractController
 		if (productInfo == null)
 		{
 			LOG.debug("Didn't get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Отсутствуют данные о сроках доставки товара с артикулом " + productCode);
+			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
 			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
 		}
 
-		final String availabilityMessage = StringUtils.equals(productInfo.getCount(), "0") ? " недоступен" : (StringUtils.equals(
-				productInfo.getCount(), count) ? " доступен полностью (количество: " + productInfo.getCount() + ")"
-				: " доступен частично (количество: " + productInfo.getCount() + ")");
+		final String availabilityMessage = StringUtils.equals(productInfo.getCount(), "0") ? "Недоступен" : (StringUtils.equals(
+				productInfo.getCount(), count) ? "Доступен полностью" : "Доступен частично (кол-во: " + productInfo.getCount() + ")");
 
-		model.addAttribute(PRODUCT_CODE, productCode);
 		model.addAttribute(POST_DATE, productInfo.getDatePost());
 		model.addAttribute(AVAILABILITY_MESSAGE, availabilityMessage);
 

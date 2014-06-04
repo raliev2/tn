@@ -16,6 +16,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <section class="clearfix">
     <%--
     <div class="also-viewed">
@@ -107,11 +108,10 @@
                 </div>
                 <div class="characteristics-line__col3">
                     <p class="g-italic">Наличие</p>
-                    <div class="stock in-stock"><span>В наличии</span>
-                    <c:url value="/stock/check?productCode=${product.code}&count=0" var="check_stock_url"/>
-                    <div class="g-info" onclick="window.open('${check_stock_url}', 'check in stock', 'height=100,width=200');">
-                    </div>
-                </div>
+                    <div class="stock in-stock">
+                   		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
+								<div id="productDeliveryInfo" onclick="getProductDeliveryInfo('${check_stock_url}');"><a href="#">Проверить наличие</a></div>                    		                  
+                		</div>
             </div>
             </div>
             <div class="characteristics__line clearfix">
