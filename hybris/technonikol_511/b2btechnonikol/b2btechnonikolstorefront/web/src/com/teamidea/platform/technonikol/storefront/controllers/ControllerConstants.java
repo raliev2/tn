@@ -190,6 +190,11 @@ public interface ControllerConstants
 			{
 				String OrderForm = "pages/product/productOrderFormPage";
 			}
+
+            interface Form
+            {
+                String registrationRequestForm = "pages/form/register";
+            }
 		}
 
 		interface Fragments
