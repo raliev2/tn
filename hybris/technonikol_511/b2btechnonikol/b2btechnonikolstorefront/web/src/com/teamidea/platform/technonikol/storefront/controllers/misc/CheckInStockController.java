@@ -3,11 +3,13 @@
  */
 package com.teamidea.platform.technonikol.storefront.controllers.misc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
@@ -35,8 +37,7 @@ public class CheckInStockController extends AbstractController
 	private static final String PRODUCT_CODE = "productCode";
 	private static final String PRODUCT_COUNT = "count";
 	private static final String ERROR_MESSAGE = "errorMessage";
-	private static final String AVAILABILITY_MESSAGE = "availabilityMessage";
-	private static final String POST_DATE = "postDate";
+	private static final String ROWS = "rows";
 
 	protected static final Logger LOG = Logger.getLogger(CheckInStockController.class);
 
@@ -60,27 +61,24 @@ public class CheckInStockController extends AbstractController
 		}
 
 		final List<MaterialsRow> deliveryInfo = response.getReturn().getMaterials().getRow();
-		MaterialsRow productInfo = null;
+		final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
 		for (final MaterialsRow row : deliveryInfo)
 		{
 			if (StringUtils.equals(row.getEKN(), productCode))
 			{
-				productInfo = row;
+				productInfo.add(row);
 			}
 		}
 
-		if (productInfo == null)
+		if (CollectionUtils.isEmpty(productInfo))
 		{
 			LOG.debug("Didn't get delivery information for product with code = " + productCode);
 			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
 			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
 		}
 
-		final String availabilityMessage = StringUtils.equals(productInfo.getCount(), "0") ? "Недоступен" : (StringUtils.equals(
-				productInfo.getCount(), count) ? "Доступен полностью" : "Доступен частично (кол-во: " + productInfo.getCount() + ")");
-
-		model.addAttribute(POST_DATE, productInfo.getDatePost());
-		model.addAttribute(AVAILABILITY_MESSAGE, availabilityMessage);
+		model.addAttribute(ROWS, productInfo);
+		model.addAttribute(PRODUCT_COUNT, count);
 
 		return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
 	}
