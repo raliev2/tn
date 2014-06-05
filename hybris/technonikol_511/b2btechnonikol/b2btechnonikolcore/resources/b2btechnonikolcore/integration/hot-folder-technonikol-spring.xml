@@ -23,17 +23,18 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- General setup -->
-	<bean id="cleanupHelper" class="com.teamidea.platform.technonikol.core.dataimport.batch.task.CleanupSrcBeforeTransHelper">
-		<property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+	<bean id="cleanupHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
+		<property name="timeStampFormat" value="" />
+		<property name="loggerService" ref="loggerService"/>
 	</bean>
+	
 	<bean id="baseDirectoryTechnonikol" class="java.lang.String">
         <constructor-arg value="#{configurationService.configuration.getProperty('acceleratorservices.batch.impex.basefolder')}/${tenantId}/technonikol" />
     </bean>
     
-    <!-- 1) Scan for files -->
-
+    <!-- 1) Scan for files <COD>_<GUID>_F.impex -->
     <file:inbound-channel-adapter id="batchFilesTechnonikol" directory="#{baseDirectoryTechnonikol}"
-        filename-regex="^(.*)-(\d+)\.impex" comparator="technonikolFileOrderComparator" prevent-duplicates="false">
+        filename-regex="^[a-zA-Z]{3}_([0-9a-fA-F-]+?)(_[FfRr]){0,1}\.impex" comparator="technonikolFileOrderComparator" prevent-duplicates="false">
         <int:poller fixed-rate="1000" />
     </file:inbound-channel-adapter>
     <bean id="technonikolFileOrderComparator" class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
@@ -64,7 +65,7 @@
     <file:outbound-gateway request-channel="batchFilesTechnonikol" reply-channel="batchFilesTechnonikolProc" 
     	directory="#{baseDirectoryTechnonikol}/processing" delete-source-files="true" />
 
-    <int:service-activator input-channel="batchFilesTechnonikolProc" output-channel="batchFilesTran"
+    <int:service-activator input-channel="batchFilesTechnonikolProc" output-channel="batchFilesTechnonikolImp"
 		ref="technonikolHeaderSetupTask" method="execute" />
 	<bean id="technonikolHeaderSetupTask" class="com.teamidea.platform.technonikol.core.dataimport.batch.task.SimpleHeaderSetupTask">
 		<property name="catalog" value="tnProductCatalog" />
@@ -74,7 +75,7 @@
 	</bean>
 	
 	<!-- 3) run impex import -->
-	<int:service-activator input-channel="batchFilesTran" output-channel="batchFilesImp" ref="batchRunnerTask"
+	<int:service-activator input-channel="batchFilesTechnonikolImp" output-channel="batchFilesCleanUp" ref="batchRunnerTask"
 		method="execute" />
 	<bean id="batchRunnerTask" class="com.teamidea.platform.technonikol.core.dataimport.batch.task.AbstractTechnonikolImpexRunnerTask">
 		<property name="sessionService" ref="sessionService" />
@@ -93,6 +94,12 @@
 		<property name="locale" value="ru"/>
 	</bean>
 	
+	<!-- 6) clean up step -->
+	<int:service-activator input-channel="batchFilesCleanUp" ref="technonikolBatchCleanupTask" method="execute" />
+	<bean id="technonikolBatchCleanupTask" class="de.hybris.platform.acceleratorservices.dataimport.batch.task.CleanupTask">
+		<property name="cleanupHelper" ref="cleanupHelper" />
+	</bean>
+    
 	<bean id="loggerService" class="com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService" parent="abstractService">
 		<property name="encoding" value="UTF-8" />
     </bean>

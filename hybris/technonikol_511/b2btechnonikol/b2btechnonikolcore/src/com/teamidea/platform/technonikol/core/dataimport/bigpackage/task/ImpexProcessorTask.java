@@ -18,14 +18,13 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
 import com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService;
-import com.teamidea.platform.technonikol.core.dataimport.batch.utils.IOUtilsExt;
+import com.teamidea.platform.technonikol.core.dataimport.LoggerStatus;
 import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPackageMessage;
 
 
@@ -51,7 +50,6 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 		Assert.notNull(message.getCurrentPath());
 		final Session localSession = getSessionService().createNewSession();
 
-		XMLStreamWriter errorWriter = null;
 		final File currentFile = message.getCurrentPath().toFile();
 		try (InputStream fis = new FileInputStream(currentFile))
 		{
@@ -73,8 +71,8 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 					unresolvedLines = importResult.getUnresolvedLines();
 				}
 
-				errorWriter = loggerService.writeXmlError(currentFile, errorWriter, unresolvedLines, importResult.getCronJob()
-						.getLogs(), "Impex import failed");
+				loggerService.writeXmlStatus(currentFile, LoggerStatus.FATAL, unresolvedLines, importResult.getCronJob().getLogs(),
+						"Impex import failed");
 			}
 			message.setError(importResult.isError());
 			message.setImpexImportError(importResult.isError());
@@ -88,7 +86,6 @@ public class ImpexProcessorTask extends AbstractHotFolderTask
 		}
 		finally
 		{
-			IOUtilsExt.closeQuietly(errorWriter);
 			getSessionService().closeSession(localSession);
 		}
 	}
