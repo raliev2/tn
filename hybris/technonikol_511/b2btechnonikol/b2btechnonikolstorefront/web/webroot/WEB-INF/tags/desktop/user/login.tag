@@ -12,17 +12,7 @@
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common" %>
 
 <div class="login-panel">
-	<div class="login-panel__title">
-		<h1><spring:theme code="login.title"/></h1>
-	</div>
-
-    <div class="globalMessages">
-        <common:globalMessages/>
-        <c:if test="${not empty accErrorMsgs}">
-            <div class="help-message">Если Вам не удается пройти авторизацию, вы можете обратиться в контактный центр по номеру 88003330020 24 часа в сутки, 7 дней в неделю</div>
-        </c:if>
-    </div>
-
+    <h3><spring:theme code="login.enter"/></h3>
 	<div class="login-panel__body">
 		<form:form action="${action}" method="post" commandName="loginForm">
 			<c:if test="${not empty message}">
@@ -34,7 +24,7 @@
                 <span class="form_field_error">
             </c:if>
 
-			<formUtil:formInputBox idKey="j_username" labelKey="login.username" path="j_username" inputCSS="g-input" size="30" />
+			<formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" />
 			<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" />
             <div class="capslockIsOn">Включена клавиша CAPS LOCK</div>
 
@@ -58,7 +48,7 @@
             </c:if>
 
 			<ycommerce:testId code="login_Login_button">
-				<button type="submit" class="g-button-black"><spring:theme code="${actionNameKey}"/></button>
+				<button type="submit" class="button"><spring:theme code="${actionNameKey}"/></button>
 			</ycommerce:testId>
 
 		</form:form>
