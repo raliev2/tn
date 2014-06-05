@@ -9,11 +9,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="theme" tagdir="/WEB-INF/tags/shared/theme" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common" %>
 
 <div class="login-panel">
 	<div class="login-panel__title">
 		<h1><spring:theme code="login.title"/></h1>
 	</div>
+
+    <div class="globalMessages">
+        <common:globalMessages/>
+        <c:if test="${not empty accErrorMsgs}">
+            <div class="help-message">Если Вам не удается пройти авторизацию, вы можете обратиться в контактный центр по номеру 88003330020 24 часа в сутки, 7 дней в неделю</div>
+        </c:if>
+    </div>
 
 	<div class="login-panel__body">
 		<form:form action="${action}" method="post" commandName="loginForm">
@@ -34,8 +42,16 @@
                 Язык ввода - <span class="lang">Русский</span>
             </div>
 
-			<%--<a href="javascript:void(0)" data-url="<c:url value='/login/pw/request'/>" class="password-forgotten"><spring:theme code="login.link.forgottenPwd"/></a>--%>
+            <div class="login-links">
+                <a href="<c:url value='/login/pw/request'/>" class="g-link-blue">
+                    <spring:theme code="login.link.forgottenPwd"/>
+                </a>
+            </div>
 
+            <div class="remember-me">
+                <input type="checkbox" name="rememberMe" id="rememberMe" />
+                <label for="rememberMe">Запомнить меня</label>
+            </div>
 
             <c:if test="${not empty accErrorMsgs}">
                 </span>

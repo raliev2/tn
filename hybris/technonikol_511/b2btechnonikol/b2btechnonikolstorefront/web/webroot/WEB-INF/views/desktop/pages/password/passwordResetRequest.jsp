@@ -24,7 +24,8 @@
             </cms:pageSlot>
 
             <c:url value="/j_spring_security_check" var="loginActionUrl"/>
-            <user:login actionNameKey="login.login" action="${loginActionUrl}"/>
+
+            hjhgjhg
 
             <div class="span-20 right last">
                 <cms:pageSlot position="MerchantContactContent" var="feature" element="div" class="span-10 login-info">

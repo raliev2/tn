@@ -21,7 +21,7 @@
         <div class="auth_links">
             <ul class="nav">
 				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
-					<li class="logged_in"><ycommerce:testId code="header_LoggedUser"><spring:theme code="header.welcome" arguments="${user.firstName},${user.lastName}" htmlEscape="true"/></ycommerce:testId></li>
+					<li class="hello"><ycommerce:testId code="header_LoggedUser"><spring:theme code="header.welcome" arguments="${user.firstName},${user.lastName}" htmlEscape="true"/></ycommerce:testId></li>
 				</sec:authorize>
 				<sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
 					<li><ycommerce:testId code="header_Login_link"><a href="<c:url value='/login'/>"><spring:theme code="header.link.login"/></a></ycommerce:testId></li>
