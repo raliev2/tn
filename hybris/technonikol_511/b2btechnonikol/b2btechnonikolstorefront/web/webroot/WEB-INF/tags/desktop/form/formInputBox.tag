@@ -7,6 +7,7 @@
 <%@ attribute name="inputCSS" required="false" type="java.lang.String" %>
 <%@ attribute name="tabindex" required="false" rtexprvalue="true" %>
 <%@ attribute name="readonly" required="false" rtexprvalue="false" %>
+<%@ attribute name="size" required="false" rtexprvalue="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -29,7 +30,7 @@
 		</div>
 	
 		<div class="form_field-input">
-			<form:input cssClass="${inputCSS}" id="${idKey}" path="${path}" tabindex="${tabindex}" readonly="${readonly}"/>
+			<form:input cssClass="${inputCSS}" id="${idKey}" path="${path}" tabindex="${tabindex}" readonly="${readonly}" size="${size}"/>
 		</div>
 	</ycommerce:testId>
 </template:errorSpanField>

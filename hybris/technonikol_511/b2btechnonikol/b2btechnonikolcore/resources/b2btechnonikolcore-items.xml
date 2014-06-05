@@ -678,6 +678,22 @@
 					</index>
 				</indexes>
 			</itemtype>
+								
+			<itemtype code="CategoryListComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
+				jaloclass="com.teamidea.platform.technonikol.core.jalo.CategoryListComponent">
+				<description>It represents component that displays first-level children of chosen category.</description>
+				<attributes>
+					<attribute qualifier="title" type="localized:java.lang.String">
+						<persistence type="property" />
+						<description>Title of the component.</description>
+					</attribute>
+					<attribute qualifier="categories" type="CategoryCollection">
+						<modifiers initial="true" optional="false"/>
+						<persistence type="property"/>
+						<description>Title of the component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
 
 		</typegroup>
 	</itemtypes>

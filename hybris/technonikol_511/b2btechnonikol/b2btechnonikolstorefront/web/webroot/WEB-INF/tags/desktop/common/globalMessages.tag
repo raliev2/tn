@@ -29,12 +29,10 @@
 
 <%-- Error messages (includes spring validation messages)--%>
 <c:if test="${not empty accErrorMsgs}">
-	<div class="span-24">
-		<c:forEach items="${accErrorMsgs}" var="msg">
-			<div class="information_message negative">
-				<span class="single"></span>
-				<p><spring:theme code="${msg.code}" arguments="${msg.attributes}" htmlEscape="true"/></p>
-			</div>
-		</c:forEach>
-	</div>
+    <c:forEach items="${accErrorMsgs}" var="msg">
+        <div class="information-message information-message_negative">
+            <p><spring:theme code="${msg.code}" arguments="${msg.attributes}" htmlEscape="true"/></p>
+        </div>
+        <div class="clearfix"></div>
+    </c:forEach>
 </c:if>

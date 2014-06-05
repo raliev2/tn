@@ -23,6 +23,10 @@
 
         <section class="g-main-content g-main-content_no-padding clearfix">
             <aside class="g-left-col g-left-col_right-shadow">
+            	<cms:pageSlot position="Section4" var="feature">
+						<cms:component component="${feature}" element="div"
+							class="span-4 section4 cms_disp-img_slot last" />
+					</cms:pageSlot>
                 <div class="filter-block filter-block_border-bottom">
                     <div class="filter-block__header_red">Фильтр</div>
                 </div>
