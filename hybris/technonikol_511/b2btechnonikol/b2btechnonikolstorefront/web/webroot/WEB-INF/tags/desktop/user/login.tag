@@ -1,4 +1,5 @@
 <%@ tag body-content="empty" trimDirectiveWhitespaces="true" %>
+<%@ tag pageEncoding="UTF-8" %>
 <%@ attribute name="actionNameKey" required="true" type="java.lang.String" %>
 <%@ attribute name="action" required="true" type="java.lang.String" %>
 
@@ -8,48 +9,48 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="theme" tagdir="/WEB-INF/tags/shared/theme" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common" %>
 
-<div class="item_container_holder">
-	<div class="title_holder">
-		<div class="title">
-			<div class="title-top">
-				<span></span>
-			</div>
-		</div>
-		<h2><spring:theme code="login.title"/></h2>
-	</div>
-
-	<div class="item_container">
-		<p><spring:theme code="login.description"/></p>
-		<p class="required"><spring:theme code="login.required.message"/></p>
-
+<div class="login-panel">
+    <h3><spring:theme code="login.enter"/></h3>
+	<div class="login-panel__body">
 		<form:form action="${action}" method="post" commandName="loginForm">
 			<c:if test="${not empty message}">
-				<span class="errors">
+				<div class="login-errors">
 					<spring:theme code="${message}"/>
-				</span>
+				</div>
 			</c:if>
-			<dl>
-				<c:if test="${not empty accErrorMsgs}">
-					<span class="form_field_error">
-				</c:if>
+            <c:if test="${not empty accErrorMsgs}">
+                <span class="form_field_error">
+            </c:if>
 
-				<formUtil:formInputBox idKey="j_username" labelKey="login.username" path="j_username" inputCSS="text" mandatory="true"/>
-				<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="text password" mandatory="true"/>
+			<formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" />
+			<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" />
+            <div class="capslockIsOn">Включена клавиша CAPS LOCK</div>
 
-				<dd>
-					<a href="javascript:void(0)" data-url="<c:url value='/login/pw/request'/>" class="password-forgotten"><spring:theme code="login.link.forgottenPwd"/></a>
-				</dd>
+            <div class="login-panel__language g-hidden">
+                Язык ввода - <span class="lang">Русский</span>
+            </div>
 
-				<c:if test="${not empty accErrorMsgs}">
-					</span>
-				</c:if>
-			</dl>
-			<span style="display: block; clear: both;">
+            <div class="login-links">
+                <a href="<c:url value='/login/pw/request'/>" class="g-link-blue">
+                    <spring:theme code="login.link.forgottenPwd"/>
+                </a>
+            </div>
+
+            <div class="remember-me">
+                <input type="checkbox" name="rememberMe" id="rememberMe" />
+                <label for="rememberMe">Запомнить меня</label>
+            </div>
+
+            <c:if test="${not empty accErrorMsgs}">
+                </span>
+            </c:if>
+
 			<ycommerce:testId code="login_Login_button">
-				<button type="submit" class="form"><spring:theme code="${actionNameKey}"/></button>
+				<button type="submit" class="button"><spring:theme code="${actionNameKey}"/></button>
 			</ycommerce:testId>
-			</span>
+
 		</form:form>
 	</div>
 </div>

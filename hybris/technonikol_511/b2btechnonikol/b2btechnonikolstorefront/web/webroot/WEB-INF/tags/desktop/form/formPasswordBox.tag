@@ -6,7 +6,7 @@
 <%@ attribute name="labelCSS" required="false" type="java.lang.String" %>
 <%@ attribute name="inputCSS" required="false" type="java.lang.String" %>
 <%@ attribute name="errorPath" required="false" type="java.lang.String" %>
-
+<%@ attribute name="size" required="false" rtexprvalue="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -29,7 +29,7 @@
 		</div>
 
 		<div class="form_field-input">
-			<form:password cssClass="${inputCSS}" id="${idKey}" path="${path}"/>
+			<form:password cssClass="${inputCSS}" id="${idKey}" path="${path}" size="${size}"/>
 		</div>
 	</ycommerce:testId>
 </template:errorSpanField>
