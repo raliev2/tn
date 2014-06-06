@@ -19,7 +19,7 @@
                 <cms:component component="${feature}"/>
             </cms:pageSlot>
 
-            <c:url value="/register" var="loginActionUrl"/>
+            <c:url value="/register" var="registerActionUrl"/>
             <user:registerForm actionNameKey="registrationRequestForm.button.action" action="${registerActionUrl}"/>
 
             <div class="span-20 right last">

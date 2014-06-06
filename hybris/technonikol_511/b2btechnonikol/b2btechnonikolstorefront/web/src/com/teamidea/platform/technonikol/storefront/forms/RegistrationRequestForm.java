@@ -1,8 +1,8 @@
 package com.teamidea.platform.technonikol.storefront.forms;
 
 import org.hibernate.validator.constraints.Email;
-
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -17,7 +17,7 @@ public class RegistrationRequestForm
     private String email;
     private boolean subscribedToSmsAndEmailNotification;
 
-    @NotNull(message = "{registrationRequestForm.firstName.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.firstName.notEmpty}")
     @Size(max = 255, message = "{registrationRequestForm.firstName.wrongSize}")
     public String getFirstName() {
         return firstName;
@@ -27,7 +27,7 @@ public class RegistrationRequestForm
         this.firstName = firstName;
     }
 
-    @NotNull(message = "{registrationRequestForm.surName.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.surName.notEmpty}")
     @Size(max = 255, message = "{registrationRequestForm.surName.wrongSize}")
     public String getSurName() {
         return surName;
@@ -37,7 +37,7 @@ public class RegistrationRequestForm
         this.surName = surName;
     }
 
-    @NotNull(message = "{registrationRequestForm.lastName.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.lastName.notEmpty}")
     @Size(max = 255, message = "{registrationRequestForm.lastName.wrongSize}")
     public String getLastName() {
         return lastName;
@@ -47,7 +47,7 @@ public class RegistrationRequestForm
         this.lastName = lastName;
     }
 
-    @NotNull(message = "{registrationRequestForm.company.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.company.notEmpty}")
     @Size(max = 1024, message = "{registrationRequestForm.company.wrongSize}")
     public String getCompany() {
         return company;
@@ -57,8 +57,9 @@ public class RegistrationRequestForm
         this.company = company;
     }
 
-    @NotNull(message = "{registrationRequestForm.inn.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.inn.notEmpty}")
     @Size(min = 10, max = 12, message = "{registrationRequestForm.inn.wrongSize}")
+    @Length(min = 10, max = 12, message = "{registrationRequestForm.inn.wrongSize}")
     @Pattern(regexp = "[0-9]*", message = "{registrationRequestForm.inn.onlyDigitsAllowed}")
     public String getInn() {
         return inn;
@@ -68,7 +69,7 @@ public class RegistrationRequestForm
         this.inn = inn;
     }
 
-    @NotNull(message = "{registrationRequestForm.phone.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.phone.notEmpty}")
     @Size(max = 255, message = "{registrationRequestForm.phone.wrongSize}")
     public String getPhone() {
         return phone;
@@ -78,7 +79,7 @@ public class RegistrationRequestForm
         this.phone = phone;
     }
 
-    @NotNull(message = "{registrationRequestForm.email.notEmpty}")
+    @NotEmpty(message = "{registrationRequestForm.email.notEmpty}")
     @Email(message = "{registrationRequestForm.email.wrongFormat}")
     public String getEmail() {
         return email;
