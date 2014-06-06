@@ -62,7 +62,11 @@ public class PasswordResetPageController extends LoginPageController
     @RequestMapping(value = "/request", method = RequestMethod.GET)
     public String getPasswordRequest(final Model model) throws CMSItemNotFoundException
     {
-        model.addAttribute(new ForgottenPwdForm());
+        final ForgottenPwdForm form = new ForgottenPwdForm();
+        model.addAttribute(form);
+        storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+        setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+        model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
         return ControllerConstants.Views.Fragments.Password.PasswordResetRequest;
     }
 
