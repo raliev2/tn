@@ -35,7 +35,7 @@ ACC.product = {
                 var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity'));
                 var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient'));
 
-                if (coefficient == 0 || minOrderQuantity == 0) return false;
+                if (coefficient == 0 || minOrderQuantity == 0 || isNaN(coefficient) || isNaN(minOrderQuantity)) return true;
                 var _tmp = qty / coefficient;
 
                 if (_tmp < minOrderQuantity) {
