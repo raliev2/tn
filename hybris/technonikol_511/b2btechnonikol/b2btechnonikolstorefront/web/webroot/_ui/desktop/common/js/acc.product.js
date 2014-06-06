@@ -1,6 +1,20 @@
+function modalWindowShow() {
+    $('.modal-window').fadeIn();
+    $('.modal-window').click(function() {
+        $(this).hide();
+    });
+    $('.modal-window-content').click(function(e) {
+        e.stopPropagation();
+    });
+    $('.modal-window__close').click(function(event) {
+        event.preventDefault();
+        $('.modal-window').hide();
+    });
+}
+
 ACC.product = {
 	// cached jQuery objects
-	$cartPopup:             $('#cart_popup'),
+	$cartPopup:             $('.modal-window-content'),
 	$addToCartButton:       $(':submit.add_to_cart_button'),
 	$addToCartOrderForm:    $('.add_to_cart_order_form'),
 	$addToCartForm:         $('.add_to_cart_form'),
@@ -15,7 +29,28 @@ ACC.product = {
 			ACC.product.$addToCartForm = $(ACC.product.addToCartFormSelector);
 		}
 
-		ACC.product.$addToCartForm.ajaxForm({success: ACC.product.displayAddToCartPopup});
+		ACC.product.$addToCartForm.ajaxForm({
+            beforeSubmit: function(arr, $form, options) {
+                var qty = parseFloat($('#qty').val());
+                var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity'));
+                var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient'));
+
+                if (coefficient == 0 || minOrderQuantity == 0) return false;
+                var _tmp = qty / coefficient;
+
+                if (_tmp < minOrderQuantity) {
+                    ACC.product.$cartPopup.html('<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantity/coefficient + ' ' + $('#priceUnits option:selected').text() + '</p>\
+                    <p>Ваш заказ будет автоматически исправлен.</p>');
+                    modalWindowShow();
+                    arr[0].value = Math.ceil(10);
+                    console.log(arr)
+                    return false;
+                }
+
+                return false;
+            },
+            success: ACC.product.displayAddToCartPopup
+        });
 	},
 
 	bindToAddToCartButton: function() {
@@ -26,7 +61,7 @@ ACC.product = {
 		ACC.product.$addToCartOrderForm.ajaxForm({success: ACC.product.displayAddToCartPopup});
 	},
 
-	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {
+	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {console.log(cartResult)
 		var productCode   = $('[name=productCodePost]', formElement).val();
 		var quantityField = $('[name=qty]', formElement).val();
 		var quantity      = 1;
@@ -45,32 +80,34 @@ ACC.product = {
 			return;
 		}
 
-		ACC.product.trackAddToCart(productCode, quantity, cartResult.cartData);
+		//ACC.product.trackAddToCart(productCode, quantity, cartResult.cartData);
+        //$('#colorbox').show();
+		//$('#colorbox').hide();
 
-		$('#colorbox').hide();
+		//ACC.product.$cartPopup.hide();
+		//ACC.product.$cartPopup.html(cartResult.cartPopupHtml);
+        ACC.product.$cartPopup.html('Товар добавлен в корзину');
 
-		ACC.product.$cartPopup.hide();
-		ACC.product.$cartPopup.html(cartResult.cartPopupHtml);
-
-		$('#add_to_cart_close').click(function(event) {
+		/*$('#add_to_cart_close').click(function(event) {
 			event.preventDefault();
 			ACC.product.$cartPopup.hide();
-		});
+		});*/
 
+        modalWindowShow();
 		//ACC.product.$cartPopup.fadeIn();
-		if (typeof timeoutId != 'undefined') {
+		/*if (typeof timeoutId != 'undefined') {
 			clearTimeout(timeoutId);
 		}
 		timeoutId = setTimeout(function() {ACC.product.$cartPopup.fadeOut();}, 5000);
-		$.colorbox.close();
+		$.colorbox.close();*/
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
-		/*window.mediator.publish('trackAddToCart', {
+		window.mediator.publish('trackAddToCart', {
 			productCode: productCode,
 			quantity:    quantity,
 			cartData:    cartData
-		});*/
+		});
 	},
 
 	zoomImage: function() {
@@ -91,11 +128,11 @@ ACC.product = {
 		ACC.product.bindToAddToCartButton();
 		ACC.product.bindToAddToCartOrderForm();
 
-		$('#carousel_modal').jcarousel({
+		/*$('#carousel_modal').jcarousel({
 			// Configuration goes here
 			vertical:              true,
 			itemFallbackDimension: 512
-		});
+		});*/
 
 		$(".noaction").click(function(e) {
 			e.preventDefault(); // preventing the screen from jumping since the hrefs are #

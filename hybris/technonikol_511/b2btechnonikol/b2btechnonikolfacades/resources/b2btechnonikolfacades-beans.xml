@@ -57,10 +57,8 @@
         <property name="productProperties" type="java.lang.String"/>
         <property name="productContent" type="java.lang.String"/>
 
-<!--
         <property name="maxOrderQuantity" type="Integer"/>
         <property name="minOrderQuantity" type="Integer"/>
--->
 
         <property name="unreplenishable" type="java.lang.Boolean"/>
         <property name="archiveDate" type="java.util.Date"/>

@@ -19,7 +19,7 @@ ACC.common = {
 	},
 
 	bindToUiCarouselLink: function() {
-		$("ul.carousel > li a.popup").colorbox({
+		/*$("ul.carousel > li a.popup").colorbox({
 			onComplete: function() {
 			    ACC.common.refreshScreenReaderBuffer();
 			},
@@ -27,7 +27,7 @@ ACC.common = {
 			onClosed: function() {
 				ACC.common.refreshScreenReaderBuffer();
 			}
-		});
+		});*/
 	},
 	processingMessage: $("<img src='" + ACC.config.commonResourcePath + "/images/spinner.gif'/>"),
 
