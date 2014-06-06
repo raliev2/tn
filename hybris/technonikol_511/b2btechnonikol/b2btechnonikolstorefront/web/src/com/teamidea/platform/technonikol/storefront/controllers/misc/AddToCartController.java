@@ -15,15 +15,11 @@ package com.teamidea.platform.technonikol.storefront.controllers.misc;
 
 import de.hybris.platform.b2bacceleratorfacades.product.data.ProductQuantityData;
 import de.hybris.platform.commercefacades.order.CartFacade;
+import de.hybris.platform.commercefacades.order.data.CartData;
 import de.hybris.platform.commercefacades.order.data.CartModificationData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.commerceservices.order.CommerceCartModificationException;
 import de.hybris.platform.util.Config;
-import com.teamidea.platform.technonikol.storefront.controllers.AbstractController;
-import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
-import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
-import com.teamidea.platform.technonikol.storefront.forms.AddToCartForm;
-import com.teamidea.platform.technonikol.storefront.forms.AddToCartOrderForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +40,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.teamidea.platform.technonikol.storefront.controllers.AbstractController;
+import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
+import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
+import com.teamidea.platform.technonikol.storefront.forms.AddToCartForm;
+import com.teamidea.platform.technonikol.storefront.forms.AddToCartOrderForm;
 
 
 /**
@@ -98,16 +100,15 @@ public class AddToCartController extends AbstractController
 			model.addAttribute(ERROR_MSG_TYPE, BASKET_QUANTITY_ERROR_KEY);
 		}
 
-
 		final List<ProductData> productDataList = new ArrayList<ProductData>();
-
 		if (product != null)
 		{
 			productDataList.add(product);
 		}
-
 		model.addAttribute("products", productDataList);
 
+		final CartData cartData = cartFacade.getSessionCart();
+		model.addAttribute("cartData", cartData);
 
 		return ControllerConstants.Views.Fragments.Cart.AddToCartPopup;
 	}
