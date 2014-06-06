@@ -65,7 +65,7 @@
     </select>
     </c:if>
 
-    <button id="addToCartButton" data-min-quantity="${product.minOrderQuantity}" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+    <button id="addToCartButton" data-min-quantity="${product.minOrderQuantity}" data-base-to-sales="${product.unitsMap[product.salesUnit.code]}" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
         В корзину
     </button>
 
