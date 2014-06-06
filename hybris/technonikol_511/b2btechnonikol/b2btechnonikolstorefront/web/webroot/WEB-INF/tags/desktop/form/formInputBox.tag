@@ -19,7 +19,7 @@
 		<div class="form_field-label">
 			<label class="${labelCSS} ${mandatory != null && mandatory == true ? 'mandatory' : ''}" for="${idKey}">
                 <spring:theme code="${labelKey}"/>
-				<span class="skip"><form:errors path="${path}"/></span>
+				<%--<span class="skip"><form:errors path="${path}"/></span>--%>
 			</label>
 		</div>
 	

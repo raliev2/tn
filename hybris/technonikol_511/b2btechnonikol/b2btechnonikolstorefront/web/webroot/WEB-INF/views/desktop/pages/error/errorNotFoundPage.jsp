@@ -14,6 +14,7 @@
 	<div id="breadcrumb" class="breadcrumb">
 		<breadcrumb:breadcrumb breadcrumbs="${additionalBreadcrumb}"/>
 	</div>
+    <div class="clearfix"></div>
 	<div id="globalMessages">
 		<common:globalMessages/>
 	</div>
