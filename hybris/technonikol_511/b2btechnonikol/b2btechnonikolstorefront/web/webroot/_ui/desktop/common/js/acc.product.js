@@ -36,7 +36,11 @@ ACC.product = {
                 var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
                 var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
 
-                if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) return true;
+                if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
+                    arr[0].value = Math.ceil(arr[0].value);
+                    console.log(arr)
+                    return true;
+                }
                 var qtyBase = qty * coefficient;
 
                 if (qtyBase < minOrderQuantity) {
