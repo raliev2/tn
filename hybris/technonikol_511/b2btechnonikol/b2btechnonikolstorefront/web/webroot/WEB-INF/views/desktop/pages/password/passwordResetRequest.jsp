@@ -30,9 +30,8 @@
             </div>
 
             <c:url value="/register" var="loginActionUrl"/>
-            <form:form action="${action}" method="post">
-                <label><spring:theme code="login.enter.email"/></label>
-                <input type="text" class="g-input" size="30" />
+            <form:form action="${action}" method="post" commandName="forgottenPwdForm">
+                <formUtil:formInputBox idKey="email" labelKey="login.enter.email" path="email" inputCSS="g-input" size="30" />
                 <input type="submit" value="<spring:theme code="login.password.torecovery"/>" class="g-button-black" />
             </form:form>
 
