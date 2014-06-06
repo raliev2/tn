@@ -22,6 +22,8 @@ import de.hybris.platform.acceleratorcms.model.components.PurchasedCategorySugge
 import de.hybris.platform.cms2.model.contents.components.CMSLinkComponentModel;
 import de.hybris.platform.cms2lib.model.components.ProductCarouselComponentModel;
 
+import com.teamidea.platform.technonikol.core.model.CategoryListComponentModel;
+
 
 /**
  * Class with constants for controllers.
@@ -54,6 +56,7 @@ public interface ControllerConstants
 			String CategoryFeatureComponent = _Prefix + CategoryFeatureComponentModel._TYPECODE + _Suffix;
 			String NavigationBarComponent = _Prefix + NavigationBarComponentModel._TYPECODE + _Suffix;
 			String CMSLinkComponent = _Prefix + CMSLinkComponentModel._TYPECODE + _Suffix;
+			String CategoryListComponent = _Prefix + CategoryListComponentModel._TYPECODE + _Suffix;
 		}
 	}
 
@@ -187,6 +190,11 @@ public interface ControllerConstants
 			{
 				String OrderForm = "pages/product/productOrderFormPage";
 			}
+
+            interface Form
+            {
+                String registrationRequestForm = "pages/form/register";
+            }
 		}
 
 		interface Fragments
