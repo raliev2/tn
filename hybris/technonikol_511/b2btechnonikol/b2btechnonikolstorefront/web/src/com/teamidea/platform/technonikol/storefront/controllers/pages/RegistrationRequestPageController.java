@@ -71,10 +71,10 @@ public class RegistrationRequestPageController extends DefaultPageController
 
     private void sendRegistrationRequestEmailTemporaryVersion(RegistrationRequestForm form) {
         // Recipient's email ID needs to be mentioned.
-        String to = "anikanovalex@gmail.com";
+        String to = "erkin.babadjanov@tstn.ru";
 
         // Sender's email ID needs to be mentioned
-        String from = "anikanovalex@gmail.com";
+        String from = "1plt@tn.ru";
 
         // Get system properties
         Properties properties = System.getProperties();
