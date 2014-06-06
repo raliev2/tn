@@ -38,7 +38,8 @@ ACC.product = {
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
-                    console.log(arr)
+                    console.log(arr);
+                    ACC.product.$cartPopup.html('<p>Товар добавлен в корзину.</p>');
                     return true;
                 }
                 var qtyBase = qty * coefficient;
