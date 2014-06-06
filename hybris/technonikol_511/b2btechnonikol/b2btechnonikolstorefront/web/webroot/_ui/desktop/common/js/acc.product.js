@@ -32,22 +32,27 @@ ACC.product = {
 		ACC.product.$addToCartForm.ajaxForm({
             beforeSubmit: function(arr, $form, options) {
                 var qty = parseFloat($('#qty').val());
-                var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity'));
-                var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient'));
+                var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity')); //считаем, что для base
+                var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
+                var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
 
-                if (coefficient == 0 || minOrderQuantity == 0 || isNaN(coefficient) || isNaN(minOrderQuantity)) return true;
-                var _tmp = qty / coefficient;
+                if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) return true;
+                var qtyBase = qty * coefficient;
 
-                if (_tmp < minOrderQuantity) {
-                    ACC.product.$cartPopup.html('<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantity/coefficient + ' ' + $('#priceUnits option:selected').text() + '</p>\
+                if (qtyBase < minOrderQuantity) {
+                    var minOrderQuantityCur = minOrderQuantity / coefficient;
+                    ACC.product.$cartPopup.html('<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
                     <p>Ваш заказ будет автоматически исправлен.</p>');
-                    modalWindowShow();
-                    arr[0].value = Math.ceil(10);
+                    arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
                     console.log(arr)
-                    return false;
+                    return true;
+                } else {
+                    ACC.product.$cartPopup.html('<p>Товар добавлен в корзину.</p>');
+                    var qtySales = qtyBase / baseToSales;
+                    arr[0].value = Math.ceil(qtySales);
+                    console.log(arr)
+                    return true;
                 }
-
-                return false;
             },
             success: ACC.product.displayAddToCartPopup
         });
@@ -65,41 +70,19 @@ ACC.product = {
 		var productCode   = $('[name=productCodePost]', formElement).val();
 		var quantityField = $('[name=qty]', formElement).val();
 		var quantity      = 1;
-
 		if (quantityField != undefined) {
 			quantity = quantityField;
 		}
-
 		ACC.common.$globalMessages.html(cartResult.cartGlobalMessagesHtml);
-
 		if (typeof refreshMiniCart == 'function') {
 			refreshMiniCart();
 		}
-
 		if (cartResult.cartGlobalMessagesHtml !== "") {
 			return;
 		}
 
-		//ACC.product.trackAddToCart(productCode, quantity, cartResult.cartData);
-        //$('#colorbox').show();
-		//$('#colorbox').hide();
-
-		//ACC.product.$cartPopup.hide();
-		//ACC.product.$cartPopup.html(cartResult.cartPopupHtml);
-        ACC.product.$cartPopup.html('Товар добавлен в корзину');
-
-		/*$('#add_to_cart_close').click(function(event) {
-			event.preventDefault();
-			ACC.product.$cartPopup.hide();
-		});*/
-
         modalWindowShow();
-		//ACC.product.$cartPopup.fadeIn();
-		/*if (typeof timeoutId != 'undefined') {
-			clearTimeout(timeoutId);
-		}
-		timeoutId = setTimeout(function() {ACC.product.$cartPopup.fadeOut();}, 5000);
-		$.colorbox.close();*/
+
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
