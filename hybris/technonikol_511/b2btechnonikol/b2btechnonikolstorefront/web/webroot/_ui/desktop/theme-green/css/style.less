@@ -114,6 +114,9 @@ input::-webkit-input-placeholder {
   outline:0;
   margin:0;
 }
+.g-button-black_high {
+  line-height: 30px;
+}
 .g-float-right {
   float:right;
   text-align: right;
@@ -135,6 +138,9 @@ input::-webkit-input-placeholder {
   padding:0 @g-padding-lr 30px 0;
   margin-top:10px;
   margin-bottom: 0;
+}
+.g-main-content_padding40 {
+  padding:0 40px;
 }
 .g-left-col {
   float: left;
@@ -243,6 +249,11 @@ input::-webkit-input-placeholder {
 }
 .g-input-attention {
   outline:1px solid #c80b21;
+}
+.g-p {
+  font-size: 14px;
+  margin-top:15px;
+  color:#4d4d4d;
 }
 /* /GLOBAL STYLES*/
 
@@ -1033,7 +1044,7 @@ footer {
   float:left;
 }
 .characteristics-line__col2 {
-  width:180px;
+  width:235px;
   padding:13px 10px;
   float:left;
   vertical-align: middle;
@@ -1074,6 +1085,8 @@ footer {
   color:#333;
   padding:9px 0 0 10px;
   float:left;
+  width:150px;
+  line-height:14px;
 }
 .characteristics-line__col3 .g-italic {
   color:#04417d;
@@ -1360,6 +1373,9 @@ footer {
 }
 .filter-block__body a {
   color:@link-blue;
+}
+.facet_block li:first-letter {
+  text-transform: capitalize;
 }
 .filter-block__body input[type="checkbox"] {
   margin-right:4px;
@@ -1784,5 +1800,120 @@ footer {
   bottom:0;
   left:40px;
 }
+.modal-window {
+  display:none;
+  position: fixed;
+  width: 100%; height: 100%;
+  top: 0px; left: 0px;
+  text-align: center;
+  background-color: rgba(0,0,0,.5);
+  z-index: 9999;
+}
+.modal-window:after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 1px; height: 100%;
+  background: transparent;
+}
+.modal-wrapper {
+  position:relative;
+  display: inline-block;
+  vertical-align: middle;
+  min-width: 10%; max-width: 60%;
+}
+.modal-window-content {
+  display: inline-block;
+  vertical-align: middle;
+  background: #fff;
+  padding:20px 20px;
+  font-size:12px;
+  color:#000;
+}
+.modal-window__close {
+  position:absolute;
+  top:-11px;right:-11px;
+  width:22px;height:22px;
+  background: url(../images/sprite.png) no-repeat 0 -67px;
+  cursor:pointer;
+}
 /*END LOGIN PAGE*/
+
+/*REGISTER PAGE*/
+label.mandatory:before {
+  content:'*';
+  display:inline-block;
+}
+.register-form {
+  padding:20px;
+  background: #f0f0f0;
+  width:545px;
+  float:left;
+}
+.register-form__subscribe {
+  margin:5px 0 15px 0;
+}
+.register-form__subscribe label {
+  font-size: 12px;
+}
+.register__benefits {
+  float:right;
+  width:250px;
+  position:relative;
+
+}
+.benefits__header {
+  .gradient(#93c4ef,#6b9ecc);
+  border:1px solid #6b9ecc;
+  padding:10px 0;
+  font-weight: bold;
+  color:#fff;
+  font-size: 15px;
+  position:absolute;
+  top:10px;left:0;
+  width:248px;
+  text-align:center;
+}
+.benefits__header:before {
+  content:'';
+  position:absolute;
+  bottom:-11px;
+  left:-1px;
+  width:0;height:0;
+  border-right:10px solid #517496;
+  border-bottom:10px solid transparent;
+}
+.benefits__header:after {
+  content:'';
+  position:absolute;
+  bottom:-11px;
+  right:-1px;
+  width:0;height:0;
+  border-left:10px solid #517496;
+  border-bottom:10px solid transparent;
+}
+.benefits__body {
+  background: #f0f0f0;
+  padding:70px 15px 15px 15px;
+  width:200px;
+  margin:0 auto;
+}
+.benefits-list {
+  list-style-image: url(../images/green-check.png);
+  font-size: 14px;
+  padding-left:30px;
+}
+.benefits-list li {
+  margin-bottom:15px;
+  color:#4d4d4d;
+}
+.form-error-message {
+  color:#b80004;
+  font-size:11px;
+  margin:-8px 0 10px 0;
+}
+.form_field_error input {
+  border:1px solid #b80004;
+}
+/*END REGISTER PAGE*/
 

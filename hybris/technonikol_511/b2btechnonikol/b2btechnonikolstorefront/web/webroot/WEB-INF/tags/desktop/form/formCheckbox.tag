@@ -14,6 +14,7 @@
 <template:errorSpanField path="${path}">
 	<spring:theme code="${idKey}" var="themeIdKey"/>
 	<div class="form_field-label ${labelCSS}">
+        <form:checkbox cssClass="${inputCSS}" id="${themeIdKey}" path="${path}" />
 		<label class="${labelCSS}" for="${themeIdKey}">
 			<spring:theme code="${labelKey}"/>
 			<c:if test="${mandatory != null && mandatory == true}">
@@ -24,8 +25,5 @@
 			</c:if>
 			<span class="skip"><form:errors path="${path}"/></span>
 		</label>
-	</div>
-	<div class="form_field-input">
-		<form:checkbox cssClass="${inputCSS}" id="${themeIdKey}" path="${path}"/>
 	</div>
 </template:errorSpanField>

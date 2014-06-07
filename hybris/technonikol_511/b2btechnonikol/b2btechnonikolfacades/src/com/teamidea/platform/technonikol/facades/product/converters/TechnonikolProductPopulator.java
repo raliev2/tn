@@ -83,8 +83,10 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		target.setWeightNet(source.getWeightNet());
 		target.setVolume(source.getVolume());
 		target.setVat(source.getVat());
+        target.setMinOrderQuantity(source.getMinOrderQuantity());
+        target.setMaxOrderQuantity(source.getMaxOrderQuantity());
 
-		setProductBrand(source, target);
+        setProductBrand(source, target);
 		setProductSupplier(source, target);
 		setProductType(source, target);
 		setProductionCountry(source, target);

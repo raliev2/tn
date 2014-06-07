@@ -60,12 +60,12 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		final java.lang.Integer quantityInPackage = source.getQuantityInPackage();
 		target.setQuantityInPackage(quantityInPackage);
 
-/*		final java.lang.Integer maxOrderQuantity = source.getMaxOrderQuantity();
+		final java.lang.Integer maxOrderQuantity = source.getMaxOrderQuantity();
 		target.setMaxOrderQuantity(maxOrderQuantity);
 		
 		final java.lang.Integer minOrderQuantity = source.getMinOrderQuantity();
 		target.setMinOrderQuantity(minOrderQuantity);
-*/
+
 		final java.lang.Double weightGross = source.getWeightGross();
 		target.setWeightGross(weightGross);
 		final java.lang.Double weightNet = source.getWeightNet();

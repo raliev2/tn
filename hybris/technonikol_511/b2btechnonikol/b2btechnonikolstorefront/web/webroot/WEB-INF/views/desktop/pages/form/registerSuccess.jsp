@@ -4,8 +4,9 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template" %>
 <%@ taglib prefix="user" tagdir="/WEB-INF/tags/desktop/user" %>
 <%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
-<%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/desktop/form" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common" %>
+<%@ taglib prefix="nav" tagdir="/WEB-INF/tags/desktop/nav" %>
+<%@ taglib prefix="breadcrumb" tagdir="/WEB-INF/tags/desktop/nav/breadcrumb" %>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -20,20 +21,9 @@
                 <cms:component component="${feature}"/>
             </cms:pageSlot>
 
-            <h1><spring:theme code="login.password.recovery"/></h1>
-
-            <div class="globalMessages"><div class="help-message">
-                <common:globalMessages/>
-                <c:if test="${not empty accErrorMsgs}">
-                    <div class="help-message">Если Вам нужна помощь - обращайтесь по телефону <spring:theme code="common.telephone"/>.</div>
-                </c:if>
+            <div class="login-panel__title">
+                <h2><spring:theme code="register.success"/></h2>
             </div>
-
-            <c:url value="/register" var="loginActionUrl"/>
-            <form:form action="${action}" method="post" commandName="forgottenPwdForm">
-                <formUtil:formInputBox idKey="email" labelKey="login.enter.email" path="email" inputCSS="g-input" size="30" />
-                <input type="submit" value="<spring:theme code="login.password.torecovery"/>" class="g-button-black" />
-            </form:form>
 
             <div class="span-20 right last">
                 <cms:pageSlot position="MerchantContactContent" var="feature" element="div" class="span-10 login-info">

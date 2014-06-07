@@ -34,42 +34,38 @@
         <c:set var="buttonType">submit</c:set>
     </c:if>    
 
-<%--- ПЕРЕВЕРСТАТЬ! криво очень --%>
- <script>
+    <%--- ПЕРЕВЕРСТАТЬ! криво очень --%>
+    <script>
+        function changeprice(a) {
+            pos = a.indexOf(".");
+            if (pos > 0) { 		a = a + "00"; }
+            aCel = a.substr(0,pos);
+            aDr  = a.substr(pos+1,2);
+            a = aCel + "." + aDr;
+            document.getElementById('spanprice').innerHTML = a.replace(/\d(?=(\d{3})+\.)/g, '$&,') + " <span class='g-rouble'>Р<span>";
+        }
+    </script>
 
-    function changeprice(a)
-	{
-		pos = a.indexOf(".");
-		if (pos > 0) { 		a = a + "00"; }
-		aCel = a.substr(0,pos);
-		aDr  = a.substr(pos+1,2);
-		a = aCel + "." + aDr;
-		document.getElementById('spanprice').innerHTML = a.replace(/\d(?=(\d{3})+\.)/g, '$&,') + " <span class='g-rouble'>Р<span>";
-	}
- </script>
+    <!--${product.baseUnit.code}]-->
 
-<!--${product.baseUnit.code}]-->
+    <c:if test="${not empty product.units}">
+    <select onChange="changeprice(this.value)" style="width:50px" id="priceUnits">
+        <c:forEach items="${product.units}" var="unit" varStatus="status">
+            <c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
+            <c:choose>
+                <c:when test="${product.unitsMap[unit.code] == 1}">
+                  <c:set var="unitdefault" value="selected"/>
+                </c:when>
+                <c:otherwise>
+                  <c:set var="unitdefault" value=""/>
+                </c:otherwise>
+            </c:choose>
+            <option value="${price}" ${unitdefault} data-coefficient="${product.unitsMap[unit.code]}">${unit.name}</option>
+        </c:forEach>
+    </select>
+    </c:if>
 
-            <c:if test="${not empty product.units}">
-		    <select onChange="changeprice(this.value)" style="width:50px">
-                    <c:forEach items="${product.units}" var="unit" varStatus="status">
- 			<c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
-			<c:choose>
-				<c:when test="${product.unitsMap[unit.code] == 1}">		
-				  <c:set var="unitdefault" value="selected"/>
-				</c:when>
-				<c:otherwise>
-				  <c:set var="unitdefault" value=""/>			
-				</c:otherwise>			
-			</c:choose>
-                        <option value="${price}" ${unitdefault}>${unit.name}</option>
-                    </c:forEach>
-		    </select>
-            </c:if>
-
-
-
-    <button id="addToCartButton" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+    <button id="addToCartButton" data-min-quantity="${product.minOrderQuantity}" data-base-to-sales="${product.unitsMap[product.salesUnit.code]}" type="${buttonType}" disabled="true" class="button add_to_cart_button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
         В корзину
     </button>
 

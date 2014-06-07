@@ -25,12 +25,13 @@
 				</sec:authorize>
 				<sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
 					<li><ycommerce:testId code="header_Login_link"><a href="<c:url value='/login'/>"><spring:theme code="header.link.login"/></a></ycommerce:testId></li>
+                    <li><ycommerce:testId code="header_Register_link"><a href="<c:url value='/register'/>"><spring:theme code="header.link.register"/></a></ycommerce:testId></li>
 				</sec:authorize>
-				<li><ycommerce:testId code="header_myAccount"><a href="<c:url value='/my-account'/>"><spring:theme code="header.link.account"/></a></ycommerce:testId></li>
 				<sec:authorize ifAnyGranted="ROLE_B2BADMINGROUP">
 					<li><ycommerce:testId code="header_myCompany"><a href="<c:url value='/my-company/organization-management'/>"><spring:theme code="header.link.company"/></a></ycommerce:testId></li>
 				</sec:authorize>
 				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
+                    <li><ycommerce:testId code="header_myAccount"><a href="<c:url value='/my-account'/>"><spring:theme code="header.link.account"/></a></ycommerce:testId></li>
 					<li><ycommerce:testId code="header_signOut"><a href="<c:url value='/logout'/>"><spring:theme code="header.link.logout"/></a></ycommerce:testId></li>
 				</sec:authorize>
 			</ul>

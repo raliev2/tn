@@ -112,4 +112,6 @@ $(document).ready(function() {
         $(this).attr('data-text',oldTxt);
     });
 
+    $('.required').attr('required', '');
+
 });
