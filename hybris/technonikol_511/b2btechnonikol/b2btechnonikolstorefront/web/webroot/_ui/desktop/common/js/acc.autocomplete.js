@@ -62,13 +62,13 @@ ACC.autocomplete = {
                 {
                     window.location.href = ui.item.url;
                 }
-            }).data("autocomplete")._renderItem = function (ul, item)
+            }).data("ui-autocomplete")._renderItem = function (ul, item)
             {
                 if (item.type == "autoSuggestion")
                 {
                     renderHtml = "<a href='?q=" + item.value + "' class='clearfix'>" + item.value + "</a>";
                     return $("<li class='suggestions'>")
-                            .data("item.autocomplete", item)
+                            .data("ui-autocomplete-item", item)
                             .append(renderHtml)
                             .appendTo(ul);
                 }
@@ -81,7 +81,7 @@ ACC.autocomplete = {
                     }
                     renderHtml += "<span class='title'>" + item.value +
                             "</span>" + "</a>";
-                    return $("<li class='product'>").data("item.autocomplete", item).append(renderHtml).appendTo(ul);
+                    return $("<li class='product'>").data("ui-autocomplete-item", item).append(renderHtml).appendTo(ul);
                 }
             };
 		}

@@ -51,7 +51,8 @@
                         Доставку в любую точку России<br />
                         Удобную систему заказов.
                     </p>
-                    <a href="#" class="button">Отправить запрос</a>
+                    <c:url value="/register" var="registerActionUrl"/>
+                    <a href="${registerActionUrl}" class="button">Отправить запрос</a>
                 </div>
             </div>
 
