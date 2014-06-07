@@ -26,9 +26,9 @@
     </bean>
 
     <bean class="com.teamidea.platform.technonikol.facades.productType.data.TNProductTypeData">
-        <property name="code" type="java.lang.String"/>
-        <property name="name" type="java.lang.String"/>
-    </bean>
+    <property name="code" type="java.lang.String"/>
+    <property name="name" type="java.lang.String"/>
+</bean>
 
     <bean class="com.teamidea.platform.technonikol.facades.supplier.data.TNSupplierData">
         <property name="code" type="java.lang.String"/>
@@ -74,4 +74,26 @@
         <property name="unitsMap" type="java.util.Map&lt;String,java.lang.Double>"/>
 
 	</bean>
+
+
+    <enum class="de.hybris.platform.commercefacades.product.ProductOption">
+        <value>PRICE</value>
+        <value>BASIC</value>
+        <value>SUMMARY</value>
+        <value>DESCRIPTION</value>
+        <value>GALLERY</value>
+        <value>CATEGORIES</value>
+        <value>PROMOTIONS</value>
+        <value>STOCK</value>
+        <value>REVIEW</value>
+        <value>CLASSIFICATION</value>
+        <value>VARIANT_FULL</value>
+        <value>REFERENCES</value>
+        <value>DELIVERY_MODE_AVAILABILITY</value>
+        <value>BRAND</value>
+    </enum>
+
+
+
+
 </beans>

@@ -119,9 +119,12 @@
 				<entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator"/>
 				<entry key="URL" value-ref="productUrlPopulator"/>
 				<entry key="IMAGES" value-ref="productPrimaryImagePopulator"/>			
+				<entry key="BRAND" value-ref="tnSearchBrandPopulator"/>
 			</map>
 		</property>
 	</bean>
+
+
 
 	<!-- accelerator Image Format Mappings -->
 	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
@@ -257,6 +260,17 @@
         </property>
     </bean>
 
+    <!-- TNBrand converter -->
+    <bean id="tnSearchBrandConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="tnBrandData"/>
+        <property name="populators">
+            <list>
+                <ref bean="tnSearchBrandPopulator"/>
+            </list>
+        </property>
+    </bean>
+
+
     <!-- TNProductType converter -->
     <bean id="tnProductTypeConverter" parent="abstractPopulatingConverter">
         <lookup-method name="createTarget" bean="tnProductTypeData"/>
@@ -289,39 +303,15 @@
     </bean>
 
 
-<!--
-<alias name="acceleratorProductConverter" alias="productConverter"/>
-<bean id="acceleratorProductConverter" scope="tenant" parent="defaultProductConverter"  class="com.teamidea.platform.technonikol.facades.product.converters.TNProductConverter" >
-    <lookup-method bean="TNProductData" name="createTarget"/>
-    <property name="populators">
-        <list>
-            <ref bean="TNProductPopulator"/>
-        </list>
-    </property>
-</bean>
--->
-
-<!--
-<bean id="TNProductPopulator" class="de.hybris.platform.acceleratorfacades.converters.populator.TNProductPopulator" scope="tenant">
-</bean>
--->
-
-<!--<alias name="acceleratorProductConverter" alias="productConverter"/>
-
-<bean id="acceleratorProductConverter" class="de.hybris.platform.acceleratorfacades.converters.AcceleratorProductConverter" scope="tenant" parent="defaultProductConverter">
-    <property name="TNProductPopulator" ref="TNProductPopulator"/>
-</bean>
--->
-
+    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.tnSearchBrandPopulator">
+        <property name="modelService" ref="modelService"/>
+    </bean>
 	<alias name="technonikolProductPopulator" alias="productPopulator"/>
 
 	<bean id="technonikolProductPopulator"
 	      class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
 	      parent="defaultProductPopulator">
-<!--		<property name="productBasicPopulator" ref="productBasicPopulator"/>
-		<property name="variantSelectedPopulator" ref="variantSelectedPopulator"/>
-		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
--->
+
 	</bean>
 
 
