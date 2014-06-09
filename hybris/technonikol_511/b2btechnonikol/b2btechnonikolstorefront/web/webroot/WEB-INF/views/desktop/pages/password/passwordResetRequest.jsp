@@ -21,11 +21,11 @@
             </cms:pageSlot>
 
             <h1><spring:theme code="login.password.recovery"/></h1>
-            <form:form action="${action}" method="post" commandName="registrationRequestForm">
+            <form:form action="${action}" method="post" commandName="forgottenPwdForm">
                 <c:if test="${not empty message}">
                     <spring:theme code="${message}"/>
                 </c:if>
-                <formUtil:formInputBox idKey="firstName" labelKey="registrationRequestForm.firstName" path="firstName" mandatory="true" inputCSS="g-input" size="45"/>
+                <formUtil:formInputBox idKey="email" labelKey="forgottenPwdForm.email" path="email" mandatory="true" inputCSS="g-input" size="45"/>
             </form:form>
 
             <div class="span-20 right last">
