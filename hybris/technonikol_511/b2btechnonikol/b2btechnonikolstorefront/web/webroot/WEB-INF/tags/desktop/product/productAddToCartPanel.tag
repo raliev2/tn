@@ -75,5 +75,5 @@
             <a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
         </sec:authorize>
     </c:if>
-
+    <div class="cart-popup"></div>
 </form>

@@ -1,20 +1,25 @@
-function modalWindowShow() {
-    $('.modal-window').fadeIn();
-    $('.modal-window').click(function() {
-        $(this).hide();
-    });
-    $('.modal-window-content').click(function(e) {
-        e.stopPropagation();
-    });
-    $('.modal-window__close').click(function(event) {
-        event.preventDefault();
-        $('.modal-window').hide();
-    });
+function checkProduct(url) {
+    $.ajax({
+        type : 'get',
+        data : {
+            count: $("#popup-qty").val()
+        },
+        url: url,
+        dataType: 'html',
+        success: function(data){
+            console.log(data)
+            $(".check-in-stock__result").prepend(data);
+            $(".check-in-stock__result").slideDown();
+        }
+    })
 }
+$('.checkInStockPopup').click(function() {
+    $('#checkInStockPopup').modal();
+});
 
 ACC.product = {
 	// cached jQuery objects
-	$cartPopup:             $('.modal-window-content'),
+	$cartPopup:             $('.cart-popup'),
 	$addToCartButton:       $(':submit.add_to_cart_button'),
 	$addToCartOrderForm:    $('.add_to_cart_order_form'),
 	$addToCartForm:         $('.add_to_cart_form'),
@@ -86,7 +91,7 @@ ACC.product = {
 			return;
 		}
 
-        modalWindowShow();
+        $(ACC.product.$cartPopup).modal();
 
 	},
 
@@ -125,27 +130,14 @@ ACC.product = {
 		$(".noaction").click(function(e) {
 			e.preventDefault(); // preventing the screen from jumping since the hrefs are #
 		});
+        $(document).on('click','.check-in-stock_addtocart',function() {console.log('OK')
+            $("#qty").val($("#popup-qty").val());
+            $('.add_to_cart_button').click();
+            $('.modal-window').hide();
+        });
 	}
 
 };
-
-	function checkProduct(url){
-		$.ajax({
-			type : 'get',
-			data : {
-				count: $("#popup-qty").val()
-			},
-			url: url,
-			dataType: 'html',
-			success: function(data){
-				$("#productDeliveryInfo").html(data);
-			}
-		})
-	}
-	
-	$("#qty").keyup(function() {
-	    $("#popup-qty").val($("#qty").val());
-	});
 
 $(document).ready(function() {
 	ACC.product.bindAll();
