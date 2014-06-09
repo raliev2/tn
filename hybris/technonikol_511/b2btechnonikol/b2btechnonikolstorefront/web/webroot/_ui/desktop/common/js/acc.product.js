@@ -27,6 +27,7 @@ ACC.product = {
 	$addToCartButton:       $(':submit.add_to_cart_button'),
 	$addToCartOrderForm:    $('.add_to_cart_order_form'),
 	$addToCartForm:         $('.add_to_cart_form'),
+    addMessage:             '',
 	// selector, used for forced refreshes when you need uncached jQuery objects after DOM updates
 	addToCartFormSelector: '.add_to_cart_form',
 
@@ -66,6 +67,8 @@ ACC.product = {
                     console.log(arr)
                     return true;
                 }
+
+
             },
             success: ACC.product.displayAddToCartPopup
         });

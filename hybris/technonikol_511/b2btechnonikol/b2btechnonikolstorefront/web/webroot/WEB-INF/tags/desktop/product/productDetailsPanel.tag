@@ -106,8 +106,7 @@
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
                 </div>
-                <div class="characteristics-line__col3">                    
-                    	<%--<div onclick="$('#checkInStockPopup').show()">--%>
+                <div class="characteristics-line__col3">
                         <p class="g-italic"><a href="javascript:void(0)" class="checkInStockPopup">Проверить наличие</a></p>
                         <div class="stock in-stock">
                             <span>В наличии</span>
@@ -163,8 +162,7 @@
                 <p style="margin-top:10px;">
                     <label for="popup-qty">Количество:</label>
                     <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" />
-                    <c:url value="/stock/checkProduct?productCode=007048" var="check_stock_url"/>
-                    <%--<c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>--%>
+                    <c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
                     <button class="g-button-black" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>
                 </p>
             </div>

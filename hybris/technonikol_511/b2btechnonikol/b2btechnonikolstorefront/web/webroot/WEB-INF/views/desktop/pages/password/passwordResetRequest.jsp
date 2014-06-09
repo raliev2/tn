@@ -26,6 +26,7 @@
                     <spring:theme code="${message}"/>
                 </c:if>
                 <formUtil:formInputBox idKey="email" labelKey="forgottenPwdForm.email" path="email" mandatory="true" inputCSS="g-input" size="45"/>
+                <button type="submit" class="g-button-black"><spring:theme code="login.password.dorecovery"/></button>
             </form:form>
 
             <div class="span-20 right last">
