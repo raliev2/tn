@@ -118,7 +118,6 @@ public abstract class AbstractCMSComponentController<T extends AbstractCMSCompon
 	protected String getView(final T component)
 	{
 		// build a jsp response based on the given view name otherwise use the component type
-		System.out.println(component.getName() + component.getViewName());
 		return ControllerConstants.Views.Cms.ComponentPrefix
 				+ StringUtils.lowerCase(!StringUtils.isEmpty(component.getViewName()) ? component.getViewName()
 						: getTypeCode(component));
