@@ -48,9 +48,9 @@ public class DefaultB2BProductSearchUtil<ITEM extends ProductData> implements B2
 				final Collection<ProductOption> optionsWithVariants = Arrays.asList(ProductOption.BASIC, ProductOption.PRICE,
 						ProductOption.SUMMARY, ProductOption.DESCRIPTION, ProductOption.GALLERY, ProductOption.CATEGORIES,
 						ProductOption.REVIEW, ProductOption.PROMOTIONS, ProductOption.CLASSIFICATION, ProductOption.VARIANT_FULL,
-						ProductOption.STOCK, ProductOption.VOLUME_PRICES, ProductOption.PRICE_RANGE, ProductOption.VARIANT_MATRIX);
+						ProductOption.STOCK, ProductOption.VOLUME_PRICES, ProductOption.PRICE_RANGE, ProductOption.VARIANT_MATRIX, ProductOption.BRAND);
 
-				final Collection<ProductOption> optionsWithoutVariants = Arrays.asList(ProductOption.STOCK);
+				final Collection<ProductOption> optionsWithoutVariants = Arrays.asList(ProductOption.STOCK, ProductOption.BRAND);
 
 				for (final ITEM productData : pageData.getResults())
 				{
