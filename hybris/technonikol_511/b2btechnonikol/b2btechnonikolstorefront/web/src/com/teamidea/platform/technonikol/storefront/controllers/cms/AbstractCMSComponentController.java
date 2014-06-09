@@ -18,9 +18,6 @@ import de.hybris.platform.acceleratorcms.services.CMSPageContextService;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.model.contents.components.AbstractCMSComponentModel;
 import de.hybris.platform.cms2.servicelayer.services.CMSComponentService;
-import com.teamidea.platform.technonikol.storefront.controllers.AbstractController;
-import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
-import com.teamidea.platform.technonikol.storefront.controllers.pages.AbstractPageController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +27,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.teamidea.platform.technonikol.storefront.controllers.AbstractController;
+import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
+import com.teamidea.platform.technonikol.storefront.controllers.pages.AbstractPageController;
 
 
 /**
@@ -116,8 +117,10 @@ public abstract class AbstractCMSComponentController<T extends AbstractCMSCompon
 
 	protected String getView(final T component)
 	{
-		// build a jsp response based on the component type
-		return ControllerConstants.Views.Cms.ComponentPrefix + StringUtils.lowerCase(getTypeCode(component));
+		// build a jsp response based on the given view name otherwise use the component type
+		return ControllerConstants.Views.Cms.ComponentPrefix
+				+ StringUtils.lowerCase(!StringUtils.isEmpty(component.getViewName()) ? component.getViewName()
+						: getTypeCode(component));
 	}
 
 	protected String getTypeCode(final T component)

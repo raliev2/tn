@@ -678,6 +678,16 @@
 					</index>
 				</indexes>
 			</itemtype>
+			
+			<itemtype code="AbstractCMSComponent" autocreate="false" generate="false">
+				<attributes>
+					<!-- jalo attributes -->
+					<attribute qualifier="viewName" type="java.lang.String" generate="true">
+						<persistence type="property" />
+						<description>View name for component.</description>
+					</attribute>
+				</attributes>
+			</itemtype>
 								
 			<itemtype code="CategoryListComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
 				jaloclass="com.teamidea.platform.technonikol.core.jalo.CategoryListComponent">
@@ -694,7 +704,7 @@
 					</attribute>
 				</attributes>
 			</itemtype>
-
+			
 		</typegroup>
 	</itemtypes>
 

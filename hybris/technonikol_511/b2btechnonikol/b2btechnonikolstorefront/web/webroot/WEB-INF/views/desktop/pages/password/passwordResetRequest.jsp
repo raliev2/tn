@@ -1,5 +1,4 @@
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template" %>
 <%@ taglib prefix="user" tagdir="/WEB-INF/tags/desktop/user" %>
@@ -21,18 +20,11 @@
             </cms:pageSlot>
 
             <h1><spring:theme code="login.password.recovery"/></h1>
-
-            <div class="globalMessages"><div class="help-message">
-                <common:globalMessages/>
-                <c:if test="${not empty accErrorMsgs}">
-                    <div class="help-message">Если Вам нужна помощь - обращайтесь по телефону <spring:theme code="common.telephone"/>.</div>
-                </c:if>
-            </div>
-
-            <c:url value="/register" var="loginActionUrl"/>
             <form:form action="${action}" method="post" commandName="forgottenPwdForm">
-                <formUtil:formInputBox idKey="email" labelKey="login.enter.email" path="email" inputCSS="g-input" size="30" />
-                <input type="submit" value="<spring:theme code="login.password.torecovery"/>" class="g-button-black" />
+                <c:if test="${not empty message}">
+                    <spring:theme code="${message}"/>
+                </c:if>
+                <formUtil:formInputBox idKey="email" labelKey="forgottenPwdForm.email" path="email" mandatory="true" inputCSS="g-input" size="45"/>
             </form:form>
 
             <div class="span-20 right last">
