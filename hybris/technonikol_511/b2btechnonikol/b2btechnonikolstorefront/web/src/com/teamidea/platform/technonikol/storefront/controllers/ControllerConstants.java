@@ -194,7 +194,9 @@ public interface ControllerConstants
 			interface Form
 			{
 				String registrationRequestForm = "pages/form/register";
+				String registrationRequestFormProcessed = "pages/form/registerSuccess";
 			}
+
 		}
 
 		interface Fragments

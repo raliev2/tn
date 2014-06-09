@@ -120,7 +120,7 @@
                     <c:if test="${not empty product.manufacturerCode}">
                         <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
                     </c:if>
-                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
+                    <li class="one-characteristic">Код ТН: <span class="one-characteristic__value">${product.code}</span></li>
                     <c:if test="${not empty product.documentCode}">
 		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
