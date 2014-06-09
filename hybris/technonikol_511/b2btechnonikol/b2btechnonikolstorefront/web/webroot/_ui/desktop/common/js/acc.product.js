@@ -27,7 +27,7 @@ ACC.product = {
 	$addToCartButton:       $(':submit.add_to_cart_button'),
 	$addToCartOrderForm:    $('.add_to_cart_order_form'),
 	$addToCartForm:         $('.add_to_cart_form'),
-    addMessage:             '',
+    cartResult:             new Array(),
 	// selector, used for forced refreshes when you need uncached jQuery objects after DOM updates
 	addToCartFormSelector: '.add_to_cart_form',
 
@@ -48,20 +48,20 @@ ACC.product = {
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
-                    ACC.product.$cartPopup.html('<p>Товар добавлен в корзину.</p>');
+                    ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     return true;
                 }
                 var qtyBase = qty * coefficient;
 
                 if (qtyBase < minOrderQuantity) {
                     var minOrderQuantityCur = minOrderQuantity / coefficient;
-                    ACC.product.$cartPopup.html('<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
-                    <p>Ваш заказ будет автоматически исправлен.</p>');
+                    ACC.product.cartResult['message'] = '<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
+                    <p>Ваш заказ будет автоматически исправлен.</p>';
                     arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
                     console.log(arr)
                     return true;
                 } else {
-                    ACC.product.$cartPopup.html('<p>Товар добавлен в корзину.</p>');
+                    ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     var qtySales = qtyBase / baseToSales;
                     arr[0].value = Math.ceil(qtySales);
                     console.log(arr)
@@ -97,6 +97,15 @@ ACC.product = {
 			return;
 		}
 
+        var tmpl = doT.template($('#addToCartTmpl').html());
+        $(ACC.product.$cartPopup).html(tmpl(ACC.product.cartResult));
+        $('.carousel-product__carousel ul').each(function(indx, element){
+            $(element).easyPaginate({
+                step:4,
+                numeric : true,
+                controls : 'pagination' + indx
+            });
+        });
         $(ACC.product.$cartPopup).modal();
 
 	},
