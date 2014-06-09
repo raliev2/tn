@@ -1,7 +1,12 @@
+jQuery.fn.outerHTML = function(s) {
+    return s
+        ? this.before(s).remove()
+        : jQuery("<p>").append(this.eq(0).clone()).html();
+};
 (function( $ ) {
     $.fn.modal = function() {
-        var $innerHTML = $(this).clone();
-        $innerHTML.css('display','block');
+        $('.modal-window-content').html('');
+        $(this).css('display','block');
         $('.modal-window').click(function() {
             $(this).hide();
         });
@@ -12,7 +17,7 @@
             event.preventDefault();
             $('.modal-window').hide();
         });
-        $('.modal-window-content').html($innerHTML);
+        $('.modal-window-content').append(this);
         $('.modal-window').fadeIn();
     };
 })(jQuery);

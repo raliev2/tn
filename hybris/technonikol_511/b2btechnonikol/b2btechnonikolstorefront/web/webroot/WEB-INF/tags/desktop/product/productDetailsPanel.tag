@@ -151,7 +151,7 @@
         </div>
     </div>
     
-	<div id="checkInStockPopup" style="display: none;">
+	<div id="checkInStockPopup">
 		<div class="check-in-stock__header">Проверка наличия</div>
         <div class="check-in-stock__body clearfix">
             <div class="check-in-stock__img">
@@ -163,13 +163,15 @@
                 <p style="margin-top:10px;">
                     <label for="popup-qty">Количество:</label>
                     <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" />
-                    <c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
+                    <c:url value="/stock/checkProduct?productCode=007048" var="check_stock_url"/>
+                    <%--<c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>--%>
                     <button class="g-button-black" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>
                 </p>
             </div>
         </div>
         <div class="check-in-stock__result">
-            <div style="margin-top:10px;"><button class="button check-in-stock_addtocart">Добавить в корзину</button></div>
+            <div class="check-in-stock__result_text"></div>
+            <div style="margin-top:10px;"><button class="button" onclick="addToCartAfterCheck();">Добавить в корзину</button></div>
         </div>
         <p>Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.</p>
 	</div>

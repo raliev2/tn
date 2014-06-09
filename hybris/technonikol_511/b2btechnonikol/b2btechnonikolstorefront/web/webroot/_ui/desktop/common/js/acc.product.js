@@ -7,16 +7,20 @@ function checkProduct(url) {
         url: url,
         dataType: 'html',
         success: function(data){
-            console.log(data)
-            $(".check-in-stock__result").prepend(data);
+            $(".check-in-stock__result_text").html(data);
             $(".check-in-stock__result").slideDown();
         }
-    })
+    });
 }
-$('.checkInStockPopup').click(function() {
-    $('#checkInStockPopup').modal();
-});
+function addToCartAfterCheck() {
+    $("#qty").val($("#popup-qty").val());
+    $('.add_to_cart_button').click();
+    $('.modal-window').hide();
+}
 
+function refreshMiniCart(cartResult) {
+
+}
 ACC.product = {
 	// cached jQuery objects
 	$cartPopup:             $('.cart-popup'),
@@ -43,7 +47,6 @@ ACC.product = {
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
-                    console.log(arr);
                     ACC.product.$cartPopup.html('<p>Товар добавлен в корзину.</p>');
                     return true;
                 }
@@ -85,7 +88,7 @@ ACC.product = {
 		}
 		ACC.common.$globalMessages.html(cartResult.cartGlobalMessagesHtml);
 		if (typeof refreshMiniCart == 'function') {
-			refreshMiniCart();
+			refreshMiniCart(cartResult);
 		}
 		if (cartResult.cartGlobalMessagesHtml !== "") {
 			return;
@@ -130,11 +133,11 @@ ACC.product = {
 		$(".noaction").click(function(e) {
 			e.preventDefault(); // preventing the screen from jumping since the hrefs are #
 		});
-        $(document).on('click','.check-in-stock_addtocart',function() {console.log('OK')
-            $("#qty").val($("#popup-qty").val());
-            $('.add_to_cart_button').click();
-            $('.modal-window').hide();
+
+        $('.checkInStockPopup').click(function() {
+            $('#checkInStockPopup').modal();
         });
+
 	}
 
 };
