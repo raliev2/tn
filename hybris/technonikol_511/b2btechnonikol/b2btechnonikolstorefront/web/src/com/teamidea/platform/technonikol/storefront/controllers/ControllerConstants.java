@@ -191,11 +191,12 @@ public interface ControllerConstants
 				String OrderForm = "pages/product/productOrderFormPage";
 			}
 
-            interface Form
-            {
-                String registrationRequestForm = "pages/form/register";
-                String registrationRequestFormProcessed = "pages/form/registerSuccess";
-            }
+			interface Form
+			{
+				String registrationRequestForm = "pages/form/register";
+				String registrationRequestFormProcessed = "pages/form/registerSuccess";
+			}
+
 		}
 
 		interface Fragments
@@ -210,7 +211,7 @@ public interface ControllerConstants
 
 			interface Stock
 			{
-				String CheckStockPopup = "fragments/stock/checkStockPopup";
+				String CheckStockInfo = "fragments/stock/checkStockInfo";
 			}
 
 			interface Checkout
