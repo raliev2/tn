@@ -222,9 +222,8 @@ input::-webkit-input-placeholder {
 .g-info {
   width:14px;height:14px;
   position:absolute;
-  top:9px;right:0px;
+  top:9px;right:40px;
   background: url(../images/sprite.png) no-repeat -140px 0;
-  cursor:pointer;
 }
 .g-hidden {
   display:none;
@@ -1093,10 +1092,17 @@ footer {
 }
 .stock {
   position:relative;
-  padding:10px 20px 0 0px;
+  padding:10px 20px 0 20px;
   font-size: 12px;
   color:#333;
   font-weight: bold;
+}
+.stock:before {
+  content:'';
+  width:18px;height:18px;
+  position:absolute;
+  top:6px;left:0;
+  background: url(../images/sprite.png) no-repeat -118px 0;
 }
 .rating__stars {
   float:left;

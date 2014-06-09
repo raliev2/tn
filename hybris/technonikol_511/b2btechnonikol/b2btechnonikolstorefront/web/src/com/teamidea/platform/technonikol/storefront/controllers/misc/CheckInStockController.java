@@ -44,7 +44,7 @@ public class CheckInStockController extends AbstractController
 	@Resource(name = "deliveryDateIntegrationService")
 	private DeliveryDateIntegrationService deliveryDateIntegrationService;
 
-	@RequestMapping(value = "/stock/check", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/checkProduct", method = RequestMethod.GET)
 	public String checkStock(final HttpServletRequest request, final Model model)
 	{
 		final String productCode = request.getParameter(PRODUCT_CODE);
@@ -57,7 +57,7 @@ public class CheckInStockController extends AbstractController
 		{
 			LOG.debug("Error while trying to get delivery information for product with code = " + productCode);
 			model.addAttribute(ERROR_MESSAGE, "Ошибка получения данных");
-			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 		}
 
 		final List<MaterialsRow> deliveryInfo = response.getReturn().getMaterials().getRow();
@@ -74,12 +74,12 @@ public class CheckInStockController extends AbstractController
 		{
 			LOG.debug("Didn't get delivery information for product with code = " + productCode);
 			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
-			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 		}
 
 		model.addAttribute(ROWS, productInfo);
 		model.addAttribute(PRODUCT_COUNT, count);
 
-		return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+		return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 	}
 }
