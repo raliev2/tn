@@ -228,8 +228,8 @@ public interface ControllerConstants
 			interface Password
 			{
 				String PasswordResetRequestPopup = "fragments/password/passwordResetRequestPopup";
-				String PasswordResetRequest = "pages/password/passwordResetRequest";
-				String ForgotPasswordValidationMessage = "fragments/password/forgotPasswordValidationMessage";
+                String PasswordResetRequest = "pages/password/passwordResetRequest";
+				String ForgotPasswordValidationMessage = "pages/form/forgotPasswordValidationMessage";
 			}
 
 			interface Product

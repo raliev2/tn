@@ -18,6 +18,8 @@
         import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 
         import javax.annotation.Resource;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
         import javax.validation.Valid;
 
         import org.apache.commons.lang.StringUtils;
@@ -71,7 +73,9 @@ public class PasswordResetPageController extends LoginPageController
     }
 
     @RequestMapping(value = "/request", method = RequestMethod.POST)
-    public String passwordRequest(@Valid final ForgottenPwdForm form, final BindingResult bindingResult)
+    public String passwordRequest(@Valid final ForgottenPwdForm form, final BindingResult bindingResult, final Model model,
+                                  final HttpServletRequest request, final HttpServletResponse response,
+                                  final RedirectAttributes redirectModel)
             throws CMSItemNotFoundException
     {
         if (bindingResult.hasErrors())
@@ -88,6 +92,9 @@ public class PasswordResetPageController extends LoginPageController
             {
                 LOG.warn("Email: " + form.getEmail() + " does not exist in the database.");
             }
+            storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+            setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+            model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
             return ControllerConstants.Views.Fragments.Password.ForgotPasswordValidationMessage;
         }
     }
