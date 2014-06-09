@@ -129,11 +129,11 @@ ACC.product = {
 
 };
 
-	function getProductDeliveryInfo(url){
+	function checkProduct(url){
 		$.ajax({
 			type : 'get',
 			data : {
-				count: $("#qty").val()
+				count: $("#popup-qty").val()
 			},
 			url: url,
 			dataType: 'html',
@@ -142,6 +142,10 @@ ACC.product = {
 			}
 		})
 	}
+	
+	$("#qty").keyup(function() {
+	    $("#popup-qty").val($("#qty").val());
+	});
 
 $(document).ready(function() {
 	ACC.product.bindAll();
