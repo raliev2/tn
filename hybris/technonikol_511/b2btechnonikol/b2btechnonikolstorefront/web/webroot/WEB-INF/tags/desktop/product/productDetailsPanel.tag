@@ -106,13 +106,14 @@
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
                 </div>
-                <div class="characteristics-line__col3">
-                    <p class="g-italic">Наличие</p>
-                    <div class="stock in-stock">
-                   		<c:url value="/stock/check?productCode=${product.code}" var="check_stock_url"/>
-								<div id="productDeliveryInfo" onclick="getProductDeliveryInfo('${check_stock_url}');"><a href="#">Проверить наличие</a></div>                    		                  
-                		</div>
-            </div>
+                <div class="characteristics-line__col3">                    
+                    	<div onclick="$('#checkInStockPopup').show()">
+                    		<p class="g-italic"><a href="#">Проверить наличие</a></p>
+                    <div class="stock in-stock"><span>В наличии</span>
+							<div class="g-info">
+                    	</div>
+                    </div>                   
+           		 </div>
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
@@ -149,6 +150,33 @@
             <product:productPromotionSection product="${product}"/>
         </div>
     </div>
+    
+	<div id="checkInStockPopup" style="display: none;">
+		<table>
+			<tr>
+				<td style="width:400px;">Проверка наличия</td>
+				<td><a href="#" onclick="$('#checkInStockPopup').hide()">Закрыть X</a></td>
+			</tr>
+		</table>
+		<div class="product-name">
+			<h1 class="fn">${product.name}</h1>
+    	</div>
+    	Артикул: ${product.code}<br/>
+    	
+		<label for="popup-qty" class="g-italic">Количество</label>
+		<input type="text" id="popup-qty" class="g-input" size="2" value="1" />		
+		
+		<c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
+		<button id="addToCartButton" class="button" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>	
+		
+		<div id="productDeliveryInfo">
+		</div>
+		<button class="button">
+        В корзину
+   	</button><br/>
+		Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.
+	</div>
+	
 </section>
 <section class="other-chars">
     <div class="block-chars">

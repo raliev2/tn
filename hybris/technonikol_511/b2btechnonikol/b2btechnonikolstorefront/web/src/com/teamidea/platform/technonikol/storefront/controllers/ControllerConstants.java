@@ -191,10 +191,10 @@ public interface ControllerConstants
 				String OrderForm = "pages/product/productOrderFormPage";
 			}
 
-            interface Form
-            {
-                String registrationRequestForm = "pages/form/register";
-            }
+			interface Form
+			{
+				String registrationRequestForm = "pages/form/register";
+			}
 		}
 
 		interface Fragments
@@ -209,7 +209,7 @@ public interface ControllerConstants
 
 			interface Stock
 			{
-				String CheckStockPopup = "fragments/stock/checkStockPopup";
+				String CheckStockInfo = "fragments/stock/checkStockInfo";
 			}
 
 			interface Checkout
@@ -226,7 +226,7 @@ public interface ControllerConstants
 			interface Password
 			{
 				String PasswordResetRequestPopup = "fragments/password/passwordResetRequestPopup";
-                String PasswordResetRequest = "pages/password/passwordResetRequest";
+				String PasswordResetRequest = "pages/password/passwordResetRequest";
 				String ForgotPasswordValidationMessage = "fragments/password/forgotPasswordValidationMessage";
 			}
 
