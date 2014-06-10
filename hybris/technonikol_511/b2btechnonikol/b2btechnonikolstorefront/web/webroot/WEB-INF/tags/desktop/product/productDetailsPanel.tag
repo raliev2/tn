@@ -106,13 +106,12 @@
                         <cms:component component="${component}"/>
                     </cms:pageSlot>
                 </div>
-                <div class="characteristics-line__col3">                    
-                    	<div onclick="$('#checkInStockPopup').show()">
-                    		<p class="g-italic"><a href="#">Проверить наличие</a></p>
-                    <div class="stock in-stock"><span>В наличии</span>
-							<div class="g-info">
-                    	</div>
-                    </div>                   
+                <div class="characteristics-line__col3">
+                        <p class="g-italic"><a href="javascript:void(0)" class="checkInStockPopup">Проверить наличие</a></p>
+                        <div class="stock in-stock">
+                            <span>В наличии</span>
+                            <div class="g-info"></div>
+                        </div>
            		 </div>
             </div>
             <div class="characteristics__line clearfix">
@@ -124,8 +123,8 @@
                     <c:if test="${not empty product.documentCode}">
 		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
-                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		   <c:if test="${not empty product.weightGross}">
+                    <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
+		            <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
@@ -151,30 +150,28 @@
         </div>
     </div>
     
-	<div id="checkInStockPopup" style="display: none;">
-		<table>
-			<tr>
-				<td style="width:400px;">Проверка наличия</td>
-				<td><a href="#" onclick="$('#checkInStockPopup').hide()">Закрыть X</a></td>
-			</tr>
-		</table>
-		<div class="product-name">
-			<h1 class="fn">${product.name}</h1>
-    	</div>
-    	Артикул: ${product.code}<br/>
-    	
-		<label for="popup-qty" class="g-italic">Количество</label>
-		<input type="text" id="popup-qty" class="g-input" size="2" value="1" />		
-		
-		<c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
-		<button id="addToCartButton" class="button" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>	
-		
-		<div id="productDeliveryInfo">
-		</div>
-		<button class="button">
-        В корзину
-   	</button><br/>
-		Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.
+	<div id="checkInStockPopup">
+		<div class="check-in-stock__header">Проверка наличия</div>
+        <div class="check-in-stock__body clearfix">
+            <div class="check-in-stock__img">
+                <product:productPrimaryImage product="${product}" format="product"/>
+            </div>
+            <div class="g-float-left">
+                <h3>${product.name}</h3>
+                <p>Артикул: ${product.manufacturerCode}</p>
+                <p style="margin-top:10px;">
+                    <label for="popup-qty">Количество:</label>
+                    <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" />
+                    <c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
+                    <button class="g-button-black" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>
+                </p>
+            </div>
+        </div>
+        <div class="check-in-stock__result">
+            <div class="check-in-stock__result_text"></div>
+            <div style="margin-top:10px;"><button class="button" onclick="addToCartAfterCheck();">Добавить в корзину</button></div>
+        </div>
+        <p>Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.</p>
 	</div>
 	
 </section>

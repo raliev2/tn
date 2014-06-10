@@ -57,7 +57,12 @@ public interface ControllerConstants
 			String NavigationBarComponent = _Prefix + NavigationBarComponentModel._TYPECODE + _Suffix;
 			String CMSLinkComponent = _Prefix + CMSLinkComponentModel._TYPECODE + _Suffix;
 			String CategoryListComponent = _Prefix + CategoryListComponentModel._TYPECODE + _Suffix;
-		}
+            String ProductCartReferencesComponent = _Prefix +
+                        //ProductCartReferencesComponentModel._TYPECODE
+                        "ProductCartReferencesComponent"
+                    + _Suffix;
+
+        }
 	}
 
 	/**
@@ -189,6 +194,7 @@ public interface ControllerConstants
 			interface Product
 			{
 				String OrderForm = "pages/product/productOrderFormPage";
+                String ProductReferences = "pages/product/productReferences";
 			}
 
 			interface Form

@@ -79,6 +79,8 @@
     <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
     <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/scripts.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/modal.window.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/doT.min.js"></script>
 </div>
 
 </body>

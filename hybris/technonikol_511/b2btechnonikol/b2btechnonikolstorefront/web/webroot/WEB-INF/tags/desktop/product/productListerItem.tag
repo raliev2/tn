@@ -30,7 +30,7 @@
             <c:when test="${product.multidimensional}">
                 <div class="search-item__about">
                     <a href="javascript:void(0)" class="search-item-about__name"><c:out value="${product.name}" /></a>
-                    <p class="search-item-about__manufacturer">${product.manufacturer}</p>
+                    <p class="search-item-about__manufacturer">${product.brand.name}</p>
                     <p class="search-item-about__variants">Несколько вариантов продукта<br />доступны </p>
                 </div>
                 <div class="search-item__actions g-float-right">

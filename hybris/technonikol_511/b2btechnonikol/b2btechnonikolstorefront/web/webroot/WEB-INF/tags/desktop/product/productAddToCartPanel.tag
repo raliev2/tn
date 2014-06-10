@@ -19,6 +19,151 @@
 	</c:otherwise>
 </c:choose>
 
+<c:url value="/cart" var="cartUrl"/>
+<script type="text/plain" id="addToCartTmpl">
+    <div class="cart-popup__header clearfix">
+        <div class="cart-popup__mesage">{{=it.message}}</div>
+        <div class="cart-popup__tocart g-float-right"><a href="${cartUrl}">Посмотреть корзину</a></div>
+    </div>
+    <div class=cart-popup__body>
+                <div class="cart-popup-carousel__header">Также покупают:</div>
+                <div class="carousel-product__carousel clearfix">
+                    <ul>
+                        <li class="product-carousel__item">
+                            <c:url value="/p/000100" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod14.jpg" alt="Материал битумно-полимерный Техноэласт ЭПП 11000327" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Материал битумно-полимерный Техноэласт ЭПП 11000327</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    Артикул: <a href="${productUrl}">11000327</a>
+                                    <p class="product-carousel-item__manufacturer">ТЕХНОЭЛАСТ</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">152.83&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                        <li class="product-carousel__item">
+                            <c:url value="/p/395727" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod15.jpg" alt="Герметик бутил-каучуковый ТехноНИКОЛЬ №45 (белый), ведро 16 кг" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Герметик бутил-каучуковый ТехноНИКОЛЬ №45 (белый), ведро 16 кг</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    <p class="product-carousel-item__manufacturer">ТЕХНОНИКОЛЬ</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">291.65&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                        <li class="product-carousel__item">
+                            <c:url value="/p/393557" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod16.jpg" alt="Мастика битумно-резиновая AquaMast (10кг)" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Мастика битумно-резиновая AquaMast (10кг)</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    <p class="product-carousel-item__manufacturer">AQUAMAST</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">133.90&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                        <li class="product-carousel__item">
+                            <c:url value="/Строительные-Материалы/Фундаменты-Гидроизоляция/Изоляция-Стыков/Герметизирующие-Ленты/лента-самоклеющаяся-Nicoband-серебристый-10м-х-10см-ГП-12830079/p/343851" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod17.jpg" alt="Лента самоклеющаяся Nicoband серебристый 10м х 10см ГП 12830079" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Лента самоклеющаяся Nicoband серебристый 10м х 10см ГП 12830079</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    <p class="product-carousel-item__manufacturer">NICOBAND</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">507.69&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                        <li class="product-carousel__item">
+                            <c:url value="/Строительные-Материалы/Плоские-Кровли/Традиционная-Кровля/Рубероид/рубероид-ABS-ТУ-РПП-300-12000208/p/022421" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod18.jpg" alt="Рубероид ABS ТУ РПП 300 12000208" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Рубероид ABS ТУ РПП 300 12000208</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    Артикул: <a href="${productUrl}">12000208</a>
+                                    <p class="product-carousel-item__manufacturer">A.D.W. KLINKER</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">19.00&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                        <li class="product-carousel__item">
+                            <c:url value="/Строительные-Материалы/Утеплители/Базальтовый-Утеплитель/Утеплитель-для-Скатных-Кровель/плита-минераловатная-для-создания-разуклонки-на-кровле-Техноруф-В70-1200х600х40-мм/p/210501" var="productUrl" />
+                            <div class="product-carousel-item__img">
+                                <a href="${productUrl}"><img src="${themeResourcePath}/images/products/prod19.jpg" alt="Плита минераловатная для создания разуклонки на кровле" /></a>
+                            </div>
+                            <div class="product-carousel-item__info">
+                                <div class="product-carousel-item__name">
+                                    <a href="${productUrl}">Плита минераловатная для создания разуклонки на кровле</a>
+                                </div>
+                                <div class="product-carousel-item__articul">
+                                    Артикул: <a href="${productUrl}">5754</a>
+                                    <p class="product-carousel-item__manufacturer">ТЕХНОРУФ</p>
+                                </div>
+                            </div>
+                            <div class="product-carousel-item__price">
+                                Цена: <span class="product-carousel-item__price_green">5,915.28&nbsp;<span class='g-rouble'>P</span></span>
+                            </div>
+                            <div class="product-carousel-item__in-cart">
+                                <input type="text" class="in-cart__input" value="1" />
+                                <a href="javascript:void(0)" class="button">В корзину</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+    </div>
+
+
+</script>
 <form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
     <%--span class="prod_results">
         <product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
@@ -75,5 +220,5 @@
             <a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
         </sec:authorize>
     </c:if>
-
+    <div class="cart-popup"></div>
 </form>
