@@ -37,7 +37,7 @@ var refreshMiniCartUrl = '${refreshMiniCartUrl}/?';
         </c:when>
         <c:otherwise>
             <a href="${cartUrl}" class="link-cart">В корзине
-                <product:productAmount amount="${totalItems}" />
+                <product:productAmount amount="${totalItems}" cart="true" />
             </a>
         </c:otherwise>
     </c:choose>
