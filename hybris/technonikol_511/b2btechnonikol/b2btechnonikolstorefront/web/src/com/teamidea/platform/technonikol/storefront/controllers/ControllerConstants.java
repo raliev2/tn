@@ -189,6 +189,7 @@ public interface ControllerConstants
 			interface Product
 			{
 				String OrderForm = "pages/product/productOrderFormPage";
+                String ProductReferences = "pages/product/productReferences";
 			}
 
 			interface Form
