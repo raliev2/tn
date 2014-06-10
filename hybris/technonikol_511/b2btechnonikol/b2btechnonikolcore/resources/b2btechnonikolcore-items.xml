@@ -688,6 +688,11 @@
 					</attribute>
 				</attributes>
 			</itemtype>
+
+            <itemtype code="ProductCartReferencesComponent" extends="ProductReferencesComponent"  autocreate="true" generate="true"
+				jaloclass="com.teamidea.platform.technonikol.core.jalo.ProductCartReferencesComponent">
+				<description>ProductCartReferencesComponent</description>
+            </itemtype>
 								
 			<itemtype code="CategoryListComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
 				jaloclass="com.teamidea.platform.technonikol.core.jalo.CategoryListComponent">

@@ -63,4 +63,7 @@
             </aside>
         </c:if>
     </section>
+        <cms:pageSlot position="MiddleContent" var="comp" element="div">
+            <cms:component component="${comp}"/>
+        </cms:pageSlot>
 </template:page>

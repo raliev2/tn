@@ -2,7 +2,7 @@
 # Import the CMS content for the Powertools site
 #
 $contentCatalog=tnContentCatalog
-$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
 $jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
 
 # Create PageTemplates
@@ -327,7 +327,7 @@ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=
 ;MiniCart;;;minicart
 ;NavigationBar;;;navigation
 ;TopContent;;;wide
-;MiddleContent;;CMSParagraphComponent
+;MiddleContent;;CMSParagraphComponent,ProductCartReferencesComponent
 ;BottomContent;;;wide
 ;SideContent;;;narrow
 ;Footer;;;footer
@@ -772,3 +772,20 @@ INSERT_UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];name;masterTe
 
 INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
 ;;tn_cart_similar_prods_component;Similar Products Component;SIMILAR;10;tn_cart_similar_prods_component;
+
+#cart
+
+$contentCatalog=tnContentCatalog
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
+$jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
+
+
+INSERT_UPDATE ProductCartReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
+;;tn_product_cart_references_component;Product Cart Similar Products Component;SIMILAR;10;tn_product_cart_references_component;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;MiddleContent-References;References;true;tn_product_cart_references_component;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
+
