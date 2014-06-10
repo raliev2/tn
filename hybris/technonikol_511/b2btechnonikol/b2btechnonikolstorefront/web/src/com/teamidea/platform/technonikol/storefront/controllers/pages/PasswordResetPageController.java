@@ -66,9 +66,7 @@ public class PasswordResetPageController extends LoginPageController
     {
         final ForgottenPwdForm form = new ForgottenPwdForm();
         model.addAttribute(form);
-        storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-        setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-        model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
+        loadPageDataInModel(model);
         return ControllerConstants.Views.Fragments.Password.PasswordResetRequest;
     }
 
@@ -78,9 +76,10 @@ public class PasswordResetPageController extends LoginPageController
                                   final RedirectAttributes redirectModel)
             throws CMSItemNotFoundException
     {
+        loadPageDataInModel(model);
         if (bindingResult.hasErrors())
         {
-            return ControllerConstants.Views.Fragments.Password.PasswordResetRequestPopup;
+            return ControllerConstants.Views.Fragments.Password.PasswordResetRequest;
         }
         else
         {
@@ -92,11 +91,14 @@ public class PasswordResetPageController extends LoginPageController
             {
                 LOG.warn("Email: " + form.getEmail() + " does not exist in the database.");
             }
-            storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-            setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-            model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
             return ControllerConstants.Views.Fragments.Password.ForgotPasswordValidationMessage;
         }
+    }
+
+    private void loadPageDataInModel(Model model) throws CMSItemNotFoundException {
+        storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+        setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
+        model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.GET)
@@ -110,9 +112,7 @@ public class PasswordResetPageController extends LoginPageController
         final UpdatePwdForm form = new UpdatePwdForm();
         form.setToken(token);
         model.addAttribute(form);
-        storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-        setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_PWD_CMS_PAGE));
-        model.addAttribute(WebConstants.BREADCRUMBS_KEY, resourceBreadcrumbBuilder.getBreadcrumbs("updatePwd.title"));
+        loadPageDataInModel(model);
         return ControllerConstants.Views.Pages.Password.PasswordResetChangePage;
     }
 
