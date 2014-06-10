@@ -6,7 +6,11 @@ function checkProduct(url) {
         },
         url: url,
         dataType: 'html',
+        beforeSend : function() {
+            $('.modal-wrapper').append('<div class="loading"></div>');
+        },
         success: function(data){
+            $('.modal-wrapper .loading').remove();
             $(".check-in-stock__result_text").html(data);
             $(".check-in-stock__result").slideDown();
         }
@@ -19,7 +23,11 @@ function addToCartAfterCheck() {
 }
 
 function refreshMiniCart(cartResult) {
-
+    var amount = 0.;
+    for (var i = 0; i < cartResult['cartData']['products'].length; i++) {
+        amount += parseInt(cartResult['cartData']['products'][i]['quantity']);
+    }
+    $('.js-cart-amount').text(amount);
 }
 ACC.product = {
 	// cached jQuery objects

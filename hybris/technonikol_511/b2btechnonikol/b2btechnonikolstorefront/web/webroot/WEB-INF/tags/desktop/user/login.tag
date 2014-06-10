@@ -24,8 +24,8 @@
                 <span class="form_field_error">
             </c:if>
 
-			<formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" />
-			<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" />
+			<formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" mandatory="true" />
+			<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" mandatory="true" />
             <div class="capslockIsOn">Включена клавиша CAPS LOCK</div>
 
             <div class="login-panel__language g-hidden">

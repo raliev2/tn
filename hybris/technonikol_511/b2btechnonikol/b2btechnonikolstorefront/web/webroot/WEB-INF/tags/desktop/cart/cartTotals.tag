@@ -9,16 +9,11 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
-<div class="item_container_holder order-totals">
-	<div class="title_holder">
-		<div class="title">
-			<div class="title-top">
-			<span></span>
-			</div>
-		</div>
-		<h2><spring:theme code="order.order.totals" /></h2>
-	</div>
-	<div class="item_container">
+<div class="cart__total-price">
+    <span class="g-strong"><spring:theme code="order.order.totals" />: <format:fromPrice priceData="${cartData.totalPrice}"/></span>
+    <p class="cart__notax"><spring:theme code="basket.page.totals.noNetTax" /></p>
+
+	<%--<div class="item_container">
 		<dl class="order_totals">
 			<dt><spring:theme code="basket.page.totals.subtotal"/></dt>
 			<dd><format:price priceData="${cartData.subTotal}"/></dd>
@@ -65,5 +60,5 @@
 				<p><spring:theme code="basket.page.totals.noNetTax" /></p>
 			</ycommerce:testId>
 		</c:if>
-	</div>
+	</div>--%>
 </div>
