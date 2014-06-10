@@ -12,9 +12,9 @@
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
 	    http://www.springframework.org/schema/context/spring-context-3.1.xsd">
@@ -23,24 +23,24 @@
 
     <!-- Facades -->
 
-	<alias name="defaultB2BFlexibleSearchProductSearchFacade" alias="b2bProductFlexibleSearchFacade"/>
-	<bean id="defaultB2BFlexibleSearchProductSearchFacade"
-		  class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BFlexibleSearchProductSearchFacade">
-		<property name="b2BProductService" ref="b2bProductService"/>
-		<property name="productConfiguredPopulator" ref="b2bProductConfiguredPopulator"/>
-	</bean>
+    <alias name="defaultB2BFlexibleSearchProductSearchFacade" alias="b2bProductFlexibleSearchFacade"/>
+    <bean id="defaultB2BFlexibleSearchProductSearchFacade"
+          class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BFlexibleSearchProductSearchFacade">
+        <property name="b2BProductService" ref="b2bProductService"/>
+        <property name="productConfiguredPopulator" ref="b2bProductConfiguredPopulator"/>
+    </bean>
 
-	<alias name="defaultB2BSolrProductSearchFacade" alias="productSearchFacade"/>
-	<bean id="defaultB2BSolrProductSearchFacade"
-		  class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BSolrProductSearchFacade"
-		  parent="defaultSolrProductSearchFacade">
-	</bean>
+    <alias name="defaultB2BSolrProductSearchFacade" alias="productSearchFacade"/>
+    <bean id="defaultB2BSolrProductSearchFacade"
+          class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BSolrProductSearchFacade"
+          parent="defaultSolrProductSearchFacade">
+    </bean>
 
-	<bean id="b2bProductSearchUtil"
-		  class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BProductSearchUtil">
-	</bean>
-	
-	<alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>
+    <bean id="b2bProductSearchUtil"
+          class="com.teamidea.platform.technonikol.facades.search.impl.DefaultB2BProductSearchUtil">
+    </bean>
+
+    <alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>
     <bean id="tnCommerceSearchTextPopulator" class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
         <property name="freeTextQueryBuilders">
             <list>
@@ -68,177 +68,180 @@
                     <property name="boost" value="20"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
-					<property name="propertyName" value="categoryName"/>
-					<property name="boost" value="10"/>
-				</bean>
+                    <property name="propertyName" value="categoryName"/>
+                    <property name="boost" value="10"/>
+                </bean>
             </list>
         </property>
     </bean>
-        
-	<alias alias="b2bSimpleSuggestionFacade" name="b2bDefaultSimpleSuggestionFacade"/>
-	<bean id="b2bDefaultSimpleSuggestionFacade"
-		  class="com.teamidea.platform.technonikol.facades.suggestion.impl.DefaultSimpleSuggestionFacade">
-		<property name="b2bSimpleSuggestionService" ref="b2bSimpleSuggestionService"/>
-		<property name="userService" ref="userService"/>
-		<property name="categoryService" ref="categoryService"/>
-		<property name="productPricePopulator" ref="productPricePopulator"/>
-		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
-		<property name="productConverter" ref="productConverter"/>
-	</bean>
 
-	<bean id="b2bProductFacade" parent="defaultProductFacade">
-		<property name="productConfiguredPopulator" ref="b2bProductConfiguredPopulator"/>
-	</bean>
+    <alias alias="b2bSimpleSuggestionFacade" name="b2bDefaultSimpleSuggestionFacade"/>
+    <bean id="b2bDefaultSimpleSuggestionFacade"
+          class="com.teamidea.platform.technonikol.facades.suggestion.impl.DefaultSimpleSuggestionFacade">
+        <property name="b2bSimpleSuggestionService" ref="b2bSimpleSuggestionService"/>
+        <property name="userService" ref="userService"/>
+        <property name="categoryService" ref="categoryService"/>
+        <property name="productPricePopulator" ref="productPricePopulator"/>
+        <property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
+        <property name="productConverter" ref="productConverter"/>
+    </bean>
 
-	<alias name="defaultProductPriceRangePopulator" alias="productPriceRangePopulator"/>
-	<bean id="defaultProductPriceRangePopulator" parent="baseProductPopulator"
-		  class="com.teamidea.platform.technonikol.facades.product.populators.ProductPriceRangePopulator">
-		<property name="priceDataFactory" ref="priceDataFactory"/>
-		<property name="priceService" ref="priceService"/>
-	</bean>
+    <bean id="b2bProductFacade" parent="defaultProductFacade">
+        <property name="productConfiguredPopulator" ref="b2bProductConfiguredPopulator"/>
+    </bean>
 
-	<alias name="defaultProductVariantMatrixPopulator" alias="productVariantMatrixPopulator"/>
-	<bean id="defaultProductVariantMatrixPopulator" parent="baseProductPopulator"
-		  class="com.teamidea.platform.technonikol.facades.product.populators.ProductVariantMatrixPopulator">
-		<property name="imageFormats">
-			<list>
-				<value>zoom</value>
-				<value>product</value>
-				<value>thumbnail</value>
-				<value>cartIcon</value>
-				<value>styleSwatch</value>
-			</list>
-		</property>
-	</bean>
+    <alias name="defaultProductPriceRangePopulator" alias="productPriceRangePopulator"/>
+    <bean id="defaultProductPriceRangePopulator" parent="baseProductPopulator"
+          class="com.teamidea.platform.technonikol.facades.product.populators.ProductPriceRangePopulator">
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+        <property name="priceService" ref="priceService"/>
+    </bean>
 
-	<bean id="b2bProductConfiguredPopulator" parent="defaultProductConfiguredPopulator">
-		<property name="populators">
-			<map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
-				<entry key="PRICE_RANGE" value-ref="productPriceRangePopulator"/>
-				<entry key="VOLUME_PRICES" value-ref="productVolumePricesPopulator"/>
-				<entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator"/>
-				<entry key="URL" value-ref="productUrlPopulator"/>
-				<entry key="IMAGES" value-ref="productPrimaryImagePopulator"/>			
-			</map>
-		</property>
-	</bean>
+    <alias name="defaultProductVariantMatrixPopulator" alias="productVariantMatrixPopulator"/>
+    <bean id="defaultProductVariantMatrixPopulator" parent="baseProductPopulator"
+          class="com.teamidea.platform.technonikol.facades.product.populators.ProductVariantMatrixPopulator">
+        <property name="imageFormats">
+            <list>
+                <value>zoom</value>
+                <value>product</value>
+                <value>thumbnail</value>
+                <value>cartIcon</value>
+                <value>styleSwatch</value>
+            </list>
+        </property>
+    </bean>
 
-	<!-- accelerator Image Format Mappings -->
-	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
-	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
-		<property name="mapping">
-			<map>
-				<entry key="superZoom" value="1200Wx1200H"/>
-				<entry key="zoom" value="515Wx515H"/>
-				<entry key="store" value="365Wx246H"/>
-				<entry key="product" value="300Wx300H"/>
-				<entry key="thumbnail" value="96Wx96H"/>
-				<entry key="cartIcon" value="65Wx65H"/>
-				<entry key="styleSwatch" value="30Wx30H"/>
-			</map>
-		</property>
-	</bean>
+    <bean id="b2bProductConfiguredPopulator" parent="defaultProductConfiguredPopulator">
+        <property name="populators">
+            <map key-type="de.hybris.platform.commercefacades.product.ProductOption" merge="true">
+                <entry key="PRICE_RANGE" value-ref="productPriceRangePopulator"/>
+                <entry key="VOLUME_PRICES" value-ref="productVolumePricesPopulator"/>
+                <entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator"/>
+                <entry key="URL" value-ref="productUrlPopulator"/>
+                <entry key="IMAGES" value-ref="productPrimaryImagePopulator"/>
+                <entry key="BRAND" value-ref="tnSearchBrandPopulator"/>
+            </map>
+        </property>
+    </bean>
 
-	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator"/>
-	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
-		<property name="imageFormats">
-			<list>
-				<value>zoom</value>
-				<value>product</value>
-				<value>thumbnail</value>
-				<value>cartIcon</value>
-			</list>
-		</property>
-	</bean>
 
-	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator"/>
-	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
-		<property name="imageFormats">
-			<list>
-				<value>zoom</value>
-				<value>product</value>
-				<value>thumbnail</value>
-			</list>
-		</property>
-	</bean>
 
-	<!-- Email -->
+    <!-- accelerator Image Format Mappings -->
+    <alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+    <bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+        <property name="mapping">
+            <map>
+                <entry key="superZoom" value="1200Wx1200H"/>
+                <entry key="zoom" value="515Wx515H"/>
+                <entry key="store" value="365Wx246H"/>
+                <entry key="product" value="300Wx300H"/>
+                <entry key="thumbnail" value="96Wx96H"/>
+                <entry key="cartIcon" value="65Wx65H"/>
+                <entry key="styleSwatch" value="30Wx30H"/>
+            </map>
+        </property>
+    </bean>
 
-	<alias alias="emailContextFactory" name="acceleratorEmailContextFactory"/>
-	<bean id="acceleratorEmailContextFactory" parent="defaultEmailContextFactory">
-		<property name="contextResolutionStrategy" ref="b2bProcessContextResolutionStrategy"/>
-		<property name="emailContextVariables">
-			<map merge="true">
-				<entry key="themeResourceUrl-tn" value="{baseUrl}/_ui/{theme}"/>
-			</map>
-		</property>
-	</bean>
+    <alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator"/>
+    <bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+        <property name="imageFormats">
+            <list>
+                <value>zoom</value>
+                <value>product</value>
+                <value>thumbnail</value>
+                <value>cartIcon</value>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="customerEmailContext"
-		  class="com.teamidea.platform.technonikol.facades.process.email.context.CustomerEmailContext"
-		  parent="abstractEmailContext" scope="prototype">
-		<property name="customerConverter" ref="customerConverter"/>
-	</bean>
+    <alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator"/>
+    <bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+        <property name="imageFormats">
+            <list>
+                <value>zoom</value>
+                <value>product</value>
+                <value>thumbnail</value>
+            </list>
+        </property>
+    </bean>
 
-	<bean id="b2bForgottenPasswordEmailContext"
-		  class="com.teamidea.platform.technonikol.facades.process.email.context.ForgottenPasswordEmailContext"
-		  parent="customerEmailContext" scope="prototype">
-		<property name="customerConverter" ref="customerConverter"/>
-	</bean>
+    <!-- Email -->
 
-	<bean id="orderReplenishmentEmailContext"
-		  class="com.teamidea.platform.technonikol.facades.process.email.context.OrderReplenishmentEmailContext"
-		  parent="abstractEmailContext" scope="prototype">
-		<property name="scheduledCartConverter" ref="scheduledCartConverter"/>
-	</bean>
+    <alias alias="emailContextFactory" name="acceleratorEmailContextFactory"/>
+    <bean id="acceleratorEmailContextFactory" parent="defaultEmailContextFactory">
+        <property name="contextResolutionStrategy" ref="b2bProcessContextResolutionStrategy"/>
+        <property name="emailContextVariables">
+            <map merge="true">
+                <entry key="themeResourceUrl-tn" value="{baseUrl}/_ui/{theme}"/>
+            </map>
+        </property>
+    </bean>
 
-	<bean id="b2bOrderNotificationContext"
-		  class="com.teamidea.platform.technonikol.facades.process.email.context.OrderNotificationEmailContext"
-		  parent="abstractEmailContext" scope="prototype">
-		<property name="orderConverter" ref="orderConverter"/>
-	</bean>
+    <bean id="customerEmailContext"
+          class="com.teamidea.platform.technonikol.facades.process.email.context.CustomerEmailContext"
+          parent="abstractEmailContext" scope="prototype">
+        <property name="customerConverter" ref="customerConverter"/>
+    </bean>
 
-	<alias name="defaultB2BCheckoutFlowFacade" alias="b2bCheckoutFlowFacade"/>
-	<bean id="defaultB2BCheckoutFlowFacade"
-		  class="com.teamidea.platform.technonikol.facades.flow.impl.DefaultB2BCheckoutFlowFacade"
-		  parent="defaultB2BCheckoutFacade">
-		<property name="checkoutFlowStrategy" ref="b2bCheckoutFlowStrategy"/>
-		<property name="checkoutPciStrategy" ref="b2bCheckoutPciStrategy"/>
-	</bean>
+    <bean id="b2bForgottenPasswordEmailContext"
+          class="com.teamidea.platform.technonikol.facades.process.email.context.ForgottenPasswordEmailContext"
+          parent="customerEmailContext" scope="prototype">
+        <property name="customerConverter" ref="customerConverter"/>
+    </bean>
 
-	<alias name="b2bDefaultStoreFinderFacade" alias="b2bStoreFinderFacade"/>
-	<bean id="b2bDefaultStoreFinderFacade"
-		  class="de.hybris.platform.commercefacades.storefinder.impl.DefaultStoreFinderFacade">
-		<property name="baseStoreService" ref="baseStoreService"/>
-		<property name="storeFinderService" ref="storeFinderService"/>
-		<property name="searchPagePointOfServiceDistanceConverter" ref="b2bSearchPagePointOfServiceDistanceConverter"/>
-		<property name="pointOfServiceConverter" ref="pointOfServiceConverter"/>
-		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
-	</bean>
+    <bean id="orderReplenishmentEmailContext"
+          class="com.teamidea.platform.technonikol.facades.process.email.context.OrderReplenishmentEmailContext"
+          parent="abstractEmailContext" scope="prototype">
+        <property name="scheduledCartConverter" ref="scheduledCartConverter"/>
+    </bean>
 
-	<alias name="b2bDefaultSearchPagePointOfServiceDistanceConverter"
-		   alias="b2bSearchPagePointOfServiceDistanceConverter"/>
-	<bean id="b2bDefaultSearchPagePointOfServiceDistanceConverter" parent="abstractPopulatingConverter">
-		<lookup-method name="createTarget" bean="storeFinderSearchPageData"/>
-		<property name="populators">
-			<list>
-				<ref bean="b2bSearchPagePointOfServiceDistancePopulator"/>
-			</list>
-		</property>
-	</bean>
+    <bean id="b2bOrderNotificationContext"
+          class="com.teamidea.platform.technonikol.facades.process.email.context.OrderNotificationEmailContext"
+          parent="abstractEmailContext" scope="prototype">
+        <property name="orderConverter" ref="orderConverter"/>
+    </bean>
 
-	<alias name="yb2bacceleratorSearchPagePointOfServiceDistancePopulator"
-		   alias="b2bSearchPagePointOfServiceDistancePopulator"/>
-	<bean id="yb2bacceleratorSearchPagePointOfServiceDistancePopulator"
-		  class="com.teamidea.platform.technonikol.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator">
-		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
-	</bean>
+    <alias name="defaultB2BCheckoutFlowFacade" alias="b2bCheckoutFlowFacade"/>
+    <bean id="defaultB2BCheckoutFlowFacade"
+          class="com.teamidea.platform.technonikol.facades.flow.impl.DefaultB2BCheckoutFlowFacade"
+          parent="defaultB2BCheckoutFacade">
+        <property name="checkoutFlowStrategy" ref="b2bCheckoutFlowStrategy"/>
+        <property name="checkoutPciStrategy" ref="b2bCheckoutPciStrategy"/>
+    </bean>
 
-	<alias name="variantCommerceSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
-	<bean id="variantCommerceSearchResultProductPopulator"
-		  class="com.teamidea.platform.technonikol.facades.search.converters.populator.VariantSearchResultProductPopulator"
-		  parent="defaultCommerceSearchResultProductPopulator">
-	</bean>
+    <alias name="b2bDefaultStoreFinderFacade" alias="b2bStoreFinderFacade"/>
+    <bean id="b2bDefaultStoreFinderFacade"
+          class="de.hybris.platform.commercefacades.storefinder.impl.DefaultStoreFinderFacade">
+        <property name="baseStoreService" ref="baseStoreService"/>
+        <property name="storeFinderService" ref="storeFinderService"/>
+        <property name="searchPagePointOfServiceDistanceConverter" ref="b2bSearchPagePointOfServiceDistanceConverter"/>
+        <property name="pointOfServiceConverter" ref="pointOfServiceConverter"/>
+        <property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+    </bean>
+
+    <alias name="b2bDefaultSearchPagePointOfServiceDistanceConverter"
+           alias="b2bSearchPagePointOfServiceDistanceConverter"/>
+    <bean id="b2bDefaultSearchPagePointOfServiceDistanceConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="storeFinderSearchPageData"/>
+        <property name="populators">
+            <list>
+                <ref bean="b2bSearchPagePointOfServiceDistancePopulator"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="yb2bacceleratorSearchPagePointOfServiceDistancePopulator"
+           alias="b2bSearchPagePointOfServiceDistancePopulator"/>
+    <bean id="yb2bacceleratorSearchPagePointOfServiceDistancePopulator"
+          class="com.teamidea.platform.technonikol.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator">
+        <property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
+    </bean>
+
+    <alias name="variantCommerceSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+    <bean id="variantCommerceSearchResultProductPopulator"
+          class="com.teamidea.platform.technonikol.facades.search.converters.populator.VariantSearchResultProductPopulator"
+          parent="defaultCommerceSearchResultProductPopulator">
+    </bean>
 
     <!-- Technonikol Data-->
     <bean id="tnBrandData" class="com.teamidea.platform.technonikol.facades.brand.data.TNBrandData" scope="prototype"/>
@@ -256,6 +259,17 @@
             </list>
         </property>
     </bean>
+
+    <!-- TNBrand converter -->
+    <bean id="tnSearchBrandConverter" parent="abstractPopulatingConverter">
+        <lookup-method name="createTarget" bean="tnBrandData"/>
+        <property name="populators">
+            <list>
+                <ref bean="tnSearchBrandPopulator"/>
+            </list>
+        </property>
+    </bean>
+
 
     <!-- TNProductType converter -->
     <bean id="tnProductTypeConverter" parent="abstractPopulatingConverter">
@@ -289,40 +303,16 @@
     </bean>
 
 
-<!--
-<alias name="acceleratorProductConverter" alias="productConverter"/>
-<bean id="acceleratorProductConverter" scope="tenant" parent="defaultProductConverter"  class="com.teamidea.platform.technonikol.facades.product.converters.TNProductConverter" >
-    <lookup-method bean="TNProductData" name="createTarget"/>
-    <property name="populators">
-        <list>
-            <ref bean="TNProductPopulator"/>
-        </list>
-    </property>
-</bean>
--->
+    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.tnSearchBrandPopulator">
+        <property name="modelService" ref="modelService"/>
+    </bean>
+    <alias name="technonikolProductPopulator" alias="productPopulator"/>
 
-<!--
-<bean id="TNProductPopulator" class="de.hybris.platform.acceleratorfacades.converters.populator.TNProductPopulator" scope="tenant">
-</bean>
--->
+    <bean id="technonikolProductPopulator"
+          class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
+          parent="defaultProductPopulator">
 
-<!--<alias name="acceleratorProductConverter" alias="productConverter"/>
-
-<bean id="acceleratorProductConverter" class="de.hybris.platform.acceleratorfacades.converters.AcceleratorProductConverter" scope="tenant" parent="defaultProductConverter">
-    <property name="TNProductPopulator" ref="TNProductPopulator"/>
-</bean>
--->
-
-	<alias name="technonikolProductPopulator" alias="productPopulator"/>
-
-	<bean id="technonikolProductPopulator"
-	      class="com.teamidea.platform.technonikol.facades.product.converters.TechnonikolProductPopulator"
-	      parent="defaultProductPopulator">
-<!--		<property name="productBasicPopulator" ref="productBasicPopulator"/>
-		<property name="variantSelectedPopulator" ref="variantSelectedPopulator"/>
-		<property name="productPrimaryImagePopulator" ref="productPrimaryImagePopulator"/>
--->
-	</bean>
+    </bean>
 
 
 </beans>
