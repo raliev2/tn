@@ -781,11 +781,14 @@ $jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup
 
 
 INSERT_UPDATE ProductCartReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
-;;tn_product_cart_references_component;Product Cart Similar Products Component;SIMILAR;10;tn_product_cart_references_component;
+;;comp_000001JK;ProductCartReferencesComponent1;ACCESSORIES_RECOMMENDED;5;comp_000001JK
+#;;tn_product_cart_references_component;Product Cart Similar Products Component;SIMILAR;10;tn_product_cart_references_component;
+
 
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
-;;MiddleContent-References;References;true;tn_product_cart_references_component;
+;;MiddleContent-cartPage;Middle Slot for cartPage;true;EmptyCartParagraphComponent:tnContentCatalog:Online,comp_000001JK:tnContentCatalog:Online
+#;;MiddleContent-References;References;true;tn_product_cart_references_component;
 
 INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
-;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
-
+;;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
+#;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
