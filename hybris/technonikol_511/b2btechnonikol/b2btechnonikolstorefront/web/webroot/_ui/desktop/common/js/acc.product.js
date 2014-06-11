@@ -80,13 +80,11 @@ ACC.product = {
                     ACC.product.cartResult['message'] = '<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
                     <p>Ваш заказ будет автоматически исправлен.</p>';
                     arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
-                    console.log(arr)
                     return true;
                 } else {
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     var qtySales = qtyBase / baseToSales;
                     arr[0].value = Math.ceil(qtySales);
-                    console.log(arr)
                     return true;
                 }
 
@@ -104,7 +102,7 @@ ACC.product = {
 		ACC.product.$addToCartOrderForm.ajaxForm({success: ACC.product.displayAddToCartPopup});
 	},
 
-	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {console.log(cartResult)
+	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {
 		var productCode   = $('[name=productCodePost]', formElement).val();
 		var quantityField = $('[name=qty]', formElement).val();
 		var quantity      = 1;
@@ -124,7 +122,7 @@ ACC.product = {
         $('.product-carousel__item').removeClass('product-carousel__item_930px');
         $('.product-carousel-item__img').removeClass('product-carousel-item__img_930px');
         $('.block-chars__header').remove();
-        console.log(ACC.product.cartResult['productReference'])
+
         if (ACC.product.cartResult['productReference'] == '<div class="yCmsContentSlot"></div>') $('.cart-popup-carousel__header').remove();
         $('.carousel-product__carousel ul').each(function(indx, element){
             $(element).easyPaginate({
