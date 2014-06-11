@@ -13,7 +13,7 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 
 <spring:theme text="Your Shopping Cart" var="title" code="cart.page.title"/>
-<c:url value="/cart/checkout" var="checkoutUrl"/>
+<c:url value="/checkout" var="checkoutUrl"/>
 <template:page pageTitle="${pageTitle}">
 	<spring:theme code="basket.add.to.cart" var="basketAddToCart"/>
 	<spring:theme code="cart.page.checkout" var="checkoutText"/>

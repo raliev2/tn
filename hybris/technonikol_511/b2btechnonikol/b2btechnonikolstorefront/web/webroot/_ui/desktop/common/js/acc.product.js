@@ -27,7 +27,11 @@ function refreshMiniCart(cartResult) {
     for (var i = 0; i < cartResult['cartData']['products'].length; i++) {
         amount += parseInt(cartResult['cartData']['products'][i]['quantity']);
     }
-    $('.js-cart-amount').text(amount);
+    if ($('.js-cart-amount').length == 0) {
+        $('.link-cart').html('В корзине <span class="js-cart-amount">1</span> товар');
+    } else {
+        $('.js-cart-amount').text(amount);
+    }
 }
 ACC.product = {
 	// cached jQuery objects
