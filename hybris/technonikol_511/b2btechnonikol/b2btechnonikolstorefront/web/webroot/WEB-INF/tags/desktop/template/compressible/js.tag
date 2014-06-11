@@ -66,6 +66,7 @@
 <script type="text/javascript" src="${commonResourcePath}/js/acc.common.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.autocomplete.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.product.js"></script>
+<script type="text/javascript" src="${commonResourcePath}/js/acc.cartremoveitem.js"></script>
 
 
 <%-- Custom ACC JS
@@ -90,7 +91,6 @@
 <script type="text/javascript" src="${commonResourcePath}/js/acc.placeorder.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.deliverymodedescription.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.mycompany.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/js/acc.cartremoveitem.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.quote.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.approval.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.mapscrollfix.js"></script>
@@ -186,6 +186,7 @@
 </script>
 --%>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.checkoutpickupdetails.js"></script>
+<script type="text/javascript" src="${sharedResourcePath}/js/analyticsmediator.js"></script>
 <%-- AddOn JavaScript files --%>
 <c:forEach items="${addOnJavaScriptPaths}" var="addOnJavaScript">
     <script type="text/javascript" src="${addOnJavaScript}"></script>

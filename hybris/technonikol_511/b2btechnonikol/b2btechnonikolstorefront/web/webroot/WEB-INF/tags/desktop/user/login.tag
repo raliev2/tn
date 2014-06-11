@@ -13,19 +13,19 @@
 
 <div class="login-panel">
     <h3><spring:theme code="login.enter"/></h3>
-	<div class="login-panel__body">
-		<form:form action="${action}" method="post" commandName="loginForm">
-			<c:if test="${not empty message}">
-				<div class="login-errors">
-					<spring:theme code="${message}"/>
-				</div>
-			</c:if>
+    <div class="login-panel__body">
+        <form:form action="${action}" method="post" commandName="loginForm">
+            <c:if test="${not empty message}">
+                <div class="login-errors">
+                    <spring:theme code="${message}"/>
+                </div>
+            </c:if>
             <c:if test="${not empty accErrorMsgs}">
                 <span class="form_field_error">
             </c:if>
 
-			<formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" />
-			<formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" />
+            <formUtil:formInputBox idKey="j_username" labelKey="login.email" path="j_username" inputCSS="g-input" size="30" mandatory="true" />
+            <formUtil:formPasswordBox idKey="j_password" labelKey="login.password" path="j_password" inputCSS="g-input" size="30" mandatory="true" />
             <div class="capslockIsOn">Включена клавиша CAPS LOCK</div>
 
             <div class="login-panel__language g-hidden">
@@ -47,10 +47,10 @@
                 </span>
             </c:if>
 
-			<ycommerce:testId code="login_Login_button">
-				<button type="submit" class="button"><spring:theme code="${actionNameKey}"/></button>
-			</ycommerce:testId>
+            <ycommerce:testId code="login_Login_button">
+                <button type="submit" class="button"><spring:theme code="${actionNameKey}"/></button>
+            </ycommerce:testId>
 
-		</form:form>
-	</div>
+        </form:form>
+    </div>
 </div>

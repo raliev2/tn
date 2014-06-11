@@ -19,6 +19,19 @@
 	</c:otherwise>
 </c:choose>
 
+<c:url value="/cart" var="cartUrl"/>
+<script type="text/plain" id="addToCartTmpl">
+    <div class="cart-popup__header clearfix">
+        <div class="cart-popup__mesage">{{=it.message}}</div>
+        <div class="cart-popup__tocart g-float-right"><a href="${cartUrl}">Посмотреть корзину</a></div>
+    </div>
+    <div class=cart-popup__body>
+                <div class="cart-popup-carousel__header">Также покупают:</div>
+                {{=it.productReference}}
+    </div>
+
+
+</script>
 <form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
     <%--span class="prod_results">
         <product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
@@ -75,5 +88,5 @@
             <a href="${productOrderFormUrl}" ><spring:theme code="order.form" /></a>
         </sec:authorize>
     </c:if>
-
+    <div class="cart-popup"></div>
 </form>

@@ -6,7 +6,6 @@
 <%@ attribute name="checkoutUrl" required="true" type="java.lang.String"%>
 <%@ attribute name="basketAddToCart" required="true" type="java.lang.String"%>
 
-<a href="${checkoutUrl}" class="positive right">
-	<theme:image code="img.addToCartIcon" alt="${basketAddToCart}" title="${basketAddToCart}"/>
-	<spring:theme code="checkout.checkout" />
+<a href="${checkoutUrl}" class="button" style="margin-left:10px">
+    <spring:theme code="checkout.checkout" />
 </a>
