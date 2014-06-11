@@ -57,13 +57,12 @@ public interface ControllerConstants
 			String NavigationBarComponent = _Prefix + NavigationBarComponentModel._TYPECODE + _Suffix;
 			String CMSLinkComponent = _Prefix + CMSLinkComponentModel._TYPECODE + _Suffix;
 			String CategoryListComponent = _Prefix + CategoryListComponentModel._TYPECODE + _Suffix;
-         String ProductCartReferencesComponent = _Prefix +
-               //ProductCartReferencesComponentModel._TYPECODE
-               "ProductCartReferencesComponent"
-           + _Suffix;
+			String ProductCartReferencesComponent = _Prefix +
+			//ProductCartReferencesComponentModel._TYPECODE
+					"ProductCartReferencesComponent" + _Suffix;
 
 		}
-		
+
 		interface Checkout
 		{
 			String SELECT_DELIVERY_METHOD_URL = "/select-delivery-method";
@@ -76,7 +75,6 @@ public interface ControllerConstants
 			String SHOW_HOSTED_ORDER_SUCCESS_URL = "/show-hosted-order-success";
 		}
 
-        }
 
 	}
 
@@ -216,7 +214,7 @@ public interface ControllerConstants
 			interface Product
 			{
 				String OrderForm = "pages/product/productOrderFormPage";
-                String ProductReferences = "pages/product/productReferences";
+				String ProductReferences = "pages/product/productReferences";
 			}
 
 			interface Form
