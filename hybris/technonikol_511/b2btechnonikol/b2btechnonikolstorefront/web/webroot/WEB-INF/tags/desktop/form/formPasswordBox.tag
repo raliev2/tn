@@ -14,7 +14,7 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 
 <template:errorSpanField path="${path}" errorPath="${errorPath}">
-	<ycommerce:testId code="LoginPage_Item_${idKey}">
+    <ycommerce:testId code="LoginPage_Item_${idKey}">
         <div class="form_field-label">
             <label class="${labelCSS} ${mandatory != null && mandatory == true ? 'mandatory' : ''}" for="${idKey}">
                 <spring:theme code="${labelKey}"/>
@@ -22,8 +22,8 @@
             </label>
         </div>
 
-		<div class="form_field-input">
-			<form:password cssClass="${inputCSS} ${mandatory != null && mandatory == true ? 'required' : ''}" id="${idKey}" path="${path}" size="${size}"/>
-		</div>
-	</ycommerce:testId>
+        <div class="form_field-input">
+            <form:password cssClass="${inputCSS} ${mandatory != null && mandatory == true ? 'required' : ''}" id="${idKey}" path="${path}" size="${size}"/>
+        </div>
+    </ycommerce:testId>
 </template:errorSpanField>
