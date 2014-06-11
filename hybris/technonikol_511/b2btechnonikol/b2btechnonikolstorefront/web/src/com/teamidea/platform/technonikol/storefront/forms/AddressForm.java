@@ -23,18 +23,14 @@ import javax.validation.constraints.Size;
 public class AddressForm
 {
 	private String addressId;
-	private String titleCode;
 	private String firstName;
 	private String lastName;
-	private String line1;
-	private String line2;
+	private String phone;
 	private String townCity;
 	private String postcode;
+	private String street;
+	private String house;
 	private String countryIso;
-	private Boolean saveInAddressBook;
-	private Boolean defaultAddress;
-	private Boolean shippingAddress;
-	private Boolean billingAddress;
 
 	public String getAddressId()
 	{
@@ -44,25 +40,6 @@ public class AddressForm
 	public void setAddressId(final String addressId)
 	{
 		this.addressId = addressId;
-	}
-
-	/**
-	 * @return the titleCode
-	 */
-	@NotNull(message = "{address.title.invalid}")
-	@Size(min = 1, max = 255, message = "{address.title.invalid}")
-	public String getTitleCode()
-	{
-		return titleCode;
-	}
-
-	/**
-	 * @param titleCode
-	 *           the titleCode to set
-	 */
-	public void setTitleCode(final String titleCode)
-	{
-		this.titleCode = titleCode;
 	}
 
 	/**
@@ -101,43 +78,6 @@ public class AddressForm
 	public void setLastName(final String lastName)
 	{
 		this.lastName = lastName;
-	}
-
-
-	/**
-	 * @return the line1
-	 */
-	@NotNull(message = "{address.line1.invalid}")
-	@Size(min = 1, max = 255, message = "{address.line1.invalid}")
-	public String getLine1()
-	{
-		return line1;
-	}
-
-	/**
-	 * @param line1
-	 *           the line1 to set
-	 */
-	public void setLine1(final String line1)
-	{
-		this.line1 = line1;
-	}
-
-	/**
-	 * @return the line2
-	 */
-	public String getLine2()
-	{
-		return line2;
-	}
-
-	/**
-	 * @param line2
-	 *           the line2 to set
-	 */
-	public void setLine2(final String line2)
-	{
-		this.line2 = line2;
 	}
 
 	/**
@@ -197,43 +137,62 @@ public class AddressForm
 		this.countryIso = countryIso;
 	}
 
-	public Boolean getSaveInAddressBook()
+	/**
+	 * @return the phone
+	 */
+	@NotNull(message = "{address.phone.invalid}")
+	@Size(min = 1, max = 255, message = "{address.phone.invalid}")
+	public String getPhone()
 	{
-		return saveInAddressBook;
+		return phone;
 	}
 
-	public void setSaveInAddressBook(final Boolean saveInAddressBook)
+	/**
+	 * @param phone
+	 *           the phone to set
+	 */
+	public void setPhone(final String phone)
 	{
-		this.saveInAddressBook = saveInAddressBook;
+		this.phone = phone;
 	}
 
-	public Boolean getDefaultAddress()
+	/**
+	 * @return the street
+	 */
+	@NotNull(message = "{address.street.invalid}")
+	@Size(min = 1, max = 255, message = "{address.street.invalid}")
+	public String getStreet()
 	{
-		return defaultAddress;
+		return street;
 	}
 
-	public void setDefaultAddress(final Boolean defaultAddress)
+	/**
+	 * @param street
+	 *           the street to set
+	 */
+	public void setStreet(final String street)
 	{
-		this.defaultAddress = defaultAddress;
+		this.street = street;
 	}
 
-	public Boolean getShippingAddress()
+	/**
+	 * @return the houseAndApt
+	 */
+	@NotNull(message = "{address.houseAndApt.invalid}")
+	@Size(min = 1, max = 255, message = "{address.houseAndApt.invalid}")
+	public String getHouse()
 	{
-		return shippingAddress;
+		return house;
 	}
 
-	public void setShippingAddress(final Boolean shippingAddress)
+	/**
+	 * @param houseAndApt
+	 *           the houseAndApt to set
+	 */
+	public void setHouse(final String house)
 	{
-		this.shippingAddress = shippingAddress;
+		this.house = house;
 	}
 
-	public Boolean getBillingAddress()
-	{
-		return billingAddress;
-	}
 
-	public void setBillingAddress(final Boolean billingAddress)
-	{
-		this.billingAddress = billingAddress;
-	}
 }

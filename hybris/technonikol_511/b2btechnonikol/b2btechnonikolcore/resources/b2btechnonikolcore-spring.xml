@@ -605,7 +605,7 @@
 
     <!-- checkout flow configuration -->
     <!-- We force the Single step checkout strategy. -->
-    <alias alias="b2bCheckoutFlowStrategy" name="b2bSingleStepCheckoutFlowStrategy"/>
+    <alias alias="b2bCheckoutFlowStrategy" name="b2bMultiStepCheckoutFlowStrategy"/>
 
     <bean id="b2bSingleStepCheckoutFlowStrategy"
           class="com.teamidea.platform.technonikol.core.checkout.flow.impl.FixedB2BCheckoutFlowStrategy" >

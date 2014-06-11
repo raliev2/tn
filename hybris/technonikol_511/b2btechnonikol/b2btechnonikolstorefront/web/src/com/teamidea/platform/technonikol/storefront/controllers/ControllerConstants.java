@@ -58,6 +58,18 @@ public interface ControllerConstants
 			String CMSLinkComponent = _Prefix + CMSLinkComponentModel._TYPECODE + _Suffix;
 			String CategoryListComponent = _Prefix + CategoryListComponentModel._TYPECODE + _Suffix;
 		}
+
+		interface Checkout
+		{
+			String SELECT_DELIVERY_METHOD_URL = "/select-delivery-method";
+			String SELECT_DELIVERY_ADDRESS_URL = "/select-delivery-address";
+			String SHOW_DELIVERY_ADDRESS_MAP_URL = "/show-delivery-address-map";
+			String SELECT_DELIVERY_MODE_URL = "/select-delivery-mode";
+			String SELECT_PAYMENT_METHOD_URL = "/select-payment-method";
+			String SHOW_CHECKOUT_SUMMARY_URL = "/show-checkout-summary";
+			String SHOW_HOSTED_ORDER_ERROR_URL = "/show-hosted-order-error";
+			String SHOW_HOSTED_ORDER_SUCCESS_URL = "/show-hosted-order-success";
+		}
 	}
 
 	/**
@@ -109,7 +121,14 @@ public interface ControllerConstants
 
 			interface MultiStepCheckout
 			{
-				String CheckoutSampleLandingPage = "pages/checkout/multi/checkoutSampleLandingPage";
+				String ChooseDeliveryMethodPage = "pages/checkout/multi/chooseDeliveryMethodPage";
+				String AddSelectDeliveryAddressPage = "pages/checkout/multi/addSelectDeliveryAddressPage";
+				String DeliveryAddressMapPage = "pages/checkout/multi/deliveryAddressMapPage";
+				String ChooseDeliveryModePage = "pages/checkout/multi/chooseDeliveryModePage";
+				String ChoosePaymentMethodPage = "pages/checkout/multi/choosePaymentMethodPage";
+				String CheckoutSummaryPage = "pages/checkout/multi/checkoutSummaryPage";
+				String HostedOrderErrorPage = "pages/checkout/multi/hostedOrderErrorPage";
+				String HostedOrderPostPage = "pages/checkout/multi/hostedOrderPostPage";
 			}
 
 			interface Password
@@ -228,7 +247,7 @@ public interface ControllerConstants
 			interface Password
 			{
 				String PasswordResetRequestPopup = "fragments/password/passwordResetRequestPopup";
-                String PasswordResetRequest = "pages/password/passwordResetRequest";
+				String PasswordResetRequest = "pages/password/passwordResetRequest";
 				String ForgotPasswordValidationMessage = "pages/form/forgotPasswordValidationMessage";
 			}
 
