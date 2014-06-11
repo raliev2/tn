@@ -1,16 +1,3 @@
-/*
- * [y] hybris Platform
- *
- * Copyright (c) 2000-2013 hybris AG
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of hybris
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with hybris.
- * 
- *  
- */
 package com.teamidea.platform.technonikol.storefront.controllers.pages.checkout;
 
 import de.hybris.platform.b2bacceleratorfacades.order.data.B2BCostCenterData;
@@ -41,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
 import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
 import com.teamidea.platform.technonikol.storefront.controllers.util.CheckoutStep;
-import com.teamidea.platform.technonikol.storefront.forms.AddressForm;
+import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
 import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
 
 
@@ -176,14 +163,14 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		model.addAttribute("currentStep", currentStep);
 		model.addAttribute("deliveryAddresses", getCheckoutFlowFacade().getSupportedDeliveryAddresses(true));
-		model.addAttribute("addressForm", new AddressForm());
+		model.addAttribute("addressForm", new CheckoutAddressForm());
 
 		return currentStep.getView();
 	}
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_DELIVERY_ADDRESS_MAP_URL, method = RequestMethod.POST)
 	@RequireHardLogIn
-	public String showDeliveryAddressMap(final AddressForm addressForm, final HttpServletRequest request, final Model model)
+	public String showDeliveryAddressMap(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
 	{
 
 		setCurrentStep(CheckoutStep.ADDRESS_MAP);

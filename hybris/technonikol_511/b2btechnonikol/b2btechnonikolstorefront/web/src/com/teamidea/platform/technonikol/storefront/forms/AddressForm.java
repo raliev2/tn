@@ -1,36 +1,30 @@
-/*
- * [y] hybris Platform
- *
- * Copyright (c) 2000-2013 hybris AG
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of hybris
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with hybris.
- * 
- *  
- */
 package com.teamidea.platform.technonikol.storefront.forms;
+
+
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 /**
- * Pojo for collection address form.
  */
 public class AddressForm
 {
 	private String addressId;
+	private String titleCode;
 	private String firstName;
 	private String lastName;
-	private String phone;
+	private String line1;
+	private String line2;
 	private String townCity;
+	private String regionIso;
 	private String postcode;
-	private String street;
-	private String house;
 	private String countryIso;
+	private Boolean saveInAddressBook;
+	private Boolean defaultAddress;
+	private Boolean shippingAddress;
+	private Boolean billingAddress;
+	private Boolean editAddress;
 
 	public String getAddressId()
 	{
@@ -42,9 +36,18 @@ public class AddressForm
 		this.addressId = addressId;
 	}
 
-	/**
-	 * @return the firstName
-	 */
+	@NotNull(message = "{address.title.invalid}")
+	@Size(min = 1, max = 255, message = "{address.title.invalid}")
+	public String getTitleCode()
+	{
+		return titleCode;
+	}
+
+	public void setTitleCode(final String titleCode)
+	{
+		this.titleCode = titleCode;
+	}
+
 	@NotNull(message = "{address.firstName.invalid}")
 	@Size(min = 1, max = 255, message = "{address.firstName.invalid}")
 	public String getFirstName()
@@ -52,18 +55,11 @@ public class AddressForm
 		return firstName;
 	}
 
-	/**
-	 * @param firstName
-	 *           the firstName to set
-	 */
 	public void setFirstName(final String firstName)
 	{
 		this.firstName = firstName;
 	}
 
-	/**
-	 * @return the lastName
-	 */
 	@NotNull(message = "{address.lastName.invalid}")
 	@Size(min = 1, max = 255, message = "{address.lastName.invalid}")
 	public String getLastName()
@@ -71,18 +67,33 @@ public class AddressForm
 		return lastName;
 	}
 
-	/**
-	 * @param lastName
-	 *           the lastName to set
-	 */
 	public void setLastName(final String lastName)
 	{
 		this.lastName = lastName;
 	}
 
-	/**
-	 * @return the townCity
-	 */
+	@NotNull(message = "{address.line1.invalid}")
+	@Size(min = 1, max = 255, message = "{address.line1.invalid}")
+	public String getLine1()
+	{
+		return line1;
+	}
+
+	public void setLine1(final String line1)
+	{
+		this.line1 = line1;
+	}
+
+	public String getLine2()
+	{
+		return line2;
+	}
+
+	public void setLine2(final String line2)
+	{
+		this.line2 = line2;
+	}
+
 	@NotNull(message = "{address.townCity.invalid}")
 	@Size(min = 1, max = 255, message = "{address.townCity.invalid}")
 	public String getTownCity()
@@ -90,18 +101,21 @@ public class AddressForm
 		return townCity;
 	}
 
-	/**
-	 * @param townCity
-	 *           the townCity to set
-	 */
 	public void setTownCity(final String townCity)
 	{
 		this.townCity = townCity;
 	}
 
-	/**
-	 * @return the postcode
-	 */
+	public String getRegionIso()
+	{
+		return regionIso;
+	}
+
+	public void setRegionIso(final String regionIso)
+	{
+		this.regionIso = regionIso;
+	}
+
 	@NotNull(message = "{address.postcode.invalid}")
 	@Size(min = 1, max = 10, message = "{address.postcode.invalid}")
 	public String getPostcode()
@@ -109,18 +123,11 @@ public class AddressForm
 		return postcode;
 	}
 
-	/**
-	 * @param postcode
-	 *           the postcode to set
-	 */
 	public void setPostcode(final String postcode)
 	{
 		this.postcode = postcode;
 	}
 
-	/**
-	 * @return the countryIso
-	 */
 	@NotNull(message = "{address.country.invalid}")
 	@Size(min = 1, max = 255, message = "{address.country.invalid}")
 	public String getCountryIso()
@@ -128,71 +135,58 @@ public class AddressForm
 		return countryIso;
 	}
 
-	/**
-	 * @param countryIso
-	 *           the countryIso to set
-	 */
 	public void setCountryIso(final String countryIso)
 	{
 		this.countryIso = countryIso;
 	}
 
-	/**
-	 * @return the phone
-	 */
-	@NotNull(message = "{address.phone.invalid}")
-	@Size(min = 1, max = 255, message = "{address.phone.invalid}")
-	public String getPhone()
+	public Boolean getSaveInAddressBook()
 	{
-		return phone;
+		return saveInAddressBook;
 	}
 
-	/**
-	 * @param phone
-	 *           the phone to set
-	 */
-	public void setPhone(final String phone)
+	public void setSaveInAddressBook(final Boolean saveInAddressBook)
 	{
-		this.phone = phone;
+		this.saveInAddressBook = saveInAddressBook;
 	}
 
-	/**
-	 * @return the street
-	 */
-	@NotNull(message = "{address.street.invalid}")
-	@Size(min = 1, max = 255, message = "{address.street.invalid}")
-	public String getStreet()
+	public Boolean getDefaultAddress()
 	{
-		return street;
+		return defaultAddress;
 	}
 
-	/**
-	 * @param street
-	 *           the street to set
-	 */
-	public void setStreet(final String street)
+	public void setDefaultAddress(final Boolean defaultAddress)
 	{
-		this.street = street;
+		this.defaultAddress = defaultAddress;
 	}
 
-	/**
-	 * @return the houseAndApt
-	 */
-	@NotNull(message = "{address.houseAndApt.invalid}")
-	@Size(min = 1, max = 255, message = "{address.houseAndApt.invalid}")
-	public String getHouse()
+	public Boolean getShippingAddress()
 	{
-		return house;
+		return shippingAddress;
 	}
 
-	/**
-	 * @param houseAndApt
-	 *           the houseAndApt to set
-	 */
-	public void setHouse(final String house)
+	public void setShippingAddress(final Boolean shippingAddress)
 	{
-		this.house = house;
+		this.shippingAddress = shippingAddress;
 	}
 
+	public Boolean getBillingAddress()
+	{
+		return billingAddress;
+	}
 
+	public void setBillingAddress(final Boolean billingAddress)
+	{
+		this.billingAddress = billingAddress;
+	}
+
+	public Boolean getEditAddress()
+	{
+		return editAddress;
+	}
+
+	public void setEditAddress(final Boolean editAddress)
+	{
+		this.editAddress = editAddress;
+	}
 }
