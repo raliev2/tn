@@ -67,5 +67,10 @@
                 <cart:cartPotentialPromotions cartData="${cartData}"/>
             </aside>
         </c:if>
+        <div class="clearfix"></div>
+        <cms:pageSlot position="MiddleContent" var="component" element="div" class="cart-reference">
+            <cms:component component="${component}"/>
+        </cms:pageSlot>
     </section>
+
 </template:page>
