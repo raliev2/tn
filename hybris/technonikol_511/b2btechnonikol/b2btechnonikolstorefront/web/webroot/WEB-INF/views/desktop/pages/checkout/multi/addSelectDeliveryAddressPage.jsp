@@ -16,6 +16,9 @@
 		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
 	</div> -->
 
+<template:page pageTitle="${currentStep.name}">
+
+${currentStep.name}
 
 <div id="globalMessages">
 	<common:globalMessages />
@@ -30,7 +33,7 @@
 		проблемам с доставкой - звонить на номер 8(800) 333 00 20<br /> <select
 			name="selectedDeliveryAddress">
 			<c:forEach items="${deliveryAddresses}" var="address">
-				<option value="${address.code}">${address.name}</option>
+				<option value="${address.id}">${address.town} - ${address.line1}</option>
 			</c:forEach>
 		</select> Или добавьте новый:
 
@@ -50,6 +53,9 @@
 		<formUtil:formInputBox labelKey="Индекс" idKey="address.postcode"
 			path="postcode" inputCSS="text" mandatory="true" />
 	</div>
+	
+	<input type="checkbox" name="saveAddress"/>Сохранить адрес
+	
 	<div class="span-20 right lsast">
 		<input type="submit" value="Далее" />
 	</div>
@@ -59,3 +65,5 @@
 	<div class="span-20 right lsast">
 		<input type="submit" value="Назад"/>
 	</div>
+	
+</template:page>
