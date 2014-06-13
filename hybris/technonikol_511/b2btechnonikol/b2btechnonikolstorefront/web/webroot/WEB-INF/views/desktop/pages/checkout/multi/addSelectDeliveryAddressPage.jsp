@@ -47,19 +47,19 @@
             </c:if>
             <div class="checkout__white-form">
                 <form:hidden path="addressId" class="create_update_address_id" />
-                <formUtil:formInputBox labelKey="Имя" idKey="address.firstName" path="firstName" inputCSS="checkout-input long-input" mandatory="true" />
-                <formUtil:formInputBox labelKey="Фамилия" idKey="address.lastName" path="lastName" inputCSS="checkout-input long-input" mandatory="true" />
-                <formUtil:formInputBox labelKey="Телефон" idKey="address.phone" path="phone" inputCSS="checkout-input long-input" mandatory="true" />
-                <formUtil:formInputBox labelKey="Город" idKey="address.townCity" path="townCity" inputCSS="checkout-input long-input" mandatory="true" />
+                <formUtil:formInputBox labelKey="Имя" idKey="address.firstName" path="firstName" inputCSS="checkout-input long-input" mandatory="false" />
+                <formUtil:formInputBox labelKey="Фамилия" idKey="address.lastName" path="lastName" inputCSS="checkout-input long-input" mandatory="false" />
+                <formUtil:formInputBox labelKey="Телефон" idKey="address.phone" path="phone" inputCSS="checkout-input long-input" mandatory="false" />
+                <formUtil:formInputBox labelKey="Город" idKey="address.townCity" path="townCity" inputCSS="checkout-input long-input" mandatory="false" />
                 <div class="g-float-left" style="margin-right:10px;">
-                    <formUtil:formInputBox labelKey="Улица" idKey="address.street" path="street" inputCSS="checkout-input short-input1" mandatory="true" />
+                    <formUtil:formInputBox labelKey="Улица" idKey="address.street" path="street" inputCSS="checkout-input short-input1" mandatory="false" />
                 </div>
-                <formUtil:formInputBox labelKey="Дом, подъезд" idKey="address.house" path="house" inputCSS="checkout-input short-input2" mandatory="true" />
-                <formUtil:formInputBox labelKey="Индекс" idKey="address.postcode" path="postcode" inputCSS="checkout-input long-input" mandatory="true" />
+                <formUtil:formInputBox labelKey="Дом, подъезд" idKey="address.house" path="house" inputCSS="checkout-input short-input2" mandatory="false" />
+                <formUtil:formInputBox labelKey="Индекс" idKey="address.postcode" path="postcode" inputCSS="checkout-input long-input" mandatory="false" />
                 <p class="g-gray-text">Для вашего удобства, компания "1Платформа" организовала службу поддержки.</p>
                 <p class="g-gray-text margin-bottom-5px">По вопросам доставки вы можете обратиться в Кол-Центр, по номеру <spring:theme code="common.telephone" />.</p>
                 <input type="text" class="checkout-input long-input" name="additionAddress" placeholder="Дополнительный адрес" /><br /><br />
-                <input type="checkbox" id="saveAddress" name="saveAddress" checked /> <label for="saveAddress">Запомнить адрес</label>
+                <input type="checkbox" id="saveAddress" name="saveAddress" /> <label for="saveAddress">Запомнить адрес</label>
             </div>
             <input type="submit" value="Далее" class="button button_big g-float-right" />
             <div class="g-float-right checkout__back"><a href="#" class="g-link-blue">Назад</a></div>

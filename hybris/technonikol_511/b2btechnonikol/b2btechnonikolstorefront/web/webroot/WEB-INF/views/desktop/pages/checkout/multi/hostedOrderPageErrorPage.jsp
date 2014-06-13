@@ -23,8 +23,7 @@
 
 	<c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
 	<form method="get" action="${next_url}">
-
-
+ошибка
 		<div class="span-20 right lsast">
 			<input type="submit" value="Далее" />
 		</div>
