@@ -9,6 +9,7 @@ INSERT_UPDATE UserPriceGroup;code[unique=true];name[lang=ru];
 ;"08feac77-4b3f-11e2-ad9d-005056010626-a6ecea9d-acbd-11e2-a8c4-005056010626";
 
 INSERT_UPDATE UserGroup2UserPriceGroupRel[impex.legacy.mode=true];source(B2BUnit.uid)[unique=true];target(UserPriceGroup.code)[unique=true];
+;TNContractorB;08feac77-4b3f-11e2-ad9d-005056010626-a6ecea9d-acbd-11e2-a8c4-005056010626;
 
 INSERT_UPDATE PriceRow;product(code,$catalogVersion)[unique=true];ug(code)[unique=true];unit(code)[default=defunit];unitFactor[default=1];price[numberformat=####.##];net[default=true];$catalogVersion;currency(isocode)[default=RUB];
 #%afterEach: impex.getLastImportedItem().setUnit(impex.getLastImportedItem().getProduct().getBaseUnit() );
@@ -16,4 +17,6 @@ INSERT_UPDATE PriceRow;product(code,$catalogVersion)[unique=true];ug(code)[uniqu
 ;"000100";"08feac7e-4b3f-11e2-ad9d-005056010626-a6ecea9d-acbd-11e2-a8c4-005056010626";;;129.64;;;;
 ;"000100";"0cf2d1a5-4b47-11e2-ad9d-005056010626-a6ecea9d-acbd-11e2-a8c4-005056010626";;;128.15;;;;
 ;"000100";"0cf2d1a6-4b47-11e2-ad9d-005056010626-a6ecea9d-acbd-11e2-a8c4-005056010626";;;126.66;;;;
+;"000100";;;;200.66;;;;
+
 
