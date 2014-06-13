@@ -1,5 +1,7 @@
 package com.teamidea.platform.technonikol.storefront.controllers.pages.checkout;
 
+import de.hybris.platform.acceleratorfacades.order.data.PickupOrderEntryGroupData;
+import de.hybris.platform.acceleratorservices.email.EmailService;
 import de.hybris.platform.b2bacceleratorfacades.company.B2BCommerceCostCenterFacade;
 import de.hybris.platform.b2bacceleratorfacades.order.data.B2BCostCenterData;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
@@ -11,16 +13,31 @@ import de.hybris.platform.commercefacades.order.data.OrderEntryData;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
 import de.hybris.platform.commercefacades.product.data.ProductData;
+import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
+import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commerceservices.delivery.DeliveryService;
+import de.hybris.platform.commerceservices.search.pagedata.PageableData;
+import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
 import de.hybris.platform.core.model.order.delivery.DeliveryModeModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -70,11 +87,17 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@Resource(name = "b2bCommerceCostCenterFacade")
 	private B2BCommerceCostCenterFacade costCenterFacade;
 
+	@Resource(name = "b2bStoreFinderFacade")
+	private StoreFinderFacade storeFinderFacade;
+
 	@Resource(name = "defaultDeliveryService")
 	private DeliveryService deliveryService;
 
 	@Resource(name = "deliveryModeConverter")
 	private Converter<DeliveryModeModel, DeliveryModeData> deliveryModeConverter;
+
+	@Resource(name = "emailService")
+	private EmailService emailService;
 
 	private static final CheckoutStep DELIVERY_METHOD;
 	private static final CheckoutStep SELECT_ADDRESS;
@@ -162,6 +185,30 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public List<? extends AddressData> getDeliveryAddresses()
 	{
 		return getCheckoutFlowFacade().getSupportedDeliveryAddresses(true);
+	}
+
+	@ModelAttribute("storeAddresses")
+	public List<? extends AddressData> getStoreAddresses()
+	{
+		final List<AddressData> storeAddresses = new ArrayList<AddressData>();
+		for (final PointOfServiceData store : getPointsOfService())
+		{
+			storeAddresses.add(store.getAddress());
+		}
+		return storeAddresses;
+	}
+
+	@ModelAttribute("pointsOfService")
+	public List<PointOfServiceData> getPointsOfService()
+	{
+		final PageableData pageableData = new PageableData();
+		pageableData.setCurrentPage(0);
+		pageableData.setPageSize(10);
+		pageableData.setSort("name");
+		final StoreFinderSearchPageData<PointOfServiceData> storesSearchResult = storeFinderFacade
+				.getAllPointOfServices(pageableData);
+		final List<PointOfServiceData> stores = storesSearchResult.getResults();
+		return stores;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -291,7 +338,29 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		}
 		else
 		{
-			//TODO address map
+			final String selectedStoreAddress = request.getParameter("selectedStoreAddress");
+
+			if (StringUtils.isEmpty(selectedStoreAddress))
+			{
+				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
+				storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+				setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+				return currentStep.getView();
+			}
+
+			final List<PointOfServiceData> stores = getPointsOfService();
+			for (final PointOfServiceData store : stores)
+			{
+				if (StringUtils.equals(selectedStoreAddress, store.getAddress().getId()))
+				{
+					final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
+					final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
+					pickupOrderGroups.add(pickupData);
+					pickupData.setDeliveryPointOfService(store);
+					cartData.setPickupOrderGroups(pickupOrderGroups);
+					break;
+				}
+			}
 		}
 
 		model.addAttribute("cartData", cartData);
@@ -376,14 +445,14 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		{
 			orderData = getCheckoutFlowFacade().placeOrder();
 			model.addAttribute("orderData", orderData);
+			sendHostedOrderSuccessEmailTest(orderData);
+			setCurrentStep(HOSTED_ORDER_SUCCESS);
 		}
 		catch (final Exception e)
 		{
 			LOG.error("Failed to place Order", e);
 			setCurrentStep(HOSTED_ORDER_ERROR);
 		}
-
-		setCurrentStep(HOSTED_ORDER_SUCCESS);
 
 		model.addAttribute("metaRobots", "no-index,no-follow");
 		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
@@ -392,6 +461,100 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		model.addAttribute("currentStep", currentStep);
 		return currentStep.getView();
 	}
+
+	private void sendHostedOrderSuccessEmailTest(final OrderData orderData)
+	{
+		// Recipient's email ID needs to be mentioned.
+		final String to = "marina.zhigalova@gmail.com";
+
+		// Sender's email ID needs to be mentioned
+		final String from = "1plt@tn.ru";
+
+		// Get system properties
+		final Properties properties = System.getProperties();
+
+		// Setup mail server
+		properties.setProperty("mail.from", "1plt@tn.ru");
+		properties.setProperty("mail.replyto", "1plt@tn.ru");
+
+		properties.setProperty("mail.smtp.host", "mail.evozon.com");
+		properties.setProperty("mail.smtp.server", "mail.evozon.com");
+		properties.setProperty("mail.smtp.port", "587");
+		properties.setProperty("mail.smtp.user", "devhybris@evozon.com");
+		properties.setProperty("mail.smtp.password", ".8/Vaekjd9");
+		properties.setProperty("mail.use.tls", "true");
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+
+		// Get the default Session object.
+		final Session session = Session.getDefaultInstance(properties);
+
+		try
+		{
+			// Create a default MimeMessage object.
+			final MimeMessage message = new MimeMessage(session);
+
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("zhigalova@teamidea.ru"));
+			// Set CC: header field of the header.
+			message.addRecipient(Message.RecipientType.CC, new InternetAddress("marina.zhigalova@gmail.com"));
+
+			// Set Subject: header field
+			message.setSubject("Информация о размещенном заказе");
+
+			// Create the message part
+			final BodyPart messageBodyPart = new MimeBodyPart();
+
+			// Fill the message
+			messageBodyPart.setText(createMailBody(orderData));
+
+			// Create a multipar message
+			final Multipart multipart = new MimeMultipart();
+
+			// Set text message part
+			multipart.addBodyPart(messageBodyPart);
+
+			// Send the complete message parts
+			message.setContent(multipart);
+
+			// Send message
+			final Transport transport = session.getTransport("smtp");
+			transport.connect("mail.evozon.com", 587, "devhybris@evozon.com", ".8/Vaekjd9");
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+		}
+		catch (final MessagingException mex)
+		{
+			mex.printStackTrace();
+		}
+	}
+
+	private String createMailBody(final OrderData orderData)
+	{
+		final StringBuilder builder = new StringBuilder();
+
+		builder.append("Клиент: " + orderData.getUser().getName() + "\n");
+		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName() + "\n");
+		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
+		builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
+		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
+		builder.append("Доставка товара: " + orderData.getDeliveryMode().getCode() + "\n");
+		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
+		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
+		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");
+		for (final OrderEntryData entry : orderData.getEntries())
+		{
+			builder.append("Товар: " + entry.getProduct().getName() + "\n");
+			builder.append("Количество: " + entry.getQuantity() + "\n");
+		}
+
+		return builder.toString();
+	}
+
 
 	/**
 	 * @return the currentStep

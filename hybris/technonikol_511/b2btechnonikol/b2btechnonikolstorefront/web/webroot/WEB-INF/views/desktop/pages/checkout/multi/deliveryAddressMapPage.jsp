@@ -24,7 +24,27 @@
 	<c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
 	<form method="post" action="${next_url}">
 
-карта
+
+            <div class="checkout__row">
+                <label for="selectedStoreAddress" class="checkout__label">Выберите адрес магазина</label>
+                <select id="selectedStoreAddress" name="selectedStoreAddress" class="checkout__select">
+                    <c:forEach items="${pointsOfService}" var="store">
+                         <option value="${store.address.id}">${store.address.town} - ${store.address.line1}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            
+			карта
+			
+			<div>
+			<c:forEach items="${pointsOfService}" var="store"> <!-- TODO for selected store -->
+				<c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">
+					${weekDayOpening.weekDay} <br/>
+					${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>
+				</c:forEach>
+			</c:forEach>
+			</div>
+
 		<div class="span-20 right lsast">
 			<input type="submit" value="Далее" />
 		</div>
