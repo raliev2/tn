@@ -13,7 +13,7 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 
 <spring:theme text="Your Shopping Cart" var="title" code="cart.page.title"/>
-<c:url value="/cart/checkout" var="checkoutUrl"/>
+<c:url value="/checkout" var="checkoutUrl"/>
 <template:page pageTitle="${pageTitle}">
 	<spring:theme code="basket.add.to.cart" var="basketAddToCart"/>
 	<spring:theme code="cart.page.checkout" var="checkoutText"/>
@@ -36,7 +36,12 @@
                 <div class="clearfix">
                     <cart:continueShopping continueShoppingUrl="${continueShoppingUrl}" />
                     <div class="cart__total g-float-right">
-                        <spring:theme code="basket.page.total" />: <product:productAmount amount="16" />
+                        <c:set value="0" var="amount" />
+                        <c:forEach items="${cartData.entries}" var="entry">
+                            <c:set value="${amount}" var="old_amount" />
+                            <c:set value="${old_amount + entry.quantity}" var="amount" />
+                        </c:forEach>
+                        <spring:theme code="basket.page.total" />: <product:productAmount amount="${amount}" />
                         <cart:checkoutButton checkoutUrl="${checkoutUrl}" basketAddToCart="${basketAddToCart}" />
                     </div>
                 </div>
@@ -62,8 +67,10 @@
                 <cart:cartPotentialPromotions cartData="${cartData}"/>
             </aside>
         </c:if>
-    </section>
-        <cms:pageSlot position="MiddleContent" var="comp" element="div">
-            <cms:component component="${comp}"/>
+        <div class="clearfix"></div>
+        <cms:pageSlot position="MiddleContent" var="component" element="div" class="cart-reference">
+            <cms:component component="${component}"/>
         </cms:pageSlot>
+    </section>
+
 </template:page>

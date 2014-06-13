@@ -7,5 +7,5 @@
 <%@ attribute name="basketAddToCart" required="true" type="java.lang.String"%>
 
 <a href="${checkoutUrl}" class="button" style="margin-left:10px">
-	<spring:theme code="checkout.checkout" />
+    <spring:theme code="checkout.checkout" />
 </a>

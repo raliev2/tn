@@ -16,6 +16,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <meta name="format-detection" content="telephone=no" />
 
     <%-- Additional meta tags --%>
 	<c:forEach var="metatag" items="${metatags}">

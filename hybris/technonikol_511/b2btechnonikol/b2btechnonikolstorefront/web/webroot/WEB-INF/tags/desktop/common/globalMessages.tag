@@ -15,14 +15,14 @@
 
 <%-- Warning messages --%>
 <c:if test="${not empty accInfoMsgs}">
-	<div class="span-24">
-		<c:forEach items="${accInfoMsgs}" var="msg">
-			<div class="information-message neutral">
-				<span class="single"></span>
-				<p><spring:theme code="${msg.code}" arguments="${msg.attributes}"/></p>
-			</div>
-		</c:forEach>
-	</div>
+    <div class="span-24">
+        <c:forEach items="${accInfoMsgs}" var="msg">
+            <div class="information-message neutral">
+                <span class="single"></span>
+                <p><spring:theme code="${msg.code}" arguments="${msg.attributes}"/></p>
+            </div>
+        </c:forEach>
+    </div>
 </c:if>
 
 <%-- Error messages (includes spring validation messages)--%>

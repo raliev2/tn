@@ -27,7 +27,11 @@ function refreshMiniCart(cartResult) {
     for (var i = 0; i < cartResult['cartData']['products'].length; i++) {
         amount += parseInt(cartResult['cartData']['products'][i]['quantity']);
     }
-    $('.js-cart-amount').text(amount);
+    if ($('.js-cart-amount').length == 0) {
+        $('.link-cart').html('В корзине <span class="js-cart-amount">1</span> товар');
+    } else {
+        $('.js-cart-amount').text(amount);
+    }
 }
 ACC.product = {
 	// cached jQuery objects
@@ -54,6 +58,16 @@ ACC.product = {
                 var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
                 var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
 
+                var productID = $('input[name="productCodePost"]').val();
+                $.ajax({
+                    type : 'get',
+                    url : '/store/k/' + productID,
+                    dataType : 'html',
+                    success : function(data) {
+                        ACC.product.cartResult['productReference'] = data;
+                    }
+                });
+
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
@@ -66,13 +80,11 @@ ACC.product = {
                     ACC.product.cartResult['message'] = '<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
                     <p>Ваш заказ будет автоматически исправлен.</p>';
                     arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
-                    console.log(arr)
                     return true;
                 } else {
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     var qtySales = qtyBase / baseToSales;
                     arr[0].value = Math.ceil(qtySales);
-                    console.log(arr)
                     return true;
                 }
 
@@ -90,7 +102,7 @@ ACC.product = {
 		ACC.product.$addToCartOrderForm.ajaxForm({success: ACC.product.displayAddToCartPopup});
 	},
 
-	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {console.log(cartResult)
+	displayAddToCartPopup: function(cartResult, statusText, xhr, formElement) {
 		var productCode   = $('[name=productCodePost]', formElement).val();
 		var quantityField = $('[name=qty]', formElement).val();
 		var quantity      = 1;
@@ -107,6 +119,11 @@ ACC.product = {
 
         var tmpl = doT.template($('#addToCartTmpl').html());
         $(ACC.product.$cartPopup).html(tmpl(ACC.product.cartResult));
+        $('.product-carousel__item').removeClass('product-carousel__item_930px');
+        $('.product-carousel-item__img').removeClass('product-carousel-item__img_930px');
+        $('.block-chars__header').remove();
+
+        if (ACC.product.cartResult['productReference'] == '<div class="yCmsContentSlot"></div>') $('.cart-popup-carousel__header').remove();
         $('.carousel-product__carousel ul').each(function(indx, element){
             $(element).easyPaginate({
                 step:4,
@@ -114,6 +131,7 @@ ACC.product = {
                 controls : 'pagination' + indx
             });
         });
+
         $(ACC.product.$cartPopup).modal();
 
 	},

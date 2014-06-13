@@ -27,7 +27,7 @@
     <div class="clearfix"></div>
 
     <div class="register-form__subscribe">
-        <formUtil:formCheckbox idKey="subscribedToSmsAndEmailNotification" labelKey="registrationRequestForm.subscribedToSmsAndEmailNotification" path="subscribedToSmsAndEmailNotification" />
+        <formUtil:formCheckbox idKey="subscribedToSmsAndEmailNotification" labelKey="registrationRequestForm.subscribedToSmsAndEmailNotification" path="subscribedToSmsAndEmailNotification" checked="true" />
     </div>
     <input type="submit" class="g-button-black g-button-black_high" value="<spring:theme code='${actionNameKey}'/>" />
 

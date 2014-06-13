@@ -94,7 +94,7 @@
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
-			        <product:productPricePanel product="${product}"/>
+                    <product:productPricePanel product="${product}"/>
 
                     <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
                         <c:url value='/login' var="loginUrl"/>
@@ -107,12 +107,12 @@
                     </cms:pageSlot>
                 </div>
                 <div class="characteristics-line__col3">
-                        <p class="g-italic"><a href="javascript:void(0)" class="checkInStockPopup">Проверить наличие</a></p>
-                        <div class="stock in-stock">
-                            <span>В наличии</span>
-                            <div class="g-info"></div>
-                        </div>
-           		 </div>
+                    <p class="g-italic"><a href="javascript:void(0)" class="checkInStockPopup">Проверить наличие</a></p>
+                    <div class="stock in-stock">
+                        <span>В наличии</span>
+                        <div class="g-info"></div>
+                    </div>
+                </div>
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
@@ -121,10 +121,10 @@
                     </c:if>
                     <li class="one-characteristic">Код ТН: <span class="one-characteristic__value">${product.code}</span></li>
                     <c:if test="${not empty product.documentCode}">
-		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
+                        <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
                     <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		            <c:if test="${not empty product.weightGross}">
+                    <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
@@ -149,9 +149,9 @@
             <product:productPromotionSection product="${product}"/>
         </div>
     </div>
-    
-	<div id="checkInStockPopup">
-		<div class="check-in-stock__header">Проверка наличия</div>
+
+    <div id="checkInStockPopup">
+        <div class="check-in-stock__header">Проверка наличия</div>
         <div class="check-in-stock__body clearfix">
             <div class="check-in-stock__img">
                 <product:productPrimaryImage product="${product}" format="product"/>
@@ -172,8 +172,8 @@
             <div style="margin-top:10px;"><button class="button" onclick="addToCartAfterCheck();">Добавить в корзину</button></div>
         </div>
         <p>Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.</p>
-	</div>
-	
+    </div>
+
 </section>
 <section class="other-chars">
     <div class="block-chars">

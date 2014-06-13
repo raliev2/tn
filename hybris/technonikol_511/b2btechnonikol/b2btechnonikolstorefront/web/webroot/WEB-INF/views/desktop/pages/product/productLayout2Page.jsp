@@ -31,7 +31,7 @@
 
     </section>
     <div class="button-up clearfix">
-        <a href="javascript:void(0)" class="g-button-black button-to-up">Νΰβεπυ</a>
+        <a href="javascript:void(0)" class="g-button-black button-to-up">ΠΠ°Π²ΠµΡ€Ρ…</a>
     </div>
 </section>
 </jsp:body>

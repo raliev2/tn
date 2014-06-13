@@ -12,7 +12,8 @@
         <c:set var="referenceType" value="${productReferences[0].referenceType}"/>
 
     <div class="block-chars">
-        <div class="block-chars__header">${component.title}</div>
+        <div class="cart-reference__header">${component.title}</div>
+        <%--<div class="cart-reference__header">С этими товарами часто покупают</div>--%>
             <div class="carousel-product__carousel <c:if test="${referenceType != 'SIMILAR'}">carousel-product__carousel_height</c:if> clearfix">
             <ul>
             <c:forEach end="${component.maximumNumberProducts}" items="${productReferences}" var="productReference">
