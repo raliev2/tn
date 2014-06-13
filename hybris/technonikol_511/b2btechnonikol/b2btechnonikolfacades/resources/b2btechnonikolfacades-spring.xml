@@ -313,6 +313,13 @@
           parent="defaultProductPopulator">
 
     </bean>
+    
+	 <alias name="technonikolCartPopulator" alias="cartPopulator"/>
+
+    <bean id="technonikolCartPopulator"
+          class="com.teamidea.platform.technonikol.facades.order.populators.TechnonikolCartPopulator"
+          parent="defaultCartPopulator">
+    </bean> 
 
 
 </beans>

@@ -24,7 +24,11 @@
 	<c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
 	<form method="get" action="${next_url}">
 
-
+Выберите способ оплаты:<br />
+			<c:forEach items="${paymentMethods}" var="method">
+				<input type="radio" name="selectedPaymentMethod" value="${method.code}">${method.name}
+			</c:forEach>
+		</div>
 		<div class="span-20 right lsast">
 			<input type="submit" value="Далее" />
 		</div>
