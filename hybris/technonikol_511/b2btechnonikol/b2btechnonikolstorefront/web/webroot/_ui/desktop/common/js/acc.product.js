@@ -58,16 +58,6 @@ ACC.product = {
                 var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
                 var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
 
-                var productID = $('input[name="productCodePost"]').val();
-                $.ajax({
-                    type : 'get',
-                    url : '/store/k/' + productID,
-                    dataType : 'html',
-                    success : function(data) {
-                        ACC.product.cartResult['productReference'] = data;
-                    }
-                });
-
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
@@ -90,7 +80,18 @@ ACC.product = {
 
 
             },
-            success: ACC.product.displayAddToCartPopup
+            success: function() {
+                var productID = $('input[name="productCodePost"]').val();
+                $.ajax({
+                    type : 'get',
+                    url : '/store/k/' + productID,
+                    dataType : 'html',
+                    success : function(data) {
+                        ACC.product.cartResult['productReference'] = data;
+                        ACC.product.displayAddToCartPopup
+                    }
+                });
+            }
         });
 	},
 
