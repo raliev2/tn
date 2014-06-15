@@ -13,18 +13,18 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
         var points = new Array(
-            {
-                address : 'ул. Нижняя Масловка, д.9',
-                mode : 'с 08:00 до 13:00',
-                lat : 55.7912434,
-                lng : 37.5771832
-            },
-            {
-                address : 'ул. Мишина, д.35',
-                mode : 'с 09:00 до 19:00',
-                lat : 55.79662,
-                lng : 37.561908
-            }
+                {
+                    address : 'ул. Нижняя Масловка, д.9',
+                    mode : 'с 08:00 до 13:00',
+                    lat : 55.7912434,
+                    lng : 37.5771832
+                },
+                {
+                    address : 'ул. Мишина, д.35',
+                    mode : 'с 09:00 до 19:00',
+                    lat : 55.79662,
+                    lng : 37.561908
+                }
         );
         var markers = new Array();
         $(document).ready(function() {
@@ -119,23 +119,29 @@
         <p class="g-strong">Клиентское обслуживание в любое время суток</p>
         <p style="margin-bottom:20px">По вопросам и проблемам с доставкой - звонить на номер <spring:theme code="common.telephone" /></p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
-        <form method="get" action="${next_url}">
-        <div class="checkout__wrapper clearfix">
-            <div class="checkout__body">
-                <div class="checkout__row">
-                    <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
-                    <select id="selectedShopAddress" name="selectedShopAddress" class="checkout__select">
-                        <option value="ул. Нижняя Масловка, д.9" rel="0">ул. Нижняя Масловка, д.9</option>
-                        <option value="ул. Мишина, д.35" rel="1">ул. Мишина, д.35</option>
-                    </select>
+        <form method="post" action="${next_url}">
+            <div class="checkout__wrapper clearfix">
+                <div class="checkout__body">
+                    <div class="checkout__row">
+                        <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
+                        <select id="selectedShopAddress" name="selectedShopAddress" class="checkout__select">
+                            <option value="ул. Нижняя Масловка, д.9" rel="0">ул. Нижняя Масловка, д.9</option>
+                            <option value="ул. Мишина, д.35" rel="1">ул. Мишина, д.35</option>
+                        </select>
+                        <c:forEach items="${pointsOfService}" var="store"> <!-- TODO for selected store -->
+                            <c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">
+                                ${weekDayOpening.weekDay} <br/>
+                                ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>
+                            </c:forEach>
+                        </c:forEach>
+                    </div>
                 </div>
+                <div class="checkout__map" id="checkout__map"></div>
+                <p class="g-strong js-address">ул. Нижняя Масловка, д.9</p>
+                <p class="checkout__mode">Режим работы: <span class="g-strong js-mode">с 08:00 до 13:00</span></p>
+                <input type="submit" value="Далее" class="button button_big g-float-right" />
+                <div class="g-float-right checkout__back"><a href="#" class="g-link-blue">Назад</a></div>
             </div>
-            <div class="checkout__map" id="checkout__map"></div>
-            <p class="g-strong js-address">ул. Нижняя Масловка, д.9</p>
-            <p class="checkout__mode">Режим работы: <span class="g-strong js-mode">с 08:00 до 13:00</span></p>
-            <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <div class="g-float-right checkout__back"><a href="#" class="g-link-blue">Назад</a></div>
-        </div>
         </form>
     </section>
 </template:page>
