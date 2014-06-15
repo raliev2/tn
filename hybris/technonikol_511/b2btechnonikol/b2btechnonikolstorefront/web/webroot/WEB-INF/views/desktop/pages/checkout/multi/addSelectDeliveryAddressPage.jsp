@@ -36,7 +36,7 @@
                 <div class="checkout__body">
                     <div class="checkout__row">
                         <label for="selectedCostCenter" class="checkout__label">Выберите адрес доставки</label>
-                        <select name="selectedDeliveryAddress" class="checkout__select">
+                        <select id="selectedCostCenter" name="selectedDeliveryAddress" class="checkout__select">
                             <c:forEach items="${deliveryAddresses}" var="address">
                                 <option value="${address.id}">${address.town} - ${address.line1}</option>
                             </c:forEach>
@@ -66,12 +66,4 @@
         </div>
     </form:form>
 </section>
-<%--
-
-
-
-	<div class="span-20 right lsast">
-		<input type="submit" value="Назад"/>
-	</div>
-	--%>
 </template:page>
