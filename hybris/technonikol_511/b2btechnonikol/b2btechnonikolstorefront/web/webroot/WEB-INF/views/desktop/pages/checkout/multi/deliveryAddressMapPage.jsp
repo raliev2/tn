@@ -128,12 +128,12 @@
                             <option value="ул. Нижняя Масловка, д.9" rel="0">ул. Нижняя Масловка, д.9</option>
                             <option value="ул. Мишина, д.35" rel="1">ул. Мишина, д.35</option>
                         </select>
-                        <c:forEach items="${pointsOfService}" var="store"> <!-- TODO for selected store -->
+                        <%--<c:forEach items="${pointsOfService}" var="store">
                             <c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">
                                 ${weekDayOpening.weekDay} <br/>
                                 ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>
                             </c:forEach>
-                        </c:forEach>
+                        </c:forEach>--%>
                     </div>
                 </div>
                 <div class="checkout__map" id="checkout__map"></div>
