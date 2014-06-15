@@ -2276,13 +2276,24 @@ select.checkout__select {
   display: inline-block;
   border-right:1px solid #fff;
   .gradient(rgb(88,89,88),rgb(52,51,52));
-  /*-webkit-transform: skewX(-30deg);
+  -webkit-transform: skewX(-30deg);
   -moz-transform: skewX(-30deg);
   -o-transform: skewX(-30deg);
   -ms-transform: skewX(-30deg);
-  transform: skewX(-30deg);*/
+  transform: skewX(-30deg);
 }
-
+.checkout__step:first-child {
+  margin-left:-6px;
+}
+.checkout__step:first-child a {
+  padding-left:18px;
+}
+.checkout__step:last-child {
+  margin-right:-6px;
+}
+.checkout__step:last-child a {
+  padding-right:18px;
+}
 .checkout__step:last-child {
   border-right:none;
 }
@@ -2291,11 +2302,11 @@ select.checkout__select {
   padding:6px 12px;
   color:#fff;
   font-size:13px;
-  /*-webkit-transform: skewX(30deg);
+  -webkit-transform: skewX(30deg);
   -moz-transform: skewX(30deg);
   -o-transform: skewX(30deg);
   -ms-transform: skewX(30deg);
-  transform: skewX(30deg);*/
+  transform: skewX(30deg);
 }
 .checkout__step a:hover {
   text-decoration: none;
@@ -2307,5 +2318,11 @@ select.checkout__select {
 .checkout__step.checkout__step_current {
   .gradient(rgb(184,0,4),rgb(158,0,1));
 }
-
+.checkout__map {
+  margin:15px 0;
+}
+.js-address, .checkout__mode {
+  font-size: 12px;
+  margin-bottom:5px;
+}
 /*END CHECKOUT*/
