@@ -8,30 +8,43 @@
 <%@ taglib prefix="checkout" tagdir="/WEB-INF/tags/desktop/checkout"%>
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 
-<!--  
-	<div id="breadcrumb" class="breadcrumb">
-		<breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}"/>
-	</div> -->
-
-
 <template:page pageTitle="${currentStep.name}">
 
+<section class="g-main-content checkout">
+    <div id="globalMessages">
+        <common:globalMessages />
+    </div>
+    <div class="checkout__steps clearfix">
+        <ul class="checkou-steps__list clearfix g-float-left">
+            <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Адрес доставки</a></li>
+            <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Способ доставки</a></li>
+            <li class="checkout__step checkout__step_current"><a href="javascript:void(0)">Способ оплаты</a></li>
+            <li class="checkout__step"><a href="javascript:void(0)">Проверка заказа</a></li>
+            <li class="checkout__step"><a href="javascript:void(0)">Готово</a></li>
+        </ul>
+    </div>
+    <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
+    <p style="margin-bottom:20px"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
+    <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
+    <form method="get" action="${next_url}">
+        <div class="checkout__wrapper clearfix">
+            <div class="checkout__body">
+                <p class="g-strong">Способ оплаты</p>
 
-	<div id="globalMessages">
-		<common:globalMessages />
-	</div>
+                <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" />
+                <label for="selectedPaymentMethod${method.code}" style="margin-right:30px;">Предоплата</label>
 
-	<c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
-	<form method="get" action="${next_url}">
+                <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" />
+                <label for="selectedPaymentMethod${method.code}">Отсрочка платежа</label>
 
-Выберите способ оплаты:<br />
-			<c:forEach items="${paymentMethods}" var="method">
-				<input type="radio" name="selectedPaymentMethod" value="${method.code}">${method.name}
-			</c:forEach>
-		</div>
-		<div class="span-20 right lsast">
-			<input type="submit" value="Далее" />
-		</div>
+                <c:forEach items="${paymentMethods}" var="method">
+                    <input type="radio" name="selectedPaymentMethod" value="${method.code}">${method.name}
+                </c:forEach>
+            </div>
 
-	</form>
+            <input type="submit" value="Далее" class="button button_big g-float-right" />
+            <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
+        </div>
+    </form>
+</section>
 </template:page>
