@@ -7,6 +7,7 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template"%>
 <%@ taglib prefix="checkout" tagdir="/WEB-INF/tags/desktop/checkout"%>
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <template:page pageTitle="${currentStep.name}">
@@ -14,17 +15,25 @@
     <script>
         var points = new Array(
                 {
-                    address : 'ул. Нижняя Масловка, д.9',
-                    mode : 'с 08:00 до 13:00',
-                    lat : 55.7912434,
-                    lng : 37.5771832
-                },
-                {
-                    address : 'ул. Мишина, д.35',
-                    mode : 'с 09:00 до 19:00',
-                    lat : 55.79662,
-                    lng : 37.561908
+                    address : '${pointsOfService[0].address.formattedAddress}',
+                    mode : '<c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
+                                ${weekDayOpening.weekDay} <br/>\
+                                ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                            </c:forEach>',
+                    lat : ${pointsOfService[0].geoPoint.latitude},
+                    lng : ${pointsOfService[0].geoPoint.longitude}
                 }
+                <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus" begin="1">
+                    ,{
+                        address : '${store.address.formattedAddress}',
+                        mode : '<c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">\
+                                    ${weekDayOpening.weekDay} <br/>\
+                                    ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                                </c:forEach>',
+                    lat : ${store.geoPoint.latitude},
+                    lng : ${store.geoPoint.longitude}
+                    }
+                </c:forEach>
         );
         var markers = new Array();
         $(document).ready(function() {
@@ -124,23 +133,23 @@
                 <div class="checkout__body">
                     <div class="checkout__row">
                         <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
-                        <select id="selectedShopAddress" name="selectedShopAddress" class="checkout__select">
-                            <option value="ул. Нижняя Масловка, д.9" rel="0">ул. Нижняя Масловка, д.9</option>
-                            <option value="ул. Мишина, д.35" rel="1">ул. Мишина, д.35</option>
-                        </select>
-                        <%--<c:forEach items="${pointsOfService}" var="store">
-                            <c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">
-                                ${weekDayOpening.weekDay} <br/>
-                                ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>
+                        <select id="selectedShopAddress" name="selectedStore" class="checkout__select">
+                            <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus">
+                                <option value="${store.name}" rel="${varstatus.index}">${store.address.formattedAddress}</option>
                             </c:forEach>
-                        </c:forEach>--%>
+                        </select>
                     </div>
                 </div>
                 <div class="checkout__map" id="checkout__map"></div>
-                <p class="g-strong js-address">ул. Нижняя Масловка, д.9</p>
-                <p class="checkout__mode">Режим работы: <span class="g-strong js-mode">с 08:00 до 13:00</span></p>
+                <p class="g-strong js-address">${pointsOfService[0].address.formattedAddress}</p>
+                <p class="checkout__mode">Режим работы: <span class="g-strong js-mode">
+                    <c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
+                        ${weekDayOpening.weekDay} <br/>\
+                        ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                    </c:forEach>
+                </span></p>
                 <input type="submit" value="Далее" class="button button_big g-float-right" />
-                <div class="g-float-right checkout__back"><a href="#" class="g-link-blue">Назад</a></div>
+                <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
             </div>
         </form>
     </section>

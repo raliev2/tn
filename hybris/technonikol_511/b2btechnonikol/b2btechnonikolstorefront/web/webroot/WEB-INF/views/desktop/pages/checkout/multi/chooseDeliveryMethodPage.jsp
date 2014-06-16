@@ -31,7 +31,7 @@
                 <span class="checkout__label">Выберите метод доставки</span>
                 <c:forEach items="${deliveryMethods}" var="method">
                     <input type="radio" id="${method.code}" name="selectedDeliveryMethod" value="${method.code}" required />
-                    <label for="${method.code}" class="label-radio">${method.name}</label>
+                    <label for="${method.code}" class="label-radio"><spring:theme code="${method.name}"/></label>
                 </c:forEach>
             </div>
         </div>
