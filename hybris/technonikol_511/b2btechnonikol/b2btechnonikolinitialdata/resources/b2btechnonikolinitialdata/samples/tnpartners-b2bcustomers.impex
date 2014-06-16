@@ -11,23 +11,23 @@ INSERT_UPDATE Employee;UID[unique=true];description;name;phone1;contactEmail;gro
 ;managerP1;Manager Petr;Петр Иванов;7(926)7412589;managerA@tn.ru;;;;
 
 # Партнеры-родители
-INSERT_UPDATE TNPartner;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId);accountManager(uid);;;
-;PartnerTOP	;TNPartner1	;Partner #1	;Partner #1	;Партнер №1	; ;TNPartner1;TNPartner1AddrID1,TNPartner1AddrID3,TNPartner1AddrID4;TNPartner1AddrID1;TNPartner1AddrID3;TNPartner1AddrID4;managerP1;;;
-;Partner Unit A	;Partner Retail;Partner Retail	;Partner Retail	;Партнер Ретэйл	;TNPartner1	;TNPartner1;TNPartner1AddrID2;
+INSERT_UPDATE TNPartner;description;uid[unique=true];name;locName[lang=ru];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId);accountManager(uid);;;
+;PartnerTOP	;TNPartner1	;Partner #1	;Партнер №1	; ;TNPartner1;TNPartner1AddrID1,TNPartner1AddrID3,TNPartner1AddrID4;TNPartner1AddrID1;TNPartner1AddrID3;TNPartner1AddrID4;managerP1;;;
+;Partner Unit A	;Partner Retail;Partner Retail	;Партнер Ретэйл	;TNPartner1	;TNPartner1;TNPartner1AddrID2;
 
 # Партнеры-контрагенты
-INSERT_UPDATE TNContractor;description;uid[unique=true];name;locName[lang=en];locName[lang=ru];inn;kpp;okpo;privatePerson[default=FALSE];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId)
-;Contractor A;TNContractorA;Contractor A;Contractor A;Контрагент А;778596254125;447854125;3564789541412564;TRUE;"TNPartner1	";TNPartner1;TNContractor1AddrID1,TNContractor1AddrID2,TNContractor1AddrID3;TNContractor1AddrID1;TNContractor1AddrID2;TNContractor1AddrID3
+INSERT_UPDATE TNContractor;description;uid[unique=true];name;locName[lang=ru];inn;kpp;okpo;privatePerson[default=FALSE];groups(uid);reportingOrganization(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId)
+;Contractor A;TNContractorA;Contractor A;Контрагент А;778596254125;447854125;3564789541412564;TRUE;"TNPartner1	";TNPartner1;TNContractor1AddrID1,TNContractor1AddrID2,TNContractor1AddrID3;TNContractor1AddrID1;TNContractor1AddrID2;TNContractor1AddrID3
 
 # Список адресов партнеров
-INSERT_UPDATE Address;&addId;owner(TNPartner.uid|TNContractor.uid)[unique=true];streetname[unique=true];postalcode;town;country(isocode)[default=RU];billingAddress[default=TRUE];contactAddress[default=TRUE];shippingAddress[default=TRUE];unloadingAddress[default=TRUE];firstname;lastname;middlename;email;
-;TNPartner1AddrID1;TNPartner1;1117001, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;Иван;Сидоров;Петрович;manager1@tn.ru;
-;TNPartner1AddrID3;TNPartner1;1117001, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;
-;TNPartner1AddrID4;TNPartner1;1117001, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;Иван;Сидоров;Петрович;manager1@tn.ru;
-;TNPartner1AddrID2;Partner Retail;1117001, Москва, Красная площадь д.1;;;;TRUE;TRUE;TRUE;TRUE;Петр;Иванов;Сергеевич;namager2@tn.tn;
-;TNContractor1AddrID1;TNContractorA;143005, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;Иван;;;;
-;TNContractor1AddrID2;TNContractorA;143005, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;Иван;;;;
-;TNContractor1AddrID3;TNContractorA;143005, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;Иван;;;;
+INSERT_UPDATE Address;&addId;owner(TNPartner.uid|TNContractor.uid)[unique=true];streetname[unique=true];postalcode;town;country(isocode)[default=RU];billingAddress[default=TRUE];contactAddress[default=TRUE];shippingAddress[default=TRUE];unloadingAddress[default=TRUE];
+;TNPartner1AddrID1;TNPartner1;1117001, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;
+;TNPartner1AddrID3;TNPartner1;1117001, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;
+;TNPartner1AddrID4;TNPartner1;1117001, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;
+;TNPartner1AddrID2;Partner Retail;1117001, Москва, Красная площадь д.1;;;;TRUE;TRUE;TRUE;TRUE;
+;TNContractor1AddrID1;TNContractorA;143005, Москва, Ленинский пр-т. д.12;;;;TRUE;TRUE;TRUE;TRUE;
+;TNContractor1AddrID2;TNContractorA;143005, Москва, Ленинский пр-т. д.13;;;;FALSE;TRUE;FALSE;FALSE;
+;TNContractor1AddrID3;TNContractorA;143005, Москва, Ленинский пр-т. д.14;;;;FALSE;FALSE;TRUE;FALSE;
 
 # Контактные лица партнера
 INSERT_UPDATE B2BCustomer;description;uid[unique=true];originalUid;email;phone1;name;groups(uid);sessionCurrency(isocode)[default='RUB'];$setPassword

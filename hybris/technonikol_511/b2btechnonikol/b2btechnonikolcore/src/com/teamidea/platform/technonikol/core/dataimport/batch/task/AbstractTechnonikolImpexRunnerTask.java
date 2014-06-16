@@ -19,11 +19,9 @@ import de.hybris.platform.servicelayer.user.UserService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
@@ -32,7 +30,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.util.Assert;
 
 import com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService;
-import com.teamidea.platform.technonikol.core.dataimport.batch.utils.IOUtilsExt;
+import com.teamidea.platform.technonikol.core.dataimport.exception.ImpexImportException;
 
 
 /**
@@ -48,12 +46,6 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 	private UserService userService;
 	private String sessionUser;
 	private ImpexLoggerService loggerService;
-
-	private static final String ERROR_FILE_PREFIX = "error_";
-	private static final String ELEMENT_LOG = "log";
-	private static final String ELEMENT_ERROR = "error";
-	private static final String ELEMENT_ERROR_LINE = "line";
-	private static final String ELEMENT_ERROR_DUMP = "dump";
 
 	//private final String encoding = CSVConstants.HYBRIS_ENCODING;
 
@@ -98,16 +90,13 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 	 * @param encoding
 	 * @throws FileNotFoundException
 	 */
-	protected void processFile(final File file, final String encoding) throws UnsupportedEncodingException, FileNotFoundException,
-			XMLStreamException
+	protected void processFile(final File file, final String encoding) throws FileNotFoundException, ImpexImportException
 	{
 		if (log.isDebugEnabled())
 		{
 			log.debug(">> AbstractTechnonikolImpexRunnerTask.processFile(File, String)");
 		}
 		FileInputStream fis = null;
-		XMLStreamWriter errorWriter = null;
-		PrintWriter statusWriter = null;
 		try
 		{
 			fis = new FileInputStream(file);
@@ -124,19 +113,12 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 					unresolvedLines = importResult.getUnresolvedLines();
 				}
 
-				statusWriter = loggerService.writeStatus(file, statusWriter, "Error");
-				errorWriter = loggerService.writeXmlError(file, errorWriter, unresolvedLines, importResult.getCronJob().getLogs());
-			}
-			else
-			{
-				statusWriter = loggerService.writeStatus(file, statusWriter, "Ok");
+				throw new ImpexImportException("Impex import failed", file, unresolvedLines, importResult.getCronJob().getLogs());
 			}
 		}
 		finally
 		{
 			IOUtils.closeQuietly(fis);
-			IOUtils.closeQuietly(statusWriter);
-			IOUtilsExt.closeQuietly(errorWriter);
 		}
 	}
 

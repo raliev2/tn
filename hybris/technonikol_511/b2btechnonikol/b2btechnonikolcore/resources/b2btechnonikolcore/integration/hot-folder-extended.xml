@@ -21,7 +21,7 @@
     
     <!-- General setup -->
     <bean id="cleanupBigPackageHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
-		<property name="timeStampFormat" value="yyyyMMddHHmmssSSS" />
+		<property name="timeStampFormat" value="" />
 		<property name="loggerService" ref="loggerService"/>
 	</bean>
 	
@@ -31,9 +31,10 @@
 		<property name="cleanupBigPackageHelper" ref="cleanupBigPackageHelper" />
 	</bean>
     
-    <!-- 1) Scan for files -->
+    <!-- 1) Scan for files <COD>_<GUID>_<PACK_NUM>_<SEQUENCE>-<TOTAL>_F.ext.impex -->
     <file:inbound-channel-adapter id="fileScannerAdapter" directory="#{baseDirectoryTechnonikol}"
-                                  filename-regex="(\D+?)(\d+?)_(\d+?)-(\d+?).ext.impex" comparator="fileOrderComparator" prevent-duplicates="false">
+                                  filename-regex="^([a-zA-Z]){3}_[0-9a-fA-F-]+?_(\d+?)_(\d+?)-(\d+?)(_[FfRr]){0,1}\.ext\.impex" 
+                                  comparator="fileOrderComparator" prevent-duplicates="false" >
         <int:poller fixed-rate="1000" />
     </file:inbound-channel-adapter>
 
