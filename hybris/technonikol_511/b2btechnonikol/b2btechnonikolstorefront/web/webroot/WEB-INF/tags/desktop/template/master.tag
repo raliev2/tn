@@ -16,6 +16,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <meta name="format-detection" content="telephone=no" />
 
     <%-- Additional meta tags --%>
 	<c:forEach var="metatag" items="${metatags}">
@@ -30,12 +32,13 @@
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/anythingslider.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/easyzoom.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="${commonResourcePath}/css/jquery-ui-1.10.4.custom.css"/>
 
     <%-- Favourite Icon --%>
     <spring:theme code="img.favIcon" text="/" var="favIconPath"/>
     <link rel="shortcut icon" type="image/x-icon" media="all" href="${originalContextPath}${favIconPath}" />
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
+    <script src="http://yandex.st/jquery/1.11.0/jquery.min.js"  type="text/javascript"></script>
     <script>if( !window.jQuery )document.write('<script src="${themeResourcePath}/js/lib/jquery-1.11.1.min.js" charset="utf-8"><'+'/script>');</script>
     <script>
         var themeResourcePath = '${themeResourcePath}';
@@ -78,6 +81,8 @@
     <script type="text/javascript" src="${themeResourcePath}/js/lib/easypaginate.js"></script>
     <script type='text/javascript' src="${themeResourcePath}/js/lib/jquery.easing.1.2.js"></script>
     <script type="text/javascript" src="${themeResourcePath}/js/scripts.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/modal.window.js"></script>
+    <script type="text/javascript" src="${themeResourcePath}/js/lib/doT.min.js"></script>
 </div>
 
 </body>

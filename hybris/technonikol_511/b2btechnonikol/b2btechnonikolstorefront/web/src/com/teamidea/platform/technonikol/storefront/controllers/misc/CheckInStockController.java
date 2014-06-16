@@ -3,11 +3,13 @@
  */
 package com.teamidea.platform.technonikol.storefront.controllers.misc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
@@ -35,15 +37,14 @@ public class CheckInStockController extends AbstractController
 	private static final String PRODUCT_CODE = "productCode";
 	private static final String PRODUCT_COUNT = "count";
 	private static final String ERROR_MESSAGE = "errorMessage";
-	private static final String AVAILABILITY_MESSAGE = "availabilityMessage";
-	private static final String POST_DATE = "postDate";
+	private static final String ROWS = "rows";
 
 	protected static final Logger LOG = Logger.getLogger(CheckInStockController.class);
 
 	@Resource(name = "deliveryDateIntegrationService")
 	private DeliveryDateIntegrationService deliveryDateIntegrationService;
 
-	@RequestMapping(value = "/stock/check", method = RequestMethod.GET)
+	@RequestMapping(value = "/stock/checkProduct", method = RequestMethod.GET)
 	public String checkStock(final HttpServletRequest request, final Model model)
 	{
 		final String productCode = request.getParameter(PRODUCT_CODE);
@@ -55,35 +56,30 @@ public class CheckInStockController extends AbstractController
 		if (response == null || response.getReturn() == null || response.getReturn().getMaterials() == null)
 		{
 			LOG.debug("Error while trying to get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Ошибка при получении информации о сроках доставки товара с артикулом " + productCode);
-			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+			model.addAttribute(ERROR_MESSAGE, "Ошибка получения данных");
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 		}
 
 		final List<MaterialsRow> deliveryInfo = response.getReturn().getMaterials().getRow();
-		MaterialsRow productInfo = null;
+		final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
 		for (final MaterialsRow row : deliveryInfo)
 		{
 			if (StringUtils.equals(row.getEKN(), productCode))
 			{
-				productInfo = row;
+				productInfo.add(row);
 			}
 		}
 
-		if (productInfo == null)
+		if (CollectionUtils.isEmpty(productInfo))
 		{
 			LOG.debug("Didn't get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Отсутствуют данные о сроках доставки товара с артикулом " + productCode);
-			return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 		}
 
-		final String availabilityMessage = StringUtils.equals(productInfo.getCount(), "0") ? " недоступен" : (StringUtils.equals(
-				productInfo.getCount(), count) ? " доступен полностью (количество: " + productInfo.getCount() + ")"
-				: " доступен частично (количество: " + productInfo.getCount() + ")");
+		model.addAttribute(ROWS, productInfo);
+		model.addAttribute(PRODUCT_COUNT, count);
 
-		model.addAttribute(PRODUCT_CODE, productCode);
-		model.addAttribute(POST_DATE, productInfo.getDatePost());
-		model.addAttribute(AVAILABILITY_MESSAGE, availabilityMessage);
-
-		return ControllerConstants.Views.Fragments.Stock.CheckStockPopup;
+		return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 	}
 }

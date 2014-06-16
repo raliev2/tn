@@ -1,0 +1,28 @@
+# Import B2B Organizations
+
+$lang=ru
+$lang_en=en
+
+$passwordEncoding=md5
+$defaultPassword=1234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+
+# ѕартнеры-родители
+INSERT_UPDATE TNPartner[impex.legacy.mode=true];uid[unique=true];active[default=true];description;name;locName[lang=$lang];locName[lang=$lang_en]
+;c989e88a-819a-11e3-8416-00505601094c;;"‘орт√рад (родитель)";"‘орт√рад (родитель)";"‘орт√рад (родитель)";"‘орт√рад (родитель)"
+
+INSERT_UPDATE TNContractor[impex.legacy.mode=true];uid[unique=true];active[default=true];description;name;locName[lang=$lang];locName[lang=$lang_en];inn;kpp;okpo;privatePerson[default=FALSE];groups(uid);Addresses(&addId);billingAddress(&addId);contactAddress(&addId);shippingAddress(&addId)
+;973ee02c-978d-11e2-8189-0050560106c8;;"ќќќ ""‘орт√рад""";"‘орт√рад";"‘орт√рад";"‘орт√рад";5262281365;526201001;;FALSE;c989e88a-819a-11e3-8416-00505601094c;973ee02c-978d-11e2-8189-0050560106c8_AddrID1,973ee02c-978d-11e2-8189-0050560106c8_AddrID2,973ee02c-978d-11e2-8189-0050560106c8_AddrID3;973ee02c-978d-11e2-8189-0050560106c8_AddrID1;973ee02c-978d-11e2-8189-0050560106c8_AddrID2;973ee02c-978d-11e2-8189-0050560106c8_AddrID3
+
+INSERT_UPDATE Address;&addId;owner(TNPartner.uid|TNContractor.uid)[unique=true];streetname[unique=true];postalcode;town;country(isocode)[default=RU];billingAddress[default=TRUE];contactAddress[default=TRUE];shippingAddress[default=TRUE];unloadingAddress[default=TRUE];
+;973ee02c-978d-11e2-8189-0050560106c8_AddrID1;973ee02c-978d-11e2-8189-0050560106c8;"603022, Ќижегородска€ обл., г.Ќижний Ќовгород, ул.—туденческа€, д.17а";;;"RU";TRUE;FALSE;FALSE
+;973ee02c-978d-11e2-8189-0050560106c8_AddrID2;973ee02c-978d-11e2-8189-0050560106c8;;;;;FALSE;TRUE;FALSE
+;973ee02c-978d-11e2-8189-0050560106c8_AddrID3;973ee02c-978d-11e2-8189-0050560106c8;;;;;FALSE;FALSE;TRUE
+
+
+INSERT_UPDATE B2BCustomer;uid[unique=true];originalUid;email;phone1;name;groups(uid);description;sessionCurrency(isocode)[default='RUB']
+;rrt2@yandex.ru;rrt2@yandex.ru;aliev@teamidea.ru;;"јлексей";c989e88a-819a-11e3-8416-00505601094c,b2badmingroup;"јлексей";
+
+UPDATE B2BCustomer;uid[unique=true];$setPassword
+;rrt2@yandex.ru;

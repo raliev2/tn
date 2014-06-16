@@ -16,6 +16,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
+
 <section class="clearfix">
     <%--
     <div class="also-viewed">
@@ -93,7 +94,7 @@
         <div class="product-info__characteristics">
             <div class="characteristics__line clearfix">
                 <div class="characteristics-line__col1">
-			        <product:productPricePanel product="${product}"/>
+                    <product:productPricePanel product="${product}"/>
 
                     <sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
                         <c:url value='/login' var="loginUrl"/>
@@ -106,35 +107,34 @@
                     </cms:pageSlot>
                 </div>
                 <div class="characteristics-line__col3">
-                    <p class="g-italic">Наличие</p>
-                    <div class="stock in-stock"><span>В наличии</span>
-                    <c:url value="/stock/check?productCode=${product.code}&count=0" var="check_stock_url"/>
-                    <div class="g-info" onclick="window.open('${check_stock_url}', 'check in stock', 'height=100,width=200');">
+                    <p class="g-italic"><a href="javascript:void(0)" class="checkInStockPopup">Проверить наличие</a></p>
+                    <div class="stock in-stock">
+                        <span>В наличии</span>
+                        <div class="g-info"></div>
                     </div>
                 </div>
-            </div>
             </div>
             <div class="characteristics__line clearfix">
                 <ul>
                     <c:if test="${not empty product.manufacturerCode}">
                         <li class="one-characteristic identifier"><span class="type" title="mpn">Артикул</span>: <span class="one-characteristic__value value">${product.manufacturerCode}</span></li>
                     </c:if>
-                    <li class="one-characteristic">код ТН: <span class="one-characteristic__value">${product.code}</span></li>
+                    <li class="one-characteristic">Код ТН: <span class="one-characteristic__value">${product.code}</span></li>
                     <c:if test="${not empty product.documentCode}">
-		                <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
+                        <li class="one-characteristic">КодГОСТ/КодТУ: <span class="one-characteristic__value">${product.documentCode}</span></li>
                     </c:if>
-                  <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
-		   <c:if test="${not empty product.weightGross}">
+                    <!--  <li class="one-characteristic">Страница каталога: <span class="one-characteristic__value">1186</span></li>-->
+                    <c:if test="${not empty product.weightGross}">
                         <li class="one-characteristic">Отгрузочный вес (брутто): <span class="one-characteristic__value">${product.weightGross}</span></li>
                     </c:if>
                     <c:if test="${not empty product.weightNet}">
-                        <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet}</span></li>
+                        <li class="one-characteristic">Вес нетто: <span class="one-characteristic__value">${product.weightNet} кг</span></li>
                     </c:if>
                     <c:if test="${not empty product.productType.name}">
                         <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
                     </c:if>
                     <c:if test="${not empty product.volume}">
-                        <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume}</span></li>
+                        <li class="one-characteristic">Объем: <span class="one-characteristic__value">${product.volume} м3</span></li>
                     </c:if>
                     <c:if test="${not empty product.quantityInPackage}">
                         <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
@@ -149,6 +149,31 @@
             <product:productPromotionSection product="${product}"/>
         </div>
     </div>
+
+    <div id="checkInStockPopup">
+        <div class="check-in-stock__header">Проверка наличия</div>
+        <div class="check-in-stock__body clearfix">
+            <div class="check-in-stock__img">
+                <product:productPrimaryImage product="${product}" format="product"/>
+            </div>
+            <div class="g-float-left">
+                <h3>${product.name}</h3>
+                <p>Артикул: ${product.manufacturerCode}</p>
+                <p style="margin-top:10px;">
+                    <label for="popup-qty">Количество:</label>
+                    <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" />
+                    <c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
+                    <button class="g-button-black" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>
+                </p>
+            </div>
+        </div>
+        <div class="check-in-stock__result">
+            <div class="check-in-stock__result_text"></div>
+            <div style="margin-top:10px;"><button class="button" onclick="addToCartAfterCheck();">Добавить в корзину</button></div>
+        </div>
+        <p>Наличие товара на складе, его окончательная стоимость и стоимость заказа будут пересчитаны на последнем шаге оформления корзины.</p>
+    </div>
+
 </section>
 <section class="other-chars">
     <div class="block-chars">

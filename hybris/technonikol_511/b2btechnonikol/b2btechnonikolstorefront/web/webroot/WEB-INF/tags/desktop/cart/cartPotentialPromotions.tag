@@ -10,23 +10,13 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <c:if test="${not empty cartData.potentialOrderPromotions}">
-	<div class="item_container_holder promo">
-		<div class="title_holder">
-			<div class="title">
-				<div class="title-top">
-					<span></span>
-				</div>
-			</div>
-			<h2><spring:theme code="basket.potential.promotions" /></h2>
-		</div>
-		<div class="item_container">
-			<ycommerce:testId code="potentialPromotions_promotions_labels">
-				<ul>
-					<c:forEach items="${cartData.potentialOrderPromotions}" var="promotion">
-						<li class="cart-promotions-potential">${promotion.description}</li>
-					</c:forEach>
-				</ul>
-			</ycommerce:testId>
-		</div>
-	</div>
+    <div class="item_container">
+        <ycommerce:testId code="potentialPromotions_promotions_labels">
+            <ul>
+                <c:forEach items="${cartData.potentialOrderPromotions}" var="promotion">
+                    <li class="cart-promotions__applied-item">${promotion.description}</li>
+                </c:forEach>
+            </ul>
+        </ycommerce:testId>
+    </div>
 </c:if>

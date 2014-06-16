@@ -21,16 +21,17 @@
         <div class="auth_links">
             <ul class="nav">
 				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
-					<li class="logged_in"><ycommerce:testId code="header_LoggedUser"><spring:theme code="header.welcome" arguments="${user.firstName},${user.lastName}" htmlEscape="true"/></ycommerce:testId></li>
+					<li class="hello"><ycommerce:testId code="header_LoggedUser"><spring:theme code="header.welcome" arguments="${user.firstName},${user.lastName}" htmlEscape="true"/></ycommerce:testId></li>
 				</sec:authorize>
 				<sec:authorize ifNotGranted="ROLE_CUSTOMERGROUP">
 					<li><ycommerce:testId code="header_Login_link"><a href="<c:url value='/login'/>"><spring:theme code="header.link.login"/></a></ycommerce:testId></li>
+                    <li><ycommerce:testId code="header_Register_link"><a href="<c:url value='/register'/>"><spring:theme code="header.link.register"/></a></ycommerce:testId></li>
 				</sec:authorize>
-				<li><ycommerce:testId code="header_myAccount"><a href="<c:url value='/my-account'/>"><spring:theme code="header.link.account"/></a></ycommerce:testId></li>
 				<sec:authorize ifAnyGranted="ROLE_B2BADMINGROUP">
 					<li><ycommerce:testId code="header_myCompany"><a href="<c:url value='/my-company/organization-management'/>"><spring:theme code="header.link.company"/></a></ycommerce:testId></li>
 				</sec:authorize>
 				<sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
+                    <li><ycommerce:testId code="header_myAccount"><a href="<c:url value='/my-account'/>"><spring:theme code="header.link.account"/></a></ycommerce:testId></li>
 					<li><ycommerce:testId code="header_signOut"><a href="<c:url value='/logout'/>"><spring:theme code="header.link.logout"/></a></ycommerce:testId></li>
 				</sec:authorize>
 			</ul>
@@ -42,5 +43,9 @@
             <cms:component component="${cart}"/>
         </cms:pageSlot>
     </div>
+
+<%--	<cms:pageSlot position="MiniCart" var="cart" limit="1">
+		<cms:component component="${cart}"/>
+	</cms:pageSlot> --%>
 
 </header>

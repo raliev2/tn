@@ -14,9 +14,13 @@
 package com.teamidea.platform.technonikol.facades.flow;
 
 import de.hybris.platform.b2bacceleratorfacades.order.B2BCheckoutFacade;
+import de.hybris.platform.b2bacceleratorfacades.order.data.B2BCostCenterData;
 import de.hybris.platform.commercefacades.order.CheckoutFacade;
+
 import com.teamidea.platform.technonikol.core.enums.B2BCheckoutFlowEnum;
 import com.teamidea.platform.technonikol.core.enums.B2BCheckoutPciOptionEnum;
+import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
+import com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum;
 
 
 /**
@@ -31,4 +35,10 @@ public interface B2BCheckoutFlowFacade extends B2BCheckoutFacade
 	B2BCheckoutFlowEnum getCheckoutFlow();
 
 	B2BCheckoutPciOptionEnum getSubscriptionPciOption();
+	
+	void setDeliveryMethod(TNDeliveryMethodTypeEnum deliveryMethod);
+	void setPaymentMethod(TNPaymentMethodTypeEnum paymentMethod);
+	void setProvidedDeliveryDate(String providedDeliveryDate);
+	void setProvidedDescription(String providedDescription);
+	void setEmailNotification(Boolean emailNotification);
 }

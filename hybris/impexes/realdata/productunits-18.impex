@@ -4,6 +4,11 @@ $u_products=source(code, $catalogVersion)[unique=true]
 $u_units=target(code)[unique=true]
 $approved=approvalstatus(code)[default='approved']
 
+insert_update Unit;code[unique=true];name[lang=ru];unitType[allownull=true];conversion
+;113;м2;м2;1
+;115;рул;рул;1
+
 INSERT_UPDATE ProductUnitRelation;$u_products;$u_units;conversion
-;000100;4C;2
-;000100;4D;3
+;000100;113;1
+;000100;115;1,5
+

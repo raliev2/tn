@@ -1,39 +1,64 @@
-/*
- * [y] hybris Platform
- *
- * Copyright (c) 2000-2013 hybris AG
- * All rights reserved.
- *
- * This software is the confidential and proprietary information of hybris
- * ("Confidential Information"). You shall not disclose such Confidential
- * Information and shall use it only in accordance with the terms of the
- * license agreement you entered into with hybris.
- * 
- *  
- */
 package com.teamidea.platform.technonikol.storefront.controllers.pages.checkout;
 
+import de.hybris.platform.acceleratorfacades.order.data.PickupOrderEntryGroupData;
+import de.hybris.platform.acceleratorservices.email.EmailService;
+import de.hybris.platform.b2bacceleratorfacades.company.B2BCommerceCostCenterFacade;
+import de.hybris.platform.b2bacceleratorfacades.order.data.B2BCostCenterData;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
+import de.hybris.platform.commercefacades.order.CartFacade;
 import de.hybris.platform.commercefacades.order.data.CartData;
+import de.hybris.platform.commercefacades.order.data.DeliveryModeData;
+import de.hybris.platform.commercefacades.order.data.OrderData;
 import de.hybris.platform.commercefacades.order.data.OrderEntryData;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
 import de.hybris.platform.commercefacades.product.data.ProductData;
-import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
-import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
-import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
-import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
+import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
+import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
+import de.hybris.platform.commercefacades.user.data.AddressData;
+import de.hybris.platform.commerceservices.delivery.DeliveryService;
+import de.hybris.platform.commerceservices.search.pagedata.PageableData;
+import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
+import de.hybris.platform.core.model.order.delivery.DeliveryModeModel;
+import de.hybris.platform.servicelayer.dto.converter.Converter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
+import com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum;
+import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
+import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
+import com.teamidea.platform.technonikol.storefront.controllers.util.CheckoutStep;
+import com.teamidea.platform.technonikol.storefront.controllers.util.DeliveryMethod;
+import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
+import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
+import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
+import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
 
 
 /**
@@ -56,51 +81,495 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@Resource(name = "b2bProductFacade")
 	private ProductFacade productFacade;
 
+	@Resource(name = "cartFacade")
+	private CartFacade cartFacade;
 
-	/**
-	 * This is the entry point (first page) for the the multi-step checkout process. The page returned by this call acts
-	 * as a template landing page and an example for actual implementation.
-	 * 
-	 * @param model
-	 *           - the model for the view.
-	 * @return - the multi-step checkout page if the basket contains any items or the cart page otherwise.
-	 * @throws CMSItemNotFoundException
-	 *            - when a CMS page is not found
-	 */
+	@Resource(name = "b2bCommerceCostCenterFacade")
+	private B2BCommerceCostCenterFacade costCenterFacade;
+
+	@Resource(name = "b2bStoreFinderFacade")
+	private StoreFinderFacade storeFinderFacade;
+
+	@Resource(name = "defaultDeliveryService")
+	private DeliveryService deliveryService;
+
+	@Resource(name = "deliveryModeConverter")
+	private Converter<DeliveryModeModel, DeliveryModeData> deliveryModeConverter;
+
+	@Resource(name = "emailService")
+	private EmailService emailService;
+
+	private static final CheckoutStep DELIVERY_METHOD;
+	private static final CheckoutStep SELECT_ADDRESS;
+	private static final CheckoutStep SELECT_DELIVERY_ADDRESS;
+	private static final CheckoutStep ADDRESS_MAP;
+	private static final CheckoutStep DELIVERY_MODE;
+	private static final CheckoutStep PAYMENT_METHOD;
+	private static final CheckoutStep CHECKOUT_SUMMARY;
+	private static final CheckoutStep HOSTED_ORDER;
+	private static final CheckoutStep HOSTED_ORDER_ERROR;
+	private static final CheckoutStep HOSTED_ORDER_SUCCESS;
+
+	private CheckoutStep currentStep = DELIVERY_METHOD;
+
+	private static final List<DeliveryMethod> deliveryMethods = new ArrayList<DeliveryMethod>();
+	private static final List<PaymentMethod> paymentMethods = new ArrayList<PaymentMethod>();
+
+	static
+	{
+		deliveryMethods.add(new DeliveryMethod(TNDeliveryMethodTypeEnum.DELIVERY));
+		deliveryMethods.add(new DeliveryMethod(TNDeliveryMethodTypeEnum.PICKUP));
+		paymentMethods.add(new PaymentMethod(TNPaymentMethodTypeEnum.DELAY));
+		paymentMethods.add(new PaymentMethod(TNPaymentMethodTypeEnum.PREPAYMENT));
+
+		DELIVERY_METHOD = new CheckoutStep("checkout.step.delivery.method",
+				ControllerConstants.Actions.Checkout.SELECT_DELIVERY_METHOD_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.ChooseDeliveryMethodPage);
+		SELECT_ADDRESS = new CheckoutStep(null, ControllerConstants.Actions.Checkout.SELECT_ADDRESS_URL, null, DELIVERY_METHOD);
+		SELECT_DELIVERY_ADDRESS = new CheckoutStep("checkout.step.delivery.address",
+				ControllerConstants.Actions.Checkout.SELECT_DELIVERY_ADDRESS_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.AddSelectDeliveryAddressPage, DELIVERY_METHOD);
+		ADDRESS_MAP = new CheckoutStep("checkout.step.delivery.address.map",
+				ControllerConstants.Actions.Checkout.SHOW_DELIVERY_ADDRESS_MAP_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.DeliveryAddressMapPage, DELIVERY_METHOD);
+		DELIVERY_MODE = new CheckoutStep("checkout.step.delivery.mode",
+				ControllerConstants.Actions.Checkout.SELECT_DELIVERY_MODE_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.ChooseDeliveryModePage, ADDRESS_MAP);
+		PAYMENT_METHOD = new CheckoutStep("checkout.step.payment.method",
+				ControllerConstants.Actions.Checkout.SELECT_PAYMENT_METHOD_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.ChoosePaymentMethodPage, DELIVERY_MODE);
+		CHECKOUT_SUMMARY = new CheckoutStep("checkout.step.summary",
+				ControllerConstants.Actions.Checkout.SHOW_CHECKOUT_SUMMARY_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.CheckoutSummaryPage, PAYMENT_METHOD);
+		HOSTED_ORDER = new CheckoutStep(null, ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_URL, null);
+		HOSTED_ORDER_ERROR = new CheckoutStep("checkout.step.hosted.order.error",
+				ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_ERROR_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.HostedOrderErrorPage, CHECKOUT_SUMMARY);
+		HOSTED_ORDER_SUCCESS = new CheckoutStep("checkout.step.hosted.order.success",
+				ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_SUCCESS_URL,
+				ControllerConstants.Views.Pages.MultiStepCheckout.HostedOrderPostPage, CHECKOUT_SUMMARY);
+
+		DELIVERY_METHOD.setNext(SELECT_ADDRESS);
+		SELECT_DELIVERY_ADDRESS.setNext(DELIVERY_MODE);
+		ADDRESS_MAP.setNext(DELIVERY_MODE);
+		DELIVERY_MODE.setNext(PAYMENT_METHOD);
+		PAYMENT_METHOD.setNext(CHECKOUT_SUMMARY);
+		CHECKOUT_SUMMARY.setNext(HOSTED_ORDER);
+	}
+
+	@ModelAttribute("deliveryMethods")
+	public List<DeliveryMethod> getDeliveryMethods()
+	{
+		return deliveryMethods;
+	}
+
+	@ModelAttribute("paymentMethods")
+	public List<PaymentMethod> getPaymentMethods()
+	{
+		return paymentMethods;
+	}
+
+	@ModelAttribute("deliveryModes")
+	public List<? extends DeliveryModeData> getDeliveryModes()
+	{
+		return getCheckoutFlowFacade().getSupportedDeliveryModes();
+	}
+
+	@ModelAttribute("costCenters")
+	public List<B2BCostCenterData> getCostCenters()
+	{
+		return getCheckoutFlowFacade().getActiveVisibleCostCenters();
+	}
+
+	@ModelAttribute("deliveryAddresses")
+	public List<? extends AddressData> getDeliveryAddresses()
+	{
+		return getCheckoutFlowFacade().getSupportedDeliveryAddresses(true);
+	}
+
+	@ModelAttribute("storeAddresses")
+	public List<? extends AddressData> getStoreAddresses()
+	{
+		final List<AddressData> storeAddresses = new ArrayList<AddressData>();
+		for (final PointOfServiceData store : getPointsOfService())
+		{
+			storeAddresses.add(store.getAddress());
+		}
+		return storeAddresses;
+	}
+
+	@ModelAttribute("pointsOfService")
+	public List<PointOfServiceData> getPointsOfService()
+	{
+		final PageableData pageableData = new PageableData();
+		pageableData.setCurrentPage(0);
+		pageableData.setPageSize(10);
+		pageableData.setSort("name");
+		final StoreFinderSearchPageData<PointOfServiceData> storesSearchResult = storeFinderFacade
+				.getAllPointOfServices(pageableData);
+		final List<PointOfServiceData> stores = storesSearchResult.getResults();
+		return stores;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	@RequireHardLogIn
-	public String gotoFirstStep(final Model model) throws CMSItemNotFoundException
+	public String gotoFirstStep(final Model model)
 	{
-		if (!b2bUserGroupProvider.isCurrentUserAuthorizedToCheckOut())
+		if (!hasValidCart())
 		{
-			GlobalMessages.addErrorMessage(model, "checkout.error.invalid.accountType");
-			return FORWARD_PREFIX + "/cart";
+			LOG.info("Missing, empty or unsupported cart");
+			return REDIRECT_URL_CART;
 		}
 
-		if (hasItemsInCart())
-		{
-			final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
-			if (cartData.getEntries() != null && !cartData.getEntries().isEmpty())
-			{
-				for (final OrderEntryData entry : cartData.getEntries())
-				{
-					final String productCode = entry.getProduct().getCode();
-					final ProductData product = productFacade.getProductForCodeAndOptions(productCode,
-							Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
-					entry.setProduct(product);
-				}
-			}
+		setCurrentStep(DELIVERY_METHOD);
+		return REDIRECT_PREFIX + "/checkout/multi" + currentStep.getUrl();
+	}
 
-			model.addAttribute("cartData", cartData);
-			model.addAttribute("allItems", cartData.getEntries());
-			model.addAttribute("metaRobots", "no-index,no-follow");
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_DELIVERY_METHOD_URL, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String chooseDeliveryMethod(final Model model) throws CMSItemNotFoundException
+	{
+		setCurrentStep(DELIVERY_METHOD);
+
+		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+		for (final OrderEntryData entry : cartData.getEntries())
+		{
+			final String productCode = entry.getProduct().getCode();
+			final ProductData product = productFacade.getProductForCodeAndOptions(productCode,
+					Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
+			entry.setProduct(product);
+		}
+
+		model.addAttribute("cartData", cartData);
+		model.addAttribute("currentStep", currentStep);
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_ADDRESS_URL, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String chooseDeliveryAddress(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	{
+
+		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+
+		final String selectedDeliveryMethod = request.getParameter("selectedDeliveryMethod");
+		final String selectedCostCenter = request.getParameter("selectedCostCenter");
+
+		if (StringUtils.isEmpty(selectedDeliveryMethod))
+		{
+			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMethod.notprovided");
 			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
 			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-
-			return ControllerConstants.Views.Pages.MultiStepCheckout.CheckoutSampleLandingPage;
+			return currentStep.getView();
 		}
 
-		LOG.info("Missing or empty cart");
-		return REDIRECT_URL_CART;
+		if (StringUtils.isEmpty(selectedCostCenter))
+		{
+			GlobalMessages.addErrorMessage(model, "checkout.multi.costCenter.notprovided");
+			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			return currentStep.getView();
+		}
+
+		getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, cartData.getCode());
+		getCheckoutFlowFacade().setDeliveryMethod(TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
+
+		model.addAttribute("cartData", cartData);
+		model.addAttribute("metaRobots", "no-index,no-follow");
+
+		if (StringUtils.equalsIgnoreCase(selectedDeliveryMethod, TNDeliveryMethodTypeEnum.PICKUP.name()))
+		{
+			setCurrentStep(ADDRESS_MAP);
+		}
+		else
+		{
+			model.addAttribute("addressForm", new CheckoutAddressForm());
+			setCurrentStep(SELECT_DELIVERY_ADDRESS);
+		}
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		model.addAttribute("currentStep", currentStep);
+		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_DELIVERY_MODE_URL, method = RequestMethod.POST)
+	@RequireHardLogIn
+	public String chooseDeliveryMode(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
+			throws CMSItemNotFoundException
+	{
+		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+
+		if (currentStep == SELECT_DELIVERY_ADDRESS)
+		{
+			final boolean saveAddress = StringUtils.equals(request.getParameter("saveAddress"), "on");
+			if (saveAddress)
+			{
+				final AddressData newAddress = new AddressData();
+				newAddress.setFirstName(addressForm.getFirstName());
+				newAddress.setLastName(addressForm.getLastName());
+				newAddress.setPhone(addressForm.getPhone());
+				newAddress.setLine1(addressForm.getStreet());
+				newAddress.setTown(addressForm.getTownCity());
+				newAddress.setPostalCode(addressForm.getPostcode());
+				newAddress.setLine2(addressForm.getHouse());
+				newAddress.setBillingAddress(false);
+				newAddress.setShippingAddress(true);
+				cartData.setDeliveryAddress(newAddress);
+			}
+			else
+			{
+				final String selectedAddress = request.getParameter("selectedDeliveryAddress");
+
+				if (StringUtils.isEmpty(selectedAddress))
+				{
+					GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryAddress.notprovided");
+					storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+					setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+					return currentStep.getView();
+				}
+
+				getCheckoutFlowFacade().setDeliveryAddress(getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress));
+			}
+
+		}
+		else
+		{
+			final String selectedStoreAddress = request.getParameter("selectedStoreAddress");
+
+			if (StringUtils.isEmpty(selectedStoreAddress))
+			{
+				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
+				storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+				setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+				return currentStep.getView();
+			}
+
+			final List<PointOfServiceData> stores = getPointsOfService();
+			for (final PointOfServiceData store : stores)
+			{
+				if (StringUtils.equals(selectedStoreAddress, store.getAddress().getId()))
+				{
+					final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
+					final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
+					pickupOrderGroups.add(pickupData);
+					pickupData.setDeliveryPointOfService(store);
+					cartData.setPickupOrderGroups(pickupOrderGroups);
+					break;
+				}
+			}
+		}
+
+		model.addAttribute("cartData", cartData);
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		setCurrentStep(DELIVERY_MODE);
+		model.addAttribute("currentStep", currentStep);
+		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_PAYMENT_METHOD_URL, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String choosePaymentMethod(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	{
+		final String selectedDeliveryMode = request.getParameter("selectedDeliveryMode");
+
+		if (StringUtils.isEmpty(selectedDeliveryMode))
+		{
+			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMode.notprovided");
+			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			return currentStep.getView();
+		}
+
+		getCheckoutFlowFacade().setDeliveryMode(selectedDeliveryMode);
+
+		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+
+		model.addAttribute("cartData", cartData);
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		setCurrentStep(PAYMENT_METHOD);
+		model.addAttribute("currentStep", currentStep);
+		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_CHECKOUT_SUMMARY_URL, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String showCheckoutSummary(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	{
+		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
+
+		if (StringUtils.isEmpty(selectedPaymentMethod))
+		{
+			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
+			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			return currentStep.getView();
+		}
+
+		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));//TODO
+
+		model.addAttribute("cartData", cartData);
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		setCurrentStep(CHECKOUT_SUMMARY);
+		model.addAttribute("currentStep", currentStep);
+		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_URL, method = RequestMethod.POST)
+	@RequireHardLogIn
+	public String showHostedOrderError(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	{
+		final String providedDeliveryDate = request.getParameter("providedDeliveryDate");
+		final String providedDescription = request.getParameter("providedDescription");
+		final Boolean emailNotification = StringUtils.equals(request.getParameter("emailNotification"), "on");
+
+		getCheckoutFlowFacade().setProvidedDeliveryDate(providedDeliveryDate);
+		getCheckoutFlowFacade().setProvidedDescription(providedDescription);
+		getCheckoutFlowFacade().setEmailNotification(emailNotification);
+
+		final OrderData orderData;
+		try
+		{
+			orderData = getCheckoutFlowFacade().placeOrder();
+			model.addAttribute("orderData", orderData);
+			sendHostedOrderSuccessEmailTest(orderData);
+			setCurrentStep(HOSTED_ORDER_SUCCESS);
+		}
+		catch (final Exception e)
+		{
+			LOG.error("Failed to place Order", e);
+			setCurrentStep(HOSTED_ORDER_ERROR);
+		}
+
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		model.addAttribute("currentStep", currentStep);
+		return currentStep.getView();
+	}
+
+	private void sendHostedOrderSuccessEmailTest(final OrderData orderData)
+	{
+		// Recipient's email ID needs to be mentioned.
+		final String to = "marina.zhigalova@gmail.com";
+
+		// Sender's email ID needs to be mentioned
+		final String from = "1plt@tn.ru";
+
+		// Get system properties
+		final Properties properties = System.getProperties();
+
+		// Setup mail server
+		properties.setProperty("mail.from", "1plt@tn.ru");
+		properties.setProperty("mail.replyto", "1plt@tn.ru");
+
+		properties.setProperty("mail.smtp.host", "mail.evozon.com");
+		properties.setProperty("mail.smtp.server", "mail.evozon.com");
+		properties.setProperty("mail.smtp.port", "587");
+		properties.setProperty("mail.smtp.user", "devhybris@evozon.com");
+		properties.setProperty("mail.smtp.password", ".8/Vaekjd9");
+		properties.setProperty("mail.use.tls", "true");
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+
+		// Get the default Session object.
+		final Session session = Session.getDefaultInstance(properties);
+
+		try
+		{
+			// Create a default MimeMessage object.
+			final MimeMessage message = new MimeMessage(session);
+
+			// Set From: header field of the header.
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			// Set To: header field of the header.
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress("zhigalova@teamidea.ru"));
+			// Set CC: header field of the header.
+			message.addRecipient(Message.RecipientType.CC, new InternetAddress("marina.zhigalova@gmail.com"));
+
+			// Set Subject: header field
+			message.setSubject("Информация о размещенном заказе");
+
+			// Create the message part
+			final BodyPart messageBodyPart = new MimeBodyPart();
+
+			// Fill the message
+			messageBodyPart.setText(createMailBody(orderData));
+
+			// Create a multipar message
+			final Multipart multipart = new MimeMultipart();
+
+			// Set text message part
+			multipart.addBodyPart(messageBodyPart);
+
+			// Send the complete message parts
+			message.setContent(multipart);
+
+			// Send message
+			final Transport transport = session.getTransport("smtp");
+			transport.connect("mail.evozon.com", 587, "devhybris@evozon.com", ".8/Vaekjd9");
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+		}
+		catch (final MessagingException mex)
+		{
+			mex.printStackTrace();
+		}
+	}
+
+	private String createMailBody(final OrderData orderData)
+	{
+		final StringBuilder builder = new StringBuilder();
+
+		builder.append("Клиент: " + orderData.getUser().getName() + "\n");
+		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName() + "\n");
+		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
+		builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
+		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
+		builder.append("Доставка товара: " + orderData.getDeliveryMode().getCode() + "\n");
+		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
+		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
+		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");
+		for (final OrderEntryData entry : orderData.getEntries())
+		{
+			builder.append("Товар: " + entry.getProduct().getName() + "\n");
+			builder.append("Количество: " + entry.getQuantity() + "\n");
+		}
+
+		return builder.toString();
+	}
+
+
+	/**
+	 * @return the currentStep
+	 */
+	public CheckoutStep getCurrentStep()
+	{
+		return currentStep;
+	}
+
+	/**
+	 * @param currentStep
+	 *           the currentStep to set
+	 */
+	public void setCurrentStep(final CheckoutStep currentStep)
+	{
+		this.currentStep = currentStep;
 	}
 }

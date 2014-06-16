@@ -11,9 +11,9 @@
 	<c:when test="${not empty status.errorMessages}">
 		<span class="form_field_error">
 			<jsp:doBody/>
-			<p>
+			<div class="form-error-message">
 				<form:errors path="${not empty errorPath ? '' : path}"/>
-			</p>
+			</div>
 		</span>
 	</c:when>
 	<c:otherwise>

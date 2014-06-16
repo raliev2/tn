@@ -65,7 +65,7 @@ ACC.productlisting = {
 	},
 
 	bindShowMoreResults: function(showMoreResultsArea) {
-		showMoreResultsArea.live("click", function() {
+		$(document).on("click",showMoreResultsArea,function() {
 			ACC.productlisting.triggerLoadMoreResults();
 		});
 

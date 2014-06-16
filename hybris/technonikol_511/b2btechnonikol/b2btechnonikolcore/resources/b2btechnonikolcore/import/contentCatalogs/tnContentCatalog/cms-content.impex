@@ -2,7 +2,7 @@
 # Import the CMS content for the Powertools site
 #
 $contentCatalog=tnContentCatalog
-$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
 $jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
 
 # Create PageTemplates
@@ -327,7 +327,7 @@ INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=
 ;MiniCart;;;minicart
 ;NavigationBar;;;navigation
 ;TopContent;;;wide
-;MiddleContent;;CMSParagraphComponent
+;MiddleContent;;CMSParagraphComponent,ProductCartReferencesComponent
 ;BottomContent;;;wide
 ;SideContent;;;narrow
 ;Footer;;;footer
@@ -696,6 +696,7 @@ INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTe
 ;;manageUsergroups;Manage Usergroup Page;AccountPageTemplate;manageUsergroups
 ;;manageUnitApprovers;Manage Units Approvers Page;AccountPageTemplate;manageUnitApprovers
 ;;all-categories;All Categories Page;AllCategoryPageTemplate;/all-categories
+;;registrationRequest;Registration Request Page;LoginPageTemplate;/register
 
 # Product Details Page
 INSERT_UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
@@ -747,3 +748,47 @@ INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true
 ;;tn_similar_prods_component;Similar Products
 ;;tn_crosselling_prods_component;Cross-selling Products
 ;;tn_upselling_prods_component;Up-selling Products
+
+
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;ProductDetailsPageTemplate;Product Details Page Template;product/productLayout2Page;ProductPage
+;;ProductDetailsRefPageTemplate;Product Details Ref Page Template;product/productLayout2PageRef;ProductPage
+
+UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+;;ProductDetailsPageTemplate;$jarResourceCms/structure-view/structure_productDetails2PageTemplate.vm
+;;ProductDetailsRefPageTemplate;$jarResourceCms/structure-view/structure_productDetails2PageTemplate.vm
+
+
+#Rauf's 
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;Section2Slot-PRef;Section2 Slot Product Ref;true;tn_cart_similar_prods_component;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productRefPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2Slot-PRef;Section2;;Section2Slot-PRef;;;
+
+INSERT_UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved']
+;;productRefPage;Product References Page;ProductDetailsRefPageTemplate;true;
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
+;;tn_cart_similar_prods_component;Similar Products Component;SIMILAR;10;tn_cart_similar_prods_component;
+
+#cart
+
+$contentCatalog=tnContentCatalog
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
+$jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
+
+
+INSERT_UPDATE ProductCartReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
+;;comp_000001JK;ProductCartReferencesComponent1;ACCESSORIES_RECOMMENDED;5;comp_000001JK
+#;;tn_product_cart_references_component;Product Cart Similar Products Component;SIMILAR;10;tn_product_cart_references_component;
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;MiddleContent-cartPage;Middle Slot for cartPage;true;EmptyCartParagraphComponent:tnContentCatalog:Online,comp_000001JK:tnContentCatalog:Online
+#;;MiddleContent-References;References;true;tn_product_cart_references_component;
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
+#;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
