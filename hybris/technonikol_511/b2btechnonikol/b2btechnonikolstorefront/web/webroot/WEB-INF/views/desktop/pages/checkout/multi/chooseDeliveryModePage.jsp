@@ -77,18 +77,12 @@
                     </div>
                     <div class="checkout__delivery-mode">
                         <p class="g-strong">Выберите, как доставить Ваш заказ</p>
-                        <div class="checkout-delivery-mode__item">
-                            <input type="radio" name="selectedDeliveryMode" value="${mode.code}" id="selectedDeliveryMode${mode.code}" required checked />
-                            <label for="selectedDeliveryMode${mode.code}">По отдельности по мере появления на складе</label>
-                            <p>Получайте заказанные товары как можно быстрее.</p>
-                        </div>
-                        <div class="checkout-delivery-mode__item">
-                            <input type="radio" name="selectedDeliveryMode" value="${mode.code}" id="selectedDeliveryMode${mode.code}" required />
-                            <label for="selectedDeliveryMode${mode.code}">Сгруппировать заказ одной посылокой</label>
-                            <p>Мы соберём Ваш заказ, но это может занять некоторое время.</p>
-                        </div>
                         <c:forEach items="${deliveryModes}" var="mode">
-                            <input type="radio" name="selectedDeliveryMode" value="${mode.code}">${mode.name}
+                            <div class="checkout-delivery-mode__item">
+                                <input type="radio" name="selectedDeliveryMode" value="${mode.code}" id="selectedDeliveryMode${mode.code}" required checked />
+                                <label for="selectedDeliveryMode${mode.code}"><spring:theme code="${mode.name}"/></label>
+                                <p><spring:theme code="${mode.description}"/></p>
+                            </div>
                         </c:forEach>
                     </div>
                     <div class="gray-div"></div>

@@ -335,7 +335,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				newAddress.setLine2(addressForm.getHouse());
 				newAddress.setBillingAddress(false);
 				newAddress.setShippingAddress(true);
-				cartData.setDeliveryAddress(newAddress);
+				newAddress.setVisibleInAddressBook(true);
+				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));//TODO
+
+				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
 				deliveryGroup.setDeliveryAddress(newAddress);
 
 			}
@@ -445,6 +448,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		{
 			applyingResult = "ERROR";
 		}
+
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
 
 		model.addAttribute("applyingResult", applyingResult);
 		return ControllerConstants.Views.Pages.MultiStepCheckout.ApplyVoucherResult;
@@ -591,7 +597,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
 		builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
 		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
-		builder.append("Доставка товара: " + orderData.getDeliveryMode().getCode() + "\n");
+		builder.append("Доставка товара: " + orderData.getDeliveryGroupMode().getCode() + "\n");
 		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
 		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
 		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");
