@@ -9,7 +9,26 @@
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 
 <template:page pageTitle="${currentStep.name}">
-
+<c:url value="/apply_voucher" var="apply_voucher" />
+<script>
+    $(document).ready(function() {
+        $('.js-promocode').click(function() {
+            if ($('#promocode').val() == '') return;
+            $.ajax({
+                type : 'get',
+                data : {voucherCode : $('#promocode').val()},
+                url : "${apply_voucher}",
+                success : function(data) {
+                    if (data.applyingResult == 'OK') {
+                        $('<p>Промо код успешно применен</p>').modal();
+                    } else {
+                        $('<p>Неверный промо код</p>').modal();
+                    }
+                }
+            });
+        });
+    });
+</script>
 <section class="g-main-content checkout">
     <div id="globalMessages">
         <common:globalMessages />
@@ -27,24 +46,23 @@
     <p style="margin-bottom:20px"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
     <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
     <form method="get" action="${next_url}">
-        <div class="checkout__wrapper clearfix">
-            <div class="checkout__body">
-                <p class="g-strong">Способ оплаты</p>
-
-                <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" />
-                <label for="selectedPaymentMethod${method.code}" style="margin-right:30px;">Предоплата</label>
-
-                <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" />
-                <label for="selectedPaymentMethod${method.code}">Отсрочка платежа</label>
-
+        <div class="checkout__wrapper clearfix g-float-left">
+            <div class="checkout__body" style="padding:23px 20px;">
+                <p class="g-strong margin-bottom-5px">Способ оплаты</p>
                 <c:forEach items="${paymentMethods}" var="method">
-                    <input type="radio" name="selectedPaymentMethod" value="${method.code}">${method.name}
+                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" checked />
+                    <label for="selectedPaymentMethod${method.code}" style="margin:10px 30px 20px 0;"><spring:theme code="${method.name}"/></label>
                 </c:forEach>
             </div>
 
             <input type="submit" value="Далее" class="button button_big g-float-right" />
             <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
         </div>
+        <aside class="checkout__promo g-float-right">
+            <label for="promocode" class="label-promocode">Промо код</label>
+            <input id="promocode" name="promocode" class="promocode__input" maxlength="20" />
+            <a href="javascript:void(0)" class="button button_left-border js-promocode" style="margin-left:-5px">Пересчитать</a>
+        </aside>
     </form>
 </section>
 </template:page>
