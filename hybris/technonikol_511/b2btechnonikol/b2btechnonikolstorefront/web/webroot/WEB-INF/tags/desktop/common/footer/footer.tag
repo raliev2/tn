@@ -63,4 +63,15 @@
     <div class="clearfix"></div>
     <div class="footer-legal">2013 - 2014, 1Платформа. Разработка сайта - TeamIdea.</div>
     <div class="modal-window"><div class="modal-wrapper"><div class="modal-window__close"></div><div class="modal-window-content"></div></div></div>
+    <script type="text/plain" id="addToCartTmpl">
+        <div class="cart-popup__header clearfix">
+            <div class="cart-popup__mesage">{{=it.message}}</div>
+            <div class="cart-popup__tocart g-float-right"><a href="${cartUrl}">Посмотреть корзину</a></div>
+        </div>
+        <div class=cart-popup__body>
+                    <div class="cart-popup-carousel__header">Также покупают:</div>
+                    {{=it.productReference}}
+        </div>
+    </script>
+    <div class="cart-popup"></div>
 </footer>

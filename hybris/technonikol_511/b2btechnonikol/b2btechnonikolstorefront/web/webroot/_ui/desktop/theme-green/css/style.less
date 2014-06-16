@@ -90,6 +90,10 @@ input::-webkit-input-placeholder {
   padding:0 13px;
   line-height: 34px;
 }
+input.button_big {
+  line-height: inherit;
+  padding:10px 13px;
+}
 .button_disabled {
   cursor:default;
 }
@@ -2195,7 +2199,7 @@ label.mandatory:before {
 }
 .checkout__body {
   padding:15px 20px 0 20px;
-  .border-radius(4px);
+  .border-radius(5px);
   background:#ebebeb;
   color:#333;
   font-size: 12px;
@@ -2376,5 +2380,25 @@ select.checkout__select {
 .gray-div {
   background: #ebebeb;
   height:30px;
+}
+.checkout__promo {
+  border:1px solid #ccc;
+  .border-radius(5px);
+  padding:15px 15px;
+  width:252px;
+  text-align:left;
+}
+.label-promocode {
+  font-size:12px;
+  margin-bottom:5px;
+  display:block;
+}
+.promocode__input {
+  width:150px;
+  padding:3px 4px;
+  height:17px;
+}
+.button_left-border {
+  border-radius: 0 5px 5px 0;
 }
 /*END CHECKOUT*/
