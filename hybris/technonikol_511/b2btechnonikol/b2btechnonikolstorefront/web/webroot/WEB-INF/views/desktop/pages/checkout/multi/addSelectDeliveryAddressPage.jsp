@@ -13,6 +13,17 @@
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/desktop/form"%>
 
 <template:page pageTitle="${currentStep.name}">
+<script>
+    $(document).ready(function() {
+        $('#saveAddress').change(function(){
+            if ($(this).is(':checked')) {console.log(1)
+                $('input[id^="address"]').attr('required','required');
+            } else {console.log(2)
+                $('input[id^="address"]').removeAttr('required');
+            }
+        });
+    });
+</script>
 <section class="g-main-content checkout">
     <div id="globalMessages">
         <common:globalMessages />
@@ -62,7 +73,7 @@
                 <input type="checkbox" id="saveAddress" name="saveAddress" /> <label for="saveAddress">Запомнить адрес</label>
             </div>
             <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <div class="g-float-right checkout__back"><a href="#" class="g-link-blue">Назад</a></div>
+            <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
         </div>
     </form:form>
 </section>

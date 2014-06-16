@@ -1,5 +1,6 @@
 package com.teamidea.platform.technonikol.storefront.controllers.pages.checkout;
 
+import de.hybris.platform.acceleratorfacades.order.data.DeliveryOrderEntryGroupData;
 import de.hybris.platform.acceleratorfacades.order.data.PickupOrderEntryGroupData;
 import de.hybris.platform.acceleratorservices.email.EmailService;
 import de.hybris.platform.b2bacceleratorfacades.company.B2BCommerceCostCenterFacade;
@@ -12,10 +13,13 @@ import de.hybris.platform.commercefacades.order.data.OrderData;
 import de.hybris.platform.commercefacades.order.data.OrderEntryData;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
+import de.hybris.platform.commercefacades.product.data.PriceData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
 import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
+import de.hybris.platform.commercefacades.voucher.VoucherFacade;
+import de.hybris.platform.commercefacades.voucher.exceptions.VoucherOperationException;
 import de.hybris.platform.commerceservices.delivery.DeliveryService;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
@@ -50,11 +54,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
+import com.teamidea.platform.technonikol.core.enums.TNDeliveryModeTypeEnum;
 import com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum;
 import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
 import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
 import com.teamidea.platform.technonikol.storefront.controllers.util.CheckoutStep;
 import com.teamidea.platform.technonikol.storefront.controllers.util.DeliveryMethod;
+import com.teamidea.platform.technonikol.storefront.controllers.util.DeliveryMode;
 import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
 import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
 import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
@@ -90,6 +96,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@Resource(name = "b2bStoreFinderFacade")
 	private StoreFinderFacade storeFinderFacade;
 
+	@Resource(name = "defaultVoucherFacade")
+	private VoucherFacade voucherFacade;
+
 	@Resource(name = "defaultDeliveryService")
 	private DeliveryService deliveryService;
 
@@ -114,6 +123,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	private static final List<DeliveryMethod> deliveryMethods = new ArrayList<DeliveryMethod>();
 	private static final List<PaymentMethod> paymentMethods = new ArrayList<PaymentMethod>();
+	private static final List<DeliveryMode> deliveryModes = new ArrayList<DeliveryMode>();
 
 	static
 	{
@@ -121,6 +131,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		deliveryMethods.add(new DeliveryMethod(TNDeliveryMethodTypeEnum.PICKUP));
 		paymentMethods.add(new PaymentMethod(TNPaymentMethodTypeEnum.DELAY));
 		paymentMethods.add(new PaymentMethod(TNPaymentMethodTypeEnum.PREPAYMENT));
+		deliveryModes.add(new DeliveryMode(TNDeliveryModeTypeEnum.GROUP));
+		deliveryModes.add(new DeliveryMode(TNDeliveryModeTypeEnum.SINGLE));
 
 		DELIVERY_METHOD = new CheckoutStep("checkout.step.delivery.method",
 				ControllerConstants.Actions.Checkout.SELECT_DELIVERY_METHOD_URL,
@@ -163,16 +175,16 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return deliveryMethods;
 	}
 
+	@ModelAttribute("deliveryModes")
+	public List<DeliveryMode> getDeliveryModes()
+	{
+		return deliveryModes;
+	}
+
 	@ModelAttribute("paymentMethods")
 	public List<PaymentMethod> getPaymentMethods()
 	{
 		return paymentMethods;
-	}
-
-	@ModelAttribute("deliveryModes")
-	public List<? extends DeliveryModeData> getDeliveryModes()
-	{
-		return getCheckoutFlowFacade().getSupportedDeliveryModes();
 	}
 
 	@ModelAttribute("costCenters")
@@ -213,7 +225,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	@RequestMapping(method = RequestMethod.GET)
 	@RequireHardLogIn
-	public String gotoFirstStep(final Model model)
+	public String gotoFirstStep()
 	{
 		if (!hasValidCart())
 		{
@@ -283,6 +295,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		if (StringUtils.equalsIgnoreCase(selectedDeliveryMethod, TNDeliveryMethodTypeEnum.PICKUP.name()))
 		{
+
 			setCurrentStep(ADDRESS_MAP);
 		}
 		else
@@ -305,6 +318,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		if (currentStep == SELECT_DELIVERY_ADDRESS)
 		{
+			final List<DeliveryOrderEntryGroupData> deliveryGroups = new ArrayList<DeliveryOrderEntryGroupData>();
+			final DeliveryOrderEntryGroupData deliveryGroup = new DeliveryOrderEntryGroupData();
+			deliveryGroup.setEntries(cartData.getEntries());
+
 			final boolean saveAddress = StringUtils.equals(request.getParameter("saveAddress"), "on");
 			if (saveAddress)
 			{
@@ -318,7 +335,12 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				newAddress.setLine2(addressForm.getHouse());
 				newAddress.setBillingAddress(false);
 				newAddress.setShippingAddress(true);
-				cartData.setDeliveryAddress(newAddress);
+				newAddress.setVisibleInAddressBook(true);
+				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));//TODO
+
+				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
+				deliveryGroup.setDeliveryAddress(newAddress);
+
 			}
 			else
 			{
@@ -332,15 +354,20 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 					return currentStep.getView();
 				}
 
-				getCheckoutFlowFacade().setDeliveryAddress(getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress));
+				final AddressData oldAddress = getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress);
+				getCheckoutFlowFacade().setDeliveryAddress(oldAddress);
+				deliveryGroup.setDeliveryAddress(oldAddress);
 			}
 
+			deliveryGroups.add(deliveryGroup);
+			cartData.setDeliveryOrderGroups(deliveryGroups);
+			getCheckoutFlowFacade().setDeliveryModeIfAvailable(); //TODO think about it (how to set delivery mode and address)
 		}
 		else
 		{
-			final String selectedStoreAddress = request.getParameter("selectedStoreAddress");
+			final String selectedStore = request.getParameter("selectedStore");
 
-			if (StringUtils.isEmpty(selectedStoreAddress))
+			if (StringUtils.isEmpty(selectedStore))
 			{
 				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
 				storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
@@ -348,22 +375,29 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				return currentStep.getView();
 			}
 
-			final List<PointOfServiceData> stores = getPointsOfService();
-			for (final PointOfServiceData store : stores)
+			final PointOfServiceData storeSearchResult = storeFinderFacade.getPointOfServiceForName(selectedStore);
+
+			final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
+			final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
+			pickupOrderGroups.add(pickupData);
+			pickupData.setDeliveryPointOfService(storeSearchResult);
+			cartData.setPickupOrderGroups(pickupOrderGroups);
+
+			for (final OrderEntryData entry : cartData.getEntries())
 			{
-				if (StringUtils.equals(selectedStoreAddress, store.getAddress().getId()))
-				{
-					final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
-					final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
-					pickupOrderGroups.add(pickupData);
-					pickupData.setDeliveryPointOfService(store);
-					cartData.setPickupOrderGroups(pickupOrderGroups);
-					break;
-				}
+				entry.setDeliveryPointOfService(storeSearchResult); //TODO think about it (how to set selected point of service)
 			}
+
+		}
+
+		PriceData deliveryCost = null;
+		if (getCheckoutFlowFacade().getCheckoutCart().getDeliveryMode() != null)
+		{
+			deliveryCost = getCheckoutFlowFacade().getCheckoutCart().getDeliveryMode().getDeliveryCost();
 		}
 
 		model.addAttribute("cartData", cartData);
+		model.addAttribute("deliveryCost", deliveryCost);
 		model.addAttribute("metaRobots", "no-index,no-follow");
 		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
 		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
@@ -387,9 +421,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			return currentStep.getView();
 		}
 
-		getCheckoutFlowFacade().setDeliveryMode(selectedDeliveryMode);
-
 		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+		cartData.setDeliveryGroupMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
 
 		model.addAttribute("cartData", cartData);
 		model.addAttribute("metaRobots", "no-index,no-follow");
@@ -399,6 +432,28 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		setCurrentStep(PAYMENT_METHOD);
 		model.addAttribute("currentStep", currentStep);
 		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.APPLY_VOUCHER, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String applyVoucher(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	{
+		final String voucherCode = request.getParameter("voucherCode");
+		String applyingResult = "OK";
+		try
+		{
+			voucherFacade.applyVoucher(voucherCode);
+		}
+		catch (final VoucherOperationException e)
+		{
+			applyingResult = "ERROR";
+		}
+
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		model.addAttribute("applyingResult", applyingResult);
+		return ControllerConstants.Views.Pages.MultiStepCheckout.ApplyVoucherResult;
 	}
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_CHECKOUT_SUMMARY_URL, method = RequestMethod.GET)
@@ -542,7 +597,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
 		builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
 		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
-		builder.append("Доставка товара: " + orderData.getDeliveryMode().getCode() + "\n");
+		builder.append("Доставка товара: " + orderData.getDeliveryGroupMode().getCode() + "\n");
 		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
 		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
 		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");

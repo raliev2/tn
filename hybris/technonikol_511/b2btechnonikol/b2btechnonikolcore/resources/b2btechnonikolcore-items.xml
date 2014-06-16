@@ -50,6 +50,11 @@
     		<value code="PICKUP" />
 		</enumtype>
 		
+		<enumtype code="TNDeliveryModeTypeEnum" autocreate="true" generate="true" >
+    		<value code="SINGLE" />
+    		<value code="GROUP" />
+		</enumtype>
+		
 		<enumtype code="TNPaymentMethodTypeEnum" autocreate="true" generate="true" >
     		<value code="PREPAYMENT" />
     		<value code="DELAY" />
@@ -711,6 +716,10 @@
 						<persistence type="property" />
 						<description>Delivery method.</description>
 					</attribute>
+					<attribute qualifier="deliveryGroupMode" type="TNDeliveryModeTypeEnum" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Delivery mode.</description>
+					</attribute>					
 				 	<attribute qualifier="paymentMethod" type="TNPaymentMethodTypeEnum" generate="true" autocreate="true" >
 						<persistence type="property" />
 						<description>Payment method.</description>
