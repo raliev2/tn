@@ -23,8 +23,8 @@ public class DeliveryMode
 
 	public DeliveryMode(final TNDeliveryModeTypeEnum code)
 	{
-		this.name = "checkout.delivery.mode." + code.name().toLowerCase();
-		this.name = "checkout.delivery.mode." + code.name().toLowerCase().trim() + ".description";
+		this.name = "checkout.delivery.mode." + code.name().toLowerCase() + ".name";
+		this.description = "checkout.delivery.mode." + code.name().toLowerCase().trim() + ".description";
 		this.code = code;
 	}
 
