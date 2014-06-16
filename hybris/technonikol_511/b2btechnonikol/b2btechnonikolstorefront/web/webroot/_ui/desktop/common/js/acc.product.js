@@ -84,7 +84,7 @@ ACC.product = {
                     type : 'get',
                     url : '/store/k/' + productID,
                     dataType : 'html',
-                    success : function(data) {console.log(data)
+                    success : function(data) {
                         ACC.product.cartResult['productReference'] = data;
                         ACC.product.displayAddToCartPopup(cartResult);
                     }
@@ -118,9 +118,9 @@ ACC.product = {
 
         var tmpl = doT.template($('#addToCartTmpl').html());
         $(ACC.product.$cartPopup).html(tmpl(ACC.product.cartResult));
-        $('.product-carousel__item').removeClass('product-carousel__item_930px');
-        $('.product-carousel-item__img').removeClass('product-carousel-item__img_930px');
-        $('.block-chars__header').remove();
+        $('.cart-popup .product-carousel__item').removeClass('product-carousel__item_930px');
+        $('.cart-popup .product-carousel-item__img').removeClass('product-carousel-item__img_930px');
+        $('.cart-popup .block-chars__header').remove();
 
         if (ACC.product.cartResult['productReference'] == '<div class="yCmsContentSlot"></div>') $('.cart-popup-carousel__header').remove();
         $('.carousel-product__carousel ul').each(function(indx, element){
@@ -132,7 +132,6 @@ ACC.product = {
         });
 
         $(ACC.product.$cartPopup).modal();
-
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
