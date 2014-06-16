@@ -14,7 +14,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<package.output.directory>C:\tn\tn\hybris\technonikol_511\b2btechnonikol\b2btechnonikolservices\lib\</package.output.directory>
+				<package.output.directory>C:\WORK\HybrisTIProjects\Technonikol\tn\hybris\technonikol_511\b2btechnonikol\b2btechnonikolservices\lib\</package.output.directory>
 				<production.environment>false</production.environment>
 			</properties>
 		</profile>
