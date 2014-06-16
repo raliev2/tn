@@ -44,10 +44,7 @@
                         </c:if>
                     </div>
 
-                    <div class="product-carousel-item__in-cart">
-                        <input type="text" class="in-cart__input" value="1" />
-                        <a href="javascript:void(0)" class="button">В корзину</a>
-                    </div>
+                    <product:productReferenceToCart product="${productReference.target}" format="thumbnail"/>
 
                     <%--<div class="product-carousel-item__to-compare">
                         <c:set var="toCompareId" value="to_compare_${productReference.target.code}"/>

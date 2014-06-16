@@ -53,12 +53,12 @@
                         <div class="g-info"></div>
                     </div>
                     <div class="clearfix"></div>
-                    <%--<product:productListerItemToCart product="${product}" />--%>
-                    <div class="to-cart">
+                    <product:productListerItemToCart product="${product}" />
+                    <%--<div class="to-cart">
                         <label for="qty${index1}">Кол-во:</label>
                         <input type="text" value="1" id="qty${index1}" name="qty" class="g-input" size="3" />
                         <a href="javascript:void(0)" class="button">В корзину</a>
-                    </div>
+                    </div>--%>
                     <div class="clearfix"></div>
                 </div>
             </c:otherwise>

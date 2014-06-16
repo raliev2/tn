@@ -84,7 +84,7 @@ ACC.product = {
                     type : 'get',
                     url : '/store/k/' + productID,
                     dataType : 'html',
-                    success : function(data) {
+                    success : function(data) {console.log(data)
                         ACC.product.cartResult['productReference'] = data;
                         ACC.product.displayAddToCartPopup(cartResult);
                     }
