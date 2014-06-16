@@ -29,8 +29,6 @@
                 <div class="cart-popup-carousel__header">Также покупают:</div>
                 {{=it.productReference}}
     </div>
-
-
 </script>
 <form id="addToCartForm" class="add_to_cart_form" action="<c:url value="/cart/add"/>" method="post">
     <%--span class="prod_results">
