@@ -55,8 +55,16 @@ ACC.product = {
             beforeSubmit: function(arr, $form, options) {
                 var qty = parseFloat($('#qty').val());
                 var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity')); //считаем, что для base
-                var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
-                var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
+                if ($('#priceUnits option').length > 0 ) {
+                    var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
+                } else {
+                    coefficient = 1;
+                }
+                if ($('#addToCartButton').attr('data-base-to-sales') == '') {
+                    var baseToSales = 1;
+                } else {
+                    baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
+                }
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
@@ -67,8 +75,8 @@ ACC.product = {
 
                 if (qtyBase < minOrderQuantity) {
                     var minOrderQuantityCur = minOrderQuantity / coefficient;
-                    ACC.product.cartResult['message'] = '<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
-                    <p>Ваш заказ будет автоматически исправлен.</p>';
+                    ACC.product.cartResult['message'] = '<p style="font-weight:normal">Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
+                    <p style="font-weight:normal">Ваш заказ будет автоматически исправлен.</p>';
                     arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
                     return true;
                 } else {

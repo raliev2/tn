@@ -9,8 +9,19 @@
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <template:page pageTitle="${currentStep.name}">
+    <script>
+        $(document).ready(function() {
+            $('#js-checkout-summary-form').submit(function(){
+                if (!$('#agree').is(':checked')) {
+                    $('<p>Пожалуйста, выберите галочку в блоке "Конфеденциальность"</p>').modal();
+                    return false;
+                }
+            });
+        });
+    </script>
     <section class="g-main-content checkout clearfix">
         <div id="globalMessages">
             <common:globalMessages />
@@ -28,7 +39,7 @@
         <p>После нажатия на кнопку “Отправить заказ”, мы вышлем Вам письмо с полной информацией о текущем заказе.</p>
         <p style="margin:10px 0 20px 0"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
-        <form method="post" action="${next_url}">
+        <form method="post" action="${next_url}" id="js-checkout-summary-form">
             <div class="checkout__wrapper clearfix g-float-left">
                 <c:url value="/cart" var="cartUrl"/>
                 <h3>Товары в корзине <a href="${cartUrl}" class="g-link-blue checkout__change-cart">Изменить</a></h3>
@@ -134,6 +145,75 @@
                     стоимость и стоимость заказа, будет пересчитана
                     на последнем шаге оформления корзины</p>
                 <div class="checkout-summary-total__white-line"></div>
+                <div class="checkout-summary-total__button">
+                    <input type="submit" value="Подтвердить" class="button button_big" />
+                </div>
+                <div class="checkout-summary-total__white-line"></div>
+                <div>
+                    <h4 class="g-float-left">Адрес доставки</h4>
+                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <div class="clearfix"></div>
+                    <div class="checkout-summary-total__value">
+                        ${cartData.deliveryAddress.formattedAddress}
+                        Россия, г. Москва, ул. Нижняя Красносельская 12/14
+                    </div>
+                    <h4 class="g-float-left">Получатель</h4>
+                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <div class="clearfix"></div>
+                    <div class="checkout-summary-total__value">
+                        ${cartData.deliveryAddress.lastName} ${cartData.deliveryAddress.firstName}
+                        Иванов Иван
+                    </div>
+                    <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
+
+                    <h4 class="g-float-left">Метод доставки</h4>
+                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <div class="clearfix"></div>
+                    <div class="checkout-summary-total__value">
+                        <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.deliveryMethod)}" />
+                        <c:choose>
+                            <c:when test="${cartData.deliveryMode.deliveryCost.value > 0}">
+                                (<format:fromPrice priceData="${cartData.deliveryMode.deliveryCost}"/>)
+                            </c:when>
+                            <c:otherwise>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
+
+                    <h4 class="g-float-left">Оплата</h4>
+                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <div class="clearfix"></div>
+                    <div class="checkout-summary-total__value">
+                        <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.paymentMethod)}" />
+                    </div>
+                    <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
+
+                    <h4>Дополнительная информация</h4>
+                    <div><label for="providedDeliveryDate" class="checkout__label">Удобное время доставки</label>
+                    <input type="text" name="providedDeliveryDate" id="providedDeliveryDate" class="checkout__input" /></div>
+
+                    <div><label for="providedDescription" class="checkout__label">Комментарий</label>
+                    <input type="text" name="providedDescription" id="providedDescription" class="checkout__input" /></div>
+
+                    <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
+
+                    <h4>Email уведомления</h4>
+                    <input type="checkbox" name="emailNotification" id="emailNotification" checked />
+                    <label for="emailNotification" class="inline-label">Подпишите меня на маркетинговые рассылки
+                        от компании 1Платформа, а также на новости
+                        компании и отрасли.</label>
+
+                    <div class="checkout-summary-total__white-line"></div>
+
+                    <h4>Конфиденциальность</h4>
+                    <input type="checkbox" name="agree" id="agree" checked />
+                    <label for="agree" class="inline-label">Я согласен с правилами обработки персональных данных на сайте 1Платформа.</label>
+                    <div class="checkout-summary-total__white-line"></div>
+                    <div class="checkout-summary-total__button">
+                        <input type="submit" value="Подтвердить" class="button button_big" />
+                    </div>
+                </div>
             </div>
         </form>
     </section>
