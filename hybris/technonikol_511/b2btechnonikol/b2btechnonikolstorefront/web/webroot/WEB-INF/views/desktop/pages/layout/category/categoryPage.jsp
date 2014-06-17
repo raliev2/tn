@@ -13,9 +13,9 @@
         </div>
 
         <section class="g-main-content clearfix">
-            <div class="g-float-right block-buttons">
+            <%--<div class="g-float-right block-buttons">
                 <a href="javascript:void(0)" class="g-button-white">Печать</a>
-            </div>
+            </div>--%>
             <div class="clearfix"></div>
             <breadcrumb:breadcrumb breadcrumbs="${breadcrumbs}" className="bread-crumbs_mini" />
             <div class="clearfix"></div>
