@@ -15,9 +15,15 @@ package com.teamidea.platform.technonikol.facades.flow.impl;
 
 import de.hybris.platform.b2bacceleratorfacades.order.impl.DefaultB2BCheckoutFacade;
 import de.hybris.platform.commercefacades.user.data.AddressData;
+import de.hybris.platform.commerceservices.storefinder.StoreFinderService;
+import de.hybris.platform.commerceservices.storefinder.data.PointOfServiceDistanceData;
+import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
+import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.CartModel;
 import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.servicelayer.util.ServicesUtil;
+import de.hybris.platform.store.BaseStoreModel;
+import de.hybris.platform.storelocator.model.PointOfServiceModel;
 
 import org.springframework.beans.factory.annotation.Required;
 
@@ -42,6 +48,7 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 {
 	private B2BCheckoutFlowStrategy checkoutFlowStrategy;
 	private B2BCheckoutPciStrategy b2BCheckoutPciStrategy;
+	private StoreFinderService<PointOfServiceDistanceData, StoreFinderSearchPageData<PointOfServiceDistanceData>> storeFinderService;
 
 	@Override
 	public B2BCheckoutFlowEnum getCheckoutFlow()
@@ -75,6 +82,24 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	public void setCheckoutPciStrategy(final B2BCheckoutPciStrategy strategy)
 	{
 		this.b2BCheckoutPciStrategy = strategy;
+	}
+
+	/**
+	 * @return the storeFinderService
+	 */
+	public StoreFinderService<PointOfServiceDistanceData, StoreFinderSearchPageData<PointOfServiceDistanceData>> getStoreFinderService()
+	{
+		return storeFinderService;
+	}
+
+	/**
+	 * @param storeFinderService
+	 *           the storeFinderService to set
+	 */
+	public void setStoreFinderService(
+			final StoreFinderService<PointOfServiceDistanceData, StoreFinderSearchPageData<PointOfServiceDistanceData>> storeFinderService)
+	{
+		this.storeFinderService = storeFinderService;
 	}
 
 	/*
@@ -236,6 +261,33 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 		cartModel.setDeliveryAddress(addressModel);
 		getModelService().save(cartModel);
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.teamidea.platform.technonikol.facades.flow.B2BCheckoutFlowFacade#setDeliveryPointOfService(de.hybris.platform
+	 * .commercefacades.storelocator.data.PointOfServiceData)
+	 */
+	@Override
+	public void setDeliveryPointOfService(final String store)
+	{
+		ServicesUtil.validateParameterNotNull(store, "Parameter 'store' is null!");
+		final CartModel cartModel = getCart();
+
+		final BaseStoreModel currentBaseStore = getBaseStoreService().getCurrentBaseStore();
+		final PointOfServiceModel pointOfService = getStoreFinderService().getPointOfServiceForName(currentBaseStore, store);
+
+		if (cartModel != null)
+		{
+			for (final AbstractOrderEntryModel entry : cartModel.getEntries())
+			{
+				entry.setDeliveryPointOfService(pointOfService);
+			}
+		}
+		getModelService().save(cartModel);
+
 	}
 
 }
