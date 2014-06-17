@@ -25,9 +25,9 @@
             </ul>
         </div>
         <h1 class="checkout__head">
-            Ваш заказ принят. Номер заказа 5632
+            Ваш заказ принят. Номер заказа ${orderData.code}
         </h1>
-        <p>Письмо с подтверждением заказа отправлено на адрес <span class="g-strong">djygfs@gmail</span></p>
+        <p class="margin-bottom-5px">Письмо с подтверждением заказа отправлено на адрес <span class="g-strong">${orderData.b2bCustomerData.email}</span></p>
         <p style="margin-bottom:20px"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
         <p class="g-float-left margin-bottom-5px">Товары в заказе</p>
         <c:url value="/" var="homeUrl"/>

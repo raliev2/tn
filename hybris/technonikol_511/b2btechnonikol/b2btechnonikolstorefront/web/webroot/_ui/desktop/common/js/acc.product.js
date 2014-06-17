@@ -50,7 +50,7 @@ ACC.product = {
 		if (options.enforce) {
 			ACC.product.$addToCartForm = $(ACC.product.addToCartFormSelector);
 		}
-
+        //console.log(ACC.product.$addToCartForm);
 		ACC.product.$addToCartForm.ajaxForm({
             beforeSubmit: function(arr, $form, options) {
                 var qty = parseFloat($('#qty').val());
@@ -87,7 +87,7 @@ ACC.product = {
                     return true;
                 }
             },
-            success: function(cartResult) {console.log(cartResult)
+            success: function(cartResult) {
                 var productID = $('input[name="productCodePost"]').val();
                 $.ajax({
                     type : 'get',
@@ -141,6 +141,7 @@ ACC.product = {
         });
 
         $(ACC.product.$cartPopup).modal();
+        ACC.product.bindToAddToCartForm();
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
@@ -202,4 +203,7 @@ $(document).ready(function() {
             }
         });
     });
+    /*$('body').on('click','.fn',function() {console.log('click')
+        ACC.product.bindToAddToCartForm();
+    });*/
 });
