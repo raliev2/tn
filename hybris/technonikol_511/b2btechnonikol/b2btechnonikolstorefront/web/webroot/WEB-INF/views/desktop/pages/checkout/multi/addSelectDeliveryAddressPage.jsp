@@ -73,7 +73,8 @@
                 <input type="checkbox" id="saveAddress" name="saveAddress" /> <label for="saveAddress">Запомнить адрес</label>
             </div>
             <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
+            <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
+            <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
         </div>
     </form:form>
 </section>

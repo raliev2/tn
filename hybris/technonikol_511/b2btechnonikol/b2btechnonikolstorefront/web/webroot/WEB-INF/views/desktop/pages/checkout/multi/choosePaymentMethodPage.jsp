@@ -9,7 +9,7 @@
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 
 <template:page pageTitle="${currentStep.name}">
-<c:url value="/apply_voucher" var="apply_voucher" />
+<c:url value="/checkout/multi/apply_voucher" var="apply_voucher" />
 <script>
     $(document).ready(function() {
         $('.js-promocode').click(function() {
@@ -56,7 +56,8 @@
             </div>
 
             <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
+            <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
+            <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
         </div>
         <aside class="checkout__promo g-float-right">
             <label for="promocode" class="label-promocode">Промо код</label>
