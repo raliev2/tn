@@ -357,7 +357,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				newAddress.setBillingAddress(false);
 				newAddress.setShippingAddress(true);
 				newAddress.setVisibleInAddressBook(true);
-				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));//TODO
+				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));
 
 				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
 				deliveryGroup.setDeliveryAddress(newAddress);
@@ -382,7 +382,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			deliveryGroups.add(deliveryGroup);
 			cartData.setDeliveryOrderGroups(deliveryGroups);
-			getCheckoutFlowFacade().setDeliveryModeIfAvailable(); //TODO think about it (how to set delivery mode and address)
+			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
 		}
 		else
 		{
@@ -404,9 +404,11 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			pickupData.setDeliveryPointOfService(storeSearchResult);
 			cartData.setPickupOrderGroups(pickupOrderGroups);
 
+			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
+
 			for (final OrderEntryData entry : cartData.getEntries())
 			{
-				entry.setDeliveryPointOfService(storeSearchResult); //TODO think about it (how to set selected point of service)
+				entry.setDeliveryPointOfService(storeSearchResult);
 			}
 
 		}
@@ -545,7 +547,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		}
 
 		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
-		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));//TODO
+		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));
 
 		model.addAttribute("cartData", cartData);
 		model.addAttribute("metaRobots", "no-index,no-follow");
@@ -570,6 +572,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		getCheckoutFlowFacade().setProvidedDeliveryDate(providedDeliveryDate);
 		getCheckoutFlowFacade().setProvidedDescription(providedDescription);
 		getCheckoutFlowFacade().setEmailNotification(emailNotification);
+
+		final List<OrderEntryData> entries = getCheckoutFlowFacade().getCheckoutCart().getEntries();
+		model.addAttribute("entries", entries);
 
 		final OrderData orderData;
 		try
@@ -596,7 +601,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	private void sendHostedOrderSuccessEmailTest(final OrderData orderData)
 	{
 		// Recipient's email ID needs to be mentioned.
-		final String to = "marina.zhigalova@gmail.com";
+		final String to = "zhigalova@teamidea.ru";
 
 		// Sender's email ID needs to be mentioned
 		final String from = "1plt@tn.ru";
@@ -629,10 +634,6 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			// Set To: header field of the header.
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("zhigalova@teamidea.ru"));
-			// Set CC: header field of the header.
-			message.addRecipient(Message.RecipientType.CC, new InternetAddress("marina.zhigalova@gmail.com"));
 
 			// Set Subject: header field
 			message.setSubject("Информация о размещенном заказе");
@@ -668,24 +669,56 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("Клиент: " + orderData.getUser().getName() + "\n");
-		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName() + "\n");
-		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
-		//builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
-		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
-		builder.append("Доставка товара: " + orderData.getDeliveryGroupMode().getCode() + "\n");
-		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
-		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
-		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");
+		builder.append("Клиент: " + orderData.getUser().getName());
+		builder.append("\n");
+		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
+		builder.append("\n");
+		builder.append("Способ доставки: "
+				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY) ? "доставка курьером"
+						: "самовывоз"));
+		builder.append("\n");
+		if (orderData.getDeliveryAddress() != null)
+		{
+			builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress());
+			builder.append("\n");
+		}
+		builder
+				.append("Группировка заказа: "
+						+ (orderData.getDeliveryGroupMode().getCode().equals(TNDeliveryModeTypeEnum.GROUP) ? "Сгруппировать заказ одной посылкой"
+								: "По отдельности по мере появления на складе"));
+		builder.append("\n");
+		builder.append("Способ оплаты: "
+				+ (orderData.getPaymentMethod().getCode().equals(TNPaymentMethodTypeEnum.DELAY) ? "Отсрочка платежа" : "Предоплата"));
+		builder.append("\n");
+		builder.append("Получать email-уведомления: " + (orderData.getEmailNotification() ? "да" : "нет"));
+		builder.append("\n");
+		if (orderData.getProvidedDeliveryDate() != null)
+		{
+			builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate());
+			builder.append("\n");
+		}
+		if (orderData.getProvidedDescription() != null)
+		{
+			builder.append("Комментарий клиента: " + orderData.getProvidedDescription());
+			builder.append("\n");
+		}
+		builder.append("Позиции заказа");
+		builder.append("\n");
 		for (final OrderEntryData entry : orderData.getEntries())
 		{
-			builder.append("Товар: " + entry.getProduct().getName() + "\n");
-			builder.append("Количество: " + entry.getQuantity() + "\n");
+			builder.append("Наименование: " + entry.getProduct().getName());
+			builder.append("\n");
+			builder.append("Количество: " + entry.getQuantity());
+			builder.append("\n");
+			if (entry.getDeliveryPointOfService() != null)
+			{
+				builder.append("Адрес магазина: " + entry.getDeliveryPointOfService().getAddress().getFormattedAddress());
+				builder.append("\n");
+			}
 		}
 
 		return builder.toString();
 	}
-
 
 	/**
 	 * @return the currentStep
