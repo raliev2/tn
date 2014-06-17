@@ -72,7 +72,7 @@
                     </div>
                     <div class="padding20px">
                         <div class="checkout__dlivery-cost g-strong">
-                            Стоимость доставки: 1000 Р
+                            Стоимость доставки: <format:fromPrice priceData="${cartData.deliveryMode.deliveryCost}" />
                         </div>
                     </div>
                     <div class="checkout__delivery-mode">
