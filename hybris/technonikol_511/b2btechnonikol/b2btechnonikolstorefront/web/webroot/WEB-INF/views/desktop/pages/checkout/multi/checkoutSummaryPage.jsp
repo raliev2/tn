@@ -11,7 +11,7 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <template:page pageTitle="${currentStep.name}">
-    <section class="g-main-content checkout">
+    <section class="g-main-content checkout clearfix">
         <div id="globalMessages">
             <common:globalMessages />
         </div>
@@ -29,7 +29,7 @@
         <p style="margin:10px 0 20px 0"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
         <form method="post" action="${next_url}">
-            <div class="checkout__wrapper clearfix">
+            <div class="checkout__wrapper clearfix g-float-left">
                 <c:url value="/cart" var="cartUrl"/>
                 <h3>Товары в корзине <a href="${cartUrl}" class="g-link-blue checkout__change-cart">Изменить</a></h3>
                 <div class="checkout-summary__cart">
@@ -73,10 +73,67 @@
                         </c:forEach>
                         </tbody>
                     </table>
+                    <div class="checkout-summary-cart__text">
+                        Некоторые позиции не могу быть приобретены частными лицами, не зарегистрированными на сайте
+                        "1Платформа". Если Вы не зарегистрированы, как организация или Индивидуальный предприниматель,
+                        или не авторизовались, прежде чем оформить заказ, ваш заказ будет отправлен на утверждение.
+                        Сайт "1Платформа" оставляет за собой право отказать в оформлении такого заказа. Обратитесь
+                        в Кол-Центр по номеру <spring:theme code="common.telephone" />  для получения подробной информации.
+                    </div>
                 </div>
                 <input type="submit" value="Далее" class="button button_big g-float-right" />
                 <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
                 <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
+            </div>
+            <div class="checkout-summary__total">
+                <h4>Итог заказа</h4>
+                <c:if test="${not (cartData.deliveryMode.deliveryCost.value > 0)}">
+                    <div class="free-shipping">Бесплатная доставка</div>
+                </c:if>
+                <table class="checkout-summary-total__table">
+                    <tr>
+                        <td>Сумма заказа</td>
+                        <td class="g-align-right"><format:fromPrice priceData="${cartData.totalPrice}"/><br />
+                            <format:fromPrice priceData="${cartData.subTotal}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>В т.ч. налоговые сборы</td>
+                        <td class="g-align-right">
+                            <c:choose>
+                                <c:when test="${cartData.totalTax.value > 0}">
+                                    <format:fromPrice priceData="${cartData.totalTax}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    нет
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Стоимость доставки</td>
+                        <td class="g-align-right">
+                            <c:choose>
+                                <c:when test="${cartData.deliveryMode.deliveryCost.value > 0}">
+                                    <format:fromPrice priceData="${cartData.deliveryMode.deliveryCost}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    БЕСПЛАТНО
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                    <tr class="checkout-summary-total-table__total">
+                        <td class="g-strong">Итого</td>
+                        <td class="g-align-right">
+
+                        </td>
+                    </tr>
+                </table>
+                <p>Наличие товара на складе, его окончательная
+                    стоимость и стоимость заказа, будет пересчитана
+                    на последнем шаге оформления корзины</p>
+                <div class="checkout-summary-total__white-line"></div>
             </div>
         </form>
     </section>
