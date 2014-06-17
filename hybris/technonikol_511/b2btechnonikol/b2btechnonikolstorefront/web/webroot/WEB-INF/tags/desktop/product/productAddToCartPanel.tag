@@ -39,7 +39,7 @@
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
         <input type="hidden" value="1" id="qty" name="qty" class="g-input"  />
-        <input type="text" value="1" id="realqty" name="realqty" class="g-input" size="2" onChange="changeqty(this.value)" />
+        <input type="text" value="1" id="realqty" name="realqty" class="g-input" size="2" onkeyup="changeqty(this.value)" />
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
 

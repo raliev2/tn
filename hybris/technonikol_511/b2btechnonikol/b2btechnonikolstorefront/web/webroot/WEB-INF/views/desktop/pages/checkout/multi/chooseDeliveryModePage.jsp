@@ -10,24 +10,6 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <template:page pageTitle="${currentStep.name}">
-<c:url value="/stock/checkProduct?productCode=" var="check_stock_url"/>
-<script>
-    $(document).ready(function() {
-        $('.js-cart-entry').each(function(index,item) {
-            $.ajax({
-                type : 'get',
-                data : {
-                    count: $(item).attr('data-quantity')
-                },
-                url: "https://tn.local:19002/store/stock/checkProduct?productCode=" + $(item).attr('data-id'),
-                dataType: 'html',
-                success: function(data){console.log(data)
-                    $(item).find('.checkout-cart-content__delivery-td').html(data);
-                }
-            });
-        });
-    });
-</script>
     <section class="g-main-content checkout">
         <div id="globalMessages">
             <common:globalMessages />
@@ -64,7 +46,7 @@
                                         <p>Количество: ${entry.quantity}</p>
                                         <p>Стоимость: <format:fromPrice priceData="${entry.basePrice}" /></p>
                                     </td>
-                                    <td class="checkout-cart-content__delivery-td"></td>
+                                    <td class="checkout-cart-content__delivery-td js-entry-stock"></td>
                                     <td class="checkout-cart-content__price-td"><format:fromPrice priceData="${entry.totalPrice}" /></td>
                                 </tr>
                             </c:forEach>
@@ -72,7 +54,7 @@
                     </div>
                     <div class="padding20px">
                         <div class="checkout__dlivery-cost g-strong">
-                            Стоимость доставки: 1000 Р
+                            Стоимость доставки: <format:fromPrice priceData="${cartData.deliveryMode.deliveryCost}" />
                         </div>
                     </div>
                     <div class="checkout__delivery-mode">
@@ -89,7 +71,8 @@
                 </div>
 
                 <input type="submit" value="Далее" class="button button_big g-float-right" />
-                <div class="g-float-right checkout__back"><a href="javascript:history.go(-1)" class="g-link-blue">Назад</a></div>
+                <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
+                <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
             </div>
         </form>
     </section>

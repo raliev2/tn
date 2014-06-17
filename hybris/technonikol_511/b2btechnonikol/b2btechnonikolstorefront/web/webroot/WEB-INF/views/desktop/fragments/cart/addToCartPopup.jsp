@@ -49,9 +49,9 @@
 									<a href="${cartUrl}">Show All</a>
 								</c:if>
 							</p>
-						</c:if>
-
-						<c:forEach items="${products}" var="product" end="${numberShowing - 1}">
+						
+	                                        
+						<c:forEach items="${products}" var="product" end="${numberShowing-1}">
 						<div class="cart_modal_popup">
 							<div class="cart_popup_error_msg"><spring:theme code="${errorMsg}" /></div>
 							<div class="prod_image">
@@ -81,6 +81,7 @@
 							</div>
 						</div>
 						</c:forEach>
+						</c:if> <%-- rauf  ---%>
 						<div class="links">
 							<a href="${cartUrl}" class="positive large">
 								<theme:image code="img.addToCartIcon" alt="${addToCartText}" title="${addToCartText}"/>

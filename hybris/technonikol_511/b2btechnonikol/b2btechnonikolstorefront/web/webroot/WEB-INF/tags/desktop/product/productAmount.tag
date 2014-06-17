@@ -14,6 +14,9 @@ ${amount}
     </span>
 </c:if>
 <c:choose>
+    <c:when test="${fn:endsWith(amount, '14') || fn:endsWith(amount, '13') || fn:endsWith(amount, '12')}">
+        товаров
+    </c:when>
     <c:when test="${fn:endsWith(amount, '2') || fn:endsWith(amount, '3') || fn:endsWith(amount, '4')}">
         товара
     </c:when>
