@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="footer-legal">2013 - 2014, 1Платформа. Разработка сайта - TeamIdea.</div>
+    <%--<div class="footer-legal">2013 - 2014, 1Платформа. Разработка сайта - TeamIdea.</div>--%>
     <div class="modal-window"><div class="modal-wrapper"><div class="modal-window__close"></div><div class="modal-window-content"></div></div></div>
     <c:url value="/cart" var="cartUrl"/>
     <script type="text/plain" id="addToCartTmpl">

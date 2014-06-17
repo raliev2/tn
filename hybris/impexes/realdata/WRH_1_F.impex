@@ -1,0 +1,17 @@
+# ImpEx for Importing Warehouses
+
+$vendor=technonikol
+
+# Warehouse
+INSERT_UPDATE Warehouse;code[unique=true];name[lang=ru];name[lang=en];vendor(code)[default=$vendor];default[default=true];active[default=true];shipmentTime[lang=ru];shipmentTime[lang=en];
+;tnwh01;Склад Технониколь №1;Tecnonikol Warehouse One;;;;1 день;1 day;
+;tnwh02;Склад Технониколь №2;Tecnonikol Warehouse Two;;;;1 день;1 day;
+
+INSERT_UPDATE PointOfService;name[unique=true];displayName;warehouses(code);address(&addrID);type(code)[default=WAREHOUSE]
+;tnwh01;Tecnonikol Warehouse One;tnwh01;addr_tnwh01;
+;tnwh02;Tecnonikol Warehouse Two;tnwh02;addr_tnwh02;
+
+INSERT_UPDATE Address;&addrID;owner(PointOfService.name)[unique=true];country(isocode);region(isocode);streetnumber[unique=true];streetname;town;
+;addr_tnwh01;tnwh01;RU;;117001, Москва, Варшавское ш.26;;
+;addr_tnwh02;tnwh01;RU;;117001, Москва, Варшавское ш.26;;
+
