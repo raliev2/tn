@@ -37,8 +37,8 @@
             <li class="footer__link"><a href="javascript:void(0)">Пресс-центр</a></li>
         </ul>
     </div>
-    <div class="col-links col-links_last">
-        <h6>On-line сервисы</h6>
+    <div class="col-links">
+        <h6>Онлайн-сервисы</h6>
         <ul>
             <li class="footer__link"><a href="javascript:void(0)">Запасные части</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Вебинары</a></li>
@@ -53,10 +53,10 @@
         <h6>Мы в социальных сетях</h6>
         <div class="socials clearfix">
             <ul>
-                <li class="socials__item socials__item_vk"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_facebook"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_twitter"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_linkedin"><a href="javascript:void(0)"></a></li>
+                <li class="socials__item socials__item_youtube"><a href="javascript:void(0)"></a></li>
             </ul>
         </div>
     </div>

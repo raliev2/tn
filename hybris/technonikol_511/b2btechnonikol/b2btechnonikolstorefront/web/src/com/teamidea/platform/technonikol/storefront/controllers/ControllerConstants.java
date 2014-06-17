@@ -74,6 +74,7 @@ public interface ControllerConstants
 			String SHOW_CHECKOUT_SUMMARY_URL = "/show-checkout-summary";
 			String SHOW_HOSTED_ORDER_URL = "/show-hosted-order";
 			String APPLY_VOUCHER = "/apply_voucher";
+			String CHECK_PRODUCT = "/check_product";
 			String SHOW_HOSTED_ORDER_ERROR_URL = "/show-hosted-order-error";
 			String SHOW_HOSTED_ORDER_SUCCESS_URL = "/show-hosted-order-success";
 		}

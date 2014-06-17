@@ -228,7 +228,10 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	{
 		ServicesUtil.validateParameterNotNull(cartModel, "Cart model cannot be null");
 		ServicesUtil.validateParameterNotNull(addressModel, "Address model cannot be null");
-		addressModel.setOwner(cartModel.getUser());
+		if (addressModel.getOwner() == null)
+		{
+			addressModel.setOwner(cartModel.getUser());
+		}
 		getModelService().save(addressModel);
 		cartModel.setDeliveryAddress(addressModel);
 		getModelService().save(cartModel);
