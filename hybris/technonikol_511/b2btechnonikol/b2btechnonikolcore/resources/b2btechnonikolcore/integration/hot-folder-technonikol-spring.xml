@@ -34,7 +34,7 @@
     
     <!-- 1) Scan for files <COD>_<GUID>_F.impex -->
     <file:inbound-channel-adapter id="batchFilesTechnonikol" directory="#{baseDirectoryTechnonikol}"
-        filename-regex="^[a-zA-Z]{3}_([0-9a-fA-F-]+?)(_[FfRr]){0,1}\.impex" comparator="technonikolFileOrderComparator" prevent-duplicates="false">
+        filename-regex="^[a-zA-Z]+?(?:_[0-9a-fA-F-]+?)*?(_[FfRr]){0,1}\.impex" comparator="technonikolFileOrderComparator" prevent-duplicates="false">
         <int:poller fixed-rate="1000" />
     </file:inbound-channel-adapter>
     <bean id="technonikolFileOrderComparator" class="de.hybris.platform.acceleratorservices.dataimport.batch.FileOrderComparator">
