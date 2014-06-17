@@ -10,24 +10,6 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <template:page pageTitle="${currentStep.name}">
-<c:url value="/stock/checkProduct?productCode=" var="check_stock_url"/>
-<script>
-    $(document).ready(function() {
-        $('.js-cart-entry').each(function(index,item) {
-            $.ajax({
-                type : 'get',
-                data : {
-                    count: $(item).attr('data-quantity')
-                },
-                url: "https://tn.local:19002/store/stock/checkProduct?productCode=" + $(item).attr('data-id'),
-                dataType: 'html',
-                success: function(data){console.log(data)
-                    $(item).find('.checkout-cart-content__delivery-td').html(data);
-                }
-            });
-        });
-    });
-</script>
     <section class="g-main-content checkout">
         <div id="globalMessages">
             <common:globalMessages />

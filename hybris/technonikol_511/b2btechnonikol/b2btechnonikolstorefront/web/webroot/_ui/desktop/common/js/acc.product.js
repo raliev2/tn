@@ -189,4 +189,17 @@ ACC.product = {
 
 $(document).ready(function() {
 	ACC.product.bindAll();
+    $('.js-cart-entry').each(function(index,item) {
+        $.ajax({
+            type : 'get',
+            data : {
+                count: $(item).attr('data-quantity')
+            },
+            url: check_stock_url + $(item).attr('data-id'),
+            dataType: 'html',
+            success: function(data){console.log(data)
+                $(item).find('.checkout-cart-content__delivery-td').html(data);
+            }
+        });
+    });
 });

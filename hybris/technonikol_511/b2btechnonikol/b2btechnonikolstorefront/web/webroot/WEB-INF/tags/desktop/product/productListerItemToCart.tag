@@ -27,12 +27,14 @@
     <c:if test="${allowAddToCart and purchasable and product.stock.stockLevelStatus.code ne 'outOfStock' }">
         <c:set var="buttonType">submit</c:set>
     </c:if>
-    <div class="to-cart">
-        <label for="qty${index1}">Кол-во:</label>
-        <input type="text" value="1" id="qty${index1}" name="qty" class="g-input" size="3" />
-        <button type="${buttonType}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
-            В корзину
-        </button>
-    </div>
-    <input type="hidden" name="productCodePost" value="${product.code}"/>
+    <c:if test="${product.price.value > 0}">
+        <div class="to-cart">
+            <label for="qty${index1}">Кол-во:</label>
+            <input type="text" value="1" id="qty${index1}" name="qty" class="g-input" size="3" />
+            <button type="${buttonType}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+                В корзину
+            </button>
+        </div>
+        <input type="hidden" name="productCodePost" value="${product.code}"/>
+    </c:if>
 </form>

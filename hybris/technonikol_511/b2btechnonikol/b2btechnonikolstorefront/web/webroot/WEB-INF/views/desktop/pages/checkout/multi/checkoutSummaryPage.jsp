@@ -56,7 +56,7 @@
                         <tbody>
                         <c:forEach items="${cartData.entries}" var="entry">
                             <c:url value="${entry.product.url}" var="productUrl"/>
-                            <tr class="checkout-summary-cart__tr">
+                            <tr class="checkout-summary-cart__tr js-cart-entry" data-quantity="${entry.quantity}" data-id="${entry.product.code}">
                                 <td class="checkout-summary-cart__product clearfix">
                                     <div class="cart-table__product-image">
                                         <a href="${productUrl}">
@@ -74,8 +74,8 @@
                                 <td class="checkout-summary-cart__amount">
                                         ${entry.quantity}
                                 </td>
-                                <td class="checkout-summary-cart__stock">
-                                    На складе
+                                <td class="checkout-summary-cart__stock checkout-cart-content__delivery-td">
+
                                 </td>
                                 <td  class="checkout-summary-cart__price">
                                     <format:fromPrice priceData="${entry.totalPrice}" />
@@ -92,9 +92,6 @@
                         в Кол-Центр по номеру <spring:theme code="common.telephone" />  для получения подробной информации.
                     </div>
                 </div>
-                <input type="submit" value="Далее" class="button button_big g-float-right" />
-                <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
-                <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
             </div>
             <div class="checkout-summary__total">
                 <h4>Итог заказа</h4>

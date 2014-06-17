@@ -45,9 +45,9 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${OrderData.entries}" var="entry">
+            <c:forEach items="${cartData.entries}" var="entry">
                 <c:url value="${entry.product.url}" var="productUrl"/>
-                <tr class="checkout-summary-cart__tr">
+                <tr class="checkout-summary-cart__tr js-cart-entry" data-quantity="${entry.quantity}" data-id="${entry.product.code}">
                     <td class="checkout-summary-cart__product clearfix">
                         <div class="cart-table__product-image">
                             <a href="${productUrl}">
@@ -65,8 +65,7 @@
                     <td class="checkout-summary-cart__amount">
                             ${entry.quantity}
                     </td>
-                    <td class="checkout-summary-cart__stock">
-                        На складе
+                    <td class="checkout-summary-cart__stock checkout-cart-content__delivery-td">
                     </td>
                     <td  class="checkout-summary-cart__price">
                         <format:fromPrice priceData="${entry.totalPrice}" />
