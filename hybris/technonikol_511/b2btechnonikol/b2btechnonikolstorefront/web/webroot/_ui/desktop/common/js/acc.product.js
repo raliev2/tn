@@ -198,7 +198,7 @@ $(document).ready(function() {
             url: check_stock_url + $(item).attr('data-id'),
             dataType: 'html',
             success: function(data){console.log(data)
-                $(item).find('.checkout-cart-content__delivery-td').html(data);
+                $(item).find('.js-entry-stock').html(data);
             }
         });
     });

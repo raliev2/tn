@@ -46,7 +46,7 @@
                                         <p>Количество: ${entry.quantity}</p>
                                         <p>Стоимость: <format:fromPrice priceData="${entry.basePrice}" /></p>
                                     </td>
-                                    <td class="checkout-cart-content__delivery-td"></td>
+                                    <td class="checkout-cart-content__delivery-td js-entry-stock"></td>
                                     <td class="checkout-cart-content__price-td"><format:fromPrice priceData="${entry.totalPrice}" /></td>
                                 </tr>
                             </c:forEach>

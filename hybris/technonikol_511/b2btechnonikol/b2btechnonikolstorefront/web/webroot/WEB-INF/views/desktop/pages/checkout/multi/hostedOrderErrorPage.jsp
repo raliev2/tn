@@ -7,6 +7,8 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template"%>
 <%@ taglib prefix="checkout" tagdir="/WEB-INF/tags/desktop/checkout"%>
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
+<%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
+<%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
 <template:page pageTitle="${currentStep.name}">
 <section class="g-main-content checkout">
@@ -38,9 +40,9 @@
         <table class="checkout-summary-cart__table">
             <thead>
             <tr>
-                <td class="checkout-summary-cart__product">Товар</td>
-                <td class="checkout-summary-cart__amount">Количество</td>
-                <td class="checkout-summary-cart__stock">Наличие</td>
+                <td class="checkout-summary-cart__product" style="width:400px">Товар</td>
+                <td class="checkout-summary-cart__amount" style="width:160px">Количество</td>
+                <td class="checkout-summary-cart__stock" style="width:200px">Наличие</td>
                 <td class="checkout-summary-cart__price">Цена</td>
             </tr>
             </thead>
@@ -65,7 +67,7 @@
                     <td class="checkout-summary-cart__amount">
                             ${entry.quantity}
                     </td>
-                    <td class="checkout-summary-cart__stock checkout-cart-content__delivery-td">
+                    <td class="checkout-summary-cart__stock js-entry-stock">
                     </td>
                     <td  class="checkout-summary-cart__price">
                         <format:fromPrice priceData="${entry.totalPrice}" />

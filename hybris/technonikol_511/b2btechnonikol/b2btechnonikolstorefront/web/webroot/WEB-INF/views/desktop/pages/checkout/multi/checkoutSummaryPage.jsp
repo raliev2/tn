@@ -74,7 +74,7 @@
                                 <td class="checkout-summary-cart__amount">
                                         ${entry.quantity}
                                 </td>
-                                <td class="checkout-summary-cart__stock checkout-cart-content__delivery-td">
+                                <td class="checkout-summary-cart__stock js-entry-stock">
 
                                 </td>
                                 <td  class="checkout-summary-cart__price">
