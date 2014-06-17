@@ -44,6 +44,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
@@ -65,6 +66,11 @@ import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessa
 import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
 import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
 import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
+
+import ru.technonikol.ws.stocks.MaterialsRow;
+import ru.technonikol.ws.stocks.SendQueryResponse;
+
+import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationService;
 
 
 /**
@@ -107,6 +113,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	@Resource(name = "emailService")
 	private EmailService emailService;
+
+	@Resource(name = "deliveryDateIntegrationService")
+	private DeliveryDateIntegrationService deliveryDateIntegrationService;
 
 	private static final CheckoutStep DELIVERY_METHOD;
 	private static final CheckoutStep SELECT_ADDRESS;
@@ -407,6 +416,53 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return currentStep.getView();
 	}
 
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.CHECK_PRODUCT, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String checkStock(final HttpServletRequest request, final Model model)
+	{
+
+		final String PRODUCT_CODE = "productCode";
+		final String PRODUCT_COUNT = "count";
+		final String ERROR_MESSAGE = "errorMessage";
+		final String ROWS = "rows";
+
+		final String productCode = request.getParameter(PRODUCT_CODE);
+		final String count = request.getParameter(PRODUCT_COUNT);
+		final String date = "";
+
+		final SendQueryResponse response = deliveryDateIntegrationService.deliveryDateQueryOut(productCode, count, date);
+
+		if (response == null || response.getReturn() == null || response.getReturn().getMaterials() == null)
+		{
+			LOG.debug("Error while trying to get delivery information for product with code = " + productCode);
+			model.addAttribute(ERROR_MESSAGE, "Ошибка получения данных");
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
+		}
+
+		final List<MaterialsRow> deliveryInfo = response.getReturn().getMaterials().getRow();
+		final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
+		for (final MaterialsRow row : deliveryInfo)
+		{
+			if (StringUtils.equals(row.getEKN(), productCode))
+			{
+				productInfo.add(row);
+			}
+		}
+
+		if (CollectionUtils.isEmpty(productInfo))
+		{
+			LOG.debug("Didn't get delivery information for product with code = " + productCode);
+			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
+			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
+		}
+
+		model.addAttribute(ROWS, productInfo);
+		model.addAttribute(PRODUCT_COUNT, count);
+
+		return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
+	}
+
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_PAYMENT_METHOD_URL, method = RequestMethod.GET)
 	@RequireHardLogIn
 	public String choosePaymentMethod(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
@@ -422,7 +478,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		}
 
 		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
-		cartData.setDeliveryGroupMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
+		getCheckoutFlowFacade().setDeliveryMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
 
 		model.addAttribute("cartData", cartData);
 		model.addAttribute("metaRobots", "no-index,no-follow");
@@ -595,7 +651,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("Клиент: " + orderData.getUser().getName() + "\n");
 		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName() + "\n");
 		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
-		builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
+		//builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
 		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
 		builder.append("Доставка товара: " + orderData.getDeliveryGroupMode().getCode() + "\n");
 		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
