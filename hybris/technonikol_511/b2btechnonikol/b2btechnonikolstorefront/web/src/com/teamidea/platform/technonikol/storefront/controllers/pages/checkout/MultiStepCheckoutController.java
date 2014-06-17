@@ -54,9 +54,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ru.technonikol.ws.stocks.MaterialsRow;
+import ru.technonikol.ws.stocks.SendQueryResponse;
+
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryModeTypeEnum;
 import com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum;
+import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationService;
 import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
 import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
 import com.teamidea.platform.technonikol.storefront.controllers.util.CheckoutStep;
@@ -66,11 +70,6 @@ import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessa
 import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
 import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
 import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
-
-import ru.technonikol.ws.stocks.MaterialsRow;
-import ru.technonikol.ws.stocks.SendQueryResponse;
-
-import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationService;
 
 
 /**
@@ -495,14 +494,15 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public String applyVoucher(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
 		final String voucherCode = request.getParameter("voucherCode");
-		String applyingResult = "OK";
+		String applyingResult = "checkout.apply.voucher.result.ok";
 		try
 		{
 			voucherFacade.applyVoucher(voucherCode);
 		}
 		catch (final VoucherOperationException e)
 		{
-			applyingResult = "ERROR";
+			LOG.error("Error when trying to apply voucher", e);
+			applyingResult = "checkout.apply.voucher.result.error";
 		}
 
 		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));

@@ -288,6 +288,9 @@ input.button_big {
   font-size: 11px;
   line-height: 14px;
 }
+.g-align-right {
+  text-align:right;
+}
 /* /GLOBAL STYLES*/
 
 /*HEADER*/
@@ -977,7 +980,7 @@ footer {
   width:30px;height:30px;
   display:block;
 }
-.footer-legal {   
+.footer-legal {
   font-size: 10px;
   color:#000;
   font-weight: bold;
@@ -2417,6 +2420,7 @@ select.checkout__select {
   border-bottom:30px solid #ebebeb;
   .border-radius;
   padding:20px 0 10px 0;
+  margin-bottom:10px;
 }
 .checkout-summary-cart__table {
   width:100%;
@@ -2441,7 +2445,47 @@ select.checkout__select {
   font-size:11px;
   vertical-align: top;
 }
-.checkout-summary-cart__tr:not(:last-child) {
+.checkout-summary-cart__tr {
   border-bottom:1px solid #ebebeb;
+}
+.checkout-summary-cart__text {
+  padding:10px 0 0 0;
+  font-size:11px;
+  line-height: 13px;
+}
+.checkout-summary__total {
+  padding:30px 20px;
+  background: #ebebeb;
+  float:right;
+  width:260px;
+  .border-radius;
+  font-size:11px;
+  margin-top:26px;
+  line-height:14px;
+}
+.free-shipping {
+  font-size:11px;
+  color:@link-blue;
+  font-weight:bold;
+  font-style:italic;
+  padding-left:20px;
+  position:relative;
+}
+.free-shipping:before {
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:17px;height:17px;
+  background: url(../images/sprite.png) 0 -116px;
+}
+.checkout-summary-total__table {
+  width:100%;
+}
+.checkout-summary-total-table__total td {
+  padding:15px 0;
+}
+.checkout-summary-total__white-line {
+  margin:0 -20px;
+  border-top:2px solid #fff;
 }
 /*END CHECKOUT*/

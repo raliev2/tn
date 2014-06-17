@@ -19,11 +19,7 @@
                 data : {voucherCode : $('#promocode').val()},
                 url : "${apply_voucher}",
                 success : function(data) {
-                    if (data.applyingResult == 'OK') {
-                        $('<p>Промо код успешно применен</p>').modal();
-                    } else {
-                        $('<p>Неверный промо код</p>').modal();
-                    }
+                	$(data).modal();
                 }
             });
         });
