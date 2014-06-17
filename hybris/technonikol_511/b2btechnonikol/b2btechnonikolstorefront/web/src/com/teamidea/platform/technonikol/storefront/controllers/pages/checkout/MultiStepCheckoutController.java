@@ -273,6 +273,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String chooseDeliveryAddress(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+		setCurrentStep(DELIVERY_METHOD);
 
 		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
 
@@ -322,7 +323,19 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public String chooseDeliveryMode(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
 			throws CMSItemNotFoundException
 	{
+
 		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+		if (!(currentStep == SELECT_DELIVERY_ADDRESS) && !(currentStep == ADDRESS_MAP))
+		{
+			if (cartData.getDeliveryAddress() == null)
+			{
+				setCurrentStep(ADDRESS_MAP);
+			}
+			else
+			{
+				setCurrentStep(SELECT_DELIVERY_ADDRESS);
+			}
+		}
 
 		if (currentStep == SELECT_DELIVERY_ADDRESS)
 		{
@@ -466,6 +479,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String choosePaymentMethod(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+
+		setCurrentStep(DELIVERY_MODE);
+
 		final String selectedDeliveryMode = request.getParameter("selectedDeliveryMode");
 
 		if (StringUtils.isEmpty(selectedDeliveryMode))
@@ -516,6 +532,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String showCheckoutSummary(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+		setCurrentStep(PAYMENT_METHOD);
+
 		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
 
 		if (StringUtils.isEmpty(selectedPaymentMethod))
@@ -543,6 +561,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String showHostedOrderError(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+		setCurrentStep(CHECKOUT_SUMMARY);
+
 		final String providedDeliveryDate = request.getParameter("providedDeliveryDate");
 		final String providedDescription = request.getParameter("providedDescription");
 		final Boolean emailNotification = StringUtils.equals(request.getParameter("emailNotification"), "on");
