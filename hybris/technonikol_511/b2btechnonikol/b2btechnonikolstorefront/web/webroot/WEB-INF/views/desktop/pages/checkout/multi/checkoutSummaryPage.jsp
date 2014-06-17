@@ -104,9 +104,7 @@
                 <table class="checkout-summary-total__table">
                     <tr>
                         <td>Сумма заказа</td>
-                        <td class="g-align-right"><format:fromPrice priceData="${cartData.totalPrice}"/><br />
-                            <format:fromPrice priceData="${cartData.subTotal}"/>
-                        </td>
+                        <td class="g-align-right"><format:fromPrice priceData="${cartData.subTotal}"/></td>
                     </tr>
                     <tr>
                         <td>В т.ч. налоговые сборы</td>
@@ -137,7 +135,7 @@
                     <tr class="checkout-summary-total-table__total">
                         <td class="g-strong">Итого</td>
                         <td class="g-align-right">
-
+                            <format:fromPrice priceData="${cartData.totalPrice}"/>
                         </td>
                     </tr>
                 </table>
