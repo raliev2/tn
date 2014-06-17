@@ -1,0 +1,3 @@
+
+INSERT_UPDATE B2BCostCenter;code[unique=true];Unit(uid);currency(isocode);budgets(code);name[lang=ru];
+;973ee02c-978d-11e2-8189-0050560106c8;c989e88a-819a-11e3-8416-00505601094c;RUB;;"ООО ""ФортГрад"""

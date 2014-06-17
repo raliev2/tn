@@ -189,7 +189,7 @@ public class TNPriceFactory extends CatalogAwareEurope1PriceFactory
 
 		if (log.isDebugEnabled())
 		{
-			log.debug("<< queryPriceRows4Price(). " + "Query:" + query.toString());
+			log.debug("<< queryPriceRow s4Price(). " + "Query:" + query.toString());
 		}
 
 		return FlexibleSearch.getInstance().search(//

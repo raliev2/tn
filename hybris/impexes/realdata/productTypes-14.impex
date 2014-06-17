@@ -1,7 +1,0 @@
-﻿$productCatalog=tnProductCatalog
-$productCatalogVer=Online
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default=$productCatalogVer])[unique=true,default=$productCatalog:$productCatalogVer]
-
-insert_update TNProductType; code[unique=true]; name[lang=ru]; $catalogVersion;
-;type1;Тип 1;
-;type2;Тип 2;

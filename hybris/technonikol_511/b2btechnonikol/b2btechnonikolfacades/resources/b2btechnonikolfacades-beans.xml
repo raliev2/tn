@@ -72,6 +72,15 @@
         <property name="unitsMap" type="java.util.Map&lt;String,java.lang.Double>"/>
 
 	</bean>
+	
+	 <bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+        <property name="deliveryMethod" type="com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum"/>
+        <property name="deliveryGroupMode" type="com.teamidea.platform.technonikol.core.enums.TNDeliveryModeTypeEnum"/>
+        <property name="paymentMethod" type="com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum"/>
+        <property name="providedDeliveryDate" type="java.lang.String"/>
+        <property name="providedDescription" type="java.lang.String"/>
+        <property name="emailNotification" type="java.lang.Boolean"/>						
+    </bean>
 
     <enum class="de.hybris.platform.commercefacades.product.ProductOption">
         <value>BRAND</value>

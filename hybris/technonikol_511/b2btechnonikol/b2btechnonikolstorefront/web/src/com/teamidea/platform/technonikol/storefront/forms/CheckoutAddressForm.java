@@ -13,7 +13,6 @@
  */
 package com.teamidea.platform.technonikol.storefront.forms;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -45,7 +44,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the firstName
 	 */
-	@NotNull(message = "{address.firstName.invalid}")
 	@Size(min = 1, max = 255, message = "{address.firstName.invalid}")
 	public String getFirstName()
 	{
@@ -64,7 +62,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the lastName
 	 */
-	@NotNull(message = "{address.lastName.invalid}")
 	@Size(min = 1, max = 255, message = "{address.lastName.invalid}")
 	public String getLastName()
 	{
@@ -83,7 +80,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the townCity
 	 */
-	@NotNull(message = "{address.townCity.invalid}")
 	@Size(min = 1, max = 255, message = "{address.townCity.invalid}")
 	public String getTownCity()
 	{
@@ -102,7 +98,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the postcode
 	 */
-	@NotNull(message = "{address.postcode.invalid}")
 	@Size(min = 1, max = 10, message = "{address.postcode.invalid}")
 	public String getPostcode()
 	{
@@ -121,7 +116,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the countryIso
 	 */
-	@NotNull(message = "{address.country.invalid}")
 	@Size(min = 1, max = 255, message = "{address.country.invalid}")
 	public String getCountryIso()
 	{
@@ -140,7 +134,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the phone
 	 */
-	@NotNull(message = "{address.phone.invalid}")
 	@Size(min = 1, max = 255, message = "{address.phone.invalid}")
 	public String getPhone()
 	{
@@ -159,7 +152,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the street
 	 */
-	@NotNull(message = "{address.street.invalid}")
 	@Size(min = 1, max = 255, message = "{address.street.invalid}")
 	public String getStreet()
 	{
@@ -178,7 +170,6 @@ public class CheckoutAddressForm
 	/**
 	 * @return the houseAndApt
 	 */
-	@NotNull(message = "{address.houseAndApt.invalid}")
 	@Size(min = 1, max = 255, message = "{address.houseAndApt.invalid}")
 	public String getHouse()
 	{

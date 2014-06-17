@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
  */
 public class HotFolderPackageMessage
 {
-	private static final Pattern FILENAME_MATCHER = Pattern.compile("(\\D+?)(\\d+?)_(\\d+?)-(\\d+?).ext.impex");
+	private static final Pattern FILENAME_MATCHER = Pattern
+			.compile("^([a-zA-Z]){3}_[0-9a-fA-F-]+?_(\\d+?)_(\\d+?)-(\\d+?)(_[FfRr]){0,1}\\.ext\\.impex");
 
 	private final String packageId;
 	private final Path currentPath;

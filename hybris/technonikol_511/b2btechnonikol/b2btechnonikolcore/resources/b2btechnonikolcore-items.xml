@@ -45,6 +45,21 @@
     		<value code="ACCESSORIES_RECOMMENDED" />
 		</enumtype>
 		
+		<enumtype code="TNDeliveryMethodTypeEnum" autocreate="true" generate="true" >
+    		<value code="DELIVERY" />
+    		<value code="PICKUP" />
+		</enumtype>
+		
+		<enumtype code="TNDeliveryModeTypeEnum" autocreate="true" generate="true" >
+    		<value code="SINGLE" />
+    		<value code="GROUP" />
+		</enumtype>
+		
+		<enumtype code="TNPaymentMethodTypeEnum" autocreate="true" generate="true" >
+    		<value code="PREPAYMENT" />
+    		<value code="DELAY" />
+		</enumtype>
+		
 	</enumtypes>
 
 	<maptypes>
@@ -693,6 +708,36 @@
 				jaloclass="com.teamidea.platform.technonikol.core.jalo.ProductCartReferencesComponent">
 				<description>ProductCartReferencesComponent</description>
             </itemtype>
+            
+			<itemtype code="AbstractOrder" autocreate="false" generate="false">
+				<attributes>
+					<!-- jalo attributes -->
+					<attribute qualifier="deliveryMethod" type="TNDeliveryMethodTypeEnum" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Delivery method.</description>
+					</attribute>
+					<attribute qualifier="deliveryGroupMode" type="TNDeliveryModeTypeEnum" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Delivery mode.</description>
+					</attribute>					
+				 	<attribute qualifier="paymentMethod" type="TNPaymentMethodTypeEnum" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Payment method.</description>
+					</attribute>		
+				 	<attribute qualifier="providedDeliveryDate" type="java.lang.String" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Provided delivery date</description>
+					</attribute>						
+				 	<attribute qualifier="providedDescription" type="java.lang.String" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Provided description</description>
+					</attribute>						
+				 	<attribute qualifier="emailNotification" type="java.lang.Boolean" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Email notification</description>
+					</attribute>									 	
+				</attributes>
+			</itemtype>
 								
 			<itemtype code="CategoryListComponent" extends="SimpleCMSComponent" autocreate="true" generate="true"
 				jaloclass="com.teamidea.platform.technonikol.core.jalo.CategoryListComponent">

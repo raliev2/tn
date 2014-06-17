@@ -37,8 +37,8 @@
             <li class="footer__link"><a href="javascript:void(0)">Пресс-центр</a></li>
         </ul>
     </div>
-    <div class="col-links col-links_last">
-        <h6>On-line сервисы</h6>
+    <div class="col-links">
+        <h6>Онлайн-сервисы</h6>
         <ul>
             <li class="footer__link"><a href="javascript:void(0)">Запасные части</a></li>
             <li class="footer__link"><a href="javascript:void(0)">Вебинары</a></li>
@@ -53,14 +53,25 @@
         <h6>Мы в социальных сетях</h6>
         <div class="socials clearfix">
             <ul>
-                <li class="socials__item socials__item_vk"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_facebook"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_twitter"><a href="javascript:void(0)"></a></li>
                 <li class="socials__item socials__item_linkedin"><a href="javascript:void(0)"></a></li>
+                <li class="socials__item socials__item_youtube"><a href="javascript:void(0)"></a></li>
             </ul>
         </div>
     </div>
     <div class="clearfix"></div>
     <div class="footer-legal">2013 - 2014, 1Платформа. Разработка сайта - TeamIdea.</div>
     <div class="modal-window"><div class="modal-wrapper"><div class="modal-window__close"></div><div class="modal-window-content"></div></div></div>
+    <script type="text/plain" id="addToCartTmpl">
+        <div class="cart-popup__header clearfix">
+            <div class="cart-popup__mesage">{{=it.message}}</div>
+            <div class="cart-popup__tocart g-float-right"><a href="${cartUrl}">Посмотреть корзину</a></div>
+        </div>
+        <div class=cart-popup__body>
+                    <div class="cart-popup-carousel__header">Также покупают:</div>
+                    {{=it.productReference}}
+        </div>
+    </script>
+    <div class="cart-popup"></div>
 </footer>

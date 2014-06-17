@@ -6,24 +6,26 @@ package com.teamidea.platform.technonikol.core.dataimport.bigpackage.task;
 import de.hybris.platform.acceleratorservices.dataimport.batch.BatchHeader;
 import de.hybris.platform.acceleratorservices.dataimport.batch.task.CleanupHelper;
 import de.hybris.platform.acceleratorservices.dataimport.batch.util.BatchDirectoryUtils;
+import de.hybris.platform.cronjob.model.JobLogModel;
+import de.hybris.platform.impex.model.ImpExMediaModel;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 
 import com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService;
-import com.teamidea.platform.technonikol.core.dataimport.batch.utils.IOUtilsExt;
+import com.teamidea.platform.technonikol.core.dataimport.LoggerStatus;
 import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPackageMessage;
 
 
@@ -34,6 +36,8 @@ import com.teamidea.platform.technonikol.core.dataimport.bigpackage.HotFolderPac
 public class CleanupBigPackageHelper extends CleanupHelper
 {
 	private static final Logger log = Logger.getLogger(CleanupBigPackageHelper.class);
+
+	private static final String DATE_SEPARATOR = "_";
 
 	private ImpexLoggerService loggerService;
 
@@ -50,16 +54,57 @@ public class CleanupBigPackageHelper extends CleanupHelper
 	{
 		if (log.isDebugEnabled())
 		{
-			log.debug("Cleanup BatchHeader. SOURCE before TRANSFORMED. hasError:" + error);
+			log.debug("Cleanup BatchHeader. hasError:" + error);
 		}
 		if (header != null)
 		{
-			cleanupSourceFile(header, error);
-			cleanupTransformedFiles(header);
+			try
+			{
+				if (header.getFile() != null)
+				{
+					final File movedFile = getDestFile(header.getFile(), false);
+					if (!header.getFile().renameTo(movedFile))
+					{
+						log.warn("Could not move " + header.getFile() + " to " + movedFile);
+
+					}
+				}
+				if (!error)
+				{
+					loggerService.writeXmlSuccessStatus(header.getFile());
+				}
+				else
+				{
+					loggerService.writeXmlStatus(header.getFile(), LoggerStatus.FATAL, null, null, "Import error");
+				}
+			}
+			catch (final Exception e)
+			{
+				log.error(e, e);
+			}
 		}
 	}
 
 	public void cleanup(final HotFolderPackageMessage packageMessage)
+	{
+		try
+		{
+			if (!packageMessage.isImpexImportError())
+			{
+				cleanup(packageMessage, packageMessage.isError() ? LoggerStatus.FATAL : LoggerStatus.SUCCESS, null);
+			}
+			else
+			{
+				moveFile(packageMessage.getCurrentPath());
+			}
+		}
+		catch (final Exception e)
+		{
+			log.error(e, e);
+		}
+	}
+
+	public void cleanup(final HotFolderPackageMessage packageMessage, final String code, final String errorMessage)
 	{
 		if (log.isDebugEnabled())
 		{
@@ -71,58 +116,91 @@ public class CleanupBigPackageHelper extends CleanupHelper
 			{
 				log.debug("HotFolderPackageMessage.isError:" + packageMessage.isError());
 			}
-			cleanupPackageMessage(packageMessage);
+			cleanupPackageMessage(packageMessage, code, errorMessage);
 		}
 	}
 
 	/**
 	 * @param packageMessage
 	 */
-	private void cleanupPackageMessage(final HotFolderPackageMessage packageMessage)
+	private void cleanupPackageMessage(final HotFolderPackageMessage packageMessage, final String code, final String errorMessage)
 	{
-		final String dirName = BatchDirectoryUtils.getRelativeArchiveDirectory(packageMessage.getCurrentPath().toFile());
 		try
 		{
-			writeStatus(packageMessage);
-			Files.move(packageMessage.getCurrentPath(),
-					Paths.get(dirName, packageMessage.getCurrentPath().getFileName().toString()), StandardCopyOption.REPLACE_EXISTING);
-
+			moveFile(packageMessage.getCurrentPath());
+			if (!packageMessage.isError())
+			{
+				loggerService.writeXmlSuccessStatus(packageMessage.getCurrentPath().toFile());
+			}
+			else
+			{
+				loggerService.writeXmlStatus(packageMessage.getCurrentPath().toFile(), code, null, null, errorMessage);
+			}
 		}
-		catch (final IOException e)
+		catch (final Exception e)
 		{
 			log.error(e, e);
 		}
 	}
 
-	public void writeError(final HotFolderPackageMessage packageMessage, final String message)
-			throws UnsupportedEncodingException, FileNotFoundException, XMLStreamException
+
+	/**
+	 * @param packageMessage
+	 * @param dirName
+	 * @throws IOException
+	 */
+	private void moveFile(final Path currentPath) throws IOException
 	{
-		XMLStreamWriter errorWriter = null;
-		try
+		final StringBuilder builder = new StringBuilder(currentPath.getFileName().toString());
+		if (!StringUtils.isBlank(getTimeStampFormat()))
 		{
-			errorWriter = loggerService.writeXmlError(packageMessage.getCurrentPath().toFile(), errorWriter, null, null, message);
+			final SimpleDateFormat sdf = new SimpleDateFormat(getTimeStampFormat(), Locale.getDefault());
+			builder.append(DATE_SEPARATOR);
+			builder.append(sdf.format(new Date()));
 		}
-		finally
+
+		final String dirName = BatchDirectoryUtils.getRelativeArchiveDirectory(currentPath.toFile());
+		Files.move(currentPath, Paths.get(dirName, builder.toString()), StandardCopyOption.REPLACE_EXISTING);
+	}
+
+	private void moveFile(final File file) throws IOException
+	{
+		final File movedFile = getDestFile(file, false);
+		if (!file.renameTo(movedFile))
 		{
-			IOUtilsExt.closeQuietly(errorWriter);
+			log.warn("Could not move " + file + " to " + movedFile);
 		}
 	}
 
 	/**
 	 * @param packageMessage
 	 */
-	private void writeStatus(final HotFolderPackageMessage packageMessage) throws UnsupportedEncodingException,
-			FileNotFoundException
+	public void cleanup(final File file, final String status, final ImpExMediaModel unresolvedLines, final List<JobLogModel> logs,
+			final String message)
 	{
-		PrintWriter statusWriter = null;
+		if (log.isDebugEnabled())
+		{
+			log.debug("Cleanup File. Status:" + status);
+		}
+
 		try
 		{
-			statusWriter = loggerService.writeStatus(packageMessage.getCurrentPath().toFile(), null,
-					packageMessage.isError() ? "Error" : "Ok");
+			if (file != null)
+			{
+				moveFile(file);
+			}
+			if (LoggerStatus.SUCCESS.equals(status))
+			{
+				loggerService.writeXmlSuccessStatus(file);
+			}
+			else
+			{
+				loggerService.writeXmlStatus(file, status, unresolvedLines, logs, message);
+			}
 		}
-		finally
+		catch (final Exception e)
 		{
-			IOUtils.closeQuietly(statusWriter);
+			log.error(e, e);
 		}
 	}
 

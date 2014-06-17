@@ -1,9 +1,0 @@
-$productCatalog=tnProductCatalog
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
-$u_products=source(code, $catalogVersion)[unique=true]
-$u_units=target(code)[unique=true]
-$approved=approvalstatus(code)[default='approved']
-
-INSERT_UPDATE ProductUnitRelation;$u_products;$u_units;conversion
-;000100;4C;2
-;000100;4D;3
