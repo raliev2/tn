@@ -39,14 +39,14 @@
             <table class="checkout-summary-cart__table">
                 <thead>
                 <tr>
-                    <td class="checkout-summary-cart__product" width="400px">Товар</td>
-                    <td class="checkout-summary-cart__amount" width="160px">Количество</td>
-                    <td class="checkout-summary-cart__stock" width="200px">Наличие</td>
+                    <td class="checkout-summary-cart__product" style="width:400px">Товар</td>
+                    <td class="checkout-summary-cart__amount" style="width:160px">Количество</td>
+                    <td class="checkout-summary-cart__stock" style="width:200px">Наличие</td>
                     <td class="checkout-summary-cart__price">Цена</td>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${OrderData.entries}" var="entry">
+                <c:forEach items="${entries}" var="entry">
                     <c:url value="${entry.product.url}" var="productUrl"/>
                     <tr class="checkout-summary-cart__tr js-cart-entry" data-quantity="${entry.quantity}" data-id="${entry.product.code}">
                         <td class="checkout-summary-cart__product clearfix">

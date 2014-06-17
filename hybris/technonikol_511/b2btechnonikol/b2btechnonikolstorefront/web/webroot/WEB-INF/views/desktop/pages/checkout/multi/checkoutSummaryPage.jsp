@@ -150,14 +150,12 @@
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         ${cartData.deliveryAddress.formattedAddress}
-                        Россия, г. Москва, ул. Нижняя Красносельская 12/14
                     </div>
                     <h4 class="g-float-left">Получатель</h4>
                     <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         ${cartData.deliveryAddress.lastName} ${cartData.deliveryAddress.firstName}
-                        Иванов Иван
                     </div>
                     <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
 

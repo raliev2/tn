@@ -28,7 +28,7 @@ function refreshMiniCart(cartResult) {
         amount += parseInt(cartResult['cartData']['products'][i]['quantity']);
     }
     if ($('.js-cart-amount').length == 0) {
-        $('.link-cart').html('В корзине <span class="js-cart-amount">1</span> товар');
+        $('.link-cart').html('В корзине <span class="js-cart-amount">'+amount+'</span> товар');
     } else {
         $('.js-cart-amount').text(amount);
     }
@@ -44,13 +44,14 @@ ACC.product = {
 	addToCartFormSelector: '.add_to_cart_form',
 
 
-	bindToAddToCartForm: function(options) {
-		options = ACC.common.ensureAtleastDefaultAttributeSet(options, 'enforce', false);
+	bindToAddToCartForm: function($selector) {
+		/*options = ACC.common.ensureAtleastDefaultAttributeSet(options, 'enforce', false);
 
 		if (options.enforce) {
 			ACC.product.$addToCartForm = $(ACC.product.addToCartFormSelector);
-		}
+		}*/
         //console.log(ACC.product.$addToCartForm);
+        if ($selector) ACC.product.$addToCartForm = $selector;
 		ACC.product.$addToCartForm.ajaxForm({
             beforeSubmit: function(arr, $form, options) {
                 var qty = parseFloat($('#qty').val());
@@ -141,7 +142,7 @@ ACC.product = {
         });
 
         $(ACC.product.$cartPopup).modal();
-        ACC.product.bindToAddToCartForm();
+        ACC.product.bindToAddToCartForm($(".modal-window .add_to_cart_form"));
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
@@ -198,12 +199,9 @@ $(document).ready(function() {
             },
             url: check_stock_url + $(item).attr('data-id'),
             dataType: 'html',
-            success: function(data){console.log(data)
+            success: function(data){
                 $(item).find('.js-entry-stock').html(data);
             }
         });
     });
-    /*$('body').on('click','.fn',function() {console.log('click')
-        ACC.product.bindToAddToCartForm();
-    });*/
 });
