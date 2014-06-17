@@ -63,6 +63,7 @@
     <div class="clearfix"></div>
     <%--<div class="footer-legal">2013 - 2014, 1Платформа. Разработка сайта - TeamIdea.</div>--%>
     <div class="modal-window"><div class="modal-wrapper"><div class="modal-window__close"></div><div class="modal-window-content"></div></div></div>
+    <c:url value="/cart" var="cartUrl"/>
     <script type="text/plain" id="addToCartTmpl">
         <div class="cart-popup__header clearfix">
             <div class="cart-popup__mesage">{{=it.message}}</div>
@@ -74,4 +75,8 @@
         </div>
     </script>
     <div class="cart-popup"></div>
+    <script>
+        <c:url value="/checkout/multi/check_product?productCode=" var="check_stock_url"/>
+        var check_stock_url='${check_stock_url}';
+    </script>
 </footer>

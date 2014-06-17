@@ -28,7 +28,7 @@ function refreshMiniCart(cartResult) {
         amount += parseInt(cartResult['cartData']['products'][i]['quantity']);
     }
     if ($('.js-cart-amount').length == 0) {
-        $('.link-cart').html('В корзине <span class="js-cart-amount">1</span> товар');
+        $('.link-cart').html('В корзине <span class="js-cart-amount">'+amount+'</span> товар');
     } else {
         $('.js-cart-amount').text(amount);
     }
@@ -44,31 +44,41 @@ ACC.product = {
 	addToCartFormSelector: '.add_to_cart_form',
 
 
-	bindToAddToCartForm: function(options) {
-		options = ACC.common.ensureAtleastDefaultAttributeSet(options, 'enforce', false);
+	bindToAddToCartForm: function($selector) {
+		/*options = ACC.common.ensureAtleastDefaultAttributeSet(options, 'enforce', false);
 
 		if (options.enforce) {
 			ACC.product.$addToCartForm = $(ACC.product.addToCartFormSelector);
-		}
-
+		}*/
+        //console.log(ACC.product.$addToCartForm);
+        if ($selector) ACC.product.$addToCartForm = $selector;
 		ACC.product.$addToCartForm.ajaxForm({
             beforeSubmit: function(arr, $form, options) {
                 var qty = parseFloat($('#qty').val());
                 var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity')); //считаем, что для base
-                var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
-                var baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
+                if ($('#priceUnits option').length > 0 ) {
+                    var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
+                } else {
+                    coefficient = 1;
+                }
+                if ($('#addToCartButton').attr('data-base-to-sales') == '') {
+                    var baseToSales = 1;
+                } else {
+                    baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
+                }
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
                     arr[0].value = Math.ceil(arr[0].value);
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     return true;
                 }
-                var qtyBase = qty * coefficient;
+                //var qtyBase = qty * coefficient;
+                var qtyBase = qty;
 
                 if (qtyBase < minOrderQuantity) {
                     var minOrderQuantityCur = minOrderQuantity / coefficient;
-                    ACC.product.cartResult['message'] = '<p>Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
-                    <p>Ваш заказ будет автоматически исправлен.</p>';
+                    ACC.product.cartResult['message'] = '<p style="font-weight:normal">Для данного товара минимально возможное для отгрузки количество ' + minOrderQuantityCur + $('#priceUnits option:selected').text() + '</p>\
+                    <p style="font-weight:normal">Ваш заказ будет автоматически исправлен.</p>';
                     arr[0].value = Math.ceil(minOrderQuantity / baseToSales);
                     return true;
                 } else {
@@ -78,7 +88,7 @@ ACC.product = {
                     return true;
                 }
             },
-            success: function(cartResult) {console.log(cartResult)
+            success: function(cartResult) {
                 var productID = $('input[name="productCodePost"]').val();
                 $.ajax({
                     type : 'get',
@@ -132,6 +142,7 @@ ACC.product = {
         });
 
         $(ACC.product.$cartPopup).modal();
+        ACC.product.bindToAddToCartForm($(".modal-window .add_to_cart_form"));
 	},
 
 	trackAddToCart: function(productCode, quantity, cartData) {
@@ -180,4 +191,17 @@ ACC.product = {
 
 $(document).ready(function() {
 	ACC.product.bindAll();
+    $('.js-cart-entry').each(function(index,item) {
+        $.ajax({
+            type : 'get',
+            data : {
+                count: $(item).attr('data-quantity')
+            },
+            url: check_stock_url + $(item).attr('data-id'),
+            dataType: 'html',
+            success: function(data){
+                $(item).find('.js-entry-stock').html(data);
+            }
+        });
+    });
 });

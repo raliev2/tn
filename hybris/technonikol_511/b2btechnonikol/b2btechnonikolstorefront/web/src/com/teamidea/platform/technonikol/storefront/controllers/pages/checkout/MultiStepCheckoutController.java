@@ -13,7 +13,6 @@ import de.hybris.platform.commercefacades.order.data.OrderData;
 import de.hybris.platform.commercefacades.order.data.OrderEntryData;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
-import de.hybris.platform.commercefacades.product.data.PriceData;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
 import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
@@ -54,9 +53,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ru.technonikol.ws.stocks.MaterialsRow;
+import ru.technonikol.ws.stocks.SendQueryResponse;
+
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryModeTypeEnum;
 import com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum;
+import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationService;
 import com.teamidea.platform.technonikol.storefront.annotations.RequireHardLogIn;
 import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
 import com.teamidea.platform.technonikol.storefront.controllers.util.CheckoutStep;
@@ -66,11 +69,6 @@ import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessa
 import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
 import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
 import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
-
-import ru.technonikol.ws.stocks.MaterialsRow;
-import ru.technonikol.ws.stocks.SendQueryResponse;
-
-import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationService;
 
 
 /**
@@ -136,6 +134,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	static
 	{
+		// setup custom methods lists
 		deliveryMethods.add(new DeliveryMethod(TNDeliveryMethodTypeEnum.DELIVERY));
 		deliveryMethods.add(new DeliveryMethod(TNDeliveryMethodTypeEnum.PICKUP));
 		paymentMethods.add(new PaymentMethod(TNPaymentMethodTypeEnum.DELAY));
@@ -143,6 +142,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		deliveryModes.add(new DeliveryMode(TNDeliveryModeTypeEnum.GROUP));
 		deliveryModes.add(new DeliveryMode(TNDeliveryModeTypeEnum.SINGLE));
 
+		// setup checkout steps
 		DELIVERY_METHOD = new CheckoutStep("checkout.step.delivery.method",
 				ControllerConstants.Actions.Checkout.SELECT_DELIVERY_METHOD_URL,
 				ControllerConstants.Views.Pages.MultiStepCheckout.ChooseDeliveryMethodPage);
@@ -252,8 +252,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		setCurrentStep(DELIVERY_METHOD);
 
-		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
-		for (final OrderEntryData entry : cartData.getEntries())
+		for (final OrderEntryData entry : getCart().getEntries())
 		{
 			final String productCode = entry.getProduct().getCode();
 			final ProductData product = productFacade.getProductForCodeAndOptions(productCode,
@@ -261,11 +260,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			entry.setProduct(product);
 		}
 
-		model.addAttribute("cartData", cartData);
+		model.addAttribute("cartData", getCart());
 		model.addAttribute("currentStep", currentStep);
-		model.addAttribute("metaRobots", "no-index,no-follow");
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		loadPageDataInModel(model);
 
 		return currentStep.getView();
 	}
@@ -274,8 +271,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String chooseDeliveryAddress(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
-
-		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+		setCurrentStep(DELIVERY_METHOD);
 
 		final String selectedDeliveryMethod = request.getParameter("selectedDeliveryMethod");
 		final String selectedCostCenter = request.getParameter("selectedCostCenter");
@@ -283,38 +279,36 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		if (StringUtils.isEmpty(selectedDeliveryMethod))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMethod.notprovided");
-			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
 		if (StringUtils.isEmpty(selectedCostCenter))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.costCenter.notprovided");
-			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, cartData.getCode());
+		getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, getCart().getCode());
 		getCheckoutFlowFacade().setDeliveryMethod(TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
-
-		model.addAttribute("cartData", cartData);
-		model.addAttribute("metaRobots", "no-index,no-follow");
 
 		if (StringUtils.equalsIgnoreCase(selectedDeliveryMethod, TNDeliveryMethodTypeEnum.PICKUP.name()))
 		{
-
+			// show map to select store where to pickup order
 			setCurrentStep(ADDRESS_MAP);
 		}
 		else
 		{
+			// show form to add/select user delivery address
 			model.addAttribute("addressForm", new CheckoutAddressForm());
 			setCurrentStep(SELECT_DELIVERY_ADDRESS);
 		}
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+
+		model.addAttribute("cartData", getCart());
 		model.addAttribute("currentStep", currentStep);
+		loadPageDataInModel(model);
+
 		return currentStep.getView();
 	}
 
@@ -323,15 +317,29 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public String chooseDeliveryMode(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
 			throws CMSItemNotFoundException
 	{
-		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
+
+		// need for return to previous page functionality
+		if (!(currentStep == SELECT_DELIVERY_ADDRESS) && !(currentStep == ADDRESS_MAP))
+		{
+			if (getCart().getDeliveryAddress() == null)
+			{
+				setCurrentStep(ADDRESS_MAP);
+			}
+			else
+			{
+				setCurrentStep(SELECT_DELIVERY_ADDRESS);
+			}
+		}
 
 		if (currentStep == SELECT_DELIVERY_ADDRESS)
 		{
+			// setup delivery address
 			final List<DeliveryOrderEntryGroupData> deliveryGroups = new ArrayList<DeliveryOrderEntryGroupData>();
 			final DeliveryOrderEntryGroupData deliveryGroup = new DeliveryOrderEntryGroupData();
-			deliveryGroup.setEntries(cartData.getEntries());
+			deliveryGroup.setEntries(getCart().getEntries());
 
 			final boolean saveAddress = StringUtils.equals(request.getParameter("saveAddress"), "on");
+			// get data for new address from filled form
 			if (saveAddress)
 			{
 				final AddressData newAddress = new AddressData();
@@ -345,21 +353,20 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				newAddress.setBillingAddress(false);
 				newAddress.setShippingAddress(true);
 				newAddress.setVisibleInAddressBook(true);
-				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));//TODO
+				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));
 
 				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
 				deliveryGroup.setDeliveryAddress(newAddress);
-
 			}
 			else
 			{
+				// set existing address
 				final String selectedAddress = request.getParameter("selectedDeliveryAddress");
 
 				if (StringUtils.isEmpty(selectedAddress))
 				{
 					GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryAddress.notprovided");
-					storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-					setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+					loadPageDataInModel(model);
 					return currentStep.getView();
 				}
 
@@ -369,50 +376,47 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			}
 
 			deliveryGroups.add(deliveryGroup);
-			cartData.setDeliveryOrderGroups(deliveryGroups);
-			getCheckoutFlowFacade().setDeliveryModeIfAvailable(); //TODO think about it (how to set delivery mode and address)
+			getCart().setDeliveryOrderGroups(deliveryGroups);
+
+			// set delivery mode based on selected delivery method
+			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
 		}
 		else
 		{
+			// set pickup address
 			final String selectedStore = request.getParameter("selectedStore");
 
 			if (StringUtils.isEmpty(selectedStore))
 			{
 				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
-				storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-				setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+				loadPageDataInModel(model);
 				return currentStep.getView();
 			}
 
-			final PointOfServiceData storeSearchResult = storeFinderFacade.getPointOfServiceForName(selectedStore);
+			getCheckoutFlowFacade().setDeliveryPointOfService(selectedStore);
 
+			final PointOfServiceData storeSearchResult = storeFinderFacade.getPointOfServiceForName(selectedStore);
 			final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
 			final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
 			pickupOrderGroups.add(pickupData);
 			pickupData.setDeliveryPointOfService(storeSearchResult);
-			cartData.setPickupOrderGroups(pickupOrderGroups);
+			getCart().setPickupOrderGroups(pickupOrderGroups);
 
-			for (final OrderEntryData entry : cartData.getEntries())
-			{
-				entry.setDeliveryPointOfService(storeSearchResult); //TODO think about it (how to set selected point of service)
-			}
-
+			// set delivery mode based on selected delivery method
+			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
 		}
 
-		PriceData deliveryCost = null;
-		if (getCheckoutFlowFacade().getCheckoutCart().getDeliveryMode() != null)
+		if (getCart().getDeliveryMode() != null)
 		{
-			deliveryCost = getCheckoutFlowFacade().getCheckoutCart().getDeliveryMode().getDeliveryCost();
+			model.addAttribute("deliveryCost", getCart().getDeliveryMode().getDeliveryCost());
 		}
-
-		model.addAttribute("cartData", cartData);
-		model.addAttribute("deliveryCost", deliveryCost);
-		model.addAttribute("metaRobots", "no-index,no-follow");
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
 
 		setCurrentStep(DELIVERY_MODE);
+
+		model.addAttribute("cartData", getCart());
 		model.addAttribute("currentStep", currentStep);
+		loadPageDataInModel(model);
+
 		return currentStep.getView();
 	}
 
@@ -467,23 +471,22 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String choosePaymentMethod(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+
+		setCurrentStep(DELIVERY_MODE);
+
 		final String selectedDeliveryMode = request.getParameter("selectedDeliveryMode");
 
 		if (StringUtils.isEmpty(selectedDeliveryMode))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMode.notprovided");
-			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
 		getCheckoutFlowFacade().setDeliveryMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
 
-		model.addAttribute("cartData", cartData);
-		model.addAttribute("metaRobots", "no-index,no-follow");
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		model.addAttribute("cartData", getCart());
+		loadPageDataInModel(model);
 
 		setCurrentStep(PAYMENT_METHOD);
 		model.addAttribute("currentStep", currentStep);
@@ -495,20 +498,20 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public String applyVoucher(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
 		final String voucherCode = request.getParameter("voucherCode");
-		String applyingResult = "OK";
+		String applyingResult = "checkout.apply.voucher.result.ok";
 		try
 		{
 			voucherFacade.applyVoucher(voucherCode);
 		}
 		catch (final VoucherOperationException e)
 		{
-			applyingResult = "ERROR";
+			LOG.error("Error when trying to apply voucher", e);
+			applyingResult = "checkout.apply.voucher.result.error";
 		}
 
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-
+		loadPageDataInModel(model);
 		model.addAttribute("applyingResult", applyingResult);
+
 		return ControllerConstants.Views.Pages.MultiStepCheckout.ApplyVoucherResult;
 	}
 
@@ -516,26 +519,25 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String showCheckoutSummary(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+		setCurrentStep(PAYMENT_METHOD);
+
 		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
 
 		if (StringUtils.isEmpty(selectedPaymentMethod))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
-			storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-			setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		final CartData cartData = getCheckoutFlowFacade().getCheckoutCart();
-		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));//TODO
-
-		model.addAttribute("cartData", cartData);
-		model.addAttribute("metaRobots", "no-index,no-follow");
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));
 
 		setCurrentStep(CHECKOUT_SUMMARY);
+
 		model.addAttribute("currentStep", currentStep);
+		model.addAttribute("cartData", getCart());
+		loadPageDataInModel(model);
+
 		return currentStep.getView();
 	}
 
@@ -543,6 +545,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequireHardLogIn
 	public String showHostedOrderError(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
+		setCurrentStep(CHECKOUT_SUMMARY);
+
 		final String providedDeliveryDate = request.getParameter("providedDeliveryDate");
 		final String providedDescription = request.getParameter("providedDescription");
 		final Boolean emailNotification = StringUtils.equals(request.getParameter("emailNotification"), "on");
@@ -550,6 +554,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		getCheckoutFlowFacade().setProvidedDeliveryDate(providedDeliveryDate);
 		getCheckoutFlowFacade().setProvidedDescription(providedDescription);
 		getCheckoutFlowFacade().setEmailNotification(emailNotification);
+
+		final List<OrderEntryData> entries = getCart().getEntries();
+		model.addAttribute("entries", entries);
 
 		final OrderData orderData;
 		try
@@ -565,18 +572,16 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			setCurrentStep(HOSTED_ORDER_ERROR);
 		}
 
-		model.addAttribute("metaRobots", "no-index,no-follow");
-		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
-
 		model.addAttribute("currentStep", currentStep);
+
+		loadPageDataInModel(model);
 		return currentStep.getView();
 	}
 
 	private void sendHostedOrderSuccessEmailTest(final OrderData orderData)
 	{
 		// Recipient's email ID needs to be mentioned.
-		final String to = "marina.zhigalova@gmail.com";
+		final String to = "zhigalova@teamidea.ru";
 
 		// Sender's email ID needs to be mentioned
 		final String from = "1plt@tn.ru";
@@ -609,10 +614,6 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			// Set To: header field of the header.
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-			// Set To: header field of the header.
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("zhigalova@teamidea.ru"));
-			// Set CC: header field of the header.
-			message.addRecipient(Message.RecipientType.CC, new InternetAddress("marina.zhigalova@gmail.com"));
 
 			// Set Subject: header field
 			message.setSubject("Информация о размещенном заказе");
@@ -648,24 +649,74 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("Клиент: " + orderData.getUser().getName() + "\n");
-		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName() + "\n");
-		builder.append("Способ доставки: " + orderData.getDeliveryMethod().getCode() + "\n");
-		//builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress() + "\n");
-		builder.append("Способ оплаты: " + orderData.getPaymentMethod().getCode() + "\n");
-		builder.append("Доставка товара: " + orderData.getDeliveryGroupMode().getCode() + "\n");
-		builder.append("Уведомления: " + (orderData.getEmailNotification() ? "да" : "нет") + "\n");
-		builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate() + "\n");
-		builder.append("Комментарий клиента: " + orderData.getProvidedDescription() + "\n");
+		builder.append("Клиент: " + orderData.getUser().getName());
+		builder.append("\n\n");
+		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
+		builder.append("\n\n");
+		builder.append("Способ доставки: "
+				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY.getCode()) ? "доставка курьером"
+						: "самовывоз"));
+		builder.append("\n\n");
+		if (orderData.getDeliveryAddress() != null)
+		{
+			builder.append("Адрес доставки: " + orderData.getDeliveryAddress().getFormattedAddress());
+			builder.append("\n\n");
+		}
+		builder
+				.append("Группировка заказа: "
+						+ (orderData.getDeliveryGroupMode().getCode().equals(TNDeliveryModeTypeEnum.GROUP.getCode()) ? "Сгруппировать заказ одной посылкой"
+								: "По отдельности по мере появления на складе"));
+		builder.append("\n\n");
+		builder.append("Способ оплаты: "
+				+ (orderData.getPaymentMethod().getCode().equals(TNPaymentMethodTypeEnum.DELAY.getCode()) ? "Отсрочка платежа"
+						: "Предоплата"));
+		builder.append("\n\n");
+		builder.append("Получать email-уведомления: " + (orderData.getEmailNotification() ? "да" : "нет"));
+		builder.append("\n\n");
+		if (!StringUtils.isEmpty(orderData.getProvidedDeliveryDate()))
+		{
+			builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate());
+			builder.append("\n\n");
+		}
+		if (!StringUtils.isEmpty(orderData.getProvidedDescription()))
+		{
+			builder.append("Комментарий клиента: " + orderData.getProvidedDescription());
+			builder.append("\n\n");
+		}
+		builder.append("Позиции заказа");
+		builder.append("\n\n");
 		for (final OrderEntryData entry : orderData.getEntries())
 		{
-			builder.append("Товар: " + entry.getProduct().getName() + "\n");
-			builder.append("Количество: " + entry.getQuantity() + "\n");
+			builder.append("Наименование: " + entry.getProduct().getName());
+			builder.append("\n\n");
+			builder.append("Количество: " + entry.getQuantity());
+			builder.append("\n\n");
+			if (entry.getDeliveryPointOfService() != null)
+			{
+				builder.append("Адрес магазина: " + entry.getDeliveryPointOfService().getAddress().getFormattedAddress());
+				builder.append("\n\n");
+			}
 		}
+
+		builder.append("\n\n");
+		builder.append("Скидка: " + orderData.getTotalDiscounts().getFormattedValue());
+		builder.append("\n\n");
+		builder.append("Общая стоимость: " + orderData.getTotalPrice().getFormattedValue());
 
 		return builder.toString();
 	}
 
+	public void loadPageDataInModel(final Model model) throws CMSItemNotFoundException
+	{
+		model.addAttribute("metaRobots", "no-index,no-follow");
+		storeCmsPageInModel(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(MULTI_STEP_CHECKOUT_CMS_PAGE_LABEL));
+	}
+
+	public CartData getCart()
+	{
+		return getCheckoutFlowFacade().getCheckoutCart();
+	}
 
 	/**
 	 * @return the currentStep

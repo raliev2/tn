@@ -17,6 +17,7 @@ jQuery.fn.outerHTML = function(s) {
             event.preventDefault();
             $('.modal-window').hide();
         });
+        console.log(this)
         $('.modal-window-content').append(this);
         $('.modal-window').fadeIn();
     };

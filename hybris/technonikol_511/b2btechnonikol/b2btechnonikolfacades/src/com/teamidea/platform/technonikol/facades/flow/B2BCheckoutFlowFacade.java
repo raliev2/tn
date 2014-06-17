@@ -51,4 +51,6 @@ public interface B2BCheckoutFlowFacade extends B2BCheckoutFacade
 
 	@Override
 	boolean setDeliveryAddress(AddressData addressData);
+
+	void setDeliveryPointOfService(String selectedStore);
 }
