@@ -71,7 +71,8 @@ ACC.product = {
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     return true;
                 }
-                var qtyBase = qty * coefficient;
+                //var qtyBase = qty * coefficient;
+                var qtyBase = qty;
 
                 if (qtyBase < minOrderQuantity) {
                     var minOrderQuantityCur = minOrderQuantity / coefficient;

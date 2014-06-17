@@ -17,30 +17,17 @@
         <ul class="checkou-steps__list clearfix g-float-left">
             <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Адрес доставки</a></li>
             <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Способ доставки</a></li>
-            <li class="checkout__step checkout__step_current"><a href="javascript:void(0)">Способ оплаты</a></li>
-            <li class="checkout__step"><a href="javascript:void(0)">Проверка заказа</a></li>
-            <li class="checkout__step"><a href="javascript:void(0)">Готово</a></li>
+            <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Способ оплаты</a></li>
+            <li class="checkout__step checkout__step_notactive"><a href="javascript:void(0)">Проверка заказа</a></li>
+            <li class="checkout__step checkout__step_current"><a href="javascript:void(0)">Готово</a></li>
         </ul>
     </div>
     <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
+    <div class="information-message information-message_negative">
+        Ваш заказ не удалось разместить
+        <p style="color:#333;font-weight: normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare sit amet tellus dignissim eleifend. Cras non consequat enim, nec venenatis dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec sed sem ac ipsum interdum rhoncus et id massa. Nunc dolor magna, euismod eget nibh quis, fringilla posuere nisi. Donec eget tellus a justo suscipit mollis ut at massa. Sed non nisi magna. Duis fermentum vitae ipsum eget condimentum. In sem lacus, congue ac velit id, congue viverra lorem. Fusce viverra lacinia dui, at varius ligula porttitor rhoncus. Aenean sed turpis eget sapien auctor venenatis. Pellentesque ipsum sem, egestas eget pellentesque tincidunt, dignissim ultrices ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum interdum sodales erat, non cursus dolor dictum eget.</p>
+    </div>
     <p style="margin-bottom:20px"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
-        <div class="checkout__wrapper clearfix g-float-left">
-            <div class="checkout__body" style="padding:23px 20px;">
-                <p class="g-strong margin-bottom-5px">Способ оплаты</p>
-                <c:forEach items="${paymentMethods}" var="method">
-                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" checked />
-                    <label for="selectedPaymentMethod${method.code}" style="margin:10px 30px 20px 0;"><spring:theme code="${method.name}"/></label>
-                </c:forEach>
-            </div>
 
-            <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
-            <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
-        </div>
-        <aside class="checkout__promo g-float-right">
-            <label for="promocode" class="label-promocode">Промо код</label>
-            <input id="promocode" name="promocode" class="promocode__input" maxlength="20" />
-            <a href="javascript:void(0)" class="button button_left-border js-promocode" style="margin-left:-5px">Пересчитать</a>
-        </aside>
 </section>
 </template:page>
