@@ -207,6 +207,7 @@
           parent="defaultB2BCheckoutFacade">
         <property name="checkoutFlowStrategy" ref="b2bCheckoutFlowStrategy"/>
         <property name="checkoutPciStrategy" ref="b2bCheckoutPciStrategy"/>
+        <property name="storeFinderService" ref="storeFinderService"/>
     </bean>
 
     <alias name="b2bDefaultStoreFinderFacade" alias="b2bStoreFinderFacade"/>
