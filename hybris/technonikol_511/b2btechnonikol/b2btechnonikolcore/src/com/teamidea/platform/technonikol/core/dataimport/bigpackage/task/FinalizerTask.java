@@ -31,14 +31,13 @@ public class FinalizerTask extends AbstractHotFolderTask
 	public HotFolderPackageMessage onExecute(final HotFolderPackageMessage message)
 	{
 		LOG.debug("Finalizing file: " + message.getCurrentPath() + " in package: " + message.getPackageId());
-		getTransactionTemplate().execute(new TransactionCallbackWithoutResult()
+		try
 		{
-			@Override
-			protected void doInTransactionWithoutResult(final TransactionStatus transactionStatus)
+			getTransactionTemplate().execute(new TransactionCallbackWithoutResult()
 			{
-				try
+				@Override
+				protected void doInTransactionWithoutResult(final TransactionStatus transactionStatus)
 				{
-
 					getHotFolderPackageService().finalizeFile(message.getPackageId(), message.getSequenceNumber(), !message.isError());
 
 					final Collection<HFPackageFileModel> fileModels = getHotFolderPackageService().getPackageFiles(
@@ -104,16 +103,16 @@ public class FinalizerTask extends AbstractHotFolderTask
 						LOG.debug(finishedFiles.size() + "out of " + message.getFileNumbers()
 								+ " has been processed, no finalization yet...");
 					}
+				}
+			});
 
-				}
-				catch (final Exception e)
-				{
-					LOG.error(e);
-					message.setError(true);
-					throw new BigPackageException(message, e);
-				}
-			}
-		});
+		}
+		catch (final Exception e)
+		{
+			LOG.error("FinalizerTask failed...", e);
+			message.setError(true);
+			throw new BigPackageException(message, e);
+		}
 		return message;
 	}
 

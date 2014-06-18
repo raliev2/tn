@@ -86,6 +86,7 @@
                 <property name="dataSource" ref="dataSource" />
             </bean>
         </property>
+        <property name="cacheRegion" ref="stockLevelCacheRegion" />
     </bean>
 
 	<!-- 
