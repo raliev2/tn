@@ -29,8 +29,12 @@
     <script>
       function changeqty(a)
         {
-              priceUnits = document.getElementById('priceUnits');
-              factor = priceUnits.options[priceUnits.selectedIndex].id + 0;
+              var priceUnits = document.getElementById('priceUnits');
+              if (priceUnits == null) {
+                  var factor = 1;
+              } else {
+                  factor = priceUnits.options[priceUnits.selectedIndex].id + 0;
+              }
               document.getElementById ('qty').value = Math.ceil(a * factor);
               document.getElementById ('cartquantitynumber').innerHTML = document.getElementById ('qty').value;
         }
