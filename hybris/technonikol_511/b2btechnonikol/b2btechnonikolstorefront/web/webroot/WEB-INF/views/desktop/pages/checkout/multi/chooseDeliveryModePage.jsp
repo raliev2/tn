@@ -61,7 +61,7 @@
                         <p class="g-strong">Выберите, как доставить Ваш заказ</p>
                         <c:forEach items="${deliveryModes}" var="mode">
                             <div class="checkout-delivery-mode__item">
-                                <input type="radio" name="selectedDeliveryMode" value="${mode.code}" id="selectedDeliveryMode${mode.code}" required checked />
+                                <input type="radio" name="selectedDeliveryMode" value="${mode.code}" required id="selectedDeliveryMode${mode.code}" ${mode.code == cartData.deliveryGroupMode.code ? 'checked' : ''} />
                                 <label for="selectedDeliveryMode${mode.code}"><spring:theme code="${mode.name}"/></label>
                                 <p><spring:theme code="${mode.description}"/></p>
                             </div>
@@ -71,7 +71,7 @@
                 </div>
 
                 <input type="submit" value="Далее" class="button button_big g-float-right" />
-                <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
+                <c:url value="/checkout/multi/select-address?isPrev=true" var="prev_url" />
                 <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
             </div>
         </form>

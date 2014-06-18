@@ -208,6 +208,7 @@
         <property name="checkoutFlowStrategy" ref="b2bCheckoutFlowStrategy"/>
         <property name="checkoutPciStrategy" ref="b2bCheckoutPciStrategy"/>
         <property name="storeFinderService" ref="storeFinderService"/>
+        <property name="customerEmailResolutionService" ref="customerEmailResolutionService"/>
     </bean>
 
     <alias name="b2bDefaultStoreFinderFacade" alias="b2bStoreFinderFacade"/>
