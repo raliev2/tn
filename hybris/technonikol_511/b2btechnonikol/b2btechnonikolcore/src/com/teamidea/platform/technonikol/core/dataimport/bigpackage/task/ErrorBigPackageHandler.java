@@ -28,7 +28,12 @@ public class ErrorBigPackageHandler extends ErrorHandler
 	{
 		log.error("BigPackageException caught", exception);
 		final HotFolderPackageMessage packageMessage = exception.getPackageMessage();
-		getCleanupBigPackageHelper().cleanup(packageMessage, LoggerStatus.FATAL, exception.getMessage());
+		if (packageMessage != null)
+		{
+			final String message = exception.getMessage() != null ? exception.getMessage()
+					: exception.getCause() != null ? exception.getCause().getMessage() : exception.getMessage();
+			getCleanupBigPackageHelper().cleanup(packageMessage, LoggerStatus.FATAL, message);
+		}
 	}
 
 	public void onError(final ImpexImportException exception)

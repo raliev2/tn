@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.util.Assert;
 
 import com.google.common.collect.Sets;
+import com.teamidea.platform.technonikol.core.dataimport.bigpackage.exceptions.BigPackageException;
 import com.teamidea.platform.technonikol.core.model.hotfolder.HFPackageFileModel;
 import com.teamidea.platform.technonikol.core.model.hotfolder.HFPackageModel;
 
@@ -38,7 +39,10 @@ public class HotFolderPackageService extends AbstractBusinessService
 
 		if (packageId == null)
 		{
-			throw new IllegalArgumentException("Package GUID cannot be empty");
+			final HotFolderPackageMessage badMessage = new HotFolderPackageMessage(pathToFile);
+			badMessage.setError(true);
+
+			throw new BigPackageException("Package GUID cannot be empty", badMessage);
 		}
 
 		final HFPackageModel model = getModelService().create(HFPackageModel.class);
@@ -71,9 +75,12 @@ public class HotFolderPackageService extends AbstractBusinessService
 					}
 					else
 					{
+						final HotFolderPackageMessage badMessage = new HotFolderPackageMessage(path);
+						badMessage.setError(true);
+
 						//TODO better routing mechanism
-						throw new IllegalArgumentException("File for package: " + packageModel.getGuid() + " and sequence: "
-								+ sequenceId + " has been successfully processed on: " + fileModel.getDateFinished() + " thus is ignored");
+						throw new BigPackageException("File for package: " + packageModel.getGuid() + " and sequence: " + sequenceId
+								+ " has been successfully processed on: " + fileModel.getDateFinished() + " thus is ignored", badMessage);
 					}
 				}
 			}
