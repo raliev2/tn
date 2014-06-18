@@ -20,7 +20,7 @@ public class StockLevelSQLFinalizer implements Finalizer
 	private TransactionTemplate transactionTemplate;
 	private JdbcTemplate jdbcTemplate;
 
-	private String sqlQuery = "UPDATE STOCKLEVELS SET p_available=0 where p_packageid<>?";
+	private String sqlQuery = "UPDATE stocklevels SET p_available=0 where p_packageid<>?";
 
 	@Override
 	public void finalizeImport(final HotFolderPackageMessage object)
