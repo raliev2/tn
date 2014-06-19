@@ -22,7 +22,6 @@ $attribute=classificationAttribute(code,$classSystemVersion)[unique=true]
 
 # Language (for dummy values)
 $defaultLang=ru
-$placeholder=DUMMY
 
 
 INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true]
@@ -46,6 +45,7 @@ INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];positi
 ;tnContentCatalog:Staged;Middle-searchEmpty;MiddleContent;searchEmpty:tnContentCatalog:Staged;MiddleContent-searchEmpty:tnContentCatalog:Staged
 ;tnContentCatalog:Staged;Section2B-TermsAndConditions;Section2B;termsAndConditions:tnContentCatalog:Staged;Section2BSlot-TermsAndConditions:tnContentCatalog:Staged
 ;tnContentCatalog:Staged;Section2A-TermsAndConditions;Section2A;termsAndConditions:tnContentCatalog:Staged;Section2ASlot-TermsAndConditions:tnContentCatalog:Staged
+;tnContentCatalog:Online;Section1-Homepage;Section1;homepage:tnContentCatalog:Staged;Section1Slot-Homepage:tnContentCatalog:Online
 ;tnContentCatalog:Online;Section2B-Homepage;Section2B;homepage:tnContentCatalog:Online;Section2BSlot-Homepage:tnContentCatalog:Online
 ;tnContentCatalog:Online;Section2C-Homepage;Section2C;homepage:tnContentCatalog:Online;Section2CSlot-Homepage:tnContentCatalog:Online
 ;tnContentCatalog:Online;Section1-Homepage;Section1;homepage:tnContentCatalog:Online;Section1Slot-Homepage:tnContentCatalog:Online

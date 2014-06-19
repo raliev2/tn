@@ -4,7 +4,6 @@ $contentCatalogs=tnContentCatalog
 $productCatalog=tnProductCatalog
 
 
-
 ### cron job
 $cronJobIdentifier=$catalogSyncCronJob
 $performable=$catalogSyncJobPerformable
@@ -15,5 +14,6 @@ $job=job(code[default=$performable])
 ### context setup
 $lang=sessionLanguage(isocode[default=ru])
 
-INSERT_UPDATE MultipleCatalogsSyncCronJob;code[unique=true];$lang;$job;contentCatalogs(id);productCatalog(id);logToDatabase[default=false];logToFile[default=false];
-;$cronJobIdentifier;;;$contentCatalogs;$productCatalog;;;
+#INSERT_UPDATE MultipleCatalogsSyncCronJob;code[unique=true];$lang;$job;contentCatalogs(id);productCatalog(id);logToDatabase[default=false];logToFile[default=false];
+#;$cronJobIdentifier;;;$contentCatalogs;$productCatalog;;;
+;$cronJobIdentifier;;;$contentCatalogs;;;;

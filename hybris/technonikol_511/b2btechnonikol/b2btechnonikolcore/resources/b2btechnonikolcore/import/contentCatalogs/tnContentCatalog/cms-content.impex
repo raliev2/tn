@@ -2,7 +2,7 @@
 # Import the CMS content for the Powertools site
 #
 $contentCatalog=tnContentCatalog
-$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
 $jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
 
 # Create PageTemplates
@@ -25,7 +25,6 @@ INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;fronten
 ;;LandingPage3Template;Landing Page 3 Template;layout/landingLayout3Page;CategoryPage,ContentPage
 ;;LandingPage4Template;Landing Page 4 Template;layout/landingLayout4Page;CategoryPage,ContentPage
 ;;LandingPage5Template;Landing Page 5 Template;layout/landingLayout5Page;CategoryPage,ContentPage
-;;LandingPage6Template;Landing Page 6 Template;layout/landingLayout6Page;CategoryPage,ContentPage
 ;;LandingPage6Template;Landing Page 6 Template;layout/landingLayout6Page;CategoryPage,ContentPage
 ;;ContentPage1Template;Content Page 1 Template;layout/contentLayout1Page;ContentPage
 
@@ -72,6 +71,14 @@ UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[tr
 # Each PageTemplate has a number of ContentSlotNames, with a list of valid components for the slot.
 # There are a standard set of slots and a number of specific slots for each template.
 # Standard slots are SiteLogo, HeaderLinks, MiniCart and NavigationBar (that all appear in the Header), and the Footer. 
+
+# Lightbox Banner for Mini Cart
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;LightboxHomeDeliveryBannerComponent;Lightbox Home Delivery Banner Component;LightboxHomeDeliveryBannerComponent;
+
+# CMS Mini Cart Component
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;lightboxBannerComponent(&componentRef)
+;;MiniCart;Mini Cart;MiniCart;TOTAL;3;LightboxHomeDeliveryBannerComponent
 
 # Error Page Template
 
@@ -407,6 +414,8 @@ INSERT_UPDATE SearchBoxComponent;$contentCV[unique=true];uid[unique=true];name;&
 # Content Slots
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
 ;;SearchBoxSlot;SearchBox
+;;MiniCartSlot;MiniCart
+
 
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active
 ;;SiteLogoSlot;Default Site Logo Slot;true
@@ -775,20 +784,16 @@ INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true
 
 #cart
 
-$contentCatalog=tnContentCatalog
-$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Online'])
-$jarResourceCms=jar:com.teamidea.platform.technonikol.core.setup.CoreSystemSetup&/b2btechnonikolcore/import/cockpits/cmscockpit
-
-
 INSERT_UPDATE ProductCartReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef;
 ;;comp_000001JK;ProductCartReferencesComponent1;ACCESSORIES_RECOMMENDED;5;comp_000001JK
 #;;tn_product_cart_references_component;Product Cart Similar Products Component;SIMILAR;10;tn_product_cart_references_component;
 
 
-INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
-;;MiddleContent-cartPage;Middle Slot for cartPage;true;EmptyCartParagraphComponent:tnContentCatalog:Online,comp_000001JK:tnContentCatalog:Online
+# FIXME: ??? 
+#INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+#;;MiddleContent-cartPage;Middle Slot for cartPage;true;EmptyCartParagraphComponent:tnContentCatalog:Online,comp_000001JK:tnContentCatalog:Online
 #;;MiddleContent-References;References;true;tn_product_cart_references_component;
 
-INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
-;;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
+#INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
+#;;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
 #;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
