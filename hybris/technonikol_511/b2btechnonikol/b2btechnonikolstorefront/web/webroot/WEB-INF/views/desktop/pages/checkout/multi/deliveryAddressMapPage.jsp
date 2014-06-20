@@ -135,13 +135,17 @@
                         <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
                         <select id="selectedShopAddress" name="selectedStore" class="checkout__select">
                             <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus">
-                                <option value="${store.name}" rel="${varstatus.index}" ${store.name == cartData.entries.get(0).deliveryPointOfService.name ? 'selected' :''}>${store.address.formattedAddress}</option>
+                                <option value="${store.name}" rel="${varstatus.index}" ${store.name == cartData.entries.get(0).deliveryPointOfService.name ? 'selected' :''}>
+                                		${store.address.town} - ${store.address.line1} - ${store.address.postalCode}
+                                </option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
                 <div class="checkout__map" id="checkout__map"></div>
-                <p class="g-strong js-address">${pointsOfService[0].address.formattedAddress}</p>
+                <p class="g-strong js-address">
+                	${pointsOfService[0].address.town} - ${pointsOfService[0].address.line1} - ${pointsOfService[0].address.postalCode}
+                </p>
                 <p class="checkout__mode">Режим работы: <span class="g-strong js-mode"><br/>
                     <c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">
                         ${weekDayOpening.weekDay}: 

@@ -55,4 +55,6 @@ public interface B2BCheckoutFlowFacade extends B2BCheckoutFacade
 	void setDeliveryPointOfService(String selectedStore);
 
 	String getEmailForCustomer();
+
+	void afterScheduleOrder();
 }

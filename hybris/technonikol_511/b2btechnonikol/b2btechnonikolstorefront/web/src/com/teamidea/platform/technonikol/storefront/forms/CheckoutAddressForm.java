@@ -30,6 +30,7 @@ public class CheckoutAddressForm
 	private String street;
 	private String house;
 	private String countryIso;
+	private String email;
 
 	public String getAddressId()
 	{
@@ -185,5 +186,22 @@ public class CheckoutAddressForm
 		this.house = house;
 	}
 
+	/**
+	 * @return the email
+	 */
+	@Size(min = 1, max = 255, message = "{address.houseAndApt.invalid}")
+	public String getEmail()
+	{
+		return email;
+	}
+
+	/**
+	 * @param email
+	 *           the email to set
+	 */
+	public void setEmail(final String email)
+	{
+		this.email = email;
+	}
 
 }

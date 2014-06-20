@@ -9,8 +9,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import ru.technonikol.ws.stocks.DeliveryDateQueryOut;
+import ru.technonikol.ws.stocks.MaterialsRow;
+import ru.technonikol.ws.stocks.PocketQuery;
 import ru.technonikol.ws.stocks.SendQueryResponse;
 
 import com.teamidea.integration.prototype.technonikol.wsclient.DeliveryDateSoapClient;
@@ -87,6 +90,32 @@ public class DeliveryDateIntegrationServiceImpl implements DeliveryDateIntegrati
 		catch (final Exception exception)
 		{
 			LOG.error("Error while trying to get delivery information for product with code = " + ekn, exception);
+			return null;
+		}
+
+		return response;
+	}
+
+	@Override
+	public SendQueryResponse deliveryDateQueryOut(final PocketQuery pocketQuery)
+	{
+		Assert.notNull(pocketQuery.getMaterials());
+		Assert.notEmpty(pocketQuery.getMaterials().getRow(), "No products are provided");
+
+		SendQueryResponse response = null;
+		try
+		{
+			response = client.deliveryDateQueryOut(pocketQuery);
+		}
+		catch (final Exception exception)
+		{
+			final StringBuilder sb = new StringBuilder()
+					.append("Error while trying to get delivery information for products with codes: ");
+
+			for (final MaterialsRow row : pocketQuery.getMaterials().getRow())
+			{
+				sb.append(row.getEKN() + "; ");
+			}
 			return null;
 		}
 

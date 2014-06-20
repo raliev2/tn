@@ -5,6 +5,10 @@ import de.hybris.platform.acceleratorfacades.order.data.PickupOrderEntryGroupDat
 import de.hybris.platform.acceleratorservices.email.EmailService;
 import de.hybris.platform.b2bacceleratorfacades.company.B2BCommerceCostCenterFacade;
 import de.hybris.platform.b2bacceleratorfacades.order.data.B2BCostCenterData;
+import de.hybris.platform.b2bacceleratorfacades.order.data.B2BDaysOfWeekData;
+import de.hybris.platform.b2bacceleratorfacades.order.data.B2BReplenishmentRecurrenceEnum;
+import de.hybris.platform.b2bacceleratorfacades.order.data.ScheduledCartData;
+import de.hybris.platform.b2bacceleratorfacades.order.data.TriggerData;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.commercefacades.order.CartFacade;
 import de.hybris.platform.commercefacades.order.data.CartData;
@@ -23,11 +27,21 @@ import de.hybris.platform.commerceservices.delivery.DeliveryService;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
 import de.hybris.platform.core.model.order.delivery.DeliveryModeModel;
+import de.hybris.platform.cronjob.enums.DayOfWeek;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -42,18 +56,27 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.technonikol.ws.stocks.MaterialsRow;
+import ru.technonikol.ws.stocks.PocketQuery;
+import ru.technonikol.ws.stocks.PocketQuery.Materials;
 import ru.technonikol.ws.stocks.SendQueryResponse;
 
 import com.teamidea.platform.technonikol.core.enums.TNDeliveryMethodTypeEnum;
@@ -68,6 +91,7 @@ import com.teamidea.platform.technonikol.storefront.controllers.util.DeliveryMod
 import com.teamidea.platform.technonikol.storefront.controllers.util.GlobalMessages;
 import com.teamidea.platform.technonikol.storefront.controllers.util.PaymentMethod;
 import com.teamidea.platform.technonikol.storefront.forms.CheckoutAddressForm;
+import com.teamidea.platform.technonikol.storefront.forms.PlaceOrderForm;
 import com.teamidea.platform.technonikol.storefront.security.B2BUserGroupProvider;
 
 
@@ -232,6 +256,34 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return stores;
 	}
 
+	@ModelAttribute("daysOfWeek")
+	public Collection<B2BDaysOfWeekData> getAllDaysOfWeek()
+	{
+		return getCheckoutFlowFacade().getDaysOfWeekForReplenishmentCheckoutSummary();
+	}
+
+	@ModelAttribute("days")
+	public Collection<String> getDays()
+	{
+		final List<String> days = new ArrayList<String>();
+		for (int i = 1; i <= 31; i++)
+		{
+			days.add(String.valueOf(i));
+		}
+		return days;
+	}
+
+	@ModelAttribute("weeks")
+	public Collection<String> getWeeks()
+	{
+		final List<String> weeks = new ArrayList<String>();
+		for (int i = 1; i <= 12; i++)
+		{
+			weeks.add(String.valueOf(i));
+		}
+		return weeks;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	@RequireHardLogIn
 	public String gotoFirstStep()
@@ -374,6 +426,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				newAddress.setShippingAddress(true);
 				newAddress.setVisibleInAddressBook(true);
 				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));
+				newAddress.setEmail(addressForm.getEmail());
 
 				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
 				deliveryGroup.setDeliveryAddress(newAddress);
@@ -443,51 +496,179 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return currentStep.getView();
 	}
 
-
-	@RequestMapping(value = ControllerConstants.Actions.Checkout.CHECK_PRODUCT, method = RequestMethod.GET)
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.CHECK_PRODUCTS, method = RequestMethod.POST, produces = "application/json")
 	@RequireHardLogIn
-	public String checkStock(final HttpServletRequest request, final Model model)
+	@ResponseBody
+	public void checkStocks(final HttpServletRequest request, final Model model, final HttpServletResponse response)
+			throws JSONException
 	{
+		final String productsInfo = request.getParameter("products");
+		final Map<String, String> productInfoMap = new HashMap<String, String>();
 
-		final String PRODUCT_CODE = "productCode";
-		final String PRODUCT_COUNT = "count";
-		final String ERROR_MESSAGE = "errorMessage";
-		final String ROWS = "rows";
-
-		final String productCode = request.getParameter(PRODUCT_CODE);
-		final String count = request.getParameter(PRODUCT_COUNT);
-		final String date = "";
-
-		final SendQueryResponse response = deliveryDateIntegrationService.deliveryDateQueryOut(productCode, count, date);
-
-		if (response == null || response.getReturn() == null || response.getReturn().getMaterials() == null)
+		if (!StringUtils.isEmpty(productsInfo))
 		{
-			LOG.debug("Error while trying to get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Ошибка получения данных");
-			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
-		}
-
-		final List<MaterialsRow> deliveryInfo = response.getReturn().getMaterials().getRow();
-		final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
-		for (final MaterialsRow row : deliveryInfo)
-		{
-			if (StringUtils.equals(row.getEKN(), productCode))
+			final String[] productsInfoArr = productsInfo.split(";");
+			for (final String entry : productsInfoArr)
 			{
-				productInfo.add(row);
+				final String[] entryArr = entry.split(":");
+				productInfoMap.put(entryArr[0], entryArr[1]);
 			}
 		}
 
-		if (CollectionUtils.isEmpty(productInfo))
+		final PocketQuery pocketQuery = new PocketQuery();
+		pocketQuery.setAddressString("");
+		pocketQuery.setApartment("");
+		pocketQuery.setArea("");
+		pocketQuery.setBuilding("");
+		pocketQuery.setCity("");
+		pocketQuery.setCountry("");
+		pocketQuery.setHouse("");
+		pocketQuery.setIDPartner("");
+		pocketQuery.setNumberOrder("");
+		pocketQuery.setPostIndex("");
+		pocketQuery.setRegionCode("77");
+		pocketQuery.setRegionName("");
+		pocketQuery.setStreet("");
+		pocketQuery.setTown("");
+
+		final Materials materials = new Materials();
+		for (final Entry<String, String> entry : productInfoMap.entrySet())
 		{
-			LOG.debug("Didn't get delivery information for product with code = " + productCode);
-			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
-			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
+			final MaterialsRow row = new MaterialsRow();
+			row.setEKN(entry.getKey());
+			row.setCount(entry.getValue());
+			row.setDatePost("");
+			materials.getRow().add(row);
+		}
+		pocketQuery.setMaterials(materials);
+
+		final SendQueryResponse serviceReponse = deliveryDateIntegrationService.deliveryDateQueryOut(pocketQuery);
+
+		// return error
+		if (serviceReponse == null || serviceReponse.getReturn() == null || serviceReponse.getReturn().getMaterials() == null)
+		{
+			final StringBuilder sb = new StringBuilder()
+					.append("Error while trying to get delivery information for products with codes: ");
+
+			for (final String code : productInfoMap.keySet())
+			{
+				sb.append(code + "; ");
+			}
+			LOG.debug(sb);
+
+			final JSONObject errorMessage = new JSONObject();
+			errorMessage.put("text", "Ошибка получения данных");
+			try
+			{
+				response.getWriter().print(errorMessage.toString());
+			}
+			catch (final IOException e)
+			{
+				LOG.debug("Error while trying to check product stock info", e);
+			}
 		}
 
-		model.addAttribute(ROWS, productInfo);
-		model.addAttribute(PRODUCT_COUNT, count);
+		// process data
+		final Map<String, List<MaterialsRow>> rowsMap = new HashMap<String, List<MaterialsRow>>();
+		for (final String entry : productInfoMap.keySet())
+		{
+			final List<MaterialsRow> deliveryInfo = serviceReponse.getReturn().getMaterials().getRow();
+			final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
+			for (final MaterialsRow row : deliveryInfo)
+			{
+				if (StringUtils.equals(row.getEKN(), entry))
+				{
+					productInfo.add(row);
+				}
+			}
+			if (CollectionUtils.isEmpty(productInfo))
+			{
+				LOG.debug("Didn't get delivery information for product with code = " + entry);
+			}
+			else
+			{
+				rowsMap.put(entry, productInfo);
+			}
+		}
 
-		return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
+		// populate json response
+		final JSONObject productInfo = new JSONObject();
+		final JSONArray productArray = new JSONArray();
+
+		Date roughOrderDate = new Date();
+		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+		for (final Entry<String, List<MaterialsRow>> entry : rowsMap.entrySet())
+		{
+			final JSONObject product = new JSONObject();
+			product.put("code", entry.getKey());
+
+			String html = "";
+			if (entry.getValue().size() == 1)
+			{
+				final String date = entry.getValue().get(0).getDatePost();
+				html = "В наличии на складе, готов к отгрузке <br/> Ожидаемая дата поставки:" + date + "<br/>";
+				Date productDate = new Date();
+				try
+				{
+					productDate = simpleDateFormat.parse(date);
+				}
+				catch (final ParseException e)
+				{
+					LOG.error("Error while trying to parse product datePost", e);
+				}
+
+				if (productDate.after(roughOrderDate))
+				{
+					roughOrderDate = productDate;
+				}
+			}
+			else if (entry.getValue().size() > 1)
+			{
+				for (final MaterialsRow row : entry.getValue())
+				{
+					if (StringUtils.equals(row.getDatePost(), "01.01.1000"))
+					{
+						html = row.getCount() + " недоступно для заказа" + "<br/>";
+					}
+					else
+					{
+						html += "Дата отгрузки для " + row.getCount() + ": " + row.getDatePost() + "<br/>";
+						Date productDate = new Date();
+						try
+						{
+							productDate = simpleDateFormat.parse(row.getDatePost());
+						}
+						catch (final ParseException e)
+						{
+							LOG.error("Error while trying to parse product datePost", e);
+						}
+
+						if (productDate.after(roughOrderDate))
+						{
+							roughOrderDate = productDate;
+						}
+					}
+				}
+			}
+
+			product.put("html", html);
+
+			productArray.put(product);
+		}
+
+		productInfo.put("roughOrderDate", simpleDateFormat.format(roughOrderDate));
+		productInfo.put("productInfo", productArray);
+
+		// return response
+		try
+		{
+			response.getWriter().print(productInfo.toString());
+		}
+		catch (final IOException e)
+		{
+			LOG.debug("Error while trying to check product stock info", e);
+		}
 	}
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_PAYMENT_METHOD_URL, method = RequestMethod.GET)
@@ -549,6 +730,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		setCurrentStep(PAYMENT_METHOD);
 
+		getCheckoutFlowFacade().setDefaultPaymentTypeForCheckout();
+
 		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
 
 		if (StringUtils.isEmpty(selectedPaymentMethod))
@@ -562,11 +745,106 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		setCurrentStep(CHECKOUT_SUMMARY);
 
+		//setup order replenishment form
+		final PlaceOrderForm placeOrderForm = new PlaceOrderForm();
+		placeOrderForm.setReplenishmentRecurrence(B2BReplenishmentRecurrenceEnum.MONTHLY);
+		placeOrderForm.setnDays("14");
+		final List<DayOfWeek> daysOfWeek = new ArrayList<DayOfWeek>();
+		daysOfWeek.add(DayOfWeek.MONDAY);
+		placeOrderForm.setnDaysOfWeek(daysOfWeek);
+
+		model.addAttribute("placeOrderForm", placeOrderForm);
 		model.addAttribute("currentStep", currentStep);
 		model.addAttribute("cartData", getCart());
 		loadPageDataInModel(model);
 
 		return currentStep.getView();
+	}
+
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SCHEDULE_ORDER, method = RequestMethod.POST)
+	@RequireHardLogIn
+	public String scheduleOrder(final PlaceOrderForm placeOrderForm, final Model model, final BindingResult bindingResult)
+			throws CMSItemNotFoundException, ParseException
+	{
+		if (placeOrderForm.getReplenishmentStartDate() == null)
+		{
+			bindingResult.addError(new FieldError(placeOrderForm.getClass().getSimpleName(), "replenishmentStartDate", ""));
+			GlobalMessages.addErrorMessage(model, "checkout.error.replenishment.noStartDate");
+			loadPageDataInModel(model);
+			return currentStep.getView();
+		}
+		if (B2BReplenishmentRecurrenceEnum.WEEKLY.equals(placeOrderForm.getReplenishmentRecurrence()))
+		{
+			if (CollectionUtils.isEmpty(placeOrderForm.getnDaysOfWeek()))
+			{
+				GlobalMessages.addErrorMessage(model, "checkout.error.replenishment.no.Frequency");
+				loadPageDataInModel(model);
+				return currentStep.getView();
+			}
+		}
+
+		final List<OrderEntryData> entries = getCart().getEntries();
+		model.addAttribute("entries", entries);
+
+		final String email = getCheckoutFlowFacade().getEmailForCustomer();
+		model.addAttribute("email", email);
+
+		final TriggerData triggerData = new TriggerData();
+		populateTriggerDataFromPlaceOrderForm(placeOrderForm, triggerData);
+
+		try
+		{
+			final ScheduledCartData orderData = getCheckoutFlowFacade().scheduleOrder(triggerData);
+			getCheckoutFlowFacade().afterScheduleOrder();
+			model.addAttribute("orderData", orderData);
+			setCurrentStep(HOSTED_ORDER_SUCCESS);
+		}
+		catch (final Exception e)
+		{
+			LOG.error("Failed to schedule Order", e);
+			setCurrentStep(HOSTED_ORDER_ERROR);
+		}
+
+		model.addAttribute("currentStep", currentStep);
+
+		loadPageDataInModel(model);
+		return currentStep.getView();
+	}
+
+	/**
+	 * Util method to copy values from place order form to TriggerData for replenishment
+	 * 
+	 * @param placeOrderForm
+	 * @param triggerData
+	 * @throws ParseException
+	 */
+	protected void populateTriggerDataFromPlaceOrderForm(final PlaceOrderForm placeOrderForm, final TriggerData triggerData)
+			throws ParseException
+	{
+		final Date replenishmentStartDate = placeOrderForm.getReplenishmentStartDate();
+		final Calendar calendar = Calendar.getInstance(getI18nService().getCurrentTimeZone(), getI18nService().getCurrentLocale());
+		triggerData.setActivationTime((replenishmentStartDate.before(calendar.getTime()) ? calendar.getTime()
+				: replenishmentStartDate));
+
+		final B2BReplenishmentRecurrenceEnum recurrenceValue = placeOrderForm.getReplenishmentRecurrence();
+
+		if (B2BReplenishmentRecurrenceEnum.DAILY.equals(recurrenceValue))
+		{
+			triggerData.setDay(Integer.valueOf(placeOrderForm.getnDays()));
+			triggerData.setRelative(Boolean.TRUE);
+		}
+		else if (B2BReplenishmentRecurrenceEnum.WEEKLY.equals(recurrenceValue))
+		{
+			triggerData.setDaysOfWeek(placeOrderForm.getnDaysOfWeek());
+			triggerData.setWeekInterval(Integer.valueOf(placeOrderForm.getnWeeks()));
+			triggerData.setHour(Integer.valueOf(0));
+			triggerData.setMinute(Integer.valueOf(0));
+		}
+		else if (B2BReplenishmentRecurrenceEnum.MONTHLY.equals(recurrenceValue))
+		{
+			triggerData.setDay(Integer.valueOf(placeOrderForm.getNthDayOfMonth()));
+			triggerData.setRelative(Boolean.FALSE);
+		}
 	}
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_URL, method = RequestMethod.POST)

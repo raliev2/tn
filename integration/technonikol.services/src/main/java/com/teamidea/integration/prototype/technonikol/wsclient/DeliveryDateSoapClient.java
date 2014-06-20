@@ -93,6 +93,25 @@ public class DeliveryDateSoapClient
 		System.out.println("Response: " + response.getReturn());
 		return response;
 	}
+	
+	
+	/**
+	 * @param pocketQuery
+	 *           pocketQuery
+	 * @return information about product delivery information
+	 */
+	public SendQueryResponse deliveryDateQueryOut(PocketQuery pocketQuery)
+	{
+		SendQuery request = new SendQuery();
+
+		request.setQueryMessage(pocketQuery);
+		System.out.println("Request: " + request.getQueryMessage());
+
+		SendQueryResponse response = port.deliveryDateQueryOut(request);
+		System.out.println("Response: " + response.getReturn());
+		return response;
+	}
+
 
 	public static PocketQuery populatePocketQuery(String addressString, String apartment, String area, String building,
 			String city, String country, String house, String idPartner, String numberOrder, String postIndex, String regionCode,
