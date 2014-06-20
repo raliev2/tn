@@ -69,8 +69,8 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 	{
 		final List<SystemSetupParameter> params = new ArrayList<SystemSetupParameter>();
 
-		params.add(createBooleanSystemSetupParameter(IMPORT_SAMPLE_DATA, "Import Sample Data", true));
-		params.add(createBooleanSystemSetupParameter(CoreSystemSetup.ACTIVATE_SOLR_CRON_JOBS, "Activate Solr Cron Jobs", true));
+		params.add(createBooleanSystemSetupParameter(IMPORT_SAMPLE_DATA, "Import Sample Data", false));
+		params.add(createBooleanSystemSetupParameter(CoreSystemSetup.ACTIVATE_SOLR_CRON_JOBS, "Activate Solr Cron Jobs", false));
 		// Add more Parameters here as your require
 
 		return params;

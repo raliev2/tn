@@ -46,13 +46,13 @@
             <div class="checkout__body" style="padding:23px 20px;">
                 <p class="g-strong margin-bottom-5px">Способ оплаты</p>
                 <c:forEach items="${paymentMethods}" var="method">
-                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" checked />
+                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" ${method.code == cartData.paymentMethod.code ? 'checked' : ''}/>
                     <label for="selectedPaymentMethod${method.code}" style="margin:10px 30px 20px 0;"><spring:theme code="${method.name}"/></label>
                 </c:forEach>
             </div>
 
             <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url" />
+            <c:url value="/checkout/multi${currentStep.previous.url}?isPrev=true" var="prev_url" />
             <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
         </div>
         <aside class="checkout__promo g-float-right">

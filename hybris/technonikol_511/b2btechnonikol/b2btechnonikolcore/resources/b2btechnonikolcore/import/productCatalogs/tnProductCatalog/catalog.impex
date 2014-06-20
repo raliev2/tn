@@ -4,7 +4,7 @@
 
 $productCatalog=tnProductCatalog
 $classificationCatalog=tnClassification
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
 $languages=ru
 
 # Product catalog
@@ -13,7 +13,6 @@ INSERT_UPDATE Catalog;id[unique=true]
 
 # Product versions for product catalogs
 INSERT_UPDATE CatalogVersion;catalog(id)[unique=true];version[unique=true];active;languages(isoCode);readPrincipals(uid)
-;$productCatalog;Staged;false;$languages;employeegroup
 ;$productCatalog;Online;true;$languages;employeegroup
 
 # Powertools Classification catalog

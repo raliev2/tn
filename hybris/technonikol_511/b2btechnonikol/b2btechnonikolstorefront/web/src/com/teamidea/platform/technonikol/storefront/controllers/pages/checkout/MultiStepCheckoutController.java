@@ -275,25 +275,29 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		final String selectedDeliveryMethod = request.getParameter("selectedDeliveryMethod");
 		final String selectedCostCenter = request.getParameter("selectedCostCenter");
+		final String isPrev = request.getParameter("isPrev");
 
-		if (StringUtils.isEmpty(selectedDeliveryMethod))
+		if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedDeliveryMethod))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		if (StringUtils.isEmpty(selectedCostCenter))
+		if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedCostCenter))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.costCenter.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, getCart().getCode());
-		getCheckoutFlowFacade().setDeliveryMethod(TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
+		if (StringUtils.isEmpty(isPrev))
+		{
+			getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, getCart().getCode());
+			getCheckoutFlowFacade().setDeliveryMethod(TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
+		}
 
-		if (StringUtils.equalsIgnoreCase(selectedDeliveryMethod, TNDeliveryMethodTypeEnum.PICKUP.name()))
+		if (StringUtils.equals(getCart().getDeliveryMethod().getCode(), TNDeliveryMethodTypeEnum.PICKUP.getCode()))
 		{
 			// show map to select store where to pickup order
 			setCurrentStep(ADDRESS_MAP);
@@ -312,8 +316,22 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return currentStep.getView();
 	}
 
+	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_DELIVERY_MODE_URL, method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String chooseDeliveryModeGet(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
+			throws CMSItemNotFoundException
+	{
+		return chooseDeliveryMode(addressForm, request, model);
+	}
+
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_DELIVERY_MODE_URL, method = RequestMethod.POST)
 	@RequireHardLogIn
+	public String chooseDeliveryModePost(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
+			throws CMSItemNotFoundException
+	{
+		return chooseDeliveryMode(addressForm, request, model);
+	}
+
 	public String chooseDeliveryMode(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
 			throws CMSItemNotFoundException
 	{
@@ -330,6 +348,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				setCurrentStep(SELECT_DELIVERY_ADDRESS);
 			}
 		}
+
+		final String isPrev = request.getParameter("isPrev");
 
 		if (currentStep == SELECT_DELIVERY_ADDRESS)
 		{
@@ -363,16 +383,19 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 				// set existing address
 				final String selectedAddress = request.getParameter("selectedDeliveryAddress");
 
-				if (StringUtils.isEmpty(selectedAddress))
+				if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedAddress))
 				{
 					GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryAddress.notprovided");
 					loadPageDataInModel(model);
 					return currentStep.getView();
 				}
 
-				final AddressData oldAddress = getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress);
-				getCheckoutFlowFacade().setDeliveryAddress(oldAddress);
-				deliveryGroup.setDeliveryAddress(oldAddress);
+				if (StringUtils.isEmpty(isPrev))
+				{
+					final AddressData oldAddress = getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress);
+					getCheckoutFlowFacade().setDeliveryAddress(oldAddress);
+					deliveryGroup.setDeliveryAddress(oldAddress);
+				}
 			}
 
 			deliveryGroups.add(deliveryGroup);
@@ -386,7 +409,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			// set pickup address
 			final String selectedStore = request.getParameter("selectedStore");
 
-			if (StringUtils.isEmpty(selectedStore))
+			if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedStore))
 			{
 				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
 				loadPageDataInModel(model);
@@ -401,10 +424,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			pickupOrderGroups.add(pickupData);
 			pickupData.setDeliveryPointOfService(storeSearchResult);
 			getCart().setPickupOrderGroups(pickupOrderGroups);
-
-			// set delivery mode based on selected delivery method
-			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
 		}
+
+		// set delivery mode based on selected delivery method
+		getCheckoutFlowFacade().setDeliveryModeIfAvailable();
 
 		if (getCart().getDeliveryMode() != null)
 		{
@@ -476,14 +499,19 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		final String selectedDeliveryMode = request.getParameter("selectedDeliveryMode");
 
-		if (StringUtils.isEmpty(selectedDeliveryMode))
+		final String isPrev = request.getParameter("isPrev");
+
+		if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedDeliveryMode))
 		{
 			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMode.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		getCheckoutFlowFacade().setDeliveryMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
+		if (StringUtils.isEmpty(isPrev))
+		{
+			getCheckoutFlowFacade().setDeliveryMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
+		}
 
 		model.addAttribute("cartData", getCart());
 		loadPageDataInModel(model);
@@ -543,7 +571,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_HOSTED_ORDER_URL, method = RequestMethod.POST)
 	@RequireHardLogIn
-	public String showHostedOrderError(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
+	public String showHostedOrder(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
 		setCurrentStep(CHECKOUT_SUMMARY);
 
@@ -557,6 +585,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		final List<OrderEntryData> entries = getCart().getEntries();
 		model.addAttribute("entries", entries);
+
+		final String email = getCheckoutFlowFacade().getEmailForCustomer();
+		model.addAttribute("email", email);
 
 		final OrderData orderData;
 		try
@@ -581,7 +612,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	private void sendHostedOrderSuccessEmailTest(final OrderData orderData)
 	{
 		// Recipient's email ID needs to be mentioned.
-		final String to = "zhigalova@teamidea.ru";
+		final String to = getCheckoutFlowFacade().getEmailForCustomer();
 
 		// Sender's email ID needs to be mentioned
 		final String from = "1plt@tn.ru";
@@ -624,7 +655,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			// Fill the message
 			messageBodyPart.setText(createMailBody(orderData));
 
-			// Create a multipar message
+			// Create a multipart message
 			final Multipart multipart = new MimeMultipart();
 
 			// Set text message part
@@ -654,8 +685,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
 		builder.append("\n\n");
 		builder.append("Способ доставки: "
-				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY.getCode()) ? "доставка курьером"
-						: "самовывоз"));
+				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY.getCode()) ? "Доставка курьером"
+						: "Самовывоз"));
 		builder.append("\n\n");
 		if (orderData.getDeliveryAddress() != null)
 		{

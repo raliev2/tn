@@ -53,4 +53,6 @@ public interface B2BCheckoutFlowFacade extends B2BCheckoutFacade
 	boolean setDeliveryAddress(AddressData addressData);
 
 	void setDeliveryPointOfService(String selectedStore);
+
+	String getEmailForCustomer();
 }

@@ -15,6 +15,7 @@ package com.teamidea.platform.technonikol.facades.flow.impl;
 
 import de.hybris.platform.b2bacceleratorfacades.order.impl.DefaultB2BCheckoutFacade;
 import de.hybris.platform.commercefacades.user.data.AddressData;
+import de.hybris.platform.commerceservices.customer.CustomerEmailResolutionService;
 import de.hybris.platform.commerceservices.storefinder.StoreFinderService;
 import de.hybris.platform.commerceservices.storefinder.data.PointOfServiceDistanceData;
 import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
@@ -49,6 +50,7 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	private B2BCheckoutFlowStrategy checkoutFlowStrategy;
 	private B2BCheckoutPciStrategy b2BCheckoutPciStrategy;
 	private StoreFinderService<PointOfServiceDistanceData, StoreFinderSearchPageData<PointOfServiceDistanceData>> storeFinderService;
+	private CustomerEmailResolutionService customerEmailResolutionService;
 
 	@Override
 	public B2BCheckoutFlowEnum getCheckoutFlow()
@@ -84,6 +86,24 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 		this.b2BCheckoutPciStrategy = strategy;
 	}
 
+
+	/**
+	 * @return the customerEmailResolutionService
+	 */
+	public CustomerEmailResolutionService getCustomerEmailResolutionService()
+	{
+		return customerEmailResolutionService;
+	}
+
+	/**
+	 * @param customerEmailResolutionService
+	 *           the customerEmailResolutionService to set
+	 */
+	public void setCustomerEmailResolutionService(final CustomerEmailResolutionService customerEmailResolutionService)
+	{
+		this.customerEmailResolutionService = customerEmailResolutionService;
+	}
+
 	/**
 	 * @return the storeFinderService
 	 */
@@ -101,6 +121,7 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	{
 		this.storeFinderService = storeFinderService;
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -231,7 +252,10 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	public boolean setDeliveryAddress(final AddressData addressData)
 	{
 		ServicesUtil.validateParameterNotNull(addressData, "Parameter 'addressData' is null!");
+
 		final CartModel cartModel = getCart();
+		clearPointOfService(cartModel);
+
 		if (cartModel != null)
 		{
 			AddressModel addressModel = null;
@@ -253,14 +277,32 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	{
 		ServicesUtil.validateParameterNotNull(cartModel, "Cart model cannot be null");
 		ServicesUtil.validateParameterNotNull(addressModel, "Address model cannot be null");
+
 		if (addressModel.getOwner() != null && addressModel.getOwner() instanceof CartModel)
 		{
 			addressModel.setOwner(cartModel.getUser());
 		}
+
 		getModelService().save(addressModel);
 		cartModel.setDeliveryAddress(addressModel);
 		getModelService().save(cartModel);
+
 		return true;
+	}
+
+	public void clearDeliveryAddress(final CartModel cartModel)
+	{
+		cartModel.setDeliveryAddress(null);
+		getModelService().save(cartModel);
+	}
+
+	public void clearPointOfService(final CartModel cartModel)
+	{
+		for (final AbstractOrderEntryModel entry : cartModel.getEntries())
+		{
+			entry.setDeliveryPointOfService(null);
+		}
+		getModelService().save(cartModel);
 	}
 
 	/*
@@ -276,6 +318,8 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 		ServicesUtil.validateParameterNotNull(store, "Parameter 'store' is null!");
 		final CartModel cartModel = getCart();
 
+		clearDeliveryAddress(cartModel);
+
 		final BaseStoreModel currentBaseStore = getBaseStoreService().getCurrentBaseStore();
 		final PointOfServiceModel pointOfService = getStoreFinderService().getPointOfServiceForName(currentBaseStore, store);
 
@@ -290,4 +334,15 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.teamidea.platform.technonikol.facades.flow.B2BCheckoutFlowFacade#getEmailForCustomer(de.hybris.platform.
+	 * commercefacades.user.data.CustomerData)
+	 */
+	@Override
+	public String getEmailForCustomer()
+	{
+		return getCustomerEmailResolutionService().getEmailForCustomer(getCurrentUserForCheckout());
+	}
 }

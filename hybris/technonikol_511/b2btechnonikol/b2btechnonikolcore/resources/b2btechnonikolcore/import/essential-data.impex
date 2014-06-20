@@ -95,7 +95,6 @@ INSERT_UPDATE UserGroup;uid[unique=true];groups(uid);locname[lang=en];
 ;bronzeloyalty;;Bronze Loyalty;
 ;silverloyalty;;Silver Loyalty;
 ;goldloyalty;;Gold Loyalty;
-;accountmanagergroup;cockpitgroup,employeegroup;Account Manager Group
 
 INSERT_UPDATE Unit;code[unique=true];name[lang=ru];unitType[allownull=true]
 ;defunit;Default Unit;default

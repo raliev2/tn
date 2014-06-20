@@ -146,21 +146,31 @@
                 <div class="checkout-summary-total__white-line"></div>
                 <div>
                     <h4 class="g-float-left">Адрес доставки</h4>
-                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <c:url value="/checkout/multi/select-address?isPrev=true" var="address_url" />
+                    <a  href="${address_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
-                        ${cartData.deliveryAddress.formattedAddress}
+                        <c:choose>
+                            <c:when test="${not empty cartData.deliveryAddress}">
+                                ${cartData.deliveryAddress.formattedAddress}
+                            </c:when>
+                            <c:otherwise>
+                            	 ${cartData.entries.get(0).deliveryPointOfService.address.formattedAddress}
+                            </c:otherwise>
+                        </c:choose>                      
                     </div>
                     <h4 class="g-float-left">Получатель</h4>
-                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <c:url value="/checkout/multi/select-address?isPrev=true" var="customer_url" />
+                    <a  href="${customer_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
-                        ${cartData.deliveryAddress.lastName} ${cartData.deliveryAddress.firstName}
+                        ${cartData.b2bCustomerData.lastName}&nbsp;${cartData.b2bCustomerData.firstName}
                     </div>
                     <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
 
                     <h4 class="g-float-left">Метод доставки</h4>
-                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <c:url value="/checkout/multi/select-delivery-method" var="delivery_method_url" />
+                    <a  href="${delivery_method_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.deliveryMethod)}" />
@@ -175,7 +185,8 @@
                     <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
 
                     <h4 class="g-float-left">Оплата</h4>
-                    <a  href="#" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
+                    <c:url value="/checkout/multi/select-payment-method?isPrev=true" var="payment_method_url" />
+                    <a  href="${payment_method_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.paymentMethod)}" />

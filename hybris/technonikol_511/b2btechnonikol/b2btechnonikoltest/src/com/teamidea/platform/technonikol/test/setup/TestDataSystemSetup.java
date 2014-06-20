@@ -21,14 +21,15 @@ import de.hybris.platform.core.initialization.SystemSetup.Type;
 import de.hybris.platform.core.initialization.SystemSetupContext;
 import de.hybris.platform.core.initialization.SystemSetupParameter;
 import de.hybris.platform.core.initialization.SystemSetupParameterMethod;
-import com.teamidea.platform.technonikol.test.constants.B2btechnonikolTestConstants;
-import com.teamidea.platform.technonikol.test.orders.B2BAcceleratorTestOrderData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
+
+import com.teamidea.platform.technonikol.test.constants.B2btechnonikolTestConstants;
+import com.teamidea.platform.technonikol.test.orders.B2BAcceleratorTestOrderData;
 
 
 /**
@@ -65,7 +66,7 @@ public class TestDataSystemSetup extends AbstractSystemSetup
 	{
 		final List<SystemSetupParameter> params = new ArrayList<SystemSetupParameter>();
 
-		params.add(createBooleanSystemSetupParameter(CREATE_TEST_DATA, "Create B2B Test Data", true));
+		params.add(createBooleanSystemSetupParameter(CREATE_TEST_DATA, "Create B2B Test Data", false));
 
 		return params;
 	}

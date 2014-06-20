@@ -23,19 +23,21 @@
                 <label for="selectedCostCenter" class="checkout__label">Выберите юр. лицо для оформления заказа</label>
                 <select id="selectedCostCenter" name="selectedCostCenter" class="checkout__select">
                     <c:forEach items="${costCenters}" var="costCenter">
-                        <option value="${costCenter.code}"><spring:theme code="${costCenter.name}"/></option>
+                        <option value="${costCenter.code}" ${costCenter.code == cartData.costCenter.code ? 'selected' :''}><spring:theme code="${costCenter.name}"/></option>
                     </c:forEach>
                 </select>
             </div>
             <div class="checkout__row">
                 <span class="checkout__label">Выберите метод доставки</span>
                 <c:forEach items="${deliveryMethods}" var="method">
-                    <input type="radio" id="${method.code}" name="selectedDeliveryMethod" value="${method.code}" required />
+                    <input type="radio" id="${method.code}" name="selectedDeliveryMethod" required value="${method.code}" ${method.code == cartData.deliveryMethod.code ? 'checked' : ''}/>
                     <label for="${method.code}" class="label-radio"><spring:theme code="${method.name}"/></label>
                 </c:forEach>
             </div>
         </div>
         <input type="submit" value="Далее" class="button button_big g-float-right" />
+        <c:url value="/cart" var="prev_url" />
+        <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
     </div>
     </form>
 </section>

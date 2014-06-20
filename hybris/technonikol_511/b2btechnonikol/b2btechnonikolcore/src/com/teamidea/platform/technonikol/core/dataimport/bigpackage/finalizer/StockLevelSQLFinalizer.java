@@ -1,5 +1,6 @@
 package com.teamidea.platform.technonikol.core.dataimport.bigpackage.finalizer;
 
+import de.hybris.platform.regioncache.region.CacheRegion;
 import de.hybris.platform.servicelayer.type.TypeService;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,7 +21,9 @@ public class StockLevelSQLFinalizer implements Finalizer
 	private TransactionTemplate transactionTemplate;
 	private JdbcTemplate jdbcTemplate;
 
-	private String sqlQuery = "UPDATE STOCKLEVELS SET p_available=0 where p_packageid<>?";
+	private String sqlQuery = "UPDATE stocklevels SET p_available=0 where p_packageid<>?";
+
+	private CacheRegion cacheRegion;
 
 	@Override
 	public void finalizeImport(final HotFolderPackageMessage object)
@@ -33,6 +36,9 @@ public class StockLevelSQLFinalizer implements Finalizer
 				return getJdbcTemplate().update(sqlQuery, object.getPackageId());
 			}
 		});
+
+		// clear cache
+		cacheRegion.clearCache();
 	}
 
 	public TypeService getTypeService()
@@ -73,5 +79,15 @@ public class StockLevelSQLFinalizer implements Finalizer
 	public void setSqlQuery(final String sqlQuery)
 	{
 		this.sqlQuery = sqlQuery;
+	}
+
+	public CacheRegion getCacheRegion()
+	{
+		return cacheRegion;
+	}
+
+	public void setCacheRegion(final CacheRegion cacheRegion)
+	{
+		this.cacheRegion = cacheRegion;
 	}
 }

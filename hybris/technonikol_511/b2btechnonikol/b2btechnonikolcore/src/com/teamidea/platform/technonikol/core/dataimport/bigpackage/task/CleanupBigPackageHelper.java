@@ -128,7 +128,7 @@ public class CleanupBigPackageHelper extends CleanupHelper
 		try
 		{
 			moveFile(packageMessage.getCurrentPath());
-			if (!packageMessage.isError())
+			if (!packageMessage.isError() && LoggerStatus.SUCCESS.equals(code))
 			{
 				loggerService.writeXmlSuccessStatus(packageMessage.getCurrentPath().toFile());
 			}

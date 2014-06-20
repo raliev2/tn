@@ -33,7 +33,7 @@
     
     <!-- 1) Scan for files <COD>_<GUID>_<PACK_NUM>_<SEQUENCE>-<TOTAL>_F.ext.impex -->
     <file:inbound-channel-adapter id="fileScannerAdapter" directory="#{baseDirectoryTechnonikol}"
-                                  filename-regex="^([a-zA-Z]){3}_[0-9a-fA-F-]+?_(\d+?)_(\d+?)-(\d+?)(_[FfRr]){0,1}\.ext\.impex" 
+                                  filename-regex="^([a-zA-Z]+?)(?:_[0-9a-fA-F-]+?)*?_(\d+?)_(\d+?)-(\d+?)(_[FfRr]){0,1}\.ext\.impex" 
                                   comparator="fileOrderComparator" prevent-duplicates="false" >
         <int:poller fixed-rate="1000" />
     </file:inbound-channel-adapter>
@@ -60,6 +60,7 @@
     <bean id="finalizerTask" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.FinalizerTask" parent="abstractHotFolderTask">
         <property name="finalizerMap">
             <map>
+                <entry key="STO" value-ref="stockLevelFinalizer"/>
                 <entry key="stockLevel" value-ref="stockLevelFinalizer"/>
             </map>
         </property>
@@ -85,6 +86,7 @@
                 <property name="dataSource" ref="dataSource" />
             </bean>
         </property>
+        <property name="cacheRegion" ref="stockLevelCacheRegion" />
     </bean>
 
 	<!-- 

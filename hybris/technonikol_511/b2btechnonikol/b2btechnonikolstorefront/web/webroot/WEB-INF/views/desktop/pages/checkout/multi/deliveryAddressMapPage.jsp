@@ -18,7 +18,7 @@
                     address : '${pointsOfService[0].address.formattedAddress}',
                     mode : '<c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
                                 ${weekDayOpening.weekDay} <br/>\
-                                ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                                ${weekDayOpening.closed ? "не работает" : "работает"} <br/>\
                             </c:forEach>',
                     lat : ${pointsOfService[0].geoPoint.latitude},
                     lng : ${pointsOfService[0].geoPoint.longitude}
@@ -28,7 +28,7 @@
                         address : '${store.address.formattedAddress}',
                         mode : '<c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">\
                                     ${weekDayOpening.weekDay} <br/>\
-                                    ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                                    ${weekDayOpening.closed ? "не работает" : "работает"} <br/>\
                                 </c:forEach>',
                     lat : ${store.geoPoint.latitude},
                     lng : ${store.geoPoint.longitude}
@@ -135,17 +135,17 @@
                         <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
                         <select id="selectedShopAddress" name="selectedStore" class="checkout__select">
                             <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus">
-                                <option value="${store.name}" rel="${varstatus.index}">${store.address.formattedAddress}</option>
+                                <option value="${store.name}" rel="${varstatus.index}" ${store.name == cartData.entries.get(0).deliveryPointOfService.name ? 'selected' :''}>${store.address.formattedAddress}</option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
                 <div class="checkout__map" id="checkout__map"></div>
                 <p class="g-strong js-address">${pointsOfService[0].address.formattedAddress}</p>
-                <p class="checkout__mode">Режим работы: <span class="g-strong js-mode">
-                    <c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
-                        ${weekDayOpening.weekDay} <br/>\
-                        ${weekDayOpening.closed ? "закрыто!" : "не очень закрыто!"} <br/>\
+                <p class="checkout__mode">Режим работы: <span class="g-strong js-mode"><br/>
+                    <c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">
+                        ${weekDayOpening.weekDay}: 
+                        ${weekDayOpening.closed ? "работает" : "не работает"} <br/>
                     </c:forEach>
                 </span></p>
                 <input type="submit" value="Далее" class="button button_big g-float-right" />

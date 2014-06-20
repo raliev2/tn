@@ -25,12 +25,13 @@ import de.hybris.platform.core.initialization.SystemSetupParameter;
 import de.hybris.platform.core.initialization.SystemSetupParameterMethod;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.validation.services.ValidationService;
-import com.teamidea.platform.technonikol.core.constants.B2btechnonikolCoreConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import com.teamidea.platform.technonikol.core.constants.B2btechnonikolCoreConstants;
 
 
 /**
@@ -63,7 +64,7 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		importImpexFile(context, "/b2btechnonikolcore/import/essential-data.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/countries.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/delivery-modes.impex");
-        importImpexFile(context, "/b2btechnonikolcore/import/units.impex");
+		importImpexFile(context, "/b2btechnonikolcore/import/units.impex");
 		importImpexFile(context, "/b2btechnonikolcore/import/themes.impex");
 	}
 
@@ -77,7 +78,7 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		final List<SystemSetupParameter> params = new ArrayList<SystemSetupParameter>();
 
 		params.add(createBooleanSystemSetupParameter(IMPORT_SITES, "Import Sites", true));
-		params.add(createBooleanSystemSetupParameter(IMPORT_SYNC_CATALOGS, "Sync Products & Content Catalogs", false));
+		params.add(createBooleanSystemSetupParameter(IMPORT_SYNC_CATALOGS, "Import Product & Content Catalogs", true));
 		params.add(createBooleanSystemSetupParameter(IMPORT_ACCESS_RIGHTS, "Import Users & Groups", true));
 		params.add(createBooleanSystemSetupParameter(ACTIVATE_SOLR_CRON_JOBS, "Activate Solr Cron Jobs", false));
 
@@ -104,7 +105,8 @@ public class CoreSystemSetup extends AbstractSystemSetup
 
 			importContentCatalog(context, CatalogName);
 
-			executeCatalogSyncJob(context, CatalogName);
+			// FIXME: Synchrinoze only content catalog
+			//executeCatalogSyncJob(context, CatalogName);
 
 			importStore(context, CatalogName);
 
@@ -114,6 +116,11 @@ public class CoreSystemSetup extends AbstractSystemSetup
 		}
 
 		final List<String> extensionNames = Registry.getCurrentTenant().getTenantSpecificExtensionNames();
+
+		if (importAccessRights)
+		{
+			importImpexFile(context, "/b2btechnonikolcore/import/b2b-users.impex");
+		}
 
 		if (importAccessRights && extensionNames.contains("cmscockpit"))
 		{
@@ -178,10 +185,10 @@ public class CoreSystemSetup extends AbstractSystemSetup
 	{
 		logInfo(context, "Begin importing catalog [" + catalogName + "]");
 
-		importImpexFile(context, "/b2btechnonikolcore/import/productCatalogs/" + catalogName + "ProductCatalog/catalog.impex",
-				true);
+		importImpexFile(context, "/b2btechnonikolcore/import/productCatalogs/" + catalogName + "ProductCatalog/catalog.impex", true);
 
-		createProductCatalogSyncJob(context, catalogName + "ProductCatalog");
+		// Only Online version is available
+		//createProductCatalogSyncJob(context, catalogName + "ProductCatalog");
 
 	}
 
@@ -208,15 +215,14 @@ public class CoreSystemSetup extends AbstractSystemSetup
 	{
 		logInfo(context, "Begin importing catalog [" + catalogName + "]");
 
-		importImpexFile(context, "/b2btechnonikolcore/import/contentCatalogs/" + catalogName + "ContentCatalog/catalog.impex",
-				true);
+		importImpexFile(context, "/b2btechnonikolcore/import/contentCatalogs/" + catalogName + "ContentCatalog/catalog.impex", true);
 		importImpexFile(context, "/b2btechnonikolcore/import/contentCatalogs/" + catalogName + "ContentCatalog/cms-content.impex",
 				false);
 		importImpexFile(context, "/b2btechnonikolcore/import/contentCatalogs/" + catalogName
 				+ "ContentCatalog/cms-mobile-content.impex", false);
 
-		importImpexFile(context, "/b2btechnonikolcore/import/contentCatalogs/" + catalogName
-				+ "ContentCatalog/email-content.impex", false);
+		importImpexFile(context,
+				"/b2btechnonikolcore/import/contentCatalogs/" + catalogName + "ContentCatalog/email-content.impex", false);
 
 		createContentCatalogSyncJob(context, catalogName + "ContentCatalog");
 
