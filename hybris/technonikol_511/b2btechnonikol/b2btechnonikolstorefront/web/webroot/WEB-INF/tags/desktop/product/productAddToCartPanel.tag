@@ -43,7 +43,7 @@
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
         <input type="hidden" value="1" id="qty" name="qty" class="g-input"  />
-        <input type="text" value="1" id="realqty" name="realqty" class="g-input" size="2" onkeyup="changeqty(this.value)" />
+        <input type="text" value="1" id="realqty" name="realqty" class="g-input" size="2" maxlength="6" onkeyup="changeqty(this.value)" />
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
 
@@ -69,7 +69,7 @@
     <!--${product.baseUnit.code}]-->
 
     <c:if test="${not empty product.units}">
-    <select onChange="changeprice(this.value, this.options[this.selectedIndex].id)" style="width:50px" id="priceUnits">
+    <select style="display:none" onChange="changeprice(this.value, this.options[this.selectedIndex].id)" style="width:50px" id="priceUnits">
         <c:forEach items="${product.units}" var="unit" varStatus="status">
             <c:set var="price" value="${product.price.value*product.unitsMap[unit.code]}"/>
             <c:choose>
@@ -91,7 +91,7 @@
     </button>
     <div id="cartquantityinfo" style="color:gray;margin-top:7px;">
     <%-- ПЕРЕВЕРСТАТЬ --%>
-    В корзину будет добавлено <span id="cartquantitynumber">1</span> ${defaultunitname}.
+    <%--- корзину будет добавлено <span id="cartquantitynumber">1</span> ${defaultunitname}.--%>
     </div>
     <c:if test="${multiDimensionalProduct}" >
         <sec:authorize ifAnyGranted="ROLE_CUSTOMERGROUP">
