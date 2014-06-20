@@ -494,6 +494,12 @@
 						<persistence type="property"/>
 						<description>Normative Document(GOST/TU)</description>
 					</attribute>
+					<attribute qualifier="certificates" type="localized:java.lang.String">
+						<modifiers read="true" write="true" search="true"/>
+						<persistence type="property"/>
+						<description>Certificates and documentation</description>
+					</attribute>
+
 					<attribute qualifier="ETIMCode" type="java.lang.String">
 						<modifiers read="true" write="true" search="true"/>
 						<persistence type="property"/>
