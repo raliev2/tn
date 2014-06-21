@@ -1,3 +1,37 @@
+function checkqty(inputobject, restriction) {
+  // функция используется в листинге для проверки минимального количества товара для заказа
+  // функцию бы переписать
+  // Это типа заглушки сейчас
+  // вызывается в onChange
+  // Rauf
+
+  // inputobject - это объект типа input, в который пользователь ввел новое значение количества
+  // restriction - минимальное количество товара. Если пользователь ввел меньше указанного числа, нужно исправить на новое и сообщить
+  //   может иметь пустое значение - это значит, что нет ограничения
+ if (!restriction) { return true; }  // ничего проверять не надо, ограничений нет
+ if (document.getElementById(inputobject).value.length == 0) {
+            return false;
+        }
+
+
+var intValue = parseInt(restriction);
+ if (intValue == Number.NaN) {
+            return false; 
+        }
+
+
+ var intValue = parseInt(document.getElementById(inputobject).value);
+ if (intValue == Number.NaN) {
+            return false; 
+        }
+
+ 
+ if (intValue < restriction)
+        {
+	    alert("Для этого товара минимальное количество - " + restriction + ". Исправлено.");
+            document.getElementById(inputobject).value = restriction;
+        } 
+}
 function alignHeight(selector) {
     var mh = 0;
     $(selector).each(function () {

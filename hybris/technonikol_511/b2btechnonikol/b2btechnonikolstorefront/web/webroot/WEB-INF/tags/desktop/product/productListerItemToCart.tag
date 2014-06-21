@@ -30,7 +30,7 @@
     <c:if test="${product.price.value > 0}">
         <div class="to-cart">
             <label for="qty${index1}">Кол-во:</label>
-            <input type="text" value="<c:if test="${product.minOrderQuantity ne ''}">${product.minOrderQuantity}</c:if><c:if test="${product.minOrderQuantity eq ''}">1</c:if>" id="qty${index1}" name="qty" class="g-input" size="3" />
+            <input type="text"  onChange="checkqty('qty${index1}', '${product.minOrderQuantity}')" value="<c:choose><c:when test="${not empty product.minOrderQuantity}">${product.minOrderQuantity}</c:when><c:otherwise>1</c:otherwise></c:choose>" id="qty${index1}" name="qty" class="g-input" size="3" />
 	    /&nbsp;${product.salesUnit.name}
             <button type="${buttonType}" data-min-quantity="${product.minOrderQuantity}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
                 В корзину
