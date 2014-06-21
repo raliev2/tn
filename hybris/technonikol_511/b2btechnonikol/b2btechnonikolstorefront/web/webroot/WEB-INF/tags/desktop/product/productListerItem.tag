@@ -48,7 +48,6 @@
                 </div>
                 <div class="prod-list-item__actions g-float-right">
                     <product:productListerItemPrice product="${product}" />
-
                     <div class="stock in-stock g-float-right"><span>Есть на складе</span>
                         <div class="g-info"></div>
                     </div>

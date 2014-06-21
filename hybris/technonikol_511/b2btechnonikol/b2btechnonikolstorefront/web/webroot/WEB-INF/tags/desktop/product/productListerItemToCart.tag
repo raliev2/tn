@@ -30,8 +30,9 @@
     <c:if test="${product.price.value > 0}">
         <div class="to-cart">
             <label for="qty${index1}">Кол-во:</label>
-            <input type="text" value="1" id="qty${index1}" name="qty" class="g-input" size="3" />
-            <button type="${buttonType}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+            <input type="text" value="<c:if test="${product.minOrderQuantity ne ''}">${product.minOrderQuantity}</c:if><c:if test="${product.minOrderQuantity eq ''}">1</c:if>" id="qty${index1}" name="qty" class="g-input" size="3" />
+	    /&nbsp;${product.salesUnit.name}
+            <button type="${buttonType}" data-min-quantity="${product.minOrderQuantity}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
                 В корзину
             </button>
         </div>

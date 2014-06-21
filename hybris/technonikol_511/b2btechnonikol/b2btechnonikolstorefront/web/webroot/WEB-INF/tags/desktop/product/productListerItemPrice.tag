@@ -11,14 +11,14 @@
 <ycommerce:testId code="searchPage_price_label_${product.code}">
     <div class="prod-list-item__price">
         Цена:
-        <!-- if product is multidimensional with different prices, show range, else, show unique price -->
-        <span class="price-value">
+        <!-- if product is multidimensional with different prices, show range, else, show unique price -->	        
+	<span class="price-value">
         <c:choose>
             <c:when test="${product.multidimensional and (product.priceRange.minPrice.value ne product.priceRange.maxPrice.value)}">
                 <format:price priceData="${product.priceRange.minPrice}"/> - <format:price priceData="${product.priceRange.maxPrice}"/>
             </c:when>
             <c:otherwise>
-                <format:fromPrice priceData="${product.price}"/>
+		<format:fromPrice priceData="${product.price}"/>
             </c:otherwise>
         </c:choose>
         </span>
