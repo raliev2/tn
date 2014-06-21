@@ -5,6 +5,31 @@
 <%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags" %>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/desktop/common/header" %>
 
+<style type="text/css">
+ul.columns { margin: 0; padding: 0; list-style-type: none; word-spacing: -1ex; }
+/* 
+    Firefox ниже версии 3 не знает о inline-block.
+    Поэтому указываем для него -moz-inline-stack
+*/
+.columns li { display: -moz-inline-stack; display: inline-block; //display: inline; }
+/*
+    Чтобы ссылки не нажимались кликом
+    по пустому месту, применим фильтр
+*/
+.columns a, .columns b { display: inline; word-spacing: normal; //display: inline-block; //filter: alpha(opacity=100); }
+.columns a, .columns b, x:-moz-any-link { display:block; }
+/*
+    Если Firefox выше 2.0, Возвращаем a и b в inline
+*/
+.columns a, .columns b, x:-moz-any-link, x:default { display: inline; }
+.columns li, .columns a, .columns b { vertical-align: top; }
+
+/* customize */
+.columns li { margin: 0 10% 0.4em 0; //margin: 0; width: 40%; //width: auto; }
+.columns a, .columns b { //margin: 0 10% 0.4em 0; //width: 40%; }
+.columns ul { width: 100%; }
+</style>
+
 <nav class="clearfix">
     <div class="menu-container">
     <ul class="menu">
@@ -12,12 +37,32 @@
             <div class="item-menu__position">
                 <c:url var="catalog" value="/all-categories" />
                 <a href="${catalog}" class="item-menu__link">каталог</a>
-                <ul class="item-menu__inner-menu js-inner-menu">
-                    <li class="inner-menu__item"><a href="/store/firstplatform/ru/RUB/строительные-материалы/плоские-кровли/рулонные-кровельные-материалы/c/rulonnye_krovelnye_materialy">Рулонные кровельные материалы</a></li>
-                    <li class="inner-menu__item"><a href="/store/firstplatform/ru/RUB/%D1%81%D1%82%D1%80%D0%BE%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B/c/stroitelnye_materialy">Строительные материалы</a></li>
-                    <li class="inner-menu__item"><a href="/store/firstplatform/ru/RUB/строительные-материалы/плоские-кровли/полимерные-мембраны-и-аксессуары/c/polimernye_membrany_i_aksessuary">Полимерные мембраны и аксессуары</a></li>
-                    <li class="inner-menu__item"><a href="/store/firstplatform/ru/RUB/строительные-материалы/скатные-кровли/гибкая-черепица-и-аксессуары/гибкая-черепица/c/gibkaja_cherepica">Гибкая черепица</a></li>
-                    <li class="inner-menu__item"><a href="/store/firstplatform/ru/RUB/строительные-материалы/скатные-кровли/металлочерепица-и-аксессуары/металлочерепица/c/metallocherepica">Металлочерепица</a></li>
+                <ul class="item-menu__inner-menu js-inner-menu columns">
+                    <li class="inner-menu__item"></li>
+                    <li class="inner-menu__item"></li>
+                    <li class="inner-menu__item"><a href="/store/c/metallocherepica">Металлочерепица</a></li>
+<li class="inner-menu__item"><a href="/store/c/ploskie_krovli">Плоские кровли
+</a></li><li class="inner-menu__item"><a href="/store/c/skatnye_krovli">Скатные кровли
+</a></li><li class="inner-menu__item"><a href="/store/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли
+</a></li><li class="inner-menu__item"><a href="/store/c/drevesnye_materialy">Древесные материалы
+</a></li><li class="inner-menu__item"><a href="/store/c/gidro-_i_paroizoljacionnye_plenki">Гидро-и пароизоляционные пленки
+</a></li><li class="inner-menu__item"><a href="/store/c/utepliteli">Утеплители
+</a></li><li class="inner-menu__item"><a href="/store/c/zabory_i_ograzhdenija">Заборы и ограждения
+</a></li><li class="inner-menu__item"><a href="/store/c/fasady_i_stenovye_materialy">Фасады и стеновые материалы
+</a></li><li class="inner-menu__item"><a href="/store/c/fundamenty_gidroizoljacija">Фундаменты, гидроизоляция
+</a></li><li class="inner-menu__item"><a href="/store/c/transportnoe_i_dorozhnoe_stroitelstvo">Транспортное и дорожное строительство
+</a></li><li class="inner-menu__item"><a href="/store/c/ustrojstvo_pridomovoj_territorii_landshaft">Устройство придомовой территории, ландшафт</a>
+</li><li class="inner-menu__item"><a href="/store/c/materialy_dlja_vnutrennej_otdelki">Материалы для внутренней отделки
+</a></li><li class="inner-menu__item"><a href="/store/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly">Дымовые системы и вентиляционные каналы
+</a></li><li class="inner-menu__item"><a href="/store/c/vorotnye_sistemy">Воротные системы
+</a></li><li class="inner-menu__item"><a href="/store/c/bassejny">Бассейны
+</a></li><li class="inner-menu__item"><a href="#">Светотехника
+</a></li><li class="inner-menu__item"><a href="#">Кабельно-проводниковая продукция
+</a></li><li class="inner-menu__item"><a href="#">Кабеленесущие системы
+</a></li><li class="inner-menu__item"><a href="">Низковольтное и электрощитовое оборудование</a></li>
+                   <li class="inner-menu__item"></li>
+                   <li class="inner-menu__item"></li>
+
                 </ul>
             </div>
         </li>

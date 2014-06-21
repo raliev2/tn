@@ -21,21 +21,31 @@
         <div class="prod-categories">
             <div class="prod-categories__header prod-categories__header_top">Категории продукции</div>
             <ul class="prod-categories__list">
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Абразивы</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Пластыри, изоляторы и лента</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Клеммы</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Инструменты</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Аппаратные средства</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Гидравлика</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Освещение</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Смазки</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Офисное оборудование</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Наружное оборудование</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Пневматика</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Электроприборы</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Насосы</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Безопасность</a></li>
-                <li class="prod-categories-list__item"><a href="javascript:void(0)">Сварочное оборудование</a></li>
+            
+            
+            <li class="prod-categories-list__item"><a href="/store/c/metallocherepica">Металлочерепица</a></li>
+                        <li class="prod-categories-list__item"><a href="/store/c/ploskie_krovli">Плоские кровли
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/skatnye_krovli">Скатные кровли
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/drevesnye_materialy">Древесные материалы
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/gidro-_i_paroizoljacionnye_plenki">Гидро-и пароизоляционные пленки
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/utepliteli">Утеплители
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/zabory_i_ograzhdenija">Заборы и ограждения
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/fasady_i_stenovye_materialy">Фасады и стеновые материалы
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/fundamenty_gidroizoljacija">Фундаменты, гидроизоляция
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/transportnoe_i_dorozhnoe_stroitelstvo">Транспортное и дорожное строительство
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/ustrojstvo_pridomovoj_territorii_landshaft">Устройство придомовой территории, ландшафт</a>
+                        </li><li class="prod-categories-list__item"><a href="/store/c/materialy_dlja_vnutrennej_otdelki">Материалы для внутренней отделки
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly">Дымовые системы и вентиляционные каналы
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/vorotnye_sistemy">Воротные системы
+                        </a></li><li class="prod-categories-list__item"><a href="/store/c/bassejny">Бассейны
+                        </a></li><li class="prod-categories-list__item"><a href="#">Светотехника
+                        </a></li><li class="prod-categories-list__item"><a href="#">Кабельно-проводниковая продукция
+                        </a></li><li class="prod-categories-list__item"><a href="#">Кабеленесущие системы
+                        </a></li><li class="prod-categories-list__item"><a href="">Низковольтное и электрощитовое оборудование</a></li>
+
+            
+
             </ul>
         </div>
 <%--- РАУФ. НА ПЕРЕВЕРСТАТЬ --%>
