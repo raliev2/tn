@@ -77,6 +77,8 @@
     <div class="cart-popup"></div>
     <script>
         <c:url value="/checkout/multi/check_product?productCode=" var="check_stock_url"/>
+        <c:url value="/checkout/multi/check-products" var="check_stocks_url"/>
         var check_stock_url='${check_stock_url}';
+        var check_stocks_url='${check_stocks_url}';
     </script>
 </footer>

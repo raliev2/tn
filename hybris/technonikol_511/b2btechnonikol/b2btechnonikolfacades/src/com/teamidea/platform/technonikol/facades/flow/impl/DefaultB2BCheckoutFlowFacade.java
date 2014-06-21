@@ -345,4 +345,11 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 	{
 		return getCustomerEmailResolutionService().getEmailForCustomer(getCurrentUserForCheckout());
 	}
+
+
+	public void afterScheduleOrder()
+	{
+		//clean previous card because it can be restored after next login
+		getCartFacade().cleanSavedCart();
+	}
 }

@@ -60,6 +60,7 @@
         <property name="maxOrderQuantity" type="Integer"/>
         <property name="minOrderQuantity" type="Integer"/>
 
+        <property name="certificates" type="java.lang.String"/>
         <property name="unreplenishable" type="java.lang.Boolean"/>
         <property name="archiveDate" type="java.util.Date"/>
         <property name="quantityInPackage" type="java.lang.Integer"/>

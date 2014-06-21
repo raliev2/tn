@@ -216,11 +216,12 @@
         </div>
     </div>
 
+   <c:if test="${not empty product.certificates}">
     <div class="block-chars">
         <div class="block-chars__header">Сертификаты и техническая документация</div>
         <div class="block-chars__body">
-            <a href="javascript:void(0)" class="g-link-blue">Roberts 50 550 Carpet Adhesive Tape Data Sheet</a>
+            ${product.certificates}
         </div>
     </div>
-
+   </c:if>
 </section>

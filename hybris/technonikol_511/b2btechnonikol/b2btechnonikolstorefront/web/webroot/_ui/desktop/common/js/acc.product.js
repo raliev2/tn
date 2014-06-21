@@ -191,17 +191,36 @@ ACC.product = {
 
 $(document).ready(function() {
 	ACC.product.bindAll();
+	
+	var productsInfo = '';
+	var total = $(this).find('.js-cart-entry').length;
     $('.js-cart-entry').each(function(index,item) {
-        $.ajax({
-            type : 'get',
-            data : {
-                count: $(item).attr('data-quantity')
-            },
-            url: check_stock_url + $(item).attr('data-id'),
-            dataType: 'html',
-            success: function(data){
-                $(item).find('.js-entry-stock').html(data);
-            }
-        });
+    	var code = $(item).attr('data-id');
+    	var count = $(item).attr('data-quantity');
+    	productsInfo += code + ':' + count + ';';
+    	if(index+1 == total){	    
+            $.ajax({
+                type : 'post',
+                data : {
+                	products: productsInfo,
+                },
+                url: check_stocks_url,
+                dataType: 'json',
+                success: function(data){
+                	var productInfo = data.productInfo;
+                	var roughOrderDate = data.roughOrderDate;
+                	$('.js-cart-entry').each(function(index,item) {
+                		var code = $(item).attr('data-id');
+                    	for(var key in productInfo){
+                    		if(productInfo[key].code == code){
+                    			$(item).find('.js-entry-stock').html(productInfo[key].html);
+                    		}
+                    	}                		
+                	})
+                	$(document).find('#roughOrderDate').html(roughOrderDate);
+                }
+            });    	    
+    	}
     });
+
 });

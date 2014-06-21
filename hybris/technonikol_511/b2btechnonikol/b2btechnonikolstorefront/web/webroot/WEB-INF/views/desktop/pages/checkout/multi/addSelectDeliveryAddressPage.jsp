@@ -49,7 +49,7 @@
                         <label for="selectedCostCenter" class="checkout__label">Выберите адрес доставки</label>
                         <select id="selectedCostCenter" name="selectedDeliveryAddress" class="checkout__select">
                             <c:forEach items="${deliveryAddresses}" var="address">
-                                <option value="${address.id}" ${address.id == cartData.deliveryAddress.id ? 'selected' :''}>${address.town} - ${address.line1}</option>
+                                <option value="${address.id}" ${address.id == cartData.deliveryAddress.id ? 'selected' :''}>${address.town} - ${address.line1} - ${address.line2} - ${address.postalCode}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -67,6 +67,7 @@
                 </div>
                 <formUtil:formInputBox labelKey="Дом, подъезд" idKey="address.house" path="house" inputCSS="checkout-input short-input2" mandatory="false" />
                 <formUtil:formInputBox labelKey="Индекс" idKey="address.postcode" path="postcode" inputCSS="checkout-input long-input" mandatory="false" />
+                <formUtil:formInputBox labelKey="Эл. адрес" idKey="address.email" path="email" inputCSS="checkout-input long-input" mandatory="false" />
                 <p class="g-gray-text">Для вашего удобства, компания "1Платформа" организовала службу поддержки.</p>
                 <p class="g-gray-text margin-bottom-5px">По вопросам доставки вы можете обратиться в Кол-Центр, по номеру <spring:theme code="common.telephone" />.</p>
                 <input type="text" class="checkout-input long-input" name="additionAddress" placeholder="Дополнительный адрес" /><br /><br />
