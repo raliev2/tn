@@ -27,7 +27,7 @@
     <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
     <div class="information-message information-message_negative checkout__error-message">
         <p>Ваш заказ не удалось разместить</p>
-        <p style="color:#333;font-weight: normal;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare sit amet tellus dignissim eleifend. Cras non consequat enim, nec venenatis dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec sed sem ac ipsum interdum rhoncus et id massa. Nunc dolor magna, euismod eget nibh quis, fringilla posuere nisi. Donec eget tellus a justo suscipit mollis ut at massa. Sed non nisi magna. Duis fermentum vitae ipsum eget condimentum. In sem lacus, congue ac velit id, congue viverra lorem. Fusce viverra lacinia dui, at varius ligula porttitor rhoncus. Aenean sed turpis eget sapien auctor venenatis. Pellentesque ipsum sem, egestas eget pellentesque tincidunt, dignissim ultrices ante. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum interdum sodales erat, non cursus dolor dictum eget.</p>
+        <p style="color:#333;font-weight: normal;">Возникла ошибка обработки заказа</p>
     </div>
     <a class="checkout__callback g-float-left" href="javascript:void(0)">Заказать обратный звонок</a>
     <div class="clearfix"></div>
@@ -60,7 +60,7 @@
                             <ycommerce:testId code="cart_product_name">
                                 <a href="${productUrl}" class="g-strong g-link-blue">${entry.product.name}</a>
                             </ycommerce:testId>
-                            <p>Артикул # ${entry.product.manufacturerCode}</p>
+                            <p>Артикул # ${entry.product.code}</p>
                             <p>Ваша цена: <format:fromPrice priceData="${entry.basePrice}" /></p>
                         </div>
                     </td>

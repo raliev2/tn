@@ -56,14 +56,14 @@ INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=tru
 ;rangeRefUSD2;tnPriceRangeUSD;    $50-$199.99;  50; 199.99
 ;rangeRefUSD3;tnPriceRangeUSD;   $200-$499.99; 200; 499.99
 ;rangeRefUSD4;tnPriceRangeUSD;   $500-$999.99; 500; 999.99
-;rangeRefUSD5;tnPriceRangeUSD;$1,000-$100,000;1000; 100000
+;rangeRefUSD5;tnPriceRangeUSD;$1,000-$1,000,000;1000; 1000000
 #RUB
 ;rangeRefRUB1 ;tnPriceRangeRUB; 0Ք-199Ք         ;   0; 199.99
 ;rangeRefRUB2 ;tnPriceRangeRUB; 200Ք-499Ք               ;   200; 499.99
 ;rangeRefRUB3 ;tnPriceRangeRUB; 500Ք-999Ք               ;   500; 999.99
 ;rangeRefRUB4 ;tnPriceRangeRUB; 1000Ք-4999Ք           ;  1000; 4999.99
 ;rangeRefRUB5 ;tnPriceRangeRUB; 5000Ք-100,000Ք;  5000; 100000.99
-;rangeRefRUB6 ;tnPriceRangeRUB; 100,001Ք-1,000,000Ք;  100001; 1000000
+;rangeRefRUB6 ;tnPriceRangeRUB; 100,001Ք-100,000,000Ք;  100001; 100000000
 
 
 # Non-facet properties

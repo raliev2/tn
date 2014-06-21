@@ -74,7 +74,9 @@ public interface ControllerConstants
 			String SHOW_CHECKOUT_SUMMARY_URL = "/show-checkout-summary";
 			String SHOW_HOSTED_ORDER_URL = "/show-hosted-order";
 			String APPLY_VOUCHER = "/apply_voucher";
-			String CHECK_PRODUCT = "/check_product";
+			String CHECK_PRODUCT = "/check-product";
+			String CHECK_PRODUCTS = "/check-products";
+			String SCHEDULE_ORDER = "/schedule-order";
 			String SHOW_HOSTED_ORDER_ERROR_URL = "/show-hosted-order-error";
 			String SHOW_HOSTED_ORDER_SUCCESS_URL = "/show-hosted-order-success";
 		}
@@ -136,6 +138,7 @@ public interface ControllerConstants
 				String ChooseDeliveryModePage = "pages/checkout/multi/chooseDeliveryModePage";
 				String ChoosePaymentMethodPage = "pages/checkout/multi/choosePaymentMethodPage";
 				String ApplyVoucherResult = "pages/checkout/multi/applyVoucherResultPage";
+				String ScheduleOrderResult = "pages/checkout/multi/scheduleOrderResultPage";
 				String CheckoutSummaryPage = "pages/checkout/multi/checkoutSummaryPage";
 				String HostedOrderErrorPage = "pages/checkout/multi/hostedOrderErrorPage";
 				String HostedOrderPostPage = "pages/checkout/multi/hostedOrderPostPage";

@@ -1,0 +1,47 @@
+# ImpEx for Checkout
+
+$storeUid=firstplatform 
+$vendor=technonikol                                                                                                                                                                       
+$usCurrency=RUB   
+
+# Warehouse
+INSERT_UPDATE Warehouse;code[unique=true];name[lang=ru];name[lang=en];vendor(code)[default=$vendor];default[default=true];active[default=true];shipmentTime[lang=ru];shipmentTime[lang=en];
+;tnwh01;Склад Технониколь №1;Tecnonikol Warehouse One;;;;1 день;1 day;
+;tnwh02;Склад Технониколь №2;Tecnonikol Warehouse Two;;;;1 день;1 day;
+
+INSERT_UPDATE PointOfService;name[unique=true];displayName;warehouses(code);address(&addrID);type(code)[default=WAREHOUSE]
+;tnwh01;Tecnonikol Warehouse One;tnwh01;addr_tnwh01;
+;tnwh02;Tecnonikol Warehouse Two;tnwh02;addr_tnwh02;
+
+INSERT_UPDATE Address;&addrID;owner(PointOfService.name)[unique=true];country(isocode);region(isocode);streetnumber[unique=true];streetname;town;
+;addr_tnwh01;tnwh01;RU;;117001, Москва, Варшавское ш.26;;
+;addr_tnwh02;tnwh01;RU;;117001, Москва, Варшавское ш.26;;
+
+# Base Store                                                                                                                                                                                                                                                                            
+UPDATE BaseStore;uid[unique=true];pickupInStoreMode(code);warehouses(code);               
+;$storeUid;BUY_AND_COLLECT;tnwh01,tnwh02;
+                                                                                                                                                                                                                                                                                                                                                
+# Delivery Zones                                                                                                                                                                     
+INSERT_UPDATE Zone;code[unique=true];countries(isocode)                                                                                                                              
+;ru;RU                                                                                                                                                                               
+                                                                                                                                                                                     
+# Zone Delivery Modes                                                                                                                                                                
+INSERT_UPDATE ZoneDeliveryMode;code[unique=true];net;active[default=true]                                                                                                            
+;premium-net;true;                                                                                                                                                                   
+;standard-net;true;                                                                                                                                                                  
+;premium-gross;false;                                                                                                                                                                
+;standard-gross;false;                                                                                                                                                               
+;free-standard-shipping;true;false;                                                                                                                                                  
+                                                                                                                                                                                     
+# Zone Delivery Mode Values                                                                                                                                                                                                                                                                                                                                             
+# USA                                                                                                                                                                                
+INSERT_UPDATE ZoneDeliveryModeValue;deliveryMode(code)[unique=true];zone(code)[default='ru'][unique=true];currency(isocode)[unique=true];value;minimum[unique=true]                  
+;premium-net;;$usCurrency;16.99;0.00                                                                                                                                                 
+;premium-gross;;$usCurrency;19.99;0.00                                                                                                                                               
+;standard-net;;$usCurrency;9.99;0.00                                                                                                                                                 
+;standard-gross;;$usCurrency;11.99;0.00                                                                                                                                              
+;free-standard-shipping;;$usCurrency;0.00;0.00                                                                                                                                       
+
+# Pickup Delivery Modes                                                                                                                                                                
+INSERT_UPDATE PickupDeliveryMode;code[unique=true];active[default=true];stores(uid);supportedMode(code);                                                                                                      
+;pickup-mode;true;$storeUid;BUY_AND_COLLECT; 

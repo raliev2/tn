@@ -10,13 +10,14 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <template:page pageTitle="${currentStep.name}">
     <script>
         $(document).ready(function() {
             $('#js-checkout-summary-form').submit(function(){
                 if (!$('#agree').is(':checked')) {
-                    $('<p>Пожалуйста, выберите галочку в блоке "Конфеденциальность"</p>').modal();
+                    $('<p>Пожалуйста, отметьте чекбокс в блоке "Конфеденциальность"</p>').modal();
                     return false;
                 }
             });
@@ -67,7 +68,7 @@
                                         <ycommerce:testId code="cart_product_name">
                                             <a href="${productUrl}" class="g-strong g-link-blue">${entry.product.name}</a>
                                         </ycommerce:testId>
-                                        <p>Артикул # ${entry.product.manufacturerCode}</p>
+                                        <p>Артикул # ${entry.product.code}</p>
                                         <p>Ваша цена: <format:fromPrice priceData="${entry.basePrice}" /></p>
                                     </div>
                                 </td>
@@ -92,6 +93,11 @@
                         в Кол-Центр по номеру <spring:theme code="common.telephone" />  для получения подробной информации.
                     </div>
                 </div>
+                <div class="checkout-summary-total__button" style="padding-top:20px">
+                   <button type="button" class="button button_big" id="scheduleReplenishmentButton" onclick="$('#replenishment-schedule-div').toggle()">
+							Повторить заказ
+						 </button>  
+					 </div>             
             </div>
             <div class="checkout-summary__total">
                 <h4>Итог заказа</h4>
@@ -117,6 +123,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>Примененные скидки</td>
+                        <td class="g-align-right">
+                            <c:choose>
+                                <c:when test="${cartData.totalDiscounts.value > 0}">
+                                    -<format:fromPrice priceData="${cartData.totalDiscounts}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    нет
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>                                        
+                    <tr>
                         <td>Стоимость доставки</td>
                         <td class="g-align-right">
                             <c:choose>
@@ -138,7 +157,8 @@
                 </table>
                 <p>Наличие товара на складе, его окончательная
                     стоимость и стоимость заказа, будет пересчитана
-                    на последнем шаге оформления корзины</p>
+                    на последнем шаге оформления корзины</p><br/>
+                <p>Прогнозируемая дата доставки заказа:</p> <div id="roughOrderDate"></div>                    
                 <div class="checkout-summary-total__white-line"></div>
                 <div class="checkout-summary-total__button">
                     <input type="submit" value="Подтвердить" class="button button_big" />
@@ -152,10 +172,10 @@
                     <div class="checkout-summary-total__value">
                         <c:choose>
                             <c:when test="${not empty cartData.deliveryAddress}">
-                                ${cartData.deliveryAddress.formattedAddress}
+                                ${cartData.deliveryAddress.town} - ${cartData.deliveryAddress.line1} - ${cartData.deliveryAddress.line2} - ${cartData.deliveryAddress.postalCode}
                             </c:when>
                             <c:otherwise>
-                            	 ${cartData.entries.get(0).deliveryPointOfService.address.formattedAddress}
+                            	 ${cartData.entries.get(0).deliveryPointOfService.address.town} - ${cartData.entries.get(0).deliveryPointOfService.address.line1} - ${cartData.entries.get(0).deliveryPointOfService.address.postalCode}
                             </c:otherwise>
                         </c:choose>                      
                     </div>
@@ -216,9 +236,14 @@
                     <div class="checkout-summary-total__white-line"></div>
                     <div class="checkout-summary-total__button">
                         <input type="submit" value="Подтвердить" class="button button_big" />
-                    </div>
-                </div>
+                    </div>         
+                </div>                
             </div>
         </form>
+
+		 <c:url value="/checkout/multi/schedule-order" var="schedule_order_url" />
+       <form:form action="${schedule_order_url}" id="replenishmentForm" commandName="placeOrderForm">
+			<cart:replenishmentScheduleForm/> 
+    	</form:form>    
     </section>
 </template:page>
