@@ -76,7 +76,9 @@ public class VariantSearchResultProductPopulator extends SearchResultProductPopu
  //       uData.setUnitType(uModel.getUnitType());
 //        target.setSalesUnit(uData);
 
-        target.setSalesUnit(unitConverter.convert(productModel.getUnit()));
+        if (productModel.getUnit()!= null) {
+           target.setSalesUnit(unitConverter.convert(productModel.getUnit()));
+        }
 
         target.setMinOrderQuantity(productModel.getMinOrderQuantity());
         target.setMaxOrderQuantity(productModel.getMaxOrderQuantity());

@@ -16,6 +16,7 @@ package com.teamidea.platform.technonikol.storefront.controllers.pages;
 import de.hybris.platform.acceleratorcms.model.components.SearchBoxComponentModel;
 import de.hybris.platform.acceleratorservices.controllers.page.PageType;
 import de.hybris.platform.acceleratorservices.customer.CustomerLocationService;
+import de.hybris.platform.category.model.CategoryModel;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.servicelayer.services.CMSComponentService;
 import de.hybris.platform.commercefacades.product.ProductOption;
@@ -28,13 +29,12 @@ import de.hybris.platform.commercefacades.search.data.SearchStateData;
 import de.hybris.platform.commerceservices.search.facetdata.ProductSearchPageData;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.search.pagedata.PaginationData;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.util.Config;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +101,9 @@ public class SearchPageController extends AbstractSearchPageController
 
 	@Resource(name = "cmsComponentService")
 	private CMSComponentService cmsComponentService;
+
+    @Resource(name = "flexibleSearchService")
+    private FlexibleSearchService flexibleSearchService;
 
 	@RequestMapping(method = RequestMethod.GET, params = "!q")
 	public String textSearch(@RequestParam(value = "text", defaultValue = StringUtils.EMPTY) final String searchText,
@@ -386,15 +389,39 @@ public class SearchPageController extends AbstractSearchPageController
 
 		final SearchBoxComponentModel component = (SearchBoxComponentModel) cmsComponentService.getSimpleCMSComponent(componentUid);
 
+
 		if (component.isDisplaySuggestions())
 		{
-			resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
+		        // этот блок обязательно надо вынести в сервисы и фасады !!!!!!!!!!!!!!!!!!!!!
+                // он тут как заплатка для демонстрации в понедельник 23.06 !!
+                // в частности, тут не учитывается, что все рубрики должны быть из категории Nav
+                // Rauf
+                // начало блока
+            final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and {name[ru]} like ?term group by {name[ru]}";
+            final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
+            searchQuery.addQueryParameter("term", '%' + term + '%');
+            final SearchResult<List> categories = flexibleSearchService.search(searchQuery);
+            final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>();
+            //catdata.addAll(subList(categories.getResult(), 3));
+            //for (final SearchResult : productSearchFacade.getAutocompleteSuggestions(term))
+            for (final Iterator<List> iter = categories.getResult().iterator(); iter.hasNext();)
+            {
+                final String CategoryName = ((CategoryModel) iter.next()).getName();
+                AutocompleteSuggestionData a = new AutocompleteSuggestionData();
+                a.setTerm(CategoryName);
+                catdata.add(a);
+            }
+            resultData.setSuggestions(catdata);
+
+                // конец блок
+				//resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
 		}
 
 		if (component.isDisplayProducts())
 		{
 			resultData.setProducts(subList(productSearchFacade.textSearch(term).getResults(), component.getMaxProducts()));
 		}
+
 
 		return resultData;
 	}
