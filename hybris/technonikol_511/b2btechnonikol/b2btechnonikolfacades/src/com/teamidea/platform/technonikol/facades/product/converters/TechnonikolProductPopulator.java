@@ -69,7 +69,7 @@ public class TechnonikolProductPopulator extends ProductPopulator
 		target.setETIMCode(source.getETIMCode());
 		target.setEClassCode(source.getEClassCode());
 		target.setBarcode(source.getBarcode());
-
+        target.setSummary(source.getSummary());
 		target.setProductSubtype(source.getProductSubtype());
 		target.setProductModel(source.getProductModel());
 		target.setProductPurpose(source.getProductPurpose());

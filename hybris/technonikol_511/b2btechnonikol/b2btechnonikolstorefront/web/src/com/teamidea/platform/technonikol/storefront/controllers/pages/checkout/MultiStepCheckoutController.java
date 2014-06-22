@@ -345,8 +345,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		if (StringUtils.isEmpty(isPrev))
 		{
-			getCheckoutFlowFacade().setCostCenterForCart(selectedCostCenter, getCart().getCode());
-			getCheckoutFlowFacade().setDeliveryMethod(TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
+			 (TNDeliveryMethodTypeEnum.valueOf(selectedDeliveryMethod));
 		}
 
 		if (StringUtils.equals(getCart().getDeliveryMethod().getCode(), TNDeliveryMethodTypeEnum.PICKUP.getCode()))
