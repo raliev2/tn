@@ -392,16 +392,19 @@ public class SearchPageController extends AbstractSearchPageController
 
 		if (component.isDisplaySuggestions())
 		{
+            //resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
+
 		        // этот блок обязательно надо вынести в сервисы и фасады !!!!!!!!!!!!!!!!!!!!!
                 // он тут как заплатка для демонстрации в понедельник 23.06 !!
                 // в частности, тут не учитывается, что все рубрики должны быть из категории Nav
                 // Rauf
                 // начало блока
+
             final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and {name[ru]} like ?term group by {name[ru]}";
             final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
             searchQuery.addQueryParameter("term", '%' + term + '%');
             final SearchResult<List> categories = flexibleSearchService.search(searchQuery);
-            final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>();
+            final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
             //catdata.addAll(subList(categories.getResult(), 3));
             //for (final SearchResult : productSearchFacade.getAutocompleteSuggestions(term))
             for (final Iterator<List> iter = categories.getResult().iterator(); iter.hasNext();)
