@@ -60,9 +60,16 @@
                     <property name="propertyName" value="description"/>
                     <property name="boost" value="50"/>
                 </bean>
+
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="summary"/>
+                    <property name="boost" value="80"/>
+                </bean>
+
                 <bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
                     <property name="boost" value="30"/>
                 </bean>
+
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="keywords"/>
                     <property name="boost" value="20"/>
