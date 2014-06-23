@@ -167,9 +167,7 @@
                 <div>
                     <h4 class="g-float-left">Адрес доставки</h4>
                     <c:url value="/checkout/multi/select-address?isPrev=true" var="address_url" />
-                    <%--
                     <a  href="${address_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
-                    --%>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         <c:choose>
@@ -183,9 +181,7 @@
                     </div>
                     <h4 class="g-float-left">Получатель</h4>
                     <c:url value="/checkout/multi/select-address?isPrev=true" var="customer_url" />
-                    <%--
                     <a  href="${customer_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
-                    --%>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         ${cartData.b2bCustomerData.lastName}&nbsp;${cartData.b2bCustomerData.firstName}
@@ -194,9 +190,7 @@
 
                     <h4 class="g-float-left">Метод доставки</h4>
                     <c:url value="/checkout/multi/select-delivery-method" var="delivery_method_url" />
-                    <%--
                     <a  href="${delivery_method_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
-                    --%>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.deliveryMethod)}" />
@@ -212,9 +206,7 @@
 
                     <h4 class="g-float-left">Оплата</h4>
                     <c:url value="/checkout/multi/select-payment-method?isPrev=true" var="payment_method_url" />
-                    <%--
                     <a  href="${payment_method_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
-                    --%>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
                         <spring:theme code="checkout.delivery.method.${fn:toLowerCase(cartData.paymentMethod)}" />

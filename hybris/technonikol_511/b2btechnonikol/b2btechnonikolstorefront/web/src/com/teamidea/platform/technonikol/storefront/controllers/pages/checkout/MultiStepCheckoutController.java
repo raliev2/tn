@@ -730,8 +730,6 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		setCurrentStep(PAYMENT_METHOD);
 
-		getCheckoutFlowFacade().setDefaultPaymentTypeForCheckout();
-
 		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
 
 		if (StringUtils.isEmpty(selectedPaymentMethod))
