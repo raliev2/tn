@@ -40,22 +40,22 @@ ul.columns { margin: 0; padding: 0; list-style-type: none; word-spacing: -1ex; }
                 <ul class="item-menu__inner-menu js-inner-menu columns">
                     <li class="inner-menu__item"></li>
                     <li class="inner-menu__item"></li>
-                    <li class="inner-menu__item"><a href="/store/c/metallocherepica">Металлочерепица</a></li>
-<li class="inner-menu__item"><a href="/store/c/ploskie_krovli">Плоские кровли
-</a></li><li class="inner-menu__item"><a href="/store/c/skatnye_krovli">Скатные кровли
-</a></li><li class="inner-menu__item"><a href="/store/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли
-</a></li><li class="inner-menu__item"><a href="/store/c/drevesnye_materialy">Древесные материалы
-</a></li><li class="inner-menu__item"><a href="/store/c/gidro-_i_paroizoljacionnye_plenki">Гидро-и пароизоляционные пленки
-</a></li><li class="inner-menu__item"><a href="/store/c/utepliteli">Утеплители
-</a></li><li class="inner-menu__item"><a href="/store/c/zabory_i_ograzhdenija">Заборы и ограждения
-</a></li><li class="inner-menu__item"><a href="/store/c/fasady_i_stenovye_materialy">Фасады и стеновые материалы
-</a></li><li class="inner-menu__item"><a href="/store/c/fundamenty_gidroizoljacija">Фундаменты, гидроизоляция
-</a></li><li class="inner-menu__item"><a href="/store/c/transportnoe_i_dorozhnoe_stroitelstvo">Транспортное и дорожное строительство
-</a></li><li class="inner-menu__item"><a href="/store/c/ustrojstvo_pridomovoj_territorii_landshaft">Устройство придомовой территории, ландшафт</a>
-</li><li class="inner-menu__item"><a href="/store/c/materialy_dlja_vnutrennej_otdelki">Материалы для внутренней отделки
-</a></li><li class="inner-menu__item"><a href="/store/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly">Дымовые системы и вентиляционные каналы
-</a></li><li class="inner-menu__item"><a href="/store/c/vorotnye_sistemy">Воротные системы
-</a></li><li class="inner-menu__item"><a href="/store/c/bassejny">Бассейны
+                    <li class="inner-menu__item"><a href="${contextPath}/c/metallocherepica">Металлочерепица</a></li>
+<li class="inner-menu__item"><a href="${contextPath}/c/ploskie_krovli">Плоские кровли
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/skatnye_krovli">Скатные кровли
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/drevesnye_materialy">Древесные материалы
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/gidro-_i_paroizoljacionnye_plenki">Гидро-и пароизоляционные пленки
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/utepliteli">Утеплители
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/zabory_i_ograzhdenija">Заборы и ограждения
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/fasady_i_stenovye_materialy">Фасады и стеновые материалы
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/fundamenty_gidroizoljacija">Фундаменты, гидроизоляция
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/transportnoe_i_dorozhnoe_stroitelstvo">Транспортное и дорожное строительство
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/ustrojstvo_pridomovoj_territorii_landshaft">Устройство придомовой территории, ландшафт</a>
+</li><li class="inner-menu__item"><a href="${contextPath}/c/materialy_dlja_vnutrennej_otdelki">Материалы для внутренней отделки
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly">Дымовые системы и вентиляционные каналы
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/vorotnye_sistemy">Воротные системы
+</a></li><li class="inner-menu__item"><a href="${contextPath}/c/bassejny">Бассейны
 </a></li><li class="inner-menu__item"><a href="#">Светотехника
 </a></li><li class="inner-menu__item"><a href="#">Кабельно-проводниковая продукция
 </a></li><li class="inner-menu__item"><a href="#">Кабеленесущие системы
