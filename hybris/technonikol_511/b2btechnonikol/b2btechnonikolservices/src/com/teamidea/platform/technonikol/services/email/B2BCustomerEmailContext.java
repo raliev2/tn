@@ -23,8 +23,7 @@ public class B2BCustomerEmailContext extends AbstractEmailContext<BusinessProces
 		emailPageModel.getFromEmail();
 		put(EMAIL, b2bCustomer.getEmail());
 		put(FROM_DISPLAY_NAME, emailPageModel.getFromName());
-		put(FROM_EMAIL, emailPageModel.getFromEmail());
-
+		put(FROM_EMAIL, "rivegauche@teamidea.local");
 	}
 
 	@Override
