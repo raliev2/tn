@@ -23,4 +23,10 @@
 	
 	<bean id="deliveryDateIntegrationService" class="com.teamidea.platform.technonikol.services.stock.impl.DeliveryDateIntegrationServiceImpl" />
 		
+	<alias name="technonikolB2BCommerceCartService" alias="b2bCommerceCartService"/>
+	<bean name="technonikolB2BCommerceCartService" class="com.teamidea.platform.technonikol.services.order.impl.TechnonikolCommerceCartService"
+	      parent="defaultB2BCommerceCartService">
+	      <property name="cartService" ref="b2bCartService"/>
+	</bean>
+	
 </beans>
