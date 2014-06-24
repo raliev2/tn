@@ -51,7 +51,7 @@ public class ErrorBigPackageHandler extends ErrorHandler
 	@Override
 	public void onError(final MessagingException exception)
 	{
-		log.error("MessagingException exception caught", exception);
+		log.error("MessagingException exception caught");
 		if (exception.getCause() instanceof BigPackageException)
 		{
 			onError((BigPackageException) exception.getCause());
@@ -74,7 +74,7 @@ public class ErrorBigPackageHandler extends ErrorHandler
 	@Override
 	public void onError(final IllegalStateException exception)
 	{
-		log.error("IllegalStateException exception caught", exception);
+		log.error("IllegalStateException exception caught");
 		if (exception.getCause() instanceof BigPackageException)
 		{
 			onError((BigPackageException) exception.getCause());

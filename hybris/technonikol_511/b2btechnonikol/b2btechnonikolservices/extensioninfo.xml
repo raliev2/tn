@@ -20,6 +20,7 @@
       <requires-extension name="promotions"/>
       <requires-extension name="commerceservices"/>
       <requires-extension name="acceleratorservices"/>
+      <requires-extension name="b2btechnonikolcore"/>
       
       <coremodule generated="true" manager="com.teamidea.platform.technonikol.services.jalo.B2btechnonikolservicesManager" packageroot="com.teamidea.platform.technonikol.services"/>
 
