@@ -22,6 +22,8 @@ public class B2BCustomerEmailContext extends AbstractEmailContext<BusinessProces
 		final B2BCustomerModel b2bCustomer = (B2BCustomerModel) this.getCustomer(businessProcessModel);
 		emailPageModel.getFromEmail();
 		put(EMAIL, b2bCustomer.getEmail());
+		put(FROM_EMAIL, "limit-speed@yandex.ru");
+		put(FROM_DISPLAY_NAME, "TN");
 	}
 
 	@Override
