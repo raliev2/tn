@@ -19,7 +19,11 @@ import de.hybris.platform.acceleratorservices.customer.CustomerLocationService;
 import de.hybris.platform.category.model.CategoryModel;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.model.pages.CategoryPageModel;
+import de.hybris.platform.commercefacades.product.PriceDataFactory;
+import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.data.CategoryData;
+import de.hybris.platform.commercefacades.product.data.PriceData;
+import de.hybris.platform.commercefacades.product.data.PriceDataType;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.commercefacades.search.ProductSearchFacade;
 import de.hybris.platform.commercefacades.search.data.SearchQueryData;
@@ -29,6 +33,7 @@ import de.hybris.platform.commerceservices.search.facetdata.BreadcrumbData;
 import de.hybris.platform.commerceservices.search.facetdata.ProductCategorySearchPageData;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.url.UrlResolver;
+import de.hybris.platform.product.ProductService;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import com.teamidea.platform.technonikol.storefront.breadcrumb.impl.SearchBreadcrumbBuilder;
 import com.teamidea.platform.technonikol.storefront.constants.WebConstants;
@@ -36,6 +41,7 @@ import com.teamidea.platform.technonikol.storefront.controllers.ControllerConsta
 import com.teamidea.platform.technonikol.storefront.util.MetaSanitizerUtil;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -88,7 +94,18 @@ public class CategoryPageController extends AbstractSearchPageController
 	@Resource(name = "customerLocationService")
 	private CustomerLocationService customerLocationService;
 
-	@RequestMapping(value = CATEGORY_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
+    @Resource(name = "b2bProductFacade")
+    private ProductFacade productFacade;
+
+    @Resource(name = "productService")
+    private ProductService productService;
+
+    @Resource(name = "priceDataFactory")
+    private PriceDataFactory priceDataFactory;
+
+
+
+    @RequestMapping(value = CATEGORY_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
 	public String category(@PathVariable("categoryCode") final String categoryCode,
 			@RequestParam(value = "q", required = false) final String searchQuery,
 			@RequestParam(value = "page", defaultValue = "0") final int page,
@@ -127,12 +144,21 @@ public class CategoryPageController extends AbstractSearchPageController
 
 			final SearchStateData searchState = new SearchStateData();
 			searchState.setQuery(searchQueryData);
-
+            model.addAttribute("searchQuery", searchQuery);
 			final PageableData pageableData = createPageableData(page, 0, sortCode, showMode);
 			searchPageData = productSearchFacade.categorySearch(categoryCode, searchState, pageableData);
 		}
 
-		storeCmsPageInModel(model, categoryPage);
+        /*for (final  ProductData item : searchPageData.getResults())
+        {
+
+
+            PriceData price = priceDataFactory.create(PriceDataType.BUY, BigDecimal.valueOf(0), "RUB");
+            item.setPrice(price);
+
+                     //getPriceDataFactory().create (productService.getProductForCode(item.getCode).getEurope1Prices().get(0));
+        } */
+        storeCmsPageInModel(model, categoryPage);
 		storeContinueUrl(request);
 
 		final boolean showCategoriesOnly = searchQueryData.getValue() == null && categoryPage != null
@@ -176,7 +202,7 @@ public class CategoryPageController extends AbstractSearchPageController
 		searchResultsData.setPagination(searchPageData.getPagination());
 
 		model.addAttribute("searchResultsData", searchResultsData);
-
+        model.addAttribute("searchQuery", searchQuery);
 		return ControllerConstants.Views.Fragments.Product.ProductLister;
 	}
 

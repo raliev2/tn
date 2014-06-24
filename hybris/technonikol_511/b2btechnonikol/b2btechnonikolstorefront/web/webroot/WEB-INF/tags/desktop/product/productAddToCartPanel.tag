@@ -42,8 +42,22 @@
 
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
+
+	<%-- Rauf / после убирания списка единиц измерения это уже нужно делать проще
         <input type="hidden" value="1" id="qty" name="qty" class="g-input"  />
         <input type="text" value="1" id="realqty" name="realqty" class="g-input" size="2" maxlength="6" onkeyup="changeqty(this.value)" />
+        --%>
+	<input 
+		type="text" 
+		id="qty" 
+		name="qty" 
+		class="g-input"
+		onChange="checkqty('qty', '${product.minOrderQuantity}')" 
+		value="<c:choose><c:when test="${not empty product.minOrderQuantity}">${product.minOrderQuantity}</c:when><c:otherwise>1</c:otherwise></c:choose>"
+		size="2" 
+		maxlength="6"
+	/>
+
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
 

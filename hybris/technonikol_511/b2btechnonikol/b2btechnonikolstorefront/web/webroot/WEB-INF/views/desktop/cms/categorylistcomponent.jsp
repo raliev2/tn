@@ -7,7 +7,7 @@
 		<div class="filter-block filter-block_border-bottom">
 			<div class="filter-block__header_red">${title}</div>
 			<c:if test="${categories.size() == 0}">
-			Отсутствуют
+			<%--Отсутствуют--%>
 			</c:if>
 			<ul>
 				<c:forEach items="${categories}" var="category" varStatus="status">

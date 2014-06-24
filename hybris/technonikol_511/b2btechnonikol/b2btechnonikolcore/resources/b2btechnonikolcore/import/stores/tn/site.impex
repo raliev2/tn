@@ -17,7 +17,7 @@ $storefrontContextRoot=$config-b2bStorefrontContextRoot
 
 # CMS Site
 INSERT_UPDATE CMSSite;uid[unique=true];theme(code);channel(code);stores(uid);contentCatalogs(id);defaultCatalog(id);defaultLanguage(isoCode);urlPatterns;active;previewURL;startingPage(uid,$contentCV);urlEncodingAttributes;defaultPromotionGroup(Identifier)[default=tnPromoGrp]
-;$siteUid;green;B2B;$storeUid;$contentCatalog;$productCatalog;$defaultLanguage;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUidshort)(|\&.*)$,(?i)^https?://$siteUidshort\.[^/]+(|/.*|\?.*)$;true;$storefrontContextRoot/?site=$siteUidshort;homepage;storefront,language,currency
+;$siteUid;green;B2B;$storeUid;$contentCatalog;$productCatalog;$defaultLanguage;(?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUidshort)(|\&.*)$,(?i)^https?://$siteUidshort\.[^/]+(|/.*|\?.*)$;true;$storefrontContextRoot/?site=$siteUidshort;homepage;;
 
 # Cart Cleanup CronJobs
 INSERT_UPDATE CartRemovalCronJob;code[unique=true];job(code)[default=cartRemovalJob];sites(uid)[default=$siteUid];sessionLanguage(isoCode)[default=en]

@@ -26,7 +26,7 @@
 		</c:if>
 	</c:forEach>
 
-    <title><spring:theme code="site.title"/></title>
+    <title>${not empty pageTitle ? pageTitle : not empty cmsPage.title ? cmsPage.title : 'Первая Платформа'}</title>
 
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/reset.less" />
     <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
