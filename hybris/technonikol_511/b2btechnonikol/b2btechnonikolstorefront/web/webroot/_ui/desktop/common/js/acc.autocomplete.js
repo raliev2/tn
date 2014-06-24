@@ -66,7 +66,7 @@ ACC.autocomplete = {
             {
                 if (item.type == "autoSuggestion")
                 {
-                    renderHtml = "<a href='?q=" + item.value + "' class='clearfix'>" + item.value + "</a>";
+                    renderHtml = "<a href='/search?q=" + item.value + "' class='clearfix'>" + item.value + "</a>";
                     return $("<li class='suggestions'>")
                             .data("ui-autocomplete-item", item)
                             .append(renderHtml)
