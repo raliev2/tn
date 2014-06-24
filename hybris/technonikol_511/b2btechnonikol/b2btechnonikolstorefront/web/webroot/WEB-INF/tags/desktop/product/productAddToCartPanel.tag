@@ -26,6 +26,7 @@
         <product:productFutureAvailability product="${product}" futureStockEnabled="${futureStockEnabled}" />
     </span--%>
     <%-- ПЕРЕДЕЛАТЬ! СДЕЛАНО НА СКОРУЮ РУКУ (rauf) --%>
+    <%--
     <script>
       function changeqty(a)
         {
@@ -39,7 +40,7 @@
               document.getElementById ('cartquantitynumber').innerHTML = document.getElementById ('qty').value;
         }
     </script>
-
+    --%>
     <c:if test="${(product.purchasable) || (true)}">
         <label for="qty" class="g-italic">Кол-во:</label>
 
