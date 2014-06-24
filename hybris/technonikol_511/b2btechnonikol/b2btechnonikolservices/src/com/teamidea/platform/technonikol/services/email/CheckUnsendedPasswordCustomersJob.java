@@ -49,7 +49,7 @@ public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<Cr
 		final FlexibleSearchQuery query = new FlexibleSearchQuery("SELECT {" + B2BCustomerModel.PK + "} FROM {"
 				+ B2BCustomerModel._TYPECODE + "} WHERE {" + B2BCustomerModel.SENDMAIL + "}=?send");
 
-		query.addQueryParameter("send", Boolean.TRUE);
+		query.addQueryParameter("send", Boolean.FALSE);
 		LOG.info(query.getQuery());
 		return flexibleSearchService.search(query);
 	}
@@ -62,5 +62,7 @@ public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<Cr
 		storeFrontCustomerProcessModel.setCustomer(customer);
 		modelService.save(storeFrontCustomerProcessModel);
 		businessProcessService.startProcess(storeFrontCustomerProcessModel);
+		customer.setSendMail(Boolean.TRUE);
+		modelService.save(customer);
 	}
 }
