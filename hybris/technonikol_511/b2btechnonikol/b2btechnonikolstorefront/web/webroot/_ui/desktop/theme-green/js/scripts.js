@@ -26,7 +26,7 @@ var intValue = parseInt(restriction);
         }
 
  
- if (intValue < restriction)
+ if (intValue < parseInt(restriction))
         {
 	    alert("Для этого товара минимальное количество - " + restriction + ". Исправлено.");
             document.getElementById(inputobject).value = restriction;
