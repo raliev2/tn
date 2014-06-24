@@ -23,7 +23,15 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- General setup -->
-	<bean id="cleanupHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
+	<int:channel id="errorChannel" />
+	<int:service-activator input-channel="errorChannel" ref="errorHandler" method="onError" />
+    <bean id="errorHandler" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.ErrorBigPackageHandler">
+		<property name="cleanupBigPackageHelper" ref="cleanupHelper" />
+		<property name="cleanupHelper" ref="cleanupHelper" />
+	</bean>
+	
+	<alias name="cleanupBigPackageHelper" alias="cleanupHelper"/>
+	<bean id="cleanupBigPackageHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
 		<property name="timeStampFormat" value="" />
 		<property name="loggerService" ref="loggerService"/>
 	</bean>
@@ -103,4 +111,16 @@
 	<bean id="loggerService" class="com.teamidea.platform.technonikol.core.dataimport.ImpexLoggerService" parent="abstractService">
 		<property name="encoding" value="UTF-8" />
     </bean>
+    
+    <!-- AOP -->
+    <!-- AOP -->
+	<aop:config proxy-target-class="false">
+		<aop:pointcut id="taskPointcut" expression="execution(* de.hybris.platform.acceleratorservices.dataimport.batch.task.CleanupHelper.*(..))" />
+		<aop:aspect ref="tnTenantActivationAspect">
+			<aop:around pointcut-ref="taskPointcut" method="cleanup" />
+		</aop:aspect>
+	</aop:config>
+	<bean id="tnTenantActivationAspect" class="com.teamidea.platform.technonikol.core.dataimport.batch.aop.TechnonikolTenantActivationAspect" />
+	<bean id="exceptionHandlerAspect" class="com.teamidea.platform.technonikol.core.dataimport.batch.aop.TechnonikoExceptionHandlerAspect" />
+    
 </beans>

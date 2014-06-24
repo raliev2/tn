@@ -21,8 +21,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
-import javax.xml.stream.XMLStreamException;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -51,10 +49,11 @@ public abstract class AbstractTechnonikolImpexRunnerTask implements HeaderTask /
 
 	@Override
 	public BatchHeader execute(final BatchHeader header) throws UnsupportedEncodingException, FileNotFoundException,
-			XMLStreamException
+			ImpexImportException
 	{
 		Assert.notNull(header);
 		Assert.notNull(header.getEncoding());
+
 		if (CollectionUtils.isNotEmpty(header.getTransformedFiles()))
 		{
 			final Session localSession = getSessionService().createNewSession();

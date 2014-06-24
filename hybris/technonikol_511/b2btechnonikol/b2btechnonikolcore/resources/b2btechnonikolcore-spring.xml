@@ -23,10 +23,9 @@
 
 	<!-- Import Export Configuration - Spring Integration -->
 	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-technonikol-spring.xml"/>
-	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-extended.xml"/>
 	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-technonikol-csv-spring.xml"/>
-    
-        
+	<import resource="classpath:/b2btechnonikolcore/integration/hot-folder-extended.xml"/>
+	    
     <!-- SystemSetup for the b2btechnonikolcore -->
     <bean id="b2bAcceleratorCoreSystemSetup" class="com.teamidea.platform.technonikol.core.setup.CoreSystemSetup"  parent="abstractCoreSystemSetup">
         <property name="setupSyncJobService" ref="b2bSetupSyncJobService"/>

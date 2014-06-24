@@ -40,12 +40,14 @@ public class ImpexLoggerService extends AbstractService
 	private static final String ERROR_FILE_SUFIX = "_E";
 	private static final String FILE_EXT = ".xml";
 
-	private static final String ELEMENT_HEADER = "status";
-	private static final String ELEMENT_CODE = "code";
-	private static final String ELEMENT_ERROR = "error";
+	private static final String ELEMENT_HEADER_NS = "ns0";
+	private static final String ELEMENT_HEADER_NS_URL = "http://tn.ru/po/HYB/ErrorProcessing";
+	private static final String ELEMENT_HEADER = "HybStatusChangeNotificationMsg";
+	private static final String ELEMENT_CODE = "ErrorCode";
+	private static final String ELEMENT_ERROR = "JavaLogs";
 	private static final String ELEMENT_ERROR_LINE = "line";
-	private static final String ELEMENT_ERROR_DUMP = "dump";
-	private static final String ELEMENT_ERROR_MESSAGE = "message";
+	private static final String ELEMENT_ERROR_DUMP = "ImpexDump";
+	private static final String ELEMENT_ERROR_MESSAGE = "ErrorText";
 
 	private String encoding;
 
@@ -57,12 +59,11 @@ public class ImpexLoggerService extends AbstractService
 		final StringBuilder sb = new StringBuilder();
 		if (matcher.matches())
 		{
-			sb.append(matcher.group(1)).append(isError ? ERROR_FILE_SUFIX : STATUS_FILE_SUFIX).append(matcher.group(3));
+			sb.append(matcher.group(1)).append(isError ? ERROR_FILE_SUFIX : STATUS_FILE_SUFIX);
 		}
 		else
 		{
-			sb.append(FilenameUtils.removeExtension(file.getName())).append(isError ? ERROR_FILE_SUFIX : STATUS_FILE_SUFIX)
-					.append(FilenameUtils.getExtension(file.getName()));
+			sb.append(FilenameUtils.removeExtension(file.getName())).append(isError ? ERROR_FILE_SUFIX : STATUS_FILE_SUFIX);
 		}
 		sb.append(FILE_EXT);
 
@@ -75,6 +76,8 @@ public class ImpexLoggerService extends AbstractService
 		XMLStreamWriter result = errorWriter;
 		if (result == null)
 		{
+			final XMLOutputFactory instance = XMLOutputFactory.newInstance();
+			instance.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
 			result = XMLOutputFactory.newInstance().createXMLStreamWriter(
 					new OutputStreamWriter(new FileOutputStream(getStatusFile(file, isError)), encoding));
 		}
@@ -156,7 +159,9 @@ public class ImpexLoggerService extends AbstractService
 		final XMLStreamWriter result = getStatusWriter(file, errorWriter, isError);
 
 		result.writeStartDocument();
-		result.writeStartElement(ELEMENT_HEADER); // header
+		result.writeStartElement(ELEMENT_HEADER_NS, ELEMENT_HEADER, ELEMENT_HEADER_NS_URL); // header
+		result.setPrefix(ELEMENT_HEADER_NS, ELEMENT_HEADER_NS_URL);
+		result.writeNamespace(ELEMENT_HEADER_NS, ELEMENT_HEADER_NS_URL);
 
 		return result;
 	}
