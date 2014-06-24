@@ -7,7 +7,9 @@
     $(document).ready(function() {
         $('#search_in_result').keyup(function() {
             var q = $('input[name="freeTextSearch"]').val();
-            $('input[name="q"]').val(q + ' ' + $(this).val());
+            //$('input[name="q"]').val(q + ' ' + $(this).val());
+            $('input[name="q"]').val($(this).val() + ' ${searchQuery}');
+
         });
     });
     function sendFormIfNotEmpty(button,input) {

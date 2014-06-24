@@ -750,8 +750,21 @@
 				</attributes>
 			</itemtype>
 			
+			<itemtype code="B2BCustomer" generate="false" autocreate="false">
+			<attributes>
+				<attribute qualifier="sendMail" type="java.lang.Boolean" generate="true" autocreate="true">
+					<modifiers read="true" write="true" search="true"
+						optional="false" />
+					<defaultvalue>java.lang.Boolean.FALSE</defaultvalue>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+			
+			
 		</typegroup>
 	</itemtypes>
+
 
 
 </items>

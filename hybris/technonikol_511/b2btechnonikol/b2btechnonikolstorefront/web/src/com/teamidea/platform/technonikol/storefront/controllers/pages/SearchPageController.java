@@ -183,7 +183,7 @@ public class SearchPageController extends AbstractSearchPageController
 			storeCmsPageInModel(model, getContentPageForLabelOrId(SEARCH_CMS_PAGE_ID));
 		}
 		model.addAttribute(WebConstants.BREADCRUMBS_KEY, searchBreadcrumbBuilder.getBreadcrumbs(null, searchPageData));
-
+        model.addAttribute("searchQuery", searchQuery);
 		addMetaData(model, "search.meta.description.results", searchText, "search.meta.description.on", PageType.PRODUCTSEARCH,
 				"no-index,follow");
 
@@ -400,9 +400,9 @@ public class SearchPageController extends AbstractSearchPageController
                 // Rauf
                 // начало блока
 
-            final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and {name[ru]} like ?term group by {name[ru]}";
+            final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and lcase({name[ru]}) like ?term group by {name[ru]}";
             final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
-            searchQuery.addQueryParameter("term", '%' + term + '%');
+            searchQuery.addQueryParameter("term", '%' + term.toLowerCase() + '%');
             final SearchResult<List> categories = flexibleSearchService.search(searchQuery);
             final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
             //catdata.addAll(subList(categories.getResult(), 3));

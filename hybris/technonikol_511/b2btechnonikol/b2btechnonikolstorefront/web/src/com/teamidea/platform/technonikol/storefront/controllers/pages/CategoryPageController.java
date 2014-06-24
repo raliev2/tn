@@ -144,7 +144,7 @@ public class CategoryPageController extends AbstractSearchPageController
 
 			final SearchStateData searchState = new SearchStateData();
 			searchState.setQuery(searchQueryData);
-
+            model.addAttribute("searchQuery", searchQuery);
 			final PageableData pageableData = createPageableData(page, 0, sortCode, showMode);
 			searchPageData = productSearchFacade.categorySearch(categoryCode, searchState, pageableData);
 		}
@@ -202,7 +202,7 @@ public class CategoryPageController extends AbstractSearchPageController
 		searchResultsData.setPagination(searchPageData.getPagination());
 
 		model.addAttribute("searchResultsData", searchResultsData);
-
+        model.addAttribute("searchQuery", searchQuery);
 		return ControllerConstants.Views.Fragments.Product.ProductLister;
 	}
 
