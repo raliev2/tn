@@ -337,4 +337,18 @@
           parent="defaultOrderPopulator">
     </bean> 
 
+	<alias name="technonikolDefaultB2BCartFacade" alias="b2bCartFacade"/>
+	<bean id="technonikolDefaultB2BCartFacade" class="de.hybris.platform.b2bacceleratorfacades.order.impl.DefaultB2BCartFacade" parent="cartFacade">
+		<property name="cartService" ref="b2bCartService"/>
+		<property name="b2bProductFacade" ref="b2bProductFacade" />
+		<property name="commerceCartService" ref="b2bCommerceCartService"/>
+	</bean>
+	
+	<alias name="extendedDefaultCartFacade" alias="cartFacade"/>
+	<bean id="extendedDefaultCartFacade" class="de.hybris.platform.commercefacades.order.impl.DefaultCartFacade" parent="defaultCartFacade">
+		<property name="cartService" ref="b2bCartService"/>
+		<property name="commerceCartService" ref="b2bCommerceCartService"/>
+	</bean>
+	
+
 </beans>

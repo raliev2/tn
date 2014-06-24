@@ -183,6 +183,13 @@ public class CleanupBigPackageHelper extends CleanupHelper
 			log.debug("Cleanup File. Status:" + status);
 		}
 
+		//Registry.activateMasterTenant();
+
+		if (log.isDebugEnabled())
+		{
+			log.debug("Master tennant activated");
+		}
+
 		try
 		{
 			if (file != null)

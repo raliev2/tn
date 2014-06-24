@@ -23,4 +23,22 @@
 	
 	<bean id="deliveryDateIntegrationService" class="com.teamidea.platform.technonikol.services.stock.impl.DeliveryDateIntegrationServiceImpl" />
 		
+	<alias name="technonikolB2BCommerceCartService" alias="b2bCommerceCartService"/>
+	<bean name="technonikolB2BCommerceCartService" class="com.teamidea.platform.technonikol.services.order.impl.TechnonikolCommerceCartService"
+	      parent="defaultB2BCommerceCartService">
+	      <property name="cartService" ref="b2bCartService"/>
+	</bean>
+	<bean id="checkUnsendedPasswordCustomersJob" class="com.teamidea.platform.technonikol.services.email.CheckUnsendedPasswordCustomersJob" autowire="byName" scope="tenant" parent="abstractJobPerformable"/>
+	
+	<bean id="b2bcustomerEmailContext"
+          class="com.teamidea.platform.technonikol.services.email.B2BCustomerEmailContext"
+          parent="abstractEmailContext" scope="prototype">
+    </bean>
+	
+	<bean id="sendEmailAboutSetPasswordAction" class="com.teamidea.platform.technonikol.services.email.SendEmailAboutSetPasswordAction"/>
+	
+	<!-- Process resourcess definition -->
+	<bean id="customerRegistrationEmailProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource" value="processes/SendEmailAboutSetPasswordDefinition.xml"/>
+	</bean>
 </beans>

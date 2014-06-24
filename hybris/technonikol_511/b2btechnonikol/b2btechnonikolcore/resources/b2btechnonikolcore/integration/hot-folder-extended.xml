@@ -19,19 +19,7 @@
 		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file-2.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     
-    <!-- General setup -->
-    <bean id="cleanupBigPackageHelper" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.CleanupBigPackageHelper">
-		<property name="timeStampFormat" value="" />
-		<property name="loggerService" ref="loggerService"/>
-	</bean>
-	
-	<int:channel id="errorChannel" />
-	<int:service-activator input-channel="errorChannel" ref="errorBigPackageHandler" method="onError" />
-    <bean id="errorBigPackageHandler" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.task.ErrorBigPackageHandler" parent="errorHandler">
-		<property name="cleanupBigPackageHelper" ref="cleanupBigPackageHelper" />
-	</bean>
-    
-    <!-- 1) Scan for files <COD>_<GUID>_<PACK_NUM>_<SEQUENCE>-<TOTAL>_F.ext.impex -->
+	<!-- 1) Scan for files <COD>_<GUID>_<PACK_NUM>_<SEQUENCE>-<TOTAL>_F.ext.impex -->
     <file:inbound-channel-adapter id="fileScannerAdapter" directory="#{baseDirectoryTechnonikol}"
                                   filename-regex="^([a-zA-Z]+?)(?:_[0-9a-fA-F-]+?)*?_(\d+?)_(\d+?)-(\d+?)(_[FfRr]){0,1}\.ext\.impex" 
                                   comparator="fileOrderComparator" prevent-duplicates="false" >
@@ -73,7 +61,6 @@
     </bean>
 
     <!-- End of sequence -->
-
     <bean id="stockLevelFinalizer" class="com.teamidea.platform.technonikol.core.dataimport.bigpackage.finalizer.StockLevelSQLFinalizer">
         <property name="transactionTemplate">
             <bean class="org.springframework.transaction.support.TransactionTemplate">
