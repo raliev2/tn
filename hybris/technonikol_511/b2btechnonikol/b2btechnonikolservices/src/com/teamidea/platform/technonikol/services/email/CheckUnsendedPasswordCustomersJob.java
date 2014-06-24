@@ -11,6 +11,7 @@ import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.site.BaseSiteService;
 
 import java.util.Iterator;
 
@@ -28,6 +29,8 @@ public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<Cr
 	@Autowired
 	ModelService modelService;
 
+	@Autowired
+	BaseSiteService baseSiteService;
 
 	@Override
 	public PerformResult perform(final CronJobModel cronJob)
@@ -56,13 +59,21 @@ public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<Cr
 
 	public void processCustomer(final B2BCustomerModel customer)
 	{
-		final StoreFrontCustomerProcessModel storeFrontCustomerProcessModel = (StoreFrontCustomerProcessModel) businessProcessService
-				.createProcess("b2bcustomerRequestSetPasswordEmailProces" + System.currentTimeMillis(),
-						"b2bcustomerRequestSetPasswordEmailProcess");
-		storeFrontCustomerProcessModel.setCustomer(customer);
-		modelService.save(storeFrontCustomerProcessModel);
-		businessProcessService.startProcess(storeFrontCustomerProcessModel);
-		customer.setSendMail(Boolean.TRUE);
-		modelService.save(customer);
+		try
+		{
+			final StoreFrontCustomerProcessModel storeFrontCustomerProcessModel = (StoreFrontCustomerProcessModel) businessProcessService
+					.createProcess("b2bcustomerRequestSetPasswordEmailProces" + System.currentTimeMillis(),
+							"b2bcustomerRequestSetPasswordEmailProcess");
+			storeFrontCustomerProcessModel.setCustomer(customer);
+			storeFrontCustomerProcessModel.setSite(baseSiteService.getCurrentBaseSite());
+			modelService.save(storeFrontCustomerProcessModel);
+			businessProcessService.startProcess(storeFrontCustomerProcessModel);
+			customer.setSendMail(Boolean.TRUE);
+			modelService.save(customer);
+		}
+		catch (final Exception e)
+		{
+			throw e;
+		}
 	}
 }
