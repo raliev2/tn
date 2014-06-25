@@ -382,7 +382,7 @@
     </bean>
     
     <bean id="technonikolPointOfServiceFacetDisplayNameProvider"
-	      class="de.hybris.platform.yacceleratorcore.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider" >
+	      class="com.teamidea.platform.technonikol.core.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider" >
 		<property name="pointOfServiceService" ref="pointOfServiceService"/>
 	</bean>
 
