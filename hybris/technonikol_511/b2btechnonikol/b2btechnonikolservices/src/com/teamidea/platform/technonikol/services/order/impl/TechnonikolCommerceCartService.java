@@ -36,21 +36,28 @@ public class TechnonikolCommerceCartService extends DefaultB2BCommerceCartServic
 		{
 			return super.addToCart(cartModel, productModel, quantityToAdd, unit, forceNewEntry);
 		}
+		catch (final CommerceCartModificationException e)
+		{
+			throw e;
+		}
 		catch (final Exception e)
 		{
 			LOG.error("Undefined cart modification exception caught", e);
-
-			lookupLostEntity(cartModel, productModel);
-
-			throw new CommerceCartModificationException("Unknow exception: " + e.getMessage());
-			//			final CommerceCartModification modification = new CommerceCartModification();
-			//			modification.setStatusCode("unavailable");
-			//			modification.setQuantityAdded(0L);
-			//			modification.setQuantity(quantityToAdd);
-			//			final CartEntryModel entry = new CartEntryModel();
-			//			entry.setProduct(productModel);
-			//			modification.setEntry(entry);
-			//			return modification;
+			if (removeLostEntity(cartModel, productModel))
+			{
+				final CommerceCartModification modification = new CommerceCartModification();
+				modification.setStatusCode("priceUndefined");
+				modification.setQuantityAdded(0L);
+				modification.setQuantity(quantityToAdd);
+				final CartEntryModel entry = new CartEntryModel();
+				entry.setProduct(productModel);
+				modification.setEntry(entry);
+				return modification;
+			}
+			else
+			{
+				throw e;
+			}
 		}
 	}
 
@@ -58,27 +65,25 @@ public class TechnonikolCommerceCartService extends DefaultB2BCommerceCartServic
 	 * @param cartModel
 	 * @param productModel
 	 */
-	private void lookupLostEntity(final CartModel cartModel, final ProductModel productModel)
+	private boolean removeLostEntity(final CartModel cartModel, final ProductModel productModel)
 			throws CommerceCartModificationException
 	{
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug(">> lookupLostEntity");
-		}
 		for (final CartEntryModel entryModel : getCartService().getEntriesForProduct(cartModel, productModel))
 		{
 			if (isZeroValue(entryModel.getBasePrice()) && isZeroValue(entryModel.getTotalPrice())
-					&& isZeroValue(entryModel.getDiscountValues()))
+					&& isZeroValue(entryModel.getDiscountValues()) && Boolean.FALSE.equals(entryModel.getCalculated()))
 			{
 				// Lost entity found. Remove it
-				LOG.error("Try remove broken entity");
-				updateQuantityForCartEntry(cartModel, entryModel.getEntryNumber(), 0);
+				if (LOG.isDebugEnabled())
+				{
+					LOG.debug("Try remove broken entity");
+				}
+				updateQuantityForCartEntry(cartModel, entryModel.getEntryNumber().longValue(), 0);
+
+				return true;
 			}
 		}
-		if (LOG.isDebugEnabled())
-		{
-			LOG.debug("<< lookupLostEntity");
-		}
+		return false;
 	}
 
 	private boolean isZeroValue(final Double value)

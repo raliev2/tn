@@ -312,8 +312,9 @@
     </bean>
 
 
-    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.tnSearchBrandPopulator">
+    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.TNSearchBrandPopulator">
         <property name="modelService" ref="modelService"/>
+	<property name="tnBrandConverter" ref="tnBrandConverter" />
     </bean>
     <alias name="technonikolProductPopulator" alias="productPopulator"/>
 
