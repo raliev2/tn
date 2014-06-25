@@ -911,6 +911,12 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		// Recipient's email ID needs to be mentioned.
 		final String to = getCheckoutFlowFacade().getEmailForCustomer();
 
+		String toCopy = "";
+		if (orderData.getDeliveryAddress() != null)
+		{
+			toCopy = orderData.getDeliveryAddress().getEmail();
+		}
+
 		// Sender's email ID needs to be mentioned
 		final String from = "1plt@tn.ru";
 
@@ -942,6 +948,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			// Set To: header field of the header.
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			if (!StringUtils.isEmpty(toCopy) && !StringUtils.equals(to, toCopy))
+			{
+				message.addRecipient(Message.RecipientType.CC, new InternetAddress(toCopy));
+			}
 
 			// Set Subject: header field
 			message.setSubject("Информация о размещенном заказе");
@@ -977,8 +987,21 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		final StringBuilder builder = new StringBuilder();
 
+		builder.append("Номер заказа: " + orderData.getGeneratedNumber());
+		builder.append("\n\n");
+
 		builder.append("Клиент: " + orderData.getUser().getName());
 		builder.append("\n\n");
+		if (orderData.getDeliveryAddress() != null)
+		{
+			final String fullName = orderData.getDeliveryAddress().getLastName() + " "
+					+ orderData.getDeliveryAddress().getFirstName();
+			if (!StringUtils.equals(fullName, orderData.getUser().getName()))
+			{
+				builder.append("Получатель: " + fullName);
+				builder.append("\n\n");
+			}
+		}
 		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
 		builder.append("\n\n");
 		builder.append("Способ доставки: "
