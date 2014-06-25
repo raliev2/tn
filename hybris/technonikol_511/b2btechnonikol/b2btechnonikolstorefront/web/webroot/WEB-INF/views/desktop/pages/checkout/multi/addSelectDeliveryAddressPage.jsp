@@ -12,7 +12,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/desktop/form"%>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Адрес доставки">
 <script>
     $(document).ready(function() {
         $('#saveAddress').change(function(){

@@ -10,7 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Адрес магазина">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
         var points = new Array(
@@ -48,6 +48,7 @@
 
             $('select[name="selectedShopAddress"]').change(function() {
                 var index = $('select[name="selectedShopAddress"] option:selected').attr('rel');
+                alert("45");
                 $('.js-address').text(points[index].address);
                 $('.js-mode').text(points[index].mode);
                 markers.forEach(function(item,ind) {
@@ -124,7 +125,7 @@
                 <li class="checkout__step"><a href="javascript:void(0)">Готово</a></li>
             </ul>
         </div>
-        <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
+        <h1 class="checkout__head"><spring:theme code="Адрес магазина"/></h1>
         <p class="g-strong">Клиентское обслуживание в любое время суток</p>
         <p style="margin-bottom:20px">По вопросам и проблемам с доставкой - звонить на номер <spring:theme code="common.telephone" /></p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />

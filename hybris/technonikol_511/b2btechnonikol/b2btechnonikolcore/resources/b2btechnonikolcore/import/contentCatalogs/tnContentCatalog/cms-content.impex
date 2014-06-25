@@ -797,3 +797,20 @@ INSERT_UPDATE ProductCartReferencesComponent;$contentCV[unique=true];uid[unique=
 #INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='CartPage'];contentSlot(uid,$contentCV)[unique=true];;;
 #;;Middle-cartPage;MiddleContent;cartPage:tnContentCatalog:Online;MiddleContent-cartPage:tnContentCatalog:Online
 #;;MiddleContent-References;MiddleContent;;MiddleContent-References;;;
+
+INSERT_UPDATE CategoryListComponent;$contentCV[unique=true];uid[unique=true];name;categories;
+;;tn_category_list_component;Category List Component;
+
+INSERT_UPDATE CategoryListComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
+;;tn_category_list_component;Подкатегории
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV);;;
+;;Section4Slot-Category;Section4 Slot Category;true;tn_category_list_component;
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='productList'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section4Slot-Category;Section4;;Section4Slot-Category;;;
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductListPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;Section4;;CategoryListComponent;narrow

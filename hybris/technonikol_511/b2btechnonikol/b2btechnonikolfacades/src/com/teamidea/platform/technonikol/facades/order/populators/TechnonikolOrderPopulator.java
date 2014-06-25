@@ -27,7 +27,7 @@ public class TechnonikolOrderPopulator extends OrderPopulator
 		target.setProvidedDescription(source.getProvidedDescription());
 		target.setEmailNotification(source.getEmailNotification());
 		target.setDeliveryGroupMode(source.getDeliveryGroupMode());
+		target.setGeneratedNumber(source.getGeneratedNumber());
 
 	}
-
 }
