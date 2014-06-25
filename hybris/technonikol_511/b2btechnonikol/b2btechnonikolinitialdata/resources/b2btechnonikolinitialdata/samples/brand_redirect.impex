@@ -1,0 +1,19 @@
+﻿# Macros / Replacement Parameter definitions;;
+$productCatalog=tnProductCatalog
+$contentCatalog=tnContentCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$contentCatalogVersion=catalogversion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default=$contentCatalog:Online]
+
+$facetSearchConfigName=tnIndex
+$lang=ru
+
+# RPODUCT_REDIRECT;;
+INSERT_UPDATE SolrURIRedirect;&brandRedirect;url[unique=true]
+;brand_A.D.W. Klinker;http://tn.askinet.ru/store/search?q=%3Arelevance%3Abrand%3AA.D.W.+Klinker
+;brand_Биполь;http://tn.askinet.ru/store/search?q=%3Arelevance%3Abrand%3A%D0%91%D0%B8%D0%BF%D0%BE%D0%BB%D1%8C
+;brand_Идеальный Камень;http://tn.askinet.ru/store/search?q=%3Arelevance%3Abrand%3A%D0%98%D0%B4%D0%B5%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%9A%D0%B0%D0%BC%D0%B5%D0%BD%D1%8C
+
+INSERT_UPDATE SolrFacetSearchKeywordRedirect;redirect(&brandRedirect);keyword[unique=true];ignoreCase[default=true];matchType(code)[default=EXACT];language(isocode)[default=ru];facetSearchConfig(name)[default=$facetSearchConfigName,unique=true]
+;brand_A.D.W. Klinker;A.D.W. Klinker
+;brand_Биполь;Биполь
+brand_Идеальный Камень;Идеальный Камень
