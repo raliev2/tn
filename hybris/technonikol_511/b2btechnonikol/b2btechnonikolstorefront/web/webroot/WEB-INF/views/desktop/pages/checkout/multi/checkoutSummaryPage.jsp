@@ -95,11 +95,11 @@
                         в Кол-Центр по номеру <spring:theme code="common.telephone" />  для получения подробной информации.
                     </div>
                 </div>
-                <div class="checkout-summary-total__button" style="padding-top:20px">
+               <%-- <div class="checkout-summary-total__button" style="padding-top:20px">
                    <button type="button" class="button button_big" id="scheduleReplenishmentButton" onclick="$('#replenishment-schedule-div').toggle()">
 							Повторить заказ
 						 </button>  
-					 </div>             
+					 </div>        --%>     
             </div>
             <div class="checkout-summary__total">
                 <h4>Итог заказа</h4>
@@ -193,7 +193,14 @@
                     <a  href="${customer_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
                     <div class="checkout-summary-total__value">
-                        ${cartData.b2bCustomerData.lastName}&nbsp;${cartData.b2bCustomerData.firstName}
+                         <c:choose>
+                            <c:when test="${not empty cartData.deliveryAddress}">
+                                  ${cartData.deliveryAddress.lastName}&nbsp;${cartData.deliveryAddress.firstName}
+                            </c:when>
+                            <c:otherwise>
+                            	  ${cartData.b2bCustomerData.lastName}&nbsp;${cartData.b2bCustomerData.firstName}
+                            </c:otherwise>
+                        </c:choose>                          
                     </div>
                     <div class="checkout-summary-total__white-line" style="margin-top:0"></div>
 

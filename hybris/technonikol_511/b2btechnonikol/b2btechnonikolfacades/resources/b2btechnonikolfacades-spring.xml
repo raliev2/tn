@@ -337,6 +337,13 @@
           class="com.teamidea.platform.technonikol.facades.order.populators.TechnonikolOrderPopulator"
           parent="defaultOrderPopulator">
     </bean> 
+    
+    <alias name="technonikolAddressReversePopulator" alias="addressReversePopulator"/>
+
+    <bean id="technonikolAddressReversePopulator"
+          class="com.teamidea.platform.technonikol.facades.order.populators.TechnonikolAddressReversePopulator"
+          parent="defaultAddressReversePopulator">
+    </bean> 
 
 	<alias name="technonikolDefaultB2BCartFacade" alias="b2bCartFacade"/>
 	<bean id="technonikolDefaultB2BCartFacade" class="de.hybris.platform.b2bacceleratorfacades.order.impl.DefaultB2BCartFacade" parent="cartFacade">
