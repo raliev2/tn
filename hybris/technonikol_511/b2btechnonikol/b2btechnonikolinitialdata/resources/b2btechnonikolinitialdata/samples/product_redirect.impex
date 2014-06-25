@@ -1,0 +1,16 @@
+﻿# Macros / Replacement Parameter definitions
+$productCatalog=tnProductCatalog
+$contentCatalog=tnContentCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$contentCatalogVersion=catalogversion(catalog(id[default=$contentCatalog]),version[default='Online'])[unique=true,default=$contentCatalog:Online]
+
+$facetSearchConfigName=tnIndex
+$lang=ru
+
+# RPODUCT_REDIRECT
+INSERT_UPDATE SolrProductRedirect;&prdRedirect;redirectItem(code,$catalogVersion)[unique=true]
+;<prd_id>;<prd_id>;
+
+# Product redirect keyword
+INSERT_UPDATE SolrFacetSearchKeywordRedirect;redirect(&prdRedirect);keyword[unique=true];ignoreCase[default=true];matchType(code)[default=EXACT];language(isocode)[default=ru];facetSearchConfig(name)[default=$facetSearchConfigName,unique=true]
+;<prd_id>;<keyword>
