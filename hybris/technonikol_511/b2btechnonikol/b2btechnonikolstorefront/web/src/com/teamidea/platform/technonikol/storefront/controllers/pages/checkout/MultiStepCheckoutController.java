@@ -862,13 +862,16 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		Date deliveryDate = null;
 		final SimpleDateFormat formDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		try
+		if (!StringUtils.isEmpty(providedDeliveryDate))
 		{
-			deliveryDate = formDateFormat.parse(providedDeliveryDate);
-		}
-		catch (final ParseException e)
-		{
-			LOG.error("Error when trying to parse delivery date provided by client", e);
+			try
+			{
+				deliveryDate = formDateFormat.parse(providedDeliveryDate);
+			}
+			catch (final ParseException e)
+			{
+				LOG.error("Error when trying to parse delivery date provided by client", e);
+			}
 		}
 
 		getCheckoutFlowFacade().setGeneratedNumber();
