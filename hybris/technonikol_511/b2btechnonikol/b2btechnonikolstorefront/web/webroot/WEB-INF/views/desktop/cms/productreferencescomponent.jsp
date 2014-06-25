@@ -15,7 +15,7 @@
         <div class="block-chars__header">${component.title}</div>
             <div class="carousel-product__carousel <c:if test="${referenceType != 'SIMILAR'}">carousel-product__carousel_height</c:if> clearfix">
             <ul>
-            <c:forEach end="${component.maximumNumberProducts}" items="${productReferences}" var="productReference" varStatus="loop">
+            <c:forEach end="${component.maximumNumberProducts}" items="${productReferences}" var="productReference">
                 <c:url value="${productReference.target.url}/quickView" var="productQuickViewUrl"/>
                 <c:url value="${productReference.target.url}" var="productUrl"/>
                 <li class="product-carousel__item product-carousel__item_930px">
@@ -44,7 +44,7 @@
                         </c:if>
                     </div>
 
-                    <product:productReferenceToCart product="${productReference.target}" index="${loop.index}"/>
+                    <product:productReferenceToCart product="${productReference.target}"/>
                     <%--<div class="product-carousel-item__in-cart">
                         <input type="text" class="in-cart__input" value="1" />
                         <a href="javascript:void(0)" class="button">В корзину</a>

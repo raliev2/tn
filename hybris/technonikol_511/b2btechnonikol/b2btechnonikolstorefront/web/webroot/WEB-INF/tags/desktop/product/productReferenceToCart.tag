@@ -28,12 +28,12 @@
         <c:set var="buttonType">submit</c:set>
     </c:if>
     <div class="product-carousel-item__in-cart">
-<c:if test="${product.price.value > 0}">
-        <input type="text" value="1" id="qtyr${index}" name="qty" class="in-cart__input" />
-        <button type="${buttonType}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
-            В корзину
-        </button>
-</c:if>
+		<c:if test="${product.price.value > 0}">
+		        <input type="text" value="1" name="qty" class="in-cart__input" />
+		        <input type="hidden" name="productCodePost" value="${product.code}"/>
+		        <button type="${buttonType}" class="button <c:if test="${fn:contains(buttonType, 'button')}">button_disabled</c:if>">
+		            В корзину
+		        </button>
+		</c:if>
     </div>
-    <input type="hidden" name="productCodePost" value="${product.code}"/>
 </form>
