@@ -8,7 +8,7 @@
 <%@ taglib prefix="checkout" tagdir="/WEB-INF/tags/desktop/checkout"%>
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Способ оплаты">
 <c:url value="/checkout/multi/apply_voucher" var="apply_voucher" />
 <script>
     $(document).ready(function() {
@@ -46,7 +46,7 @@
             <div class="checkout__body" style="padding:23px 20px;">
                 <p class="g-strong margin-bottom-5px">Способ оплаты</p>
                 <c:forEach items="${paymentMethods}" var="method">
-                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" id="selectedPaymentMethod${method.code}" ${method.code == cartData.paymentMethod.code ? 'checked' : ''}/>
+                    <input type="radio" name="selectedPaymentMethod" value="${method.code}" required id="selectedPaymentMethod${method.code}" ${method.code == cartData.paymentMethod.code ? 'checked' : ''}/>
                     <label for="selectedPaymentMethod${method.code}" style="margin:10px 30px 20px 0;"><spring:theme code="${method.name}"/></label>
                 </c:forEach>
             </div>

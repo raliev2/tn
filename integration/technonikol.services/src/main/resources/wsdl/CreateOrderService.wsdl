@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="OrdersCreateRequest_OutSyn"
+	targetNamespace="http://tn.ru/po/HYB/Order" xmlns:p2="http://tn.ru/po/UTS/Orders"
+	xmlns:p1="http://tn.ru/po/HYB/Order" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation />
+	<wsp:UsingPolicy wsdl:required="true" />
+	<wsp:Policy wsu:Id="OP_OrdersCreateRequest_OutSyn" />
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://tn.ru/po/UTS/Orders"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://tn.ru/po/UTS/Orders">
+			<xsd:element name="SendOrderSAP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderSAPMsg" type="Order" form="qualified" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SendOrderSAPResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="return" type="xsd:string" form="qualified" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:complexType name="MaterialsRow">
+				<xsd:sequence>
+					<xsd:element name="EKN" type="xsd:string" form="qualified" />
+					<xsd:element name="Qnty" type="xsd:string" form="qualified" />
+					<xsd:element name="Price" type="xsd:string" form="qualified" />
+					<xsd:element name="Discount" type="xsd:string" form="qualified" />
+					<xsd:element name="LineTotal" type="xsd:string" form="qualified" />
+					<xsd:element name="UserGroup" type="xsd:string" form="qualified" />
+					<xsd:element name="Package" type="xsd:string" form="qualified" />
+					<xsd:element name="DeliveryDate" type="xsd:string"
+						form="qualified" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="Order">
+				<xsd:sequence>
+					<xsd:element name="Number" type="xsd:string" form="qualified" />
+					<xsd:element name="Date" type="xsd:string" form="qualified" />
+					<xsd:element name="IDPartner" type="xsd:string" form="qualified" />
+					<xsd:element name="PaymentType" type="xsd:string" form="qualified" />
+					<xsd:element name="ObjectType" type="xsd:string" form="qualified" />
+					<xsd:element name="ConstructionType" type="xsd:string"
+						form="qualified" />
+					<xsd:element name="Country" type="xsd:string" form="qualified" />
+					<xsd:element name="Region" type="xsd:string" form="qualified" />
+					<xsd:element name="RegionCode" type="xsd:string" form="qualified" />
+					<xsd:element name="City" type="xsd:string" form="qualified" />
+					<xsd:element name="Address" type="xsd:string" form="qualified" />
+					<xsd:element name="CountryCode" type="xsd:string" form="qualified" />
+					<xsd:element name="CityCode" type="xsd:string" form="qualified" />
+					<xsd:element name="AddressCode" type="xsd:string" form="qualified" />
+					<xsd:element name="Town" type="xsd:string" form="qualified" />
+					<xsd:element name="Street" type="xsd:string" form="qualified" />
+					<xsd:element name="House" type="xsd:string" form="qualified" />
+					<xsd:element name="Building" type="xsd:string" form="qualified" />
+					<xsd:element name="Apartment" type="xsd:string" form="qualified" />
+					<xsd:element name="WarehouseGUID" type="xsd:string"
+						form="qualified" />
+					<xsd:element name="Materials" minOccurs="0" form="qualified">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Row" type="MaterialsRow"
+									minOccurs="0" maxOccurs="unbounded" form="qualified" />
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="p2.SendOrderSAPRequestMessage">
+		<wsdl:documentation />
+		<wsdl:part name="parameters" element="p2:SendOrderSAP" />
+	</wsdl:message>
+	<wsdl:message name="p2.SendOrderSAPResponseMessage">
+		<wsdl:documentation />
+		<wsdl:part name="parameters" element="p2:SendOrderSAPResponse" />
+	</wsdl:message>
+	<wsdl:portType name="OrdersCreateRequest_OutSyn">
+		<wsdl:documentation />
+		<wsdl:operation name="OrdersCreateRequest_OutSyn">
+			<wsdl:documentation />
+			<wsp:Policy>
+				<wsp:PolicyReference URI="#OP_OrdersCreateRequest_OutSyn" />
+			</wsp:Policy>
+			<wsdl:input message="p1:p2.SendOrderSAPRequestMessage" />
+			<wsdl:output message="p1:p2.SendOrderSAPResponseMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrdersCreateRequest_OutSynBinding"
+		type="p1:OrdersCreateRequest_OutSyn">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		<wsdl:operation name="OrdersCreateRequest_OutSyn">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrdersCreateRequest_OutSynService">
+		<wsdl:port name="HTTP_Port" binding="p1:OrdersCreateRequest_OutSynBinding">
+			<soap:address
+				location="http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=OrdersCreateRequest_OutSyn&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FOrder"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+		<wsdl:port name="HTTPS_Port" binding="p1:OrdersCreateRequest_OutSynBinding">
+			<soap:address
+				location="https://dpo.1plt.ru:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=OrdersCreateRequest_OutSyn&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FOrder"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

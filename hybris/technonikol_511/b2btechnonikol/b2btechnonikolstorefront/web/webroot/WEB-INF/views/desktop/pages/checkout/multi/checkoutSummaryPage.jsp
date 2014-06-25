@@ -12,9 +12,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Проверка заказа">
     <script>
         $(document).ready(function() {
+            $("#providedDeliveryDate").mask("99/99/9999 99:99", {placeholder: '_' });
+            
             $('#js-checkout-summary-form').submit(function(){
                 if (!$('#agree').is(':checked')) {
                     $('<p>Пожалуйста, отметьте чекбокс в блоке "Конфеденциальность"</p>').modal();
@@ -165,7 +167,14 @@
                 </div>
                 <div class="checkout-summary-total__white-line"></div>
                 <div>
-                    <h4 class="g-float-left">Адрес доставки</h4>
+                    <c:choose>
+                        <c:when test="${not empty cartData.deliveryAddress}">
+                           <h4 class="g-float-left">Адрес доставки</h4>
+                        </c:when>
+                        <c:otherwise>
+                           <h4 class="g-float-left">Адрес магазина</h4>
+                        </c:otherwise>
+                    </c:choose>  
                     <c:url value="/checkout/multi/select-address?isPrev=true" var="address_url" />
                     <a  href="${address_url}" class="checkout__change-cart g-float-right g-link-blue">Изменить</a>
                     <div class="clearfix"></div>
@@ -215,7 +224,7 @@
 
                     <h4>Дополнительная информация</h4>
                     <div><label for="providedDeliveryDate" class="checkout__label">Удобное время доставки</label>
-                    <input type="text" name="providedDeliveryDate" id="providedDeliveryDate" class="checkout__input" /></div>
+                    <input type="text" placeholder="dd/MM/yyyy HH:mm" name="providedDeliveryDate" id="providedDeliveryDate" class="checkout__input" /></div>
 
                     <div><label for="providedDescription" class="checkout__label">Комментарий</label>
                     <input type="text" name="providedDescription" id="providedDescription" class="checkout__input" /></div>

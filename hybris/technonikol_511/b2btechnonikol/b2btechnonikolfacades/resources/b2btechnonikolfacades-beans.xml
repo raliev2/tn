@@ -80,7 +80,8 @@
         <property name="paymentMethod" type="com.teamidea.platform.technonikol.core.enums.TNPaymentMethodTypeEnum"/>
         <property name="providedDeliveryDate" type="java.lang.String"/>
         <property name="providedDescription" type="java.lang.String"/>
-        <property name="emailNotification" type="java.lang.Boolean"/>						
+        <property name="emailNotification" type="java.lang.Boolean"/>	
+        <property name="generatedNumber" type="java.lang.String"/>					
     </bean>
 
     <enum class="de.hybris.platform.commercefacades.product.ProductOption">

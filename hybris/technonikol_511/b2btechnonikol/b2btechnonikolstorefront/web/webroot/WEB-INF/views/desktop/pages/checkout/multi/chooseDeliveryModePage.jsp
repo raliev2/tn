@@ -9,7 +9,7 @@
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Способ доставки">
     <section class="g-main-content checkout">
         <div id="globalMessages">
             <common:globalMessages />

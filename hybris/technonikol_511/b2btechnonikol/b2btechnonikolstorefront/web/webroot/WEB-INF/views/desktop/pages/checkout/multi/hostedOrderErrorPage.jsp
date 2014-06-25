@@ -10,7 +10,7 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Ошибка обработки заказа">
 <section class="g-main-content checkout">
     <div id="globalMessages">
         <common:globalMessages />

@@ -31,4 +31,14 @@
 
     <bean id="deliveryDate" class="ru.technonikol.ws.stocks.DeliveryDateQueryOut"
           factory-bean="proxyFactoryDeliveryDate" factory-method="create"/>
+          
+    <bean id="proxyFactoryCreateOrder"
+          class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="ru.technonikol.ws.orders.OrdersCreateRequestOutSyn"/>
+        <property name="address" value="http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=OrdersCreateRequest_OutSyn&amp;interfaceNamespace=http://tn.ru/po/HYB/Order"/>
+        <property name="bus" ref="cxf" />
+    </bean>
+
+    <bean id="orderCreate" class="ru.technonikol.ws.orders.OrdersCreateRequestOutSyn"
+          factory-bean="proxyFactoryCreateOrder" factory-method="create"/>
 </beans>
