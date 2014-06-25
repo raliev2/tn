@@ -8,8 +8,8 @@
  * ("Confidential Information"). You shall not disclose such Confidential
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with hybris.
- * 
- *  
+ *
+ *
  */
 package com.teamidea.platform.technonikol.storefront.controllers.pages;
 
@@ -34,7 +34,12 @@ import de.hybris.platform.servicelayer.search.FlexibleSearchService;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.util.Config;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -102,8 +107,8 @@ public class SearchPageController extends AbstractSearchPageController
 	@Resource(name = "cmsComponentService")
 	private CMSComponentService cmsComponentService;
 
-    @Resource(name = "flexibleSearchService")
-    private FlexibleSearchService flexibleSearchService;
+	@Resource(name = "flexibleSearchService")
+	private FlexibleSearchService flexibleSearchService;
 
 	@RequestMapping(method = RequestMethod.GET, params = "!q")
 	public String textSearch(@RequestParam(value = "text", defaultValue = StringUtils.EMPTY) final String searchText,
@@ -165,6 +170,30 @@ public class SearchPageController extends AbstractSearchPageController
 			@RequestParam(value = "text", required = false) final String searchText, final HttpServletRequest request,
 			final Model model) throws CMSItemNotFoundException
 	{
+
+		if (StringUtils.isNotBlank(searchQuery))
+		{
+			final PageableData pageableData = createPageableData(0, getSearchPageSize(), null, ShowMode.Page);
+			final SearchStateData searchState = new SearchStateData();
+			final SearchQueryData searchQueryData = new SearchQueryData();
+			searchQueryData.setValue(XSSFilterUtil.filter(searchQuery));
+			searchState.setQuery(searchQueryData);
+
+			final ProductSearchPageData<SearchStateData, ProductData> searchPageData = productSearchFacade.textSearch(searchState,
+					pageableData);
+
+			if (searchPageData == null)
+			{
+				storeCmsPageInModel(model, getContentPageForLabelOrId(NO_RESULTS_CMS_PAGE_ID));
+			}
+			else if (searchPageData.getKeywordRedirectUrl() != null)
+			{
+				// if the search engine returns a redirect, just
+				return "redirect:" + searchPageData.getKeywordRedirectUrl();
+			}
+		}
+
+
 		final ProductSearchPageData<SearchStateData, ProductData> searchPageData = performSearch(searchQuery, page, showMode,
 				sortCode, getSearchPageSize());
 
@@ -183,7 +212,7 @@ public class SearchPageController extends AbstractSearchPageController
 			storeCmsPageInModel(model, getContentPageForLabelOrId(SEARCH_CMS_PAGE_ID));
 		}
 		model.addAttribute(WebConstants.BREADCRUMBS_KEY, searchBreadcrumbBuilder.getBreadcrumbs(null, searchPageData));
-        model.addAttribute("searchQuery", searchQuery);
+		model.addAttribute("searchQuery", searchQuery);
 		addMetaData(model, "search.meta.description.results", searchText, "search.meta.description.on", PageType.PRODUCTSEARCH,
 				"no-index,follow");
 
@@ -392,32 +421,33 @@ public class SearchPageController extends AbstractSearchPageController
 
 		if (component.isDisplaySuggestions())
 		{
-            //resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
+			//resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
 
-		        // этот блок обязательно надо вынести в сервисы и фасады !!!!!!!!!!!!!!!!!!!!!
-                // он тут как заплатка для демонстрации в понедельник 23.06 !!
-                // в частности, тут не учитывается, что все рубрики должны быть из категории Nav
-                // Rauf
-                // начало блока
+			// этот блок обязательно надо вынести в сервисы и фасады !!!!!!!!!!!!!!!!!!!!!
+			// он тут как заплатка для демонстрации в понедельник 23.06 !!
+			// в частности, тут не учитывается, что все рубрики должны быть из категории Nav
+			// Rauf
+			// начало блока
 
-            final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and lcase({name[ru]}) like ?term group by {name[ru]}";
-            final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
-            searchQuery.addQueryParameter("term", '%' + term.toLowerCase() + '%');
-            final SearchResult<List> categories = flexibleSearchService.search(searchQuery);
-            final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
-            //catdata.addAll(subList(categories.getResult(), 3));
-            //for (final SearchResult : productSearchFacade.getAutocompleteSuggestions(term))
-            for (final Iterator<List> iter = categories.getResult().iterator(); iter.hasNext();)
-            {
-                final String CategoryName = ((CategoryModel) iter.next()).getName();
-                AutocompleteSuggestionData a = new AutocompleteSuggestionData();
-                a.setTerm(CategoryName);
-                catdata.add(a);
-            }
-            resultData.setSuggestions(catdata);
+			final String query = "select {pk}, COUNT({pk}), {name[ru]} from {Category} where {active}=true and lcase({name[ru]}) like ?term group by {name[ru]}";
+			final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query);
+			searchQuery.addQueryParameter("term", '%' + term.toLowerCase() + '%');
+			final SearchResult<List> categories = flexibleSearchService.search(searchQuery);
+			final List<AutocompleteSuggestionData> catdata = new ArrayList<AutocompleteSuggestionData>(subList(
+					productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
+			//catdata.addAll(subList(categories.getResult(), 3));
+			//for (final SearchResult : productSearchFacade.getAutocompleteSuggestions(term))
+			for (final Iterator<List> iter = categories.getResult().iterator(); iter.hasNext();)
+			{
+				final String CategoryName = ((CategoryModel) iter.next()).getName();
+				final AutocompleteSuggestionData a = new AutocompleteSuggestionData();
+				a.setTerm(CategoryName);
+				catdata.add(a);
+			}
+			resultData.setSuggestions(catdata);
 
-                // конец блок
-				//resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
+			// конец блок
+			//resultData.setSuggestions(subList(productSearchFacade.getAutocompleteSuggestions(term), component.getMaxSuggestions()));
 		}
 
 		if (component.isDisplayProducts())
