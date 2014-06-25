@@ -54,26 +54,33 @@ ACC.product = {
         if ($selector) ACC.product.$addToCartForm = $selector;
 		ACC.product.$addToCartForm.ajaxForm({
             beforeSubmit: function(arr, $form, options) {
-                var qty = parseFloat($('#qty').val());
+                var qty = arr[0].value;
+                
+                // FIXME: для связанных продуктов все значения берутся некорректно, т.к. ищутся по ID 
                 var minOrderQuantity = parseFloat($('#addToCartButton').attr('data-min-quantity')); //считаем, что для base
-                if ($('#priceUnits option').length > 0 ) {
-                    var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
-                } else {
-                    coefficient = 1;
-                }
-                if ($('#addToCartButton').attr('data-base-to-sales') == '') {
-                    var baseToSales = 1;
-                } else {
-                    baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
-                }
+
+                var coefficient = 1;
+                var baseToSales = 1;
+                
+                // YTODO: калькулятор пересчета отключен
+                //if ($('#priceUnits option').length > 0 ) {
+                //    var coefficient = parseFloat($('#priceUnits option:selected').attr('data-coefficient')); //коэффициент перевода из выбранной сс в base
+                //} else {
+                //    coefficient = 1;
+                //}
+                
+                //if ($('#addToCartButton').attr('data-base-to-sales') == '') {
+                //    baseToSales = 1;
+                //} else {
+                //    baseToSales = parseFloat($('#addToCartButton').attr('data-base-to-sales')); //коэффициент перевода из base в sales
+                //}
 
                 if (coefficient == 0 || minOrderQuantity == 0 || baseToSales==0 || isNaN(coefficient) || isNaN(minOrderQuantity) || isNaN(baseToSales)) {
-                    arr[0].value = Math.ceil(arr[0].value);
+                    arr[0].value = Math.ceil(qty);
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
                     return true;
                 }
-                //var qtyBase = qty * coefficient;
-                var qtyBase = qty;
+                var qtyBase = qty * coefficient;
 
                 if (qtyBase < minOrderQuantity) {
                     var minOrderQuantityCur = minOrderQuantity / coefficient;
@@ -83,8 +90,7 @@ ACC.product = {
                     return true;
                 } else {
                     ACC.product.cartResult['message'] = '<p>Товар добавлен в корзину.</p>';
-                    var qtySales = qtyBase / baseToSales;
-                    arr[0].value = Math.ceil(qtySales);
+                    arr[0].value = Math.ceil(qtyBase / baseToSales);
                     return true;
                 }
             },
