@@ -35,7 +35,7 @@
                                 <tr>
                                     <td class="checkout-cart-content__product-td">Товар</td>
                                     <td class="checkout-cart-content__delivery-td">Срок доставки</td>
-                                    <td class="checkout-cart-content__price-td">Цена</td>
+                                    <td class="checkout-cart-content__price-td">Цена с НДС</td>
                                 </tr>
                             </thead>
                             <c:forEach items="${cartData.entries}" var="entry">
