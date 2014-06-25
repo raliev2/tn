@@ -120,13 +120,11 @@
 		<!-- technonikol -->
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolfulfilmentprocess"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolcore"/>
-		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolinitialdata"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolfacades"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikoltest"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolstorefront"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolcockpits"/>
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolservices"/>
-		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/b2btechnonikolsampledata"/>
 		 
 		 <!-- YTODO: fix 
 		 <extension dir="${HYBRIS_BIN_DIR}/custom/b2btechnonikol/technonikolintegration"/>

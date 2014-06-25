@@ -43,7 +43,7 @@
                 <td class="checkout-summary-cart__product" style="width:400px">Товар</td>
                 <td class="checkout-summary-cart__amount" style="width:160px">Количество</td>
                 <td class="checkout-summary-cart__stock" style="width:200px">Наличие</td>
-                <td class="checkout-summary-cart__price">Цена</td>
+                <td class="checkout-summary-cart__price">Цена с НДС</td>
             </tr>
             </thead>
             <tbody>
