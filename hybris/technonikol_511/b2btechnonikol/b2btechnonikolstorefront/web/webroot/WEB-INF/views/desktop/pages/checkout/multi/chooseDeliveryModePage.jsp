@@ -9,7 +9,7 @@
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/desktop/cart"%>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Способ доставки">
     <section class="g-main-content checkout">
         <div id="globalMessages">
             <common:globalMessages />
@@ -35,7 +35,7 @@
                                 <tr>
                                     <td class="checkout-cart-content__product-td">Товар</td>
                                     <td class="checkout-cart-content__delivery-td">Срок доставки</td>
-                                    <td class="checkout-cart-content__price-td">Цена</td>
+                                    <td class="checkout-cart-content__price-td">Цена с НДС</td>
                                 </tr>
                             </thead>
                             <c:forEach items="${cartData.entries}" var="entry">

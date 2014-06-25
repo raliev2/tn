@@ -10,7 +10,7 @@
 <%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product" %>
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
 
-<template:page pageTitle="${currentStep.name}">
+<template:page pageTitle="Ошибка обработки заказа">
 <section class="g-main-content checkout">
     <div id="globalMessages">
         <common:globalMessages />
@@ -43,7 +43,7 @@
                 <td class="checkout-summary-cart__product" style="width:400px">Товар</td>
                 <td class="checkout-summary-cart__amount" style="width:160px">Количество</td>
                 <td class="checkout-summary-cart__stock" style="width:200px">Наличие</td>
-                <td class="checkout-summary-cart__price">Цена</td>
+                <td class="checkout-summary-cart__price">Цена с НДС</td>
             </tr>
             </thead>
             <tbody>

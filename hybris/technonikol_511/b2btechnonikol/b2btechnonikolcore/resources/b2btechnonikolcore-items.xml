@@ -60,6 +60,10 @@
     		<value code="DELAY" />
 		</enumtype>
 		
+		<enumtype code="OrderStatus" autocreate="false" generate="true" dynamic="true">
+    		<value code="SENT_TO_SERVER_OK" />
+    		<value code="SENT_TO_SERVER_ERROR" />			
+		</enumtype>
 	</enumtypes>
 
 	<maptypes>
@@ -731,6 +735,10 @@
 						<persistence type="property" />
 						<description>Email notification</description>
 					</attribute>									 	
+				 	<attribute qualifier="generatedNumber" type="java.lang.String" generate="true" autocreate="true" >
+						<persistence type="property" />
+						<description>Generated number</description>
+					</attribute>	
 				</attributes>
 			</itemtype>
 								

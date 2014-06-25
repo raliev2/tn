@@ -67,7 +67,7 @@
 <script type="text/javascript" src="${commonResourcePath}/js/acc.autocomplete.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.product.js"></script>
 <script type="text/javascript" src="${commonResourcePath}/js/acc.cartremoveitem.js"></script>
-
+<script type="text/javascript" src="${commonResourcePath}/js/jquery.maskedinput.min.js"></script>
 
 <%-- Custom ACC JS
 <script type="text/javascript" src="${commonResourcePath}/js/acc.cms.js"></script>

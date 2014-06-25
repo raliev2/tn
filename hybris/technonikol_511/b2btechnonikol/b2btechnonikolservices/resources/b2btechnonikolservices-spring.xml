@@ -41,4 +41,12 @@
 	<bean id="customerRegistrationEmailProcessDefinitionResource" class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
 		<property name="resource" value="processes/SendEmailAboutSetPasswordDefinition.xml"/>
 	</bean>
+	
+	<bean id="createOrderIntegrationService" class="com.teamidea.platform.technonikol.services.order.impl.CreateOrderIntegrationServiceImpl" />
+
+
+	
+	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.CreateOrderJob" parent="abstractJobPerformable">
+        <property name="createOrderIntegrationService" ref="createOrderIntegrationService"/>	
+	</bean>
 </beans>

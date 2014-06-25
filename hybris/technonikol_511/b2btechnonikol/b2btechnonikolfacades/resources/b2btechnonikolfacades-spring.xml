@@ -312,8 +312,9 @@
     </bean>
 
 
-    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.tnSearchBrandPopulator">
+    <bean id="tnSearchBrandPopulator" class="com.teamidea.platform.technonikol.facades.search.converters.populator.TNSearchBrandPopulator">
         <property name="modelService" ref="modelService"/>
+	<property name="tnBrandConverter" ref="tnBrandConverter" />
     </bean>
     <alias name="technonikolProductPopulator" alias="productPopulator"/>
 
@@ -335,6 +336,13 @@
     <bean id="technonikolOrderPopulator"
           class="com.teamidea.platform.technonikol.facades.order.populators.TechnonikolOrderPopulator"
           parent="defaultOrderPopulator">
+    </bean> 
+    
+    <alias name="technonikolAddressReversePopulator" alias="addressReversePopulator"/>
+
+    <bean id="technonikolAddressReversePopulator"
+          class="com.teamidea.platform.technonikol.facades.order.populators.TechnonikolAddressReversePopulator"
+          parent="defaultAddressReversePopulator">
     </bean> 
 
 	<alias name="technonikolDefaultB2BCartFacade" alias="b2bCartFacade"/>

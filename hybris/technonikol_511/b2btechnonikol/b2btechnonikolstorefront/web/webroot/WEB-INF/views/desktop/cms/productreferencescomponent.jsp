@@ -44,7 +44,7 @@
                         </c:if>
                     </div>
 
-                    <product:productReferenceToCart product="${productReference.target}" />
+                    <product:productReferenceToCart product="${productReference.target}"/>
                     <%--<div class="product-carousel-item__in-cart">
                         <input type="text" class="in-cart__input" value="1" />
                         <a href="javascript:void(0)" class="button">В корзину</a>

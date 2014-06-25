@@ -37,7 +37,6 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 
 	private String prepareLong(final String value, final String suffixOp)
 	{
-		LOG.error(">> prepareLong value:" + value + "; suffixOp:" + suffixOp);
 		final String[] words = value.split("\\s");
 
 		if (words.length > 1)
@@ -53,8 +52,6 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 				b.append(ClientUtils.escapeQueryChars(words[i])).append(suffixOp);
 			}
 			b.append(")");
-
-			LOG.error("<< prepareLong result:" + b.toString());
 			return b.toString();
 		}
 

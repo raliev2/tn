@@ -139,6 +139,9 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@Resource(name = "deliveryDateIntegrationService")
 	private DeliveryDateIntegrationService deliveryDateIntegrationService;
 
+	final SimpleDateFormat serviceDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+	final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
 	private static final CheckoutStep DELIVERY_METHOD;
 	private static final CheckoutStep SELECT_ADDRESS;
 	private static final CheckoutStep SELECT_DELIVERY_ADDRESS;
@@ -596,7 +599,6 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		final JSONArray productArray = new JSONArray();
 
 		Date roughOrderDate = new Date();
-		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
 		for (final Entry<String, List<MaterialsRow>> entry : rowsMap.entrySet())
 		{
@@ -656,6 +658,8 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			productArray.put(product);
 		}
+
+		getCheckoutFlowFacade().setProvidedDeliveryDate(serviceDateFormat.format(roughOrderDate));
 
 		productInfo.put("roughOrderDate", simpleDateFormat.format(roughOrderDate));
 		productInfo.put("productInfo", productArray);
@@ -855,7 +859,24 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		final String providedDescription = request.getParameter("providedDescription");
 		final Boolean emailNotification = StringUtils.equals(request.getParameter("emailNotification"), "on");
 
-		getCheckoutFlowFacade().setProvidedDeliveryDate(providedDeliveryDate);
+		Date deliveryDate = null;
+		final SimpleDateFormat formDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		try
+		{
+			deliveryDate = formDateFormat.parse(providedDeliveryDate);
+		}
+		catch (final ParseException e)
+		{
+			LOG.error("Error when trying to parse delivery date provided by client", e);
+		}
+
+		getCheckoutFlowFacade().setGeneratedNumber();
+		if (deliveryDate != null)
+		{
+			getCheckoutFlowFacade().setProvidedDeliveryDate(serviceDateFormat.format(deliveryDate));
+		}
+
 		getCheckoutFlowFacade().setProvidedDescription(providedDescription);
 		getCheckoutFlowFacade().setEmailNotification(emailNotification);
 
@@ -890,6 +911,12 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		// Recipient's email ID needs to be mentioned.
 		final String to = getCheckoutFlowFacade().getEmailForCustomer();
 
+		String toCopy = "";
+		if (orderData.getDeliveryAddress() != null)
+		{
+			toCopy = orderData.getDeliveryAddress().getEmail();
+		}
+
 		// Sender's email ID needs to be mentioned
 		final String from = "1plt@tn.ru";
 
@@ -921,6 +948,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 			// Set To: header field of the header.
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			if (!StringUtils.isEmpty(toCopy) && !StringUtils.equals(to, toCopy))
+			{
+				message.addRecipient(Message.RecipientType.CC, new InternetAddress(toCopy));
+			}
 
 			// Set Subject: header field
 			message.setSubject("Информация о размещенном заказе");
@@ -956,8 +987,21 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		final StringBuilder builder = new StringBuilder();
 
+		builder.append("Номер заказа: " + orderData.getGeneratedNumber());
+		builder.append("\n\n");
+
 		builder.append("Клиент: " + orderData.getUser().getName());
 		builder.append("\n\n");
+		if (orderData.getDeliveryAddress() != null)
+		{
+			final String fullName = orderData.getDeliveryAddress().getLastName() + " "
+					+ orderData.getDeliveryAddress().getFirstName();
+			if (!StringUtils.equals(fullName, orderData.getUser().getName()))
+			{
+				builder.append("Получатель: " + fullName);
+				builder.append("\n\n");
+			}
+		}
 		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
 		builder.append("\n\n");
 		builder.append("Способ доставки: "
@@ -982,8 +1026,20 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("\n\n");
 		if (!StringUtils.isEmpty(orderData.getProvidedDeliveryDate()))
 		{
-			builder.append("Желаемая дата доставки: " + orderData.getProvidedDeliveryDate());
-			builder.append("\n\n");
+			Date providedDate = null;
+			try
+			{
+				providedDate = serviceDateFormat.parse(orderData.getProvidedDeliveryDate());
+			}
+			catch (final ParseException e)
+			{
+				LOG.error("Error while trying to parse providedDate ", e);
+			}
+			if (providedDate != null)
+			{
+				builder.append("Желаемая дата доставки: " + simpleDateFormat.format(providedDate));
+				builder.append("\n\n");
+			}
 		}
 		if (!StringUtils.isEmpty(orderData.getProvidedDescription()))
 		{
