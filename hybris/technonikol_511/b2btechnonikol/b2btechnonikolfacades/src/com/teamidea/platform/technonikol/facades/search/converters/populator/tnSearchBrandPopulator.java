@@ -13,39 +13,62 @@
  */
 package com.teamidea.platform.technonikol.facades.search.converters.populator;
 
-import com.teamidea.platform.technonikol.core.model.TNBrandModel;
-import com.teamidea.platform.technonikol.facades.brand.data.TNBrandData;
 import de.hybris.platform.commercefacades.product.converters.populator.AbstractProductPopulator;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.model.ModelService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import org.springframework.beans.factory.annotation.Required;
+
+import com.teamidea.platform.technonikol.core.model.TNBrandModel;
+import com.teamidea.platform.technonikol.facades.brand.data.TNBrandData;
+
 
 /**
  * Populate the product data with the product's brand
  */
-@Component
-public class tnSearchBrandPopulator<SOURCE extends ProductModel, TARGET extends ProductData> extends AbstractProductPopulator<SOURCE, TARGET>
+public class TNSearchBrandPopulator<SOURCE extends ProductModel, TARGET extends ProductData> extends
+		AbstractProductPopulator<SOURCE, TARGET>
 {
-    @Autowired
-    private ModelService modelService;
+	private ModelService modelService;
 
-    @Autowired
-    private Converter<TNBrandModel, TNBrandData> tnBrandConverter;
+	private Converter<TNBrandModel, TNBrandData> tnBrandConverter;
 
 	@Override
 	public void populate(final SOURCE productModel, final TARGET productData) throws ConversionException
 	{
 
-        final TNBrandModel brandModel = productModel.getBrand();
-        if (brandModel != null)
-        {
-            final TNBrandData tnBrandData = tnBrandConverter.convert(brandModel);
-            productData.setBrand(tnBrandData);
-        }
+		final TNBrandModel brandModel = productModel.getBrand();
+		if (brandModel != null)
+		{
+			final TNBrandData tnBrandData = tnBrandConverter.convert(brandModel);
+			productData.setBrand(tnBrandData);
+		}
+	}
 
+	@Override
+	public ModelService getModelService()
+	{
+		return modelService;
+	}
+
+	@Override
+	@Required
+	public void setModelService(final ModelService modelService)
+	{
+		this.modelService = modelService;
+	}
+
+	public Converter<TNBrandModel, TNBrandData> getTnBrandConverter()
+	{
+		return tnBrandConverter;
+	}
+
+	@Required
+	public void setTnBrandConverter(final Converter<TNBrandModel, TNBrandData> tnBrandConverter)
+	{
+		this.tnBrandConverter = tnBrandConverter;
 	}
 }
