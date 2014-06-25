@@ -25,9 +25,8 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 			final double boost)
 	{
         if (field.toString().equals("code")) {
-            String new_value = value.replaceAll(",", "");
+            String new_value = value.replaceAll(",", " ");
             searchQuery.searchInField(field, prepareLong(new_value, suffixOp) + "^" + boost, SearchQuery.Operator.OR);
-
         } else
         {
             searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.AND);
