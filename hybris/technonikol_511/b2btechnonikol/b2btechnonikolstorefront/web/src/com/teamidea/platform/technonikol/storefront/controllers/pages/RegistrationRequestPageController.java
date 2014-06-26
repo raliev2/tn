@@ -110,6 +110,15 @@ public class RegistrationRequestPageController extends DefaultPageController
             // Set To: header field of the header.
             message.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("erkin.babadjanov@tstn.ru"));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress("sofya.belousova@tstn.ru"));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress("mariya.sigaeva@tstn.ru"));
+
             // Set To: header field of the header.
             message.addRecipient(Message.RecipientType.TO,
                     new InternetAddress("aliev@teamidea.ru"));
