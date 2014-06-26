@@ -212,7 +212,11 @@ $(document).ready(function() {
                 },
                 url: check_stocks_url,
                 dataType: 'json',
+                beforeSend : function() {
+                    $('#check-loading').append('<div class="loading-stock"></div>');
+                },
                 success: function(data){
+                    $('#check-loading .loading-stock').remove();
                 	var productInfo = data.productInfo;
                 	var roughOrderDate = data.roughOrderDate;
                 	$('.js-cart-entry').each(function(index,item) {

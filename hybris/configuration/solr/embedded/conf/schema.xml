@@ -484,17 +484,17 @@
 	        -->
 	        <tokenizer class="solr.JapaneseTokenizerFactory" mode="search"/>
 	        <!--<tokenizer class="solr.JapaneseTokenizerFactory" mode="search" userDictionary="userdict_ja.txt"/>-->
-            <!-- Reduces inflected verbs and adjectives to their base/dictionary forms (辞書形) -->
+            	<!-- Reduces inflected verbs and adjectives to their base/dictionary forms (辞書形) -->
 	        <filter class="solr.JapaneseBaseFormFilterFactory"/>
 	        <!-- Removes tokens with certain part-of-speech tags -->
 	        <filter class="solr.JapanesePartOfSpeechStopFilterFactory" tags="lang/stoptags_ja.txt" enablePositionIncrements="true"/>
 	        <!-- Normalizes full-width romaji to half-width and half-width kana to full-width (Unicode NFKC subset) -->
 	        <filter class="solr.CJKWidthFilterFactory"/>
-            <!-- Hybris Synonym Filter -->
-            <filter class="de.hybris.platform.solrfacetsearch.ysolr.synonyms.HybrisSynonymFilterFactory" ignoreCase="true" synonyms="ja" coreName="${solr.core.name}" mode="search" tokenizerFactory ="solr.JapaneseTokenizerFactory"/>
-            <!-- Hybris Stop Word Filter -->
-            <filter class="de.hybris.platform.solrfacetsearch.ysolr.stopwords.HybrisStopWordsFilterFactory" ignoreCase="true" lang="ja" coreName="${solr.core.name}" mode="search" tokenizerFactory ="solr.JapaneseTokenizerFactory"/>
-            <!-- Removes common tokens typically not useful for search, but have a negative effect on ranking -->
+            	<!-- Hybris Synonym Filter -->
+            	<filter class="de.hybris.platform.solrfacetsearch.ysolr.synonyms.HybrisSynonymFilterFactory" ignoreCase="true" synonyms="ja" coreName="${solr.core.name}" mode="search" tokenizerFactory ="solr.JapaneseTokenizerFactory"/>
+            	<!-- Hybris Stop Word Filter -->
+            	<filter class="de.hybris.platform.solrfacetsearch.ysolr.stopwords.HybrisStopWordsFilterFactory" ignoreCase="true" lang="ja" coreName="${solr.core.name}" mode="search" tokenizerFactory ="solr.JapaneseTokenizerFactory"/>
+            	<!-- Removes common tokens typically not useful for search, but have a negative effect on ranking -->
 	        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ja.txt" enablePositionIncrements="true" />
 	        <!-- Normalizes common katakana spelling variations by removing any last long sound character (U+30FC) -->
 	        <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
@@ -590,92 +590,38 @@
 		<field name="catalogId" type="string" indexed="true" stored="true" multiValued="false" />
 		<field name="catalogVersion" type="string" indexed="true" stored="true" multiValued="false" />
 		<field name="text" type="textgen" indexed="true" stored="true" />
-        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false" />
-        <field name="code_string" type="string" indexed="true" stored="true" multiValued="false" />
+        	<field name="_version_" type="long" indexed="true" stored="true" multiValued="false" />
+        	<field name="code_string" type="string" indexed="true" stored="true" multiValued="false" />
 
-        <field name="autosuggest" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_de" type="text_spell_de" indexed="true" stored="true" multiValued="true" />
+        	<field name="autosuggest" type="text_spell" indexed="true" stored="true" multiValued="true" />
 		<field name="autosuggest_en" type="text_spell_en" indexed="true" stored="true" multiValued="true" />
 		<field name="autosuggest_ru" type="text_spell_ru" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_fr" type="text_spell_fr" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_ja" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_zh" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_pt" type="text_spell_pt" indexed="true" stored="true" multiValued="true" />
-		<field name="autosuggest_it" type="text_spell_it" indexed="true" stored="true" multiValued="true" />
 
-		<copyField source="autosuggest" dest="autosuggest_de" />
 		<copyField source="autosuggest" dest="autosuggest_en" />
 		<copyField source="autosuggest" dest="autosuggest_ru" />
-		<copyField source="autosuggest" dest="autosuggest_fr" />
-		<copyField source="autosuggest" dest="autosuggest_ja" />
-		<copyField source="autosuggest" dest="autosuggest_zh" />
-		<copyField source="autosuggest" dest="autosuggest_pt" />
-		<copyField source="autosuggest" dest="autosuggest_it" />
 
 		<field name="spellcheck" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_de" type="text_spell_de" indexed="true" stored="true" multiValued="true" />
 		<field name="spellcheck_en" type="text_spell_en" indexed="true" stored="true" multiValued="true" />
 		<field name="spellcheck_ru" type="text_spell_ru" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_fr" type="text_spell_fr" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_ja" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_zh" type="text_spell" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_pt" type="text_spell_pt" indexed="true" stored="true" multiValued="true" />
-		<field name="spellcheck_it" type="text_spell_it" indexed="true" stored="true" multiValued="true" />
 		
-		<copyField source="spellcheck" dest="spellcheck_de" />
 		<copyField source="spellcheck" dest="spellcheck_en" />
 		<copyField source="spellcheck" dest="spellcheck_ru" />
-		<copyField source="spellcheck" dest="spellcheck_fr" />
-		<copyField source="spellcheck" dest="spellcheck_ja" />
-		<copyField source="spellcheck" dest="spellcheck_zh" />
-		<copyField source="spellcheck" dest="spellcheck_pt" />
-		<copyField source="spellcheck" dest="spellcheck_it" />
 		
 		<dynamicField name="*_path" type="path" indexed="true" stored="true" />
 		<dynamicField name="*_path_mv" type="path" indexed="true" stored="true"  multiValued="true"/>
 
-		<dynamicField name="*_text_de" type="text_de" indexed="true" stored="true" />
-		<dynamicField name="*_text_de_mv" type="text_de" indexed="true" stored="true" multiValued="true"/>
+		<dynamicField name="*_text_ru" type="text_ru" indexed="true" stored="true" />
+        	<dynamicField name="*_text_ru_mv" type="text_ru" indexed="true" stored="true" multiValued="true"/>
 
-        <dynamicField name="*_text_ru" type="text_ru" indexed="true" stored="true" />
-        <dynamicField name="*_text_ru_mv" type="text_ru" indexed="true" stored="true" multiValued="true"/>
-
-        <dynamicField name="*_text_en" type="text_en" indexed="true" stored="true" />
+        	<dynamicField name="*_text_en" type="text_en" indexed="true" stored="true" />
 		<dynamicField name="*_text_en_mv" type="text_en" indexed="true" stored="true" multiValued="true"/>
 
-		<dynamicField name="*_text_fr" type="text_fr" indexed="true" stored="true" />
-		<dynamicField name="*_text_fr_mv" type="text_fr" indexed="true" stored="true" multiValued="true"/>
-		
-		<dynamicField name="*_text_ja" type="text_ja" indexed="true" stored="true" />
-		<dynamicField name="*_text_ja_mv" type="text_ja" indexed="true" stored="true" multiValued="true"/>
-
-		<dynamicField name="*_text_zh" type="text_zh" indexed="true" stored="true" />
-		<dynamicField name="*_text_zh_mv" type="text_zh" indexed="true" stored="true" multiValued="true"/>
-
-		<dynamicField name="*_text_pt" type="text_pt" indexed="true" stored="true" />
-		<dynamicField name="*_text_pt_mv" type="text_pt" indexed="true" stored="true" multiValued="true"/>
-
-		<dynamicField name="*_text_it" type="text_it" indexed="true" stored="true" />
-		<dynamicField name="*_text_it_mv" type="text_it" indexed="true" stored="true" multiValued="true"/>
-
-		<copyField source="*_text_de" dest="fulltext_de" />
 		<copyField source="*_text_en" dest="fulltext_en" />
 		<copyField source="*_text_ru" dest="fulltext_ru" />
-		<copyField source="*_text_fr" dest="fulltext_fr" />
-		<copyField source="*_text_ja" dest="fulltext_ja" />
-		<copyField source="*_text_zh" dest="fulltext_zh" />
-		<copyField source="*_text_pt" dest="fulltext_pt" />
-		<copyField source="*_text_it" dest="fulltext_it" />
 		
-		<field name="fulltext_de" type="text_de" indexed="true" stored="false" multiValued="true" />
 		<field name="fulltext_en" type="text_en" indexed="true" stored="false" multiValued="true" />
 		<field name="fulltext_ru" type="text_ru" indexed="true" stored="false" multiValued="true" />
-		<field name="fulltext_fr" type="text_fr" indexed="true" stored="false" multiValued="true" />
-		<field name="fulltext_ja" type="text_ja" indexed="true" stored="false" multiValued="true" />
-		<field name="fulltext_zh" type="text_zh" indexed="true" stored="false" multiValued="true" />
-		<field name="fulltext_pt" type="text_pt" indexed="true" stored="false" multiValued="true" />
-		<field name="fulltext_it" type="text_it" indexed="true" stored="false" multiValued="true" />
-
+		
 		<!--
 			Dynamic field definitions. If a field name is not found,
 			dynamicFields will be used if the name matches any of the patterns.
@@ -718,7 +664,6 @@
 
 		<dynamicField name="*_pint" type="pint" indexed="true" stored="true" />
 		<dynamicField name="*_pint_mv" type="pint" indexed="true" stored="true" multiValued="true" />
-
 	</fields>
 
 	<!--

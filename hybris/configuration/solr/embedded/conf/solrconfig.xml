@@ -584,36 +584,6 @@
                     <str name="spellcheck.dictionary">ru</str>
                     <str name="spellcheck.build">true</str>
                 </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="spellcheck">true</str>
-                    <str name="spellcheck.dictionary">de</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="spellcheck">true</str>
-                    <str name="spellcheck.dictionary">fr</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="spellcheck">true</str>
-                    <str name="spellcheck.dictionary">ja</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="spellcheck">true</str>
-                    <str name="spellcheck.dictionary">zh</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="spellcheck">true</str>
-                    <str name="spellcheck.dictionary">pt</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
                 <!-- to build suggester dictionary -->
                 <lst>
                     <str name="q">*:*</str>
@@ -625,36 +595,6 @@
                     <str name="q">*:*</str>
                     <str name="qt">/suggest</str>
                     <str name="spellcheck.dictionary">ru</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="qt">/suggest</str>
-                    <str name="spellcheck.dictionary">de</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="qt">/suggest</str>
-                    <str name="spellcheck.dictionary">fr</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="qt">/suggest</str>
-                    <str name="spellcheck.dictionary">ja</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="qt">/suggest</str>
-                    <str name="spellcheck.dictionary">zh</str>
-                    <str name="spellcheck.build">true</str>
-                </lst>
-                <lst>
-                    <str name="q">*:*</str>
-                    <str name="qt">/suggest</str>
-                    <str name="spellcheck.dictionary">pt</str>
                     <str name="spellcheck.build">true</str>
                 </lst>
             </arr>
@@ -1159,15 +1099,6 @@
 			<str name="accuracy">0.35</str>
 		</lst>
 		<lst name="spellchecker">
-			<str name="name">de</str>
-			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-			<str name="field">autosuggest_de</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-			<str name="accuracy">0.35</str>
-		</lst>
-		<lst name="spellchecker">
 			<str name="name">en</str>
 			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
 			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
@@ -1185,42 +1116,6 @@
 	       	    <str name="buildOnOptimize">true</str>
         	    <str name="accuracy">0.35</str>
 	        </lst>
-		<lst name="spellchecker">
-			<str name="name">fr</str>
-			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-			<str name="field">autosuggest_fr</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-			<str name="accuracy">0.35</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">ja</str>
-			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-			<str name="field">autosuggest_ja</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-			<str name="accuracy">0.35</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">zh</str>
-			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-			<str name="field">autosuggest_zh</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-			<str name="accuracy">0.35</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">pt</str>
-			<str name="classname">org.apache.solr.spelling.suggest.Suggester</str>
-			<str name="lookupImpl">org.apache.solr.spelling.suggest.tst.TSTLookup</str>
-			<str name="field">autosuggest_pt</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-			<str name="accuracy">0.35</str>
-		</lst>
 	</searchComponent>
 
     <requestHandler name="/spell" class="solr.SearchHandler">
@@ -1246,12 +1141,6 @@
 			<str name="buildOnOptimize">true</str>
 		</lst>
 		<lst name="spellchecker">
-			<str name="name">de</str>
-			<str name="field">spellcheck_de</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-		</lst>
-		<lst name="spellchecker">
 			<str name="name">en</str>
 			<str name="field">spellcheck_en</str>
 			<str name="buildOnCommit">true</str>
@@ -1263,30 +1152,6 @@
 	              <str name="buildOnCommit">true</str>
 	              <str name="buildOnOptimize">true</str>
         	</lst>
-		<lst name="spellchecker">
-			<str name="name">fr</str>
-			<str name="field">spellcheck_fr</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">ja</str>
-			<str name="field">spellcheck_ja</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">zh</str>
-			<str name="field">spellcheck_zh</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-		</lst>
-		<lst name="spellchecker">
-			<str name="name">pt</str>
-			<str name="field">spellcheck_pt</str>
-			<str name="buildOnCommit">true</str>
-			<str name="buildOnOptimize">true</str>
-		</lst>
 	</searchComponent>
 
 

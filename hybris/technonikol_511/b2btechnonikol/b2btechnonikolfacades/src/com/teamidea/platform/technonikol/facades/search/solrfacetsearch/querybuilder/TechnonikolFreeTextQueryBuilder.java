@@ -24,37 +24,43 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 	protected void addFreeTextQuery(final SearchQuery searchQuery, final String field, final String value, final String suffixOp,
 			final double boost)
 	{
-        if (field.toString().equals("code")) {
-            String new_value = value.replaceAll(",", " ");
-            searchQuery.searchInField(field, prepareLong(new_value, suffixOp) + "^" + boost, SearchQuery.Operator.OR);
-        } else
-        {
-            searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.AND);
-        }
+		if (field.toString().equals("code"))
+		{
+			searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.OR);
+		}
+		else
+		{
+			searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.AND);
+		}
 
 	}
 
 	private String prepareLong(final String value, final String suffixOp)
 	{
-		final String[] words = value.split("\\s");
+		final String[] words = value.split("[, ]");
 
 		if (words.length > 1)
 		{
 			final StringBuilder b = new StringBuilder();
 			b.append("(");
+			boolean notEmpty = false;
 			for (int i = 0; i < words.length; i++)
 			{
-				if (i > 0)
+				if (words[i].length() > 1)
 				{
-					b.append(" ");
+					if (notEmpty)
+					{
+						b.append(" ");
+					}
+					b.append(ClientUtils.escapeQueryChars(words[i])).append(suffixOp);
+					notEmpty = true;
 				}
-				b.append(ClientUtils.escapeQueryChars(words[i])).append(suffixOp);
 			}
 			b.append(")");
 			return b.toString();
 		}
 
-		return ClientUtils.escapeQueryChars(value) + suffixOp;
+		return ClientUtils.escapeQueryChars(value.trim()) + suffixOp;
 	}
 
 	//	protected Set<String> getFreeTextQueryValues(final IndexedProperty indexedProperty, final String value, final double boost)
