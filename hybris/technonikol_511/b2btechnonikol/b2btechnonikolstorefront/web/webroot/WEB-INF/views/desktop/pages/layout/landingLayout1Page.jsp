@@ -590,17 +590,18 @@
         <section class="two-banners clearfix bottom-line">
             <h3>Спецпредложения</h3>
             <div class="two-banners__banner two-banners__banner_left g-banner">
-                <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/banner1.jpg" alt="Спецовки и униформы" /></a>
+                <a href="/store/katalog/ploskie-krovli/mastiki-praymery/praymery-bitumnye/c/prajmery_bitumnye"><img src="${themeResourcePath}/images/banners/banner1.jpg" alt="" /></a>
             </div>
             <div class="features-banners__banner two-banners__banner_right g-banner">
-                <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/banner2.jpg" alt="Каски и защитные очки" /></a>
+                <a href="/store/search?q=%3Arelevance%3Abrand%3AТеплоролл"><img src="${themeResourcePath}/images/banners/banner2.jpg" alt="" /></a>
             </div>
         </section>
         <section class="one-banner g-banner bottom-line">
-            <a href="javascript:void(0)">
-                <img src="${themeResourcePath}/images/banners/banner3.jpg" alt="Защитная каска и очки" />
+            <a href="/store/search?q=%3Arelevance%3Abrand%3A%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D1%8D%D0%BB%D0%B0%D1%81%D1%82">
+                <img src="${themeResourcePath}/images/banners/banner3.jpg" alt="" />
             </a>
         </section>
+        <%--
         <section class="promos bottom-line clearfix">
             <div class="promos__item">
                 <div class="promos-item__header promos-item__header_new">Новая продукция</div>
@@ -659,6 +660,12 @@
                 для вашего бизнеса. MRO, производство, снабжение, инструменты и многое другое - для тех, кто кто знает толк.
             </div>
         </section>
+        --%>
+       <section class="one-banner g-banner bottom-line">
+                   <a href="/store/katalog/p/450148">
+                       <img src="${themeResourcePath}/images/banners/econex.jpg" alt="" />
+                   </a>
+       </section>
     </section>
 </section>
 
