@@ -14,5 +14,10 @@ $jarResource=jar:de.hybris.platform.b2bacceleratorsampledata.constants.B2BAccele
 $jarResourceCms=jar:de.hybris.platform.b2bacceleratorsampledata.constants.B2BAcceleratorSampleDataConstants&/b2bacceleratorsampledata/import/cockpits/cmscockpit
 
 INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;products(code,$productCV);scroll(code);popup;searchQuery;categoryCode;&componentRef
-
 ;;tnHomepageProductCarouselComponent;tn Homepage Product Carousel;437232, 401615,332797,445767,014955,418286,368218,033273;allVisible;false;;;tnHomepageProductCarouselComponent
+
+UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
+ ;;tnHomepageProductCarouselComponent;"Эти товары могут вас заинтересовать"
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section3Slot-Homepage;Section3 Slot for Homepage;true;tnHomepageProductCarouselComponent

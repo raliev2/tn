@@ -14,8 +14,8 @@
             <c:forEach items="${productData}" var="productReference">
 		<c:url value="${productReference.url}/quickView" var="productQuickViewUrl"/>
                 <c:url value="${productReference.url}" var="productUrl"/>
-                <li class="product-carousel__item product-carousel__item_930px">
-                    <div class="product-carousel-item__img product-carousel-item__img_930px">
+                <li class="product-carousel__item">
+                    <div class="product-carousel-item__img">
                         <a href="${productUrl}"><product:productPrimaryImage product="${productReference}" format="thumbnail"/></a>
                     </div>
                     <div class="product-carousel-item__info">

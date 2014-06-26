@@ -558,7 +558,7 @@
     <section class="g-right-col">
         <section class="main-slider clearfix">
             <ul id="main-slider">
-                <li><img src="${themeResourcePath}/images/slider/slide0.jpg" alt="TOP 20 продуктов для дистрибьюторов" /></li>
+                <li><a href='/store/search?text=437232%2C401615%2C332797%2C445767%2C014955%2C418286%2C368218%2C033273%2C418318%2C000100%2C418292%2C000019%2C441035%2C012658%2C001799%2C441023%2C000021%2C000038%2C000083%2C441049%2C352606%2C437906'><img src="${themeResourcePath}/images/slider/slide0.jpg" alt="TOP 20 продуктов для дистрибьюторов" /></a></li>
                 <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Дистрибьютеры также покупают" /></li>
                 <li><a href='/store/nav/c/Nav?q=%3Arelevance%3Abrand%3ASchneider+Electric&text='><img src="${themeResourcePath}/images/slider/slide2.jpg" alt="Продукция Schneider Electric" /></a></li>
                 <li><a href='/store/katalog/kabelno-provodnikovaya-produkciya/c/kabelno-provodnikovaya_produktsiya'><img src="${themeResourcePath}/images/slider/slide3.jpg" alt="Кабели и провода" /></a></li>
