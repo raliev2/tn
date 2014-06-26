@@ -198,6 +198,12 @@ ACC.product = {
 $(document).ready(function() {
 	ACC.product.bindAll();
 	
+    $(".g-input").keyup(function (e) {
+        if (e.keyCode == 13) {
+        	$(".g-button-black").click();
+        }
+    });
+	
 	var productsInfo = '';
 	var total = $(this).find('.js-cart-entry').length;
     $('.js-cart-entry').each(function(index,item) {
