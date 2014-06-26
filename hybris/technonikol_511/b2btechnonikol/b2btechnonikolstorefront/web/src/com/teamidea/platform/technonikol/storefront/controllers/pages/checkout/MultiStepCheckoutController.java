@@ -874,7 +874,6 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			}
 		}
 
-		getCheckoutFlowFacade().setGeneratedNumber();
 		if (deliveryDate != null)
 		{
 			getCheckoutFlowFacade().setProvidedDeliveryDate(serviceDateFormat.format(deliveryDate));
@@ -990,7 +989,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	{
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("Номер заказа: " + orderData.getGeneratedNumber());
+		builder.append("Номер заказа: " + orderData.getCode());
 		builder.append("\n\n");
 
 		builder.append("Клиент: " + orderData.getUser().getName());

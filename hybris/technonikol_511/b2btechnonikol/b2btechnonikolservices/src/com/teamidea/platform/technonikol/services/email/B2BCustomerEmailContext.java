@@ -22,9 +22,24 @@ public class B2BCustomerEmailContext extends AbstractEmailContext<BusinessProces
 		final B2BCustomerModel b2bCustomer = (B2BCustomerModel) this.getCustomer(businessProcessModel);
 		emailPageModel.getFromEmail();
 		put(EMAIL, b2bCustomer.getEmail());
-		put(FROM_EMAIL, "tehnikol@yandex.ru");
+		put(FROM_EMAIL, "hdevhybris@evozon.com");
 		put(FROM_DISPLAY_NAME, "TN");
+		put(EMAIL, b2bCustomer.getCustomerID());
+		put(DISPLAY_NAME, "lala");
+
+		put(BASE_URL, "baseUrl");
+		put(SECURE_BASE_URL, "secureBaseUrl");
+		put(MEDIA_BASE_URL, "mediaBaseUrl");
+		put(MEDIA_SECURE_BASE_URL, "mediaSecureBaseUrl");
+		put(TITLE, "title");
+		put(FROM_DISPLAY_NAME, "fromDisplayName");
+		put(THEME, "theme");
+		put(BASE_SITE, this.getSite(businessProcessModel));
+		put(BASE_THEME_URL, "/");
+		put(EMAIL_LANGUAGE, this.getEmailLanguage(businessProcessModel));
+
 	}
+
 
 	@Override
 	protected BaseSiteModel getSite(final BusinessProcessModel businessProcessModel)

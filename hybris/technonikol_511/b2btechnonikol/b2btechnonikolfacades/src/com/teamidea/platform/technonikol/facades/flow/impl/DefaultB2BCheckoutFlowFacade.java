@@ -353,21 +353,4 @@ public class DefaultB2BCheckoutFlowFacade extends DefaultB2BCheckoutFacade imple
 		getCartFacade().cleanSavedCart();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.teamidea.platform.technonikol.facades.flow.B2BCheckoutFlowFacade#setGeneratedNumber()
-	 */
-	@Override
-	public void setGeneratedNumber()
-	{
-		final CartModel cartModel = getCart();
-		String generatedCode = cartModel.getCode();
-		while (generatedCode.length() < 12)
-		{
-			generatedCode = "0" + generatedCode;
-		}
-		cartModel.setGeneratedNumber("R-" + generatedCode);
-		getModelService().save(cartModel);
-	}
 }

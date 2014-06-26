@@ -69,7 +69,7 @@ public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<Cr
 			modelService.save(storeFrontCustomerProcessModel);
 			businessProcessService.startProcess(storeFrontCustomerProcessModel);
 			customer.setSendMail(Boolean.TRUE);
-			modelService.save(customer);
+			//modelService.save(customer);
 		}
 		catch (final Exception e)
 		{
