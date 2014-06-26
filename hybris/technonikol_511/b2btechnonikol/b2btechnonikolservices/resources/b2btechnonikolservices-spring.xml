@@ -30,10 +30,6 @@
 	</bean>
 	<bean id="checkUnsendedPasswordCustomersJob" class="com.teamidea.platform.technonikol.services.email.CheckUnsendedPasswordCustomersJob" autowire="byName" scope="tenant" parent="abstractJobPerformable"/>
 	
-	<bean id="b2bcustomerEmailContext"
-          class="com.teamidea.platform.technonikol.services.email.B2BCustomerEmailContext"
-          parent="abstractEmailContext" scope="prototype">
-    </bean>
 	
 	<bean id="sendEmailAboutSetPasswordAction" class="com.teamidea.platform.technonikol.services.email.SendEmailAboutSetPasswordAction"/>
 	
