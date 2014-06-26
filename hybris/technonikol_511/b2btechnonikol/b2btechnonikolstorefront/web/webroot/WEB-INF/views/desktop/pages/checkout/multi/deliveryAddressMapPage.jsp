@@ -16,8 +16,8 @@
         var points = new Array(
                 {
                     address : '${pointsOfService[0].address.formattedAddress}',
-                    mode : '<c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
-                                ${weekDayOpening.weekDay} <br/>\
+                    mode : '<br/><c:forEach items="${pointsOfService[0].openingHours.weekDayOpeningList}" var="weekDayOpening">\
+                                ${weekDayOpening.weekDay}:\
                                 ${weekDayOpening.closed ? "не работает" : "работает"} <br/>\
                             </c:forEach>',
                     lat : ${pointsOfService[0].geoPoint.latitude},
@@ -26,8 +26,8 @@
                 <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus" begin="1">
                     ,{
                         address : '${store.address.formattedAddress}',
-                        mode : '<c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">\
-                                    ${weekDayOpening.weekDay} <br/>\
+                        mode : '<br/><c:forEach items="${store.openingHours.weekDayOpeningList}" var="weekDayOpening">\
+                                    ${weekDayOpening.weekDay}: \
                                     ${weekDayOpening.closed ? "не работает" : "работает"} <br/>\
                                 </c:forEach>',
                     lat : ${store.geoPoint.latitude},
@@ -42,15 +42,15 @@
                 width: 620
             });
             var myLatLng = new google.maps.LatLng(points[0]['lat'], points[0]['lng']);
-            MYMAP.init('#checkout__map', myLatLng, 13);
+            
+            MYMAP.init('#checkout__map', myLatLng, 4);
 
             MYMAP.placeMarkers();
 
-            $('select[name="selectedShopAddress"]').change(function() {
-                var index = $('select[name="selectedShopAddress"] option:selected').attr('rel');
-                alert("45");
+            $('#selectedShopAddress').change(function() {
+                var index = $('#selectedShopAddress option:selected').attr('rel');
                 $('.js-address').text(points[index].address);
-                $('.js-mode').text(points[index].mode);
+                $('.js-mode').html(points[index].mode);
                 markers.forEach(function(item,ind) {
                     if (ind == index) {
                         item.setIcon('${themeResourcePath}/images/map-current-point.png');
