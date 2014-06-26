@@ -8,72 +8,70 @@ import de.hybris.platform.cronjob.model.CronJobModel;
 import de.hybris.platform.processengine.BusinessProcessService;
 import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
-import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.site.BaseSiteService;
-
-import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+/**
+ * This class is job of email sending for b2bcustomers not set password;
+ *
+ * Last modified: 26.06.2014
+ *
+ * @author Igor Bobko
+ */
 public class CheckUnsendedPasswordCustomersJob extends AbstractJobPerformable<CronJobModel>
 {
 	private static final Logger LOG = Logger.getLogger(CheckUnsendedPasswordCustomersJob.class);
 
 	@Autowired
-	BusinessProcessService businessProcessService;
+	private BusinessProcessService businessProcessService;
 
 	@Autowired
-	ModelService modelService;
+	private BaseSiteService baseSiteService;
 
-	@Autowired
-	BaseSiteService baseSiteService;
+	private final static String PROCESS_NAME = "b2bcustomerRequestSetPasswordEmailProcess";
 
+	/**
+	 * This execution than job is start running
+	 */
 	@Override
 	public PerformResult perform(final CronJobModel cronJob)
 	{
-		LOG.info("Sending notice for b2bcustomers");
-		final SearchResult<B2BCustomerModel> result = getSendCustomers();
-		LOG.info("" + result.getCount());
-		for (final Iterator<B2BCustomerModel> iterator = result.getResult().iterator(); iterator.hasNext();)
+		LOG.info("Sending notice for b2bcustomers about password");
+		for (final B2BCustomerModel customer : getSendCustomers().getResult())
 		{
-			final B2BCustomerModel customer = iterator.next();
 			processCustomer(customer);
 		}
-
+		LOG.info("Sending notice for b2bcustomers about password FINISHED");
 		return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
 	}
 
+	/**
+	 * Execute FlexibleSearch for b2bcustomers
+	 *
+	 * @return Returns B2BCustomers is not set password
+	 */
 	public SearchResult<B2BCustomerModel> getSendCustomers()
 	{
 		final FlexibleSearchQuery query = new FlexibleSearchQuery("SELECT {" + B2BCustomerModel.PK + "} FROM {"
-				+ B2BCustomerModel._TYPECODE + "} WHERE {" + B2BCustomerModel.SENDMAIL + "}=?send");
-
-		query.addQueryParameter("send", Boolean.FALSE);
-		LOG.info(query.getQuery());
+				+ B2BCustomerModel._TYPECODE + "} WHERE {" + B2BCustomerModel.SENDMAIL + "}=?" + B2BCustomerModel.SENDMAIL);
+		query.addQueryParameter(B2BCustomerModel.SENDMAIL, Boolean.FALSE);
 		return flexibleSearchService.search(query);
 	}
 
+	/**
+	 * Start process make sending notice
+	 */
 	public void processCustomer(final B2BCustomerModel customer)
 	{
-		try
-		{
-			final StoreFrontCustomerProcessModel storeFrontCustomerProcessModel = (StoreFrontCustomerProcessModel) businessProcessService
-					.createProcess("b2bcustomerRequestSetPasswordEmailProces" + System.currentTimeMillis(),
-							"b2bcustomerRequestSetPasswordEmailProcess");
-			storeFrontCustomerProcessModel.setCustomer(customer);
-			storeFrontCustomerProcessModel.setSite(baseSiteService.getCurrentBaseSite());
-			modelService.save(storeFrontCustomerProcessModel);
-			businessProcessService.startProcess(storeFrontCustomerProcessModel);
-			customer.setSendMail(Boolean.TRUE);
-			//modelService.save(customer);
-		}
-		catch (final Exception e)
-		{
-			throw e;
-		}
+		final StoreFrontCustomerProcessModel storeFrontCustomerProcessModel = (StoreFrontCustomerProcessModel) businessProcessService
+				.createProcess(PROCESS_NAME + System.currentTimeMillis(), PROCESS_NAME);
+		storeFrontCustomerProcessModel.setCustomer(customer);
+		storeFrontCustomerProcessModel.setSite(baseSiteService.getCurrentBaseSite());
+		businessProcessService.startProcess(storeFrontCustomerProcessModel);
 	}
 }

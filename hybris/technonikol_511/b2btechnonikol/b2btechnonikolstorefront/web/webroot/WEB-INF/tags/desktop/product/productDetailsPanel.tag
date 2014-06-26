@@ -148,7 +148,7 @@
                 <p>Артикул: ${product.manufacturerCode}</p>
                 <p style="margin-top:10px;">
                     <label for="popup-qty">Количество:</label>
-                    <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" />
+                    <input type="text" value="1" id="popup-qty" name="popup-qty" class="g-input" size="2" maxlength="6"/>
                     <c:url value="/stock/checkProduct?productCode=${product.code}" var="check_stock_url"/>
                     <button class="g-button-black" onclick="checkProduct('${check_stock_url}');">Проверить наличие</button>
                 </p>
