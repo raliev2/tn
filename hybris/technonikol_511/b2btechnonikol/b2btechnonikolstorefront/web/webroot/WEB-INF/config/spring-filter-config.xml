@@ -70,11 +70,13 @@
 
 		<!-- btg filters -->
 		<!-- Remove these filters to disable BTG integration. Also remove the BtgSegmentBeforeViewHandler -->
+		<!-- 
 		<ref bean="refererHeaderBtgFilter"/>
 		<ref bean="requestParamsBtgFilter"/>
 		<ref bean="productVisitedBtgFilter"/>
 		<ref bean="categoryVisitedBtgFilter"/>
 		<ref bean="btgSegmentFilter"/>	
+		 -->
 	</util:list>
 
 	<bean id="storefrontTenantFilterChain" class="de.hybris.platform.servicelayer.web.PlatformFilterChain" >

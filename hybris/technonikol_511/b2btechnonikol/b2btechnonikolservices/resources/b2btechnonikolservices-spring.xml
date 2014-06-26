@@ -43,10 +43,55 @@
 	</bean>
 	
 	<bean id="createOrderIntegrationService" class="com.teamidea.platform.technonikol.services.order.impl.CreateOrderIntegrationServiceImpl" />
-
-
 	
 	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.CreateOrderJob" parent="abstractJobPerformable">
         <property name="createOrderIntegrationService" ref="createOrderIntegrationService"/>	
 	</bean>
+	
+	<alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>
+    <bean id="tnCommerceSearchTextPopulator" class="de.hybris.platform.commerceservices.search.solrfacetsearch.populators.SearchTextPopulator">
+        <property name="freeTextQueryBuilders">
+            <list>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="ean"/>
+                    <property name="boost" value="100" />
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="code"/>
+                    <property name="boost" value="90"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="name"/>
+                    <property name="boost" value="85"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="summary"/>
+                    <property name="boost" value="80"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="brandName"/>
+                    <property name="boost" value="70"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="description"/>
+                    <property name="boost" value="50"/>
+                </bean>
+                <bean class="de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.ClassificationFreeTextQueryBuilder">
+                    <property name="boost" value="30"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="keywords"/>
+                    <property name="boost" value="25"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="categoryName"/>
+                    <property name="boost" value="20"/>
+                </bean>
+                <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
+                    <property name="propertyName" value="allFields"/>
+                    <property name="boost" value="10"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
 </beans>
