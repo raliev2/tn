@@ -4,6 +4,7 @@
 package com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder;
 
 import de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.impl.DefaultFreeTextQueryBuilder;
+import de.hybris.platform.solrfacetsearch.config.IndexedProperty;
 import de.hybris.platform.solrfacetsearch.search.SearchQuery;
 
 import org.apache.log4j.Logger;
@@ -20,19 +21,106 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 	private static final String TEXT_FIELD = "text";
 	private static final String BOOST_OPERATOR = "^";
 
+	private static final String[] suffixOp = new String[]
+	{ "", "*", "~" };
+	private static final double[] boostDiv = new double[]
+	{ 1D, 2D, 4D };
+
+	@Override
+	protected void addFreeTextQuery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String fullText,
+			final String[] textWords, final int boost)
+	{
+		addFreeTextQuery(searchQuery, indexedProperty, fullText, boost * 2.0D);
+
+		if ((textWords == null) || (textWords.length <= 1))
+		{
+			return;
+		}
+
+		final StringBuilder subquery = new StringBuilder();
+		subquery.append("(");
+		for (int i = 0; i < 3; i++)
+		{
+			if (i > 0)
+			{
+				subquery.append(" OR ");
+			}
+			subquery.append("(");
+			boolean firstWord = true;
+			for (final String word : textWords)
+			{
+				if (!firstWord)
+				{
+					subquery.append(" AND ");
+				}
+				firstWord = false;
+				appendFreeTextQuery(subquery, word, suffixOp[i], boost / boostDiv[i]);
+			}
+			subquery.append(")");
+		}
+		subquery.append(")");
+		addFreeTextSubquery(searchQuery, indexedProperty, subquery.toString());
+	}
+
+	private void appendFreeTextQuery(final StringBuilder subquery, final String value, final String suffixOp, final double boost)
+	{
+		subquery.append(ClientUtils.escapeQueryChars(value)).append(suffixOp != null ? suffixOp : "").append(BOOST_OPERATOR)
+				.append(boost);
+	}
+
+	private void addFreeTextSubquery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String subquery)
+	{
+		final String field = indexedProperty.getName();
+		if (!(indexedProperty.isFacet()))
+		{
+			searchQuery.searchInField(field, subquery, SearchQuery.Operator.AND);
+		}
+		else
+		{
+			LOG.warn("Not searching " + indexedProperty
+					+ ". Free text search not available in facet property. Configure an additional text property for searching.");
+		}
+	}
+
+
+	@Override
+	protected void addFreeTextQuery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String value,
+			final double boost)
+	{
+		final String field = indexedProperty.getName();
+		if (!(indexedProperty.isFacet()))
+		{
+			if ("text".equalsIgnoreCase(indexedProperty.getType()))
+			{
+				//addFreeTextQuery(searchQuery, field, value.toLowerCase(), "", boost);
+				addFreeTextQuery(searchQuery, field, value.toLowerCase(), "*", boost / 2.0D);
+				//addFreeTextQuery(searchQuery, field, value.toLowerCase(), "~", boost / 4.0D);
+			}
+			else
+			{
+				//addFreeTextQuery(searchQuery, field, value.toLowerCase(), "", boost);
+				addFreeTextQuery(searchQuery, field, value.toLowerCase(), "*", boost / 2.0D);
+			}
+		}
+		else
+		{
+			LOG.warn("Not searching " + indexedProperty
+					+ ". Free text search not available in facet property. Configure an additional text property for searching.");
+		}
+	}
+
 	@Override
 	protected void addFreeTextQuery(final SearchQuery searchQuery, final String field, final String value, final String suffixOp,
 			final double boost)
 	{
 		if (field.toString().equals("code"))
 		{
-			searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.OR);
+			searchQuery.searchInField(field, prepareLong(value, suffixOp) + BOOST_OPERATOR + boost, SearchQuery.Operator.OR);
 		}
 		else
 		{
-			searchQuery.searchInField(field, prepareLong(value, suffixOp) + "^" + boost, SearchQuery.Operator.AND);
+			searchQuery.searchInField(field, prepareLong(value, suffixOp) + BOOST_OPERATOR + boost, SearchQuery.Operator.AND);
 		}
-
 	}
 
 	private String prepareLong(final String value, final String suffixOp)
