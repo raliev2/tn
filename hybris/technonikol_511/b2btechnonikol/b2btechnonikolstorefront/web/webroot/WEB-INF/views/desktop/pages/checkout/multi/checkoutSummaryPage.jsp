@@ -78,7 +78,7 @@
                                         ${entry.quantity}
                                 </td>
                                 <td class="checkout-summary-cart__stock js-entry-stock">
-
+									<div id="check-loading"></div>
                                 </td>
                                 <td  class="checkout-summary-cart__price">
                                     <format:fromPrice priceData="${entry.totalPrice}" />
