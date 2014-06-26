@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
-import org.springframework.util.StringUtils;
 
 import ru.technonikol.ws.orders.MaterialsRow;
 import ru.technonikol.ws.orders.Order.Materials;
@@ -55,10 +54,6 @@ public class CreateOrderJob extends AbstractJobPerformable
 
 		for (final OrderModel order : orders)
 		{
-			if (StringUtils.isEmpty(order.getGeneratedNumber()))
-			{
-				continue;
-			}
 			ru.technonikol.ws.orders.Order integrationOrder = null;
 			try
 			{
@@ -145,7 +140,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 			target.setPaymentType(source.getPaymentMethod().getCode());
 
 			target.setIDPartner(getPartnerID(source.getUser()));
-			target.setNumber(source.getGeneratedNumber());
+			target.setNumber(source.getCode());
 			target.setWarehouseGUID("");
 
 			if (!CollectionUtils.isEmpty(source.getEntries()))
