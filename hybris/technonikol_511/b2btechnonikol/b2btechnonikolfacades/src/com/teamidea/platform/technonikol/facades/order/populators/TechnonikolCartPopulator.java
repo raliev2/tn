@@ -27,7 +27,6 @@ public class TechnonikolCartPopulator extends CartPopulator
 		target.setProvidedDescription(source.getProvidedDescription());
 		target.setEmailNotification(source.getEmailNotification());
 		target.setDeliveryGroupMode(source.getDeliveryGroupMode());
-		target.setGeneratedNumber(source.getGeneratedNumber());
 
 	}
 }

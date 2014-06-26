@@ -58,5 +58,4 @@ public interface B2BCheckoutFlowFacade extends B2BCheckoutFacade
 
 	void afterScheduleOrder();
 
-	void setGeneratedNumber();
 }

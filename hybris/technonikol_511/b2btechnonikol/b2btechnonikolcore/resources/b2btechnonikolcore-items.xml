@@ -735,10 +735,6 @@
 						<persistence type="property" />
 						<description>Email notification</description>
 					</attribute>									 	
-				 	<attribute qualifier="generatedNumber" type="java.lang.String" generate="true" autocreate="true" >
-						<persistence type="property" />
-						<description>Generated number</description>
-					</attribute>	
 				</attributes>
 			</itemtype>
 								
