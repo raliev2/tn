@@ -126,9 +126,6 @@
                     <c:if test="${not empty product.productType.name}">
                         <li class="one-characteristic">Тип товара: <span class="one-characteristic__value">${product.productType.name}</span></li>
                     </c:if>
-                    <c:if test="${not empty product.quantityInPackage}">
-                        <li class="one-characteristic">Количество товара в упаковке: <span class="one-characteristic__value">${product.quantityInPackage}</span></li>
-                    </c:if>
                 </ul>
             </div>
             <c:if test="${not empty product.productionCountry.name}">
