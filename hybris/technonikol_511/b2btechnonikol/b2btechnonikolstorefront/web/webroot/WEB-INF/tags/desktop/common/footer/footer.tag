@@ -81,4 +81,14 @@
         var check_stock_url='${check_stock_url}';
         var check_stocks_url='${check_stocks_url}';
     </script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-52212716-1', '1platforma.ru');
+	  ga('send', 'pageview');
+	
+	</script>
 </footer>
