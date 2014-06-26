@@ -11,6 +11,7 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common"%>
 <%@ taglib prefix="breadcrumb" tagdir="/WEB-INF/tags/desktop/nav/breadcrumb"%>
+<%@ taglib prefix="product" tagdir="/WEB-INF/tags/desktop/product"%>
 
 
 <spring:theme code="key" var="key"/>
@@ -557,174 +558,50 @@
     <section class="g-right-col">
         <section class="main-slider clearfix">
             <ul id="main-slider">
-                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Новые мастики и герметики" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Кровельные материалы" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Гидроизоляция" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Профмембраны" /></li>
-                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Полимерные мембраны" /></li>
+                <li><a href='/store/search?text=437232%2C401615%2C332797%2C445767%2C014955%2C418286%2C368218%2C033273%2C418318%2C000100%2C418292%2C000019%2C441035%2C012658%2C001799%2C441023%2C000021%2C000038%2C000083%2C441049%2C352606%2C437906'><img src="${themeResourcePath}/images/slider/slide0.jpg" alt="TOP 20 продуктов для дистрибьюторов" /></a></li>
+                <li><img src="${themeResourcePath}/images/slider/slide1.jpg" alt="Дистрибьютеры также покупают" /></li>
+                <li><a href='/store/nav/c/Nav?q=%3Arelevance%3Abrand%3ASchneider+Electric&text='><img src="${themeResourcePath}/images/slider/slide2.jpg" alt="Продукция Schneider Electric" /></a></li>
+                <li><a href='/store/katalog/kabelno-provodnikovaya-produkciya/c/kabelno-provodnikovaya_produktsiya'><img src="${themeResourcePath}/images/slider/slide3.jpg" alt="Кабели и провода" /></a></li>
             </ul>
         </section>
+
+        	<cms:pageSlot position="Section3" var="feature" element="div" class="span-24 section3 cms_disp-img_slot">
+        		<cms:component component="${feature}"/>
+        	</cms:pageSlot>
+<%--
         <section class="carousel-product">
             <h2>Эти товары могут вас заинтересовать</h2>
             <div class="carousel-product__carousel">
                 <ul>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod1.jpg" alt="Двухсторонняя" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Двухсторонняя</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728</a> ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 340&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзину</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod2.jpg" alt="Двусторонняя акриловая лента, 75м" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Двусторонняя акриловая лента, 75м</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728HKE92J</a> ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзине</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod3.jpg" alt="Гигиеническая бумага, двуслойная" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Гигиеническая бумага, двуслойная</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728</a> ROBERTS ROBERTS ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзину</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod4.jpg" alt="Теплосберегающая лента" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Теплосберегающая лента</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728</a> ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзину</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod2.jpg" alt="Двусторонняя акриловая лента, 75м" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Двусторонняя акриловая лента, 75м</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728HKE92J</a> ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 34&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзине</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod3.jpg" alt="Гигиеническая бумага, двуслойная" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Гигиеническая бумага, двуслойная</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728</a> ROBERTS ROBERTS ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзину</a>
-                        </div>
-                    </li>
-                    <li class="product-carousel__item">
-                        <div class="product-carousel-item__img">
-                            <a href="javascript:void(0)"><img src="${themeResourcePath}/images/products/prod4.jpg" alt="Теплосберегающая лента" /></a>
-                        </div>
-                        <div class="product-carousel-item__info">
-                            <div class="product-carousel-item__name">
-                                <a href="javascript:void(0)">Теплосберегающая лента</a>
-                            </div>
-                            <div class="product-carousel-item__articul">
-                                Артикул # <a href="javascript:void(0)">12L728</a> ROBERTS
-                            </div>
-                        </div>
-                        <div class="product-carousel-item__price">
-                            Цена: 4&nbsp;232,00&nbsp;<span class="g-rouble">Р</span>
-                        </div>
-                        <div class="product-carousel-item__in-cart">
-                            <input type="text" class="in-cart__input" />
-                            <a href="javascript:void(0)" class="button">В корзину</a>
-                        </div>
-                    </li>
+
+                    <product:carousel
+                        img="http://tn.askinet.ru/medias/?context=bWFzdGVyfGltYWdlc3w0Njk0fGltYWdlL2pwZWd8aW1hZ2VzL2g2MS9oNzQvODgwMDUxODU3MDAxNC5qcGd8MWUxNTU3Y2ZiYzM2ZjMzN2UyY2IwZWQ0Njk2MzMzYWM5OWY0ZDFlZTlmMGViNzcyMzVmMTI4MDBjMWE0MzAwZA"
+                        name="утеплитель Роклайт 1200х600х100 мм 6 шт. 9473"
+                        href="/store/%D0%9A%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3/%D0%A3%D1%82%D0%B5%D0%BF%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D0%B8/%D0%91%D0%B0%D0%B7%D0%B0%D0%BB%D1%8C%D1%82%D0%BE%D0%B2%D1%8B%D0%B9-%D0%A3%D1%82%D0%B5%D0%BF%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C/%D0%A3%D1%82%D0%B5%D0%BF%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%D0%BA-%D0%92%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B8%D0%BC-%D0%9F%D0%B5%D1%80%D0%B5%D0%BA%D1%80%D1%8B%D1%82%D0%B8%D1%8F%D0%BC/%D1%83%D1%82%D0%B5%D0%BF%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C-%D0%A0%D0%BE%D0%BA%D0%BB%D0%B0%D0%B9%D1%82-1200%D1%85600%D1%85100-%D0%BC%D0%BC-6-%D1%88%D1%82-9473/p/033273"
+                        code="033273"
+                        brand="РОКЛАЙТ"
+                        price=""/>
+                    <product:carousel img="${themeResourcePath}/images/products/prod1.jpg" name="Название товара" href="/" code="code" price="350242"/>
+
                 </ul>
             </div>
         </section>
+--%>
         <section class="two-banners clearfix bottom-line">
             <h3>Спецпредложения</h3>
             <div class="two-banners__banner two-banners__banner_left g-banner">
-                <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/banner1.jpg" alt="Спецовки и униформы" /></a>
+                <a href="/store/katalog/ploskie-krovli/mastiki-praymery/praymery-bitumnye/c/prajmery_bitumnye"><img src="${themeResourcePath}/images/banners/banner1.jpg" alt="" /></a>
             </div>
             <div class="features-banners__banner two-banners__banner_right g-banner">
-                <a href="javascript:void(0)"><img src="${themeResourcePath}/images/banners/banner2.jpg" alt="Каски и защитные очки" /></a>
+                <a href="/store/search?q=%3Arelevance%3Abrand%3AТеплоролл"><img src="${themeResourcePath}/images/banners/banner2.jpg" alt="" /></a>
             </div>
         </section>
         <section class="one-banner g-banner bottom-line">
-            <a href="javascript:void(0)">
-                <img src="${themeResourcePath}/images/banners/banner3.jpg" alt="Защитная каска и очки" />
+            <a href="/store/search?q=%3Arelevance%3Abrand%3A%D0%A2%D0%B5%D1%85%D0%BD%D0%BE%D1%8D%D0%BB%D0%B0%D1%81%D1%82">
+                <img src="${themeResourcePath}/images/banners/banner3.jpg" alt="" />
             </a>
         </section>
+        <%--
         <section class="promos bottom-line clearfix">
             <div class="promos__item">
                 <div class="promos-item__header promos-item__header_new">Новая продукция</div>
@@ -783,6 +660,12 @@
                 для вашего бизнеса. MRO, производство, снабжение, инструменты и многое другое - для тех, кто кто знает толк.
             </div>
         </section>
+        --%>
+       <section class="one-banner g-banner bottom-line">
+                   <a href="/store/katalog/p/450148">
+                       <img src="${themeResourcePath}/images/banners/econex.jpg" alt="" />
+                   </a>
+       </section>
     </section>
 </section>
 
