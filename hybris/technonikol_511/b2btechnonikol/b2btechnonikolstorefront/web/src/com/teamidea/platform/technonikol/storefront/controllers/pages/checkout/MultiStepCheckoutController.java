@@ -570,6 +570,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			errorMessage.put("text", "Ошибка получения данных");
 			try {
 				response.getWriter().print(errorMessage.toString());
+				return;
 			} catch (final IOException e) {
 				LOG.debug("Error while trying to check product stock info", e);
 			}
@@ -603,6 +604,16 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		for (final Entry<String, List<MaterialsRow>> entry : rowsMap.entrySet()) {
 			final JSONObject product = new JSONObject();
 			product.put("code", entry.getKey());
+			
+			String baseUnit = "";
+			ProductData productData = productFacade.getProductForCodeAndOptions(productCode,
+					Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
+			if(productData.getBaseUnit() != null){
+				baseUnit = productData.getBaseUnit().getName();
+			}
+			else{
+				LOG.info("Base Unit for product with code = " + entry.getKey() + " wasn't set");
+			}
 
 			String html = "";
 			if (entry.getValue().size() == 1) {
@@ -622,10 +633,10 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			} else if (entry.getValue().size() > 1) {
 				for (final MaterialsRow row : entry.getValue()) {
 					if (StringUtils.equals(row.getDatePost(), "01.01.1000")) {
-						html = row.getCount() + " недоступно для заказа"
+						html = row.getCount() + " (" + baseUnit + ") недоступно для заказа"
 								+ "<br/>";
 					} else {
-						html += "Дата отгрузки для " + row.getCount() + ": "
+						html += "Дата отгрузки для " + row.getCount() + " (" + baseUnit + ") : "
 								+ row.getDatePost() + "<br/>";
 						Date productDate = new Date();
 						try {

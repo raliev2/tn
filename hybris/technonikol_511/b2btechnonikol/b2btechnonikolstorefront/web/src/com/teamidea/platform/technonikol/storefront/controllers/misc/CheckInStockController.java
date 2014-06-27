@@ -4,6 +4,7 @@
 package com.teamidea.platform.technonikol.storefront.controllers.misc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,6 +26,10 @@ import com.teamidea.platform.technonikol.services.stock.DeliveryDateIntegrationS
 import com.teamidea.platform.technonikol.storefront.controllers.AbstractController;
 import com.teamidea.platform.technonikol.storefront.controllers.ControllerConstants;
 
+import de.hybris.platform.commercefacades.product.ProductFacade;
+import de.hybris.platform.commercefacades.product.ProductOption;
+import de.hybris.platform.commercefacades.product.data.ProductData;
+
 
 /**
  * @author Marina
@@ -38,11 +43,15 @@ public class CheckInStockController extends AbstractController
 	private static final String PRODUCT_COUNT = "count";
 	private static final String ERROR_MESSAGE = "errorMessage";
 	private static final String ROWS = "rows";
+	private static final String BASE_UNIT = "baseUnit";
 
 	protected static final Logger LOG = Logger.getLogger(CheckInStockController.class);
 
 	@Resource(name = "deliveryDateIntegrationService")
 	private DeliveryDateIntegrationService deliveryDateIntegrationService;
+	
+	@Resource(name = "b2bProductFacade")
+	private ProductFacade productFacade;
 
 	@RequestMapping(value = "/stock/checkProduct", method = RequestMethod.GET)
 	public String checkStock(final HttpServletRequest request, final Model model)
@@ -76,7 +85,17 @@ public class CheckInStockController extends AbstractController
 			model.addAttribute(ERROR_MESSAGE, "Данные отсутствуют");
 			return ControllerConstants.Views.Fragments.Stock.CheckStockInfo;
 		}
-
+		
+		final ProductData product = productFacade.getProductForCodeAndOptions(productCode,
+				Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
+		
+		if(product.getBaseUnit() != null){
+			model.addAttribute(BASE_UNIT, product.getBaseUnit().getName());
+		}
+		else{
+			LOG.info("Base Unit for product with code = " + productCode + " wasn't set");
+		}
+		
 		model.addAttribute(ROWS, productInfo);
 		model.addAttribute(PRODUCT_COUNT, count);
 
