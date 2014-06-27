@@ -163,7 +163,7 @@
                 <p>Прогнозируемая дата доставки заказа:</p> <div id="roughOrderDate"></div>                    
                 <div class="checkout-summary-total__white-line"></div>
                 <div class="checkout-summary-total__button">
-                    <input type="submit" value="Подтвердить" class="button button_big" />
+                    <input type="submit" value="Подтвердить" class="button button_big btn_final_submit" disabled='true'/>
                 </div>
                 <div class="checkout-summary-total__white-line"></div>
                 <div>
@@ -251,7 +251,7 @@
                     <label for="agree" class="inline-label">Я согласен с правилами обработки персональных данных на сайте 1Платформа.</label>
                     <div class="checkout-summary-total__white-line"></div>
                     <div class="checkout-summary-total__button">
-                        <input type="submit" value="Подтвердить" class="button button_big" />
+                        <input type="submit" value="Подтвердить" class="button button_big btn_final_submit" disabled='true' />
                     </div>         
                 </div>                
             </div>
