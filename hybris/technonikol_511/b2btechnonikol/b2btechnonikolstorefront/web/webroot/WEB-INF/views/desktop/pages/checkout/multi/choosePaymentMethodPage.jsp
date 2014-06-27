@@ -56,7 +56,9 @@
                 </c:forEach>
             </div>
 
-            <input type="submit" value="Далее" class="button button_big g-float-right" />
+        	<input type="submit" value="Далее" class="button button_big g-float-right" />
+        	<c:url value="/checkout/multi/select-address?isPrev=true" var="prev_url" />
+            <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
         </div>
         <aside class="checkout__promo g-float-right">
             <label for="promocode" class="label-promocode">Промо код</label>
