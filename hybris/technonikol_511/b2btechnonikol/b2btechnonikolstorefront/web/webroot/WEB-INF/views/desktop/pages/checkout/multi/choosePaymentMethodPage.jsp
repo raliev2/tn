@@ -56,9 +56,11 @@
                 </c:forEach>
             </div>
 
-        	<input type="submit" value="Далее" class="button button_big g-float-right" />
-        	<c:url value="/checkout/multi/select-address?isPrev=true" var="prev_url" />
+            <input type="submit" value="Далее" class="button button_big g-float-right" />
+            <c:url value="/checkout/multi/select-delivery-mode?isPrev=true" var="prev_url" />
+            <!--
             <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
+            -->
         </div>
         <aside class="checkout__promo g-float-right">
             <label for="promocode" class="label-promocode">Промо код</label>
@@ -66,9 +68,11 @@
             <a href="javascript:void(0)" class="button button_left-border js-promocode" style="margin-left:-5px">Пересчитать</a>
         </aside>
     </form>
+    <!-- 
     <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url"/>
+     -->
     <form method="get" action="${prev_url}" id="spmForm">
-        <div class="g-float-right checkout__back" style="left:805px; position:absolute; bottom:255px; "><a href="javascript:void(0)" class="g-link-blue" onclick="$('#spmForm').submit()">Назад</a></div>
+        <div class="g-float-right checkout__back" style="left:975px; position:absolute; bottom:425px;"><a href="javascript:void(0)" class="g-link-blue" onclick="$('#spmForm').submit()">Назад</a></div>
     	<input id="hiddenInput" type="hidden" name="selectedPaymentMethod" />    
     	<input id="isPrev" type="hidden" name="isPrev" value="true"/>   
     </form>

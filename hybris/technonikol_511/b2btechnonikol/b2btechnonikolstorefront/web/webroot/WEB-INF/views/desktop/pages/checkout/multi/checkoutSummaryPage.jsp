@@ -172,7 +172,7 @@
                            <h4 class="g-float-left">Адрес доставки</h4>
                         </c:when>
                         <c:otherwise>
-                           <h4 class="g-float-left">Адрес магазина</h4>
+                           <h4 class="g-float-left">Адрес торгового отделения</h4>
                         </c:otherwise>
                     </c:choose>  
                     <c:url value="/checkout/multi/select-address?isPrev=true" var="address_url" />
