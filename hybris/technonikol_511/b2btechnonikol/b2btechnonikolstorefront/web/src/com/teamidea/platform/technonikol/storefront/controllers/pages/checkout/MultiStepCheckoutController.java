@@ -390,104 +390,114 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	public String chooseDeliveryMode(final CheckoutAddressForm addressForm, final HttpServletRequest request, final Model model)
 			throws CMSItemNotFoundException
 	{
-
-		// need for return to previous page functionality
-		if (!(currentStep == SELECT_DELIVERY_ADDRESS) && !(currentStep == ADDRESS_MAP))
-		{
-			if (getCart().getDeliveryAddress() == null)
-			{
-				setCurrentStep(ADDRESS_MAP);
-			}
-			else
-			{
-				setCurrentStep(SELECT_DELIVERY_ADDRESS);
-			}
-		}
-
 		final String isPrev = request.getParameter("isPrev");
-
-		if (currentStep == SELECT_DELIVERY_ADDRESS)
+		
+		if (!StringUtils.isEmpty(isPrev) && !setPaymentMethod(request, model))
 		{
-			// setup delivery address
-			final List<DeliveryOrderEntryGroupData> deliveryGroups = new ArrayList<DeliveryOrderEntryGroupData>();
-			final DeliveryOrderEntryGroupData deliveryGroup = new DeliveryOrderEntryGroupData();
-			deliveryGroup.setEntries(getCart().getEntries());
+			setCurrentStep(PAYMENT_METHOD);
+			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
+			loadPageDataInModel(model);
+			return currentStep.getView();
+		}
+		
+		if (StringUtils.isEmpty(isPrev)) {
 
-			final boolean saveAddress = StringUtils.equals(request.getParameter("saveAddress"), "on");
-			// get data for new address from filled form
-			if (saveAddress)
-			{
-				final AddressData newAddress = new AddressData();
-				newAddress.setFirstName(addressForm.getFirstName());
-				newAddress.setLastName(addressForm.getLastName());
-				newAddress.setPhone(addressForm.getPhone());
-				newAddress.setLine1(addressForm.getStreet());
-				newAddress.setTown(addressForm.getTownCity());
-				newAddress.setPostalCode(addressForm.getPostcode());
-				newAddress.setLine2(addressForm.getHouse());
-				newAddress.setBillingAddress(false);
-				newAddress.setShippingAddress(true);
-				newAddress.setVisibleInAddressBook(true);
-				newAddress.setCountry(getI18NFacade().getCountryForIsocode("RU"));
-				newAddress.setEmail(addressForm.getEmail());
-
-				getCheckoutFlowFacade().setDeliveryAddress(newAddress);
-				deliveryGroup.setDeliveryAddress(newAddress);
+			// need for return to previous page functionality
+			if (!(currentStep == SELECT_DELIVERY_ADDRESS)
+					&& !(currentStep == ADDRESS_MAP)) {
+				if (getCart().getDeliveryAddress() == null) {
+					setCurrentStep(ADDRESS_MAP);
+				} else {
+					setCurrentStep(SELECT_DELIVERY_ADDRESS);
+				}
 			}
-			else
-			{
-				// set existing address
-				final String selectedAddress = request.getParameter("selectedDeliveryAddress");
 
-				if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedAddress))
-				{
-					GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryAddress.notprovided");
+			if (currentStep == SELECT_DELIVERY_ADDRESS) {
+				// setup delivery address
+				final List<DeliveryOrderEntryGroupData> deliveryGroups = new ArrayList<DeliveryOrderEntryGroupData>();
+				final DeliveryOrderEntryGroupData deliveryGroup = new DeliveryOrderEntryGroupData();
+				deliveryGroup.setEntries(getCart().getEntries());
+
+				final boolean saveAddress = StringUtils.equals(
+						request.getParameter("saveAddress"), "on");
+				// get data for new address from filled form
+				if (saveAddress) {
+					final AddressData newAddress = new AddressData();
+					newAddress.setFirstName(addressForm.getFirstName());
+					newAddress.setLastName(addressForm.getLastName());
+					newAddress.setPhone(addressForm.getPhone());
+					newAddress.setLine1(addressForm.getStreet());
+					newAddress.setTown(addressForm.getTownCity());
+					newAddress.setPostalCode(addressForm.getPostcode());
+					newAddress.setLine2(addressForm.getHouse());
+					newAddress.setBillingAddress(false);
+					newAddress.setShippingAddress(true);
+					newAddress.setVisibleInAddressBook(true);
+					newAddress.setCountry(getI18NFacade().getCountryForIsocode(
+							"RU"));
+					newAddress.setEmail(addressForm.getEmail());
+
+					getCheckoutFlowFacade().setDeliveryAddress(newAddress);
+					deliveryGroup.setDeliveryAddress(newAddress);
+				} else {
+					// set existing address
+					final String selectedAddress = request
+							.getParameter("selectedDeliveryAddress");
+
+					if (StringUtils.isEmpty(isPrev)
+							&& StringUtils.isEmpty(selectedAddress)) {
+						GlobalMessages.addErrorMessage(model,
+								"checkout.multi.deliveryAddress.notprovided");
+						loadPageDataInModel(model);
+						return currentStep.getView();
+					}
+
+					if (StringUtils.isEmpty(isPrev)) {
+						final AddressData oldAddress = getCheckoutFlowFacade()
+								.getDeliveryAddressForCode(selectedAddress);
+						getCheckoutFlowFacade().setDeliveryAddress(oldAddress);
+						deliveryGroup.setDeliveryAddress(oldAddress);
+					}
+				}
+
+				deliveryGroups.add(deliveryGroup);
+				getCart().setDeliveryOrderGroups(deliveryGroups);
+
+				// set delivery mode based on selected delivery method
+				getCheckoutFlowFacade().setDeliveryModeIfAvailable();
+			} else {
+				// set pickup address
+				final String selectedStore = request
+						.getParameter("selectedStore");
+
+				if (StringUtils.isEmpty(isPrev)
+						&& StringUtils.isEmpty(selectedStore)) {
+					GlobalMessages.addErrorMessage(model,
+							"checkout.multi.storeAddress.notprovided");
 					loadPageDataInModel(model);
 					return currentStep.getView();
 				}
 
-				if (StringUtils.isEmpty(isPrev))
-				{
-					final AddressData oldAddress = getCheckoutFlowFacade().getDeliveryAddressForCode(selectedAddress);
-					getCheckoutFlowFacade().setDeliveryAddress(oldAddress);
-					deliveryGroup.setDeliveryAddress(oldAddress);
-				}
-			}
+				getCheckoutFlowFacade()
+						.setDeliveryPointOfService(selectedStore);
 
-			deliveryGroups.add(deliveryGroup);
-			getCart().setDeliveryOrderGroups(deliveryGroups);
+				final PointOfServiceData storeSearchResult = storeFinderFacade
+						.getPointOfServiceForName(selectedStore);
+				final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
+				final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
+				pickupOrderGroups.add(pickupData);
+				pickupData.setDeliveryPointOfService(storeSearchResult);
+				getCart().setPickupOrderGroups(pickupOrderGroups);
+			}
 
 			// set delivery mode based on selected delivery method
 			getCheckoutFlowFacade().setDeliveryModeIfAvailable();
-		}
-		else
-		{
-			// set pickup address
-			final String selectedStore = request.getParameter("selectedStore");
 
-			if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedStore))
-			{
-				GlobalMessages.addErrorMessage(model, "checkout.multi.storeAddress.notprovided");
-				loadPageDataInModel(model);
-				return currentStep.getView();
+			if (getCart().getDeliveryMode() != null) {
+				model.addAttribute("deliveryCost", getCart().getDeliveryMode()
+						.getDeliveryCost());
 			}
 
-			getCheckoutFlowFacade().setDeliveryPointOfService(selectedStore);
-
-			final PointOfServiceData storeSearchResult = storeFinderFacade.getPointOfServiceForName(selectedStore);
-			final List<PickupOrderEntryGroupData> pickupOrderGroups = new ArrayList<PickupOrderEntryGroupData>();
-			final PickupOrderEntryGroupData pickupData = new PickupOrderEntryGroupData();
-			pickupOrderGroups.add(pickupData);
-			pickupData.setDeliveryPointOfService(storeSearchResult);
-			getCart().setPickupOrderGroups(pickupOrderGroups);
-		}
-
-		// set delivery mode based on selected delivery method
-		getCheckoutFlowFacade().setDeliveryModeIfAvailable();
-
-		if (getCart().getDeliveryMode() != null)
-		{
-			model.addAttribute("deliveryCost", getCart().getDeliveryMode().getDeliveryCost());
 		}
 
 		setCurrentStep(DELIVERY_MODE);
@@ -502,17 +512,15 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.CHECK_PRODUCTS, method = RequestMethod.POST, produces = "application/json")
 	@RequireHardLogIn
 	@ResponseBody
-	public void checkStocks(final HttpServletRequest request, final Model model, final HttpServletResponse response)
-			throws JSONException
-	{
+	public void checkStocks(final HttpServletRequest request,
+			final Model model, final HttpServletResponse response)
+			throws JSONException {
 		final String productsInfo = request.getParameter("products");
 		final Map<String, String> productInfoMap = new HashMap<String, String>();
 
-		if (!StringUtils.isEmpty(productsInfo))
-		{
+		if (!StringUtils.isEmpty(productsInfo)) {
 			final String[] productsInfoArr = productsInfo.split(";");
-			for (final String entry : productsInfoArr)
-			{
+			for (final String entry : productsInfoArr) {
 				final String[] entryArr = entry.split(":");
 				productInfoMap.put(entryArr[0], entryArr[1]);
 			}
@@ -535,8 +543,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		pocketQuery.setTown("");
 
 		final Materials materials = new Materials();
-		for (final Entry<String, String> entry : productInfoMap.entrySet())
-		{
+		for (final Entry<String, String> entry : productInfoMap.entrySet()) {
 			final MaterialsRow row = new MaterialsRow();
 			row.setEKN(entry.getKey());
 			row.setCount(entry.getValue());
@@ -545,51 +552,45 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		}
 		pocketQuery.setMaterials(materials);
 
-		final SendQueryResponse serviceReponse = deliveryDateIntegrationService.deliveryDateQueryOut(pocketQuery);
+		final SendQueryResponse serviceReponse = deliveryDateIntegrationService
+				.deliveryDateQueryOut(pocketQuery);
 
 		// return error
-		if (serviceReponse == null || serviceReponse.getReturn() == null || serviceReponse.getReturn().getMaterials() == null)
-		{
+		if (serviceReponse == null || serviceReponse.getReturn() == null
+				|| serviceReponse.getReturn().getMaterials() == null) {
 			final StringBuilder sb = new StringBuilder()
 					.append("Error while trying to get delivery information for products with codes: ");
 
-			for (final String code : productInfoMap.keySet())
-			{
+			for (final String code : productInfoMap.keySet()) {
 				sb.append(code + "; ");
 			}
 			LOG.debug(sb);
 
 			final JSONObject errorMessage = new JSONObject();
 			errorMessage.put("text", "Ошибка получения данных");
-			try
-			{
+			try {
 				response.getWriter().print(errorMessage.toString());
-			}
-			catch (final IOException e)
-			{
+				return;
+			} catch (final IOException e) {
 				LOG.debug("Error while trying to check product stock info", e);
 			}
 		}
 
 		// process data
 		final Map<String, List<MaterialsRow>> rowsMap = new HashMap<String, List<MaterialsRow>>();
-		for (final String entry : productInfoMap.keySet())
-		{
-			final List<MaterialsRow> deliveryInfo = serviceReponse.getReturn().getMaterials().getRow();
+		for (final String entry : productInfoMap.keySet()) {
+			final List<MaterialsRow> deliveryInfo = serviceReponse.getReturn()
+					.getMaterials().getRow();
 			final List<MaterialsRow> productInfo = new ArrayList<MaterialsRow>();
-			for (final MaterialsRow row : deliveryInfo)
-			{
-				if (StringUtils.equals(row.getEKN(), entry))
-				{
+			for (final MaterialsRow row : deliveryInfo) {
+				if (StringUtils.equals(row.getEKN(), entry)) {
 					productInfo.add(row);
 				}
 			}
-			if (CollectionUtils.isEmpty(productInfo))
-			{
-				LOG.debug("Didn't get delivery information for product with code = " + entry);
-			}
-			else
-			{
+			if (CollectionUtils.isEmpty(productInfo)) {
+				LOG.debug("Didn't get delivery information for product with code = "
+						+ entry);
+			} else {
 				rowsMap.put(entry, productInfo);
 			}
 		}
@@ -600,54 +601,54 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 		Date roughOrderDate = new Date();
 
-		for (final Entry<String, List<MaterialsRow>> entry : rowsMap.entrySet())
-		{
+		for (final Entry<String, List<MaterialsRow>> entry : rowsMap.entrySet()) {
 			final JSONObject product = new JSONObject();
 			product.put("code", entry.getKey());
+			
+			String baseUnit = "";
+			ProductData productData = productFacade.getProductForCodeAndOptions(entry.getKey(),
+					Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
+			if(productData.getBaseUnit() != null){
+				baseUnit = productData.getBaseUnit().getName();
+			}
+			else{
+				LOG.info("Base Unit for product with code = " + entry.getKey() + " wasn't set");
+			}
 
 			String html = "";
-			if (entry.getValue().size() == 1)
-			{
+			if (entry.getValue().size() == 1) {
 				final String date = entry.getValue().get(0).getDatePost();
-				html = "В наличии на складе, готов к отгрузке <br/> Ожидаемая дата поставки:" + date + "<br/>";
+				html = "В наличии на складе, готов к отгрузке <br/> Ожидаемая дата поставки:"
+						+ date + "<br/>";
 				Date productDate = new Date();
-				try
-				{
+				try {
 					productDate = simpleDateFormat.parse(date);
-				}
-				catch (final ParseException e)
-				{
+				} catch (final ParseException e) {
 					LOG.error("Error while trying to parse product datePost", e);
 				}
 
-				if (productDate.after(roughOrderDate))
-				{
+				if (productDate.after(roughOrderDate)) {
 					roughOrderDate = productDate;
 				}
-			}
-			else if (entry.getValue().size() > 1)
-			{
-				for (final MaterialsRow row : entry.getValue())
-				{
-					if (StringUtils.equals(row.getDatePost(), "01.01.1000"))
-					{
-						html = row.getCount() + " недоступно для заказа" + "<br/>";
-					}
-					else
-					{
-						html += "Дата отгрузки для " + row.getCount() + ": " + row.getDatePost() + "<br/>";
+			} else if (entry.getValue().size() > 1) {
+				for (final MaterialsRow row : entry.getValue()) {
+					if (StringUtils.equals(row.getDatePost(), "01.01.1000")) {
+						html = row.getCount() + " (" + baseUnit + ") недоступно для заказа"
+								+ "<br/>";
+					} else {
+						html += "Дата отгрузки для " + row.getCount() + " (" + baseUnit + ") : "
+								+ row.getDatePost() + "<br/>";
 						Date productDate = new Date();
-						try
-						{
-							productDate = simpleDateFormat.parse(row.getDatePost());
-						}
-						catch (final ParseException e)
-						{
-							LOG.error("Error while trying to parse product datePost", e);
+						try {
+							productDate = simpleDateFormat.parse(row
+									.getDatePost());
+						} catch (final ParseException e) {
+							LOG.error(
+									"Error while trying to parse product datePost",
+									e);
 						}
 
-						if (productDate.after(roughOrderDate))
-						{
+						if (productDate.after(roughOrderDate)) {
 							roughOrderDate = productDate;
 						}
 					}
@@ -659,43 +660,44 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			productArray.put(product);
 		}
 
-		getCheckoutFlowFacade().setProvidedDeliveryDate(serviceDateFormat.format(roughOrderDate));
+		getCheckoutFlowFacade().setProvidedDeliveryDate(
+				serviceDateFormat.format(roughOrderDate));
 
-		productInfo.put("roughOrderDate", simpleDateFormat.format(roughOrderDate));
+		productInfo.put("roughOrderDate",
+				simpleDateFormat.format(roughOrderDate));
 		productInfo.put("productInfo", productArray);
 
 		// return response
-		try
-		{
+		try {
 			response.getWriter().print(productInfo.toString());
-		}
-		catch (final IOException e)
-		{
+		} catch (final IOException e) {
 			LOG.debug("Error while trying to check product stock info", e);
 		}
 	}
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SELECT_PAYMENT_METHOD_URL, method = RequestMethod.GET)
 	@RequireHardLogIn
-	public String choosePaymentMethod(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
-	{
+	public String choosePaymentMethod(final HttpServletRequest request,
+			final Model model) throws CMSItemNotFoundException {
 
 		setCurrentStep(DELIVERY_MODE);
 
-		final String selectedDeliveryMode = request.getParameter("selectedDeliveryMode");
+		final String selectedDeliveryMode = request
+				.getParameter("selectedDeliveryMode");
 
 		final String isPrev = request.getParameter("isPrev");
 
-		if (StringUtils.isEmpty(isPrev) && StringUtils.isEmpty(selectedDeliveryMode))
-		{
-			GlobalMessages.addErrorMessage(model, "checkout.multi.deliveryMode.notprovided");
+		if (StringUtils.isEmpty(isPrev)
+				&& StringUtils.isEmpty(selectedDeliveryMode)) {
+			GlobalMessages.addErrorMessage(model,
+					"checkout.multi.deliveryMode.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
 
-		if (StringUtils.isEmpty(isPrev))
-		{
-			getCheckoutFlowFacade().setDeliveryMode(TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
+		if (StringUtils.isEmpty(isPrev)) {
+			getCheckoutFlowFacade().setDeliveryMode(
+					TNDeliveryModeTypeEnum.valueOf(selectedDeliveryMode));
 		}
 
 		model.addAttribute("cartData", getCart());
@@ -708,16 +710,13 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.APPLY_VOUCHER, method = RequestMethod.GET)
 	@RequireHardLogIn
-	public String applyVoucher(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
-	{
+	public String applyVoucher(final HttpServletRequest request,
+			final Model model) throws CMSItemNotFoundException {
 		final String voucherCode = request.getParameter("voucherCode");
 		String applyingResult = "checkout.apply.voucher.result.ok";
-		try
-		{
+		try {
 			voucherFacade.applyVoucher(voucherCode);
-		}
-		catch (final VoucherOperationException e)
-		{
+		} catch (final VoucherOperationException e) {
 			LOG.error("Error when trying to apply voucher", e);
 			applyingResult = "checkout.apply.voucher.result.error";
 		}
@@ -728,22 +727,32 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		return ControllerConstants.Views.Pages.MultiStepCheckout.ApplyVoucherResult;
 	}
 
+	public boolean setPaymentMethod(final HttpServletRequest request,
+			final Model model) throws CMSItemNotFoundException {
+		final String selectedPaymentMethod = request
+				.getParameter("selectedPaymentMethod");
+
+		if (StringUtils.isEmpty(selectedPaymentMethod)) {
+			return false;
+		}
+
+		getCheckoutFlowFacade().setPaymentMethod(
+				TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));
+
+		return true;		
+	}
+
 	@RequestMapping(value = ControllerConstants.Actions.Checkout.SHOW_CHECKOUT_SUMMARY_URL, method = RequestMethod.GET)
 	@RequireHardLogIn
 	public String showCheckoutSummary(final HttpServletRequest request, final Model model) throws CMSItemNotFoundException
 	{
-		setCurrentStep(PAYMENT_METHOD);
-
-		final String selectedPaymentMethod = request.getParameter("selectedPaymentMethod");
-
-		if (StringUtils.isEmpty(selectedPaymentMethod))
+		if (!setPaymentMethod(request, model))
 		{
+			setCurrentStep(PAYMENT_METHOD);
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
 		}
-
-		getCheckoutFlowFacade().setPaymentMethod(TNPaymentMethodTypeEnum.valueOf(selectedPaymentMethod));
 
 		setCurrentStep(CHECKOUT_SUMMARY);
 

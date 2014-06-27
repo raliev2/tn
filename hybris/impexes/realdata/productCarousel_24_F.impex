@@ -1,0 +1,23 @@
+$contentCatalog=tnContentCatalog
+$contentCatalogName=tn Content Catalog
+$contentCV=catalogVersion(catalog(id[default=$contentCatalog]),version[default='Staged'])
+$productCatalog=tnProductCatalog
+$productCatalogName=tn Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Online'])[unique=true,default=$productCatalog:Online]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$siteResource=jar:de.hybris.platform.b2bacceleratorsampledata.constants.B2BAcceleratorSampleDataConstants&/b2bacceleratorsampledata/import/contentCatalogs/$contentCatalog
+$jarResource=jar:de.hybris.platform.b2bacceleratorsampledata.constants.B2BAcceleratorSampleDataConstants&
+$jarResourceCms=jar:de.hybris.platform.b2bacceleratorsampledata.constants.B2BAcceleratorSampleDataConstants&/b2bacceleratorsampledata/import/cockpits/cmscockpit
+
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;products(code,$productCV);scroll(code);popup;searchQuery;categoryCode;&componentRef
+;;tnHomepageProductCarouselComponent;tn Homepage Product Carousel;437232, 401615,332797,445767,014955,418286,368218,033273;allVisible;false;;;tnHomepageProductCarouselComponent
+
+UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=ru]
+ ;;tnHomepageProductCarouselComponent;"Эти товары могут вас заинтересовать"
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section3Slot-Homepage;Section3 Slot for Homepage;true;tnHomepageProductCarouselComponent

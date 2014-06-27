@@ -25,3 +25,4 @@ UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[u
  ;;price-asc;По возрастанию цены;
  ;;price-desc;По убыванию цены;
  ;;relevance;По релевантности;
+ ;;topRated;По рейтингу;

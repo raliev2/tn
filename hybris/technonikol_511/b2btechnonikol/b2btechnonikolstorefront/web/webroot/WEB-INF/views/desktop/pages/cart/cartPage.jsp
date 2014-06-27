@@ -18,7 +18,6 @@
 	<spring:theme code="basket.add.to.cart" var="basketAddToCart"/>
 	<spring:theme code="cart.page.checkout" var="checkoutText"/>
 	
-	<a href="#" style="margin-left:10px; font-size:12px; text-decoration:underline;" onclick="window.print()">Печать</a>
 
     <section class="g-main-content clearfix">
         <div id="globalMessages">
