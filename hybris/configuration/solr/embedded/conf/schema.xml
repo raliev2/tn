@@ -71,6 +71,13 @@
 			<similarity class="de.hybris.platform.solrfacetsearch.ysolr.similarity.FixedTFIDFSimilarityFactory" />
 		</fieldType>
 
+		<fieldType name="string_ci" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+		        <analyzer>
+		            <tokenizer class="solr.KeywordTokenizerFactory"/>           
+		            <filter class="solr.LowerCaseFilterFactory" />
+		        </analyzer>
+		</fieldType>
+
 		<!-- boolean type: "true" or "false" -->
 		<fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true">
 			<!-- Disable TF/IDF scoring for string fields so we can use them for boosting -->
@@ -633,8 +640,8 @@
 		-->
 		<dynamicField name="*_int" type="int" indexed="true" stored="true" />
 		<dynamicField name="*_int_mv" type="int" indexed="true" stored="true" multiValued="true" />
-		<dynamicField name="*_string" type="string" indexed="true" stored="true" />
-		<dynamicField name="*_string_mv" type="string" indexed="true" stored="true" multiValued="true" />
+		<dynamicField name="*_string" type="string_ci" indexed="true" stored="true" />
+		<dynamicField name="*_string_mv" type="string_ci" indexed="true" stored="true" multiValued="true" />
 		<dynamicField name="*_long" type="long" indexed="true" stored="true" />
 		<dynamicField name="*_long_mv" type="long" indexed="true" stored="true" multiValued="true" />
 		<dynamicField name="*_text" type="text" indexed="true" stored="true" />

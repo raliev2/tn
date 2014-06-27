@@ -14,11 +14,11 @@
 				<br />
 				<c:choose>	
 					<c:when test="${row.datePost == '01.01.1000'}">
-     					${row.count} недоступно для заказа
+     					${row.count} (${baseUnit}) недоступно для заказа
 					</c:when>
 					<c:otherwise>	
 						<c:if test="${not empty row.datePost}">
-							Дата отгрузки для ${row.count}: ${row.datePost}
+							Дата отгрузки для ${row.count} (${baseUnit}): ${row.datePost}
 						</c:if>
 					</c:otherwise>
 				</c:choose>		
