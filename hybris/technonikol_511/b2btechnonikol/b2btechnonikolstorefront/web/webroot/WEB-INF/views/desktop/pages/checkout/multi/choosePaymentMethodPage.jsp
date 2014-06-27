@@ -23,6 +23,11 @@
                 }
             });
         });
+        
+        $('input[type=radio][name=selectedPaymentMethod]').change(function() {
+            var pm = $(this).val();
+            $("#hiddenInput").val(pm);
+        });
     });
 </script>
 <section class="g-main-content checkout">
@@ -41,7 +46,7 @@
     <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
     <p style="margin-bottom:20px"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
     <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
-    <form method="get" action="${next_url}">
+    <form method="get" action="${next_url}" id="pmForm">
         <div class="checkout__wrapper clearfix g-float-left">
             <div class="checkout__body" style="padding:23px 20px;">
                 <p class="g-strong margin-bottom-5px">Способ оплаты</p>
@@ -52,14 +57,18 @@
             </div>
 
             <input type="submit" value="Далее" class="button button_big g-float-right" />
-            <c:url value="/checkout/multi${currentStep.previous.url}?isPrev=true" var="prev_url" />
-            <div class="g-float-right checkout__back"><a href="${prev_url}" class="g-link-blue">Назад</a></div>
         </div>
         <aside class="checkout__promo g-float-right">
             <label for="promocode" class="label-promocode">Промо код</label>
             <input id="promocode" name="promocode" class="promocode__input" maxlength="20" />
             <a href="javascript:void(0)" class="button button_left-border js-promocode" style="margin-left:-5px">Пересчитать</a>
         </aside>
+    </form>
+    <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url"/>
+    <form method="get" action="${prev_url}" id="spmForm">
+        <div class="g-float-right checkout__back" style="left:800px; position:absolute; bottom:250px; "><a href="javascript:void(0)" class="g-link-blue" onclick="$('#spmForm').submit()">Назад</a></div>
+    	<input id="hiddenInput" type="hidden" name="selectedPaymentMethod" />    
+    	<input id="isPrev" type="hidden" name="isPrev" value="true"/>   
     </form>
 </section>
 </template:page>
