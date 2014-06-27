@@ -3,3 +3,5 @@
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 
 <%--<a href="javascript:void(0)" class="g-button-white">Печать</a>--%>
+
+<a onclick="window.print()" href="#" class="g-button-white">Печать</a>
