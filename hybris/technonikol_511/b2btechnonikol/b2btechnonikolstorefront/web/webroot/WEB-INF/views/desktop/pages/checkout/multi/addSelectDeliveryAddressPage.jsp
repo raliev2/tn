@@ -49,7 +49,7 @@
                         <label for="selectedCostCenter" class="checkout__label">Выберите адрес доставки</label>
                         <select id="selectedCostCenter" name="selectedDeliveryAddress" class="checkout__select">
                             <c:forEach items="${deliveryAddresses}" var="address">
-                                <option value="${address.id}" ${address.id == cartData.deliveryAddress.id ? 'selected' :''}>${address.town} - ${address.line1} - ${address.line2} - ${address.postalCode}</option>
+                                <option value="${address.id}" ${address.id == cartData.deliveryAddress.id ? 'selected' :''}>${address.town} - ${address.line1} - ${address.line2} - ${address.postalCode} (${address.lastName}&nbsp;${address.firstName})</option>
                             </c:forEach>
                         </select>
                     </div>
