@@ -58,6 +58,7 @@
 		size="2" 
 		maxlength="6"
 	/>
+	/ ${product.unit.name}
 
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
