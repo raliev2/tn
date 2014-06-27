@@ -18,6 +18,9 @@
 
     <formUtil:formInputBox idKey="company" labelKey="registrationRequestForm.company" path="company" mandatory="true" inputCSS="g-input" size="45"/>
     <formUtil:formInputBox idKey="inn" labelKey="registrationRequestForm.inn" path="inn" mandatory="true" inputCSS="g-input" size="45"/>
+
+    <formUtil:formInputBox idKey="kpp" labelKey="registrationRequestForm.kpp" path="kpp" mandatory="true" inputCSS="g-input" size="45"/>
+
     <div class="g-float-left" style="margin-right:17px;">
         <formUtil:formInputBox idKey="phone" labelKey="registrationRequestForm.phone" path="phone" mandatory="true" inputCSS="g-input" size="18"/>
     </div>

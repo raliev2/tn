@@ -57,8 +57,7 @@
 		value="<c:choose><c:when test="${not empty product.minOrderQuantity}">${product.minOrderQuantity}</c:when><c:otherwise>1</c:otherwise></c:choose>"
 		size="2" 
 		maxlength="6"
-	/>
-
+	/>&nbsp;/&nbsp;<span class="g-italic">${product.salesUnit.name}</span>
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
 
