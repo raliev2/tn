@@ -28,8 +28,8 @@
 
     <title>${not empty pageTitle ? pageTitle : not empty cmsPage.title ? cmsPage.title : 'Первая Платформа'}</title>
 
-    <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/reset.less" />
-    <link rel="stylesheet/less" type="text/css" href="${themeResourcePath}/css/style.less" />
+    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/style.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/anythingslider.css" />
     <link rel="stylesheet" type="text/css" href="${themeResourcePath}/css/easyzoom.css">
     <link rel="stylesheet" type="text/css" media="screen" href="${commonResourcePath}/css/jquery-ui-1.10.4.custom.css"/>
@@ -43,7 +43,6 @@
     <script>
         var themeResourcePath = '${themeResourcePath}';
     </script>
-    <script src="${themeResourcePath}/js/lib/less-1.3.3.min.js" type="text/javascript"></script>
 
     <!--[if lt IE 9]>
         <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
