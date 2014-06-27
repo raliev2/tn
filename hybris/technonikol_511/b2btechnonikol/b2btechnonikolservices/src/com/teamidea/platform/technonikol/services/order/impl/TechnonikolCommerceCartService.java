@@ -3,6 +3,7 @@ package com.teamidea.platform.technonikol.services.order.impl;
 import de.hybris.platform.b2bacceleratorservices.order.impl.DefaultB2BCommerceCartService;
 import de.hybris.platform.commerceservices.order.CommerceCartModification;
 import de.hybris.platform.commerceservices.order.CommerceCartModificationException;
+import de.hybris.platform.core.GenericSearchConstants.LOG;
 import de.hybris.platform.core.model.order.CartEntryModel;
 import de.hybris.platform.core.model.order.CartModel;
 import de.hybris.platform.core.model.product.ProductModel;
@@ -19,6 +20,14 @@ public class TechnonikolCommerceCartService extends DefaultB2BCommerceCartServic
 	private static final Logger LOG = Logger.getLogger(TechnonikolCommerceCartService.class);
 
 	private CartService cartService;
+
+	private long tnForceInStockMaxQuantity = 999999L;
+
+	@Override
+	protected long getForceInStockMaxQuantity()
+	{
+		return tnForceInStockMaxQuantity;
+	}
 
 	/*
 	 * (non-Javadoc)
