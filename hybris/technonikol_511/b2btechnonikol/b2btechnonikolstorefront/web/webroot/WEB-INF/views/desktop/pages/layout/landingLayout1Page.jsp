@@ -50,6 +50,7 @@
             </ul>
         </div>
 <%--- РАУФ. НА ПЕРЕВЕРСТАТЬ --%>
+<%--
 <script>
  function switchto(a)
    {
@@ -539,12 +540,11 @@
 	<li class="prod-categories-list__item">	&nbsp;&nbsp;			Ютафол	</a></li>
 
 
-<%--- /РАУФ ---%>
-
         </div>
+--%>
 
 
-
+        <%--
         <div class="delivery">
             <h2 class="delivery__header">Рассылка</h2>
             <div class="delivery__text">Оставьте адрес эл. почты и будьте в курсе всех новостей.</div>
@@ -553,6 +553,7 @@
                 <a href="javascript:void(0)" class="email__button">Отправить</a>
             </div>
         </div>
+        --%>
     </aside>
 
     <section class="g-right-col">
