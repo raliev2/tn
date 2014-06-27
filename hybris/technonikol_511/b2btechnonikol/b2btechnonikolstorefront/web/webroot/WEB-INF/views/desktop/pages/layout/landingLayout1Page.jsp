@@ -40,10 +40,10 @@
                         </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/dymohodnye_sistemy_i_ventiljacionnye_kanaly">Дымовые системы и вентиляционные каналы
                         </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/vorotnye_sistemy">Воротные системы
                         </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/bassejny">Бассейны
-                        </a></li><li class="prod-categories-list__item"><a href="#">Светотехника
-                        </a></li><li class="prod-categories-list__item"><a href="#">Кабельно-проводниковая продукция
-                        </a></li><li class="prod-categories-list__item"><a href="#">Кабеленесущие системы
-                        </a></li><li class="prod-categories-list__item"><a href="">Низковольтное и электрощитовое оборудование</a></li>
+                        </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/svetotehnika">Светотехника
+                        </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/kabelno-provodnikovaya_produktsiya">Кабельно-проводниковая продукция
+                        </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/kabelenesuschie_sistemy">Кабеленесущие системы
+                        </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/elektroschitovoe_oborudovanie">Низковольтное и электрощитовое оборудование</a></li>
 
             
 
