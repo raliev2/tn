@@ -70,7 +70,7 @@
                                         <ycommerce:testId code="cart_product_name">
                                             <a href="${productUrl}" class="g-strong g-link-blue">${entry.product.name}</a>
                                         </ycommerce:testId>
-                                        <p>Артикул # ${entry.product.code}</p>
+                                        <p>Артикул # ${entry.product.manufacturerCode}</p>
                                         <p>Ваша цена: <format:fromPrice priceData="${entry.basePrice}" /></p>
                                     </div>
                                 </td>
