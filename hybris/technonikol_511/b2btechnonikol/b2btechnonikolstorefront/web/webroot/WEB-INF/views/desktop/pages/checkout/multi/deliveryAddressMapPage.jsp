@@ -135,7 +135,7 @@
                         <select id="selectedShopAddress" name="selectedStore" class="checkout__select">
                             <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus">
                                 <option value="${store.name}" rel="${varstatus.index}" ${store.name == cartData.entries.get(0).deliveryPointOfService.name ? 'selected' :''}>
-                                		${store.address.town} - ${store.address.line1} - ${store.address.postalCode}
+                                		${store.address.town} - ${store.address.line1} - ${store.address.postalCode} - ${store.displayName}
                                 </option>
                             </c:forEach>
                         </select>

@@ -42,7 +42,7 @@
                                 <tr class="js-cart-entry" data-id="${entry.product.code}" data-quantity="${entry.quantity}">
                                     <td class="checkout-cart-content__product-td">
                                         <p class="g-strong margin-bottom-5px">${entry.product.name}</p>
-                                        <p>Артикул # ${entry.product.manufacturerCode}</p>
+                                        <p>Артикул # ${entry.product.code}</p>
                                         <p>Количество: ${entry.quantity}</p>
                                         <p>Стоимость: <format:fromPrice priceData="${entry.basePrice}" /></p>
                                     </td>
