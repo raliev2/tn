@@ -162,6 +162,7 @@ public class RegistrationRequestPageController extends DefaultPageController
                 "Отчество: " + form.getSurName() + "\n" +
                 "Компания: " + form.getCompany() + "\n" +
                 "ИНН: "      + form.getInn() + "\n" +
+                "КПП: "      + form.getKpp() + "\n" +
                 "Телефон: "  + form.getPhone() + "\n" +
                 "Эл.почта: " + form.getEmail() + "\n" +
                 "Подписаться на СМС и email рассылки: " + (form.isSubscribedToSmsAndEmailNotification() ? "да" : "нет") ;

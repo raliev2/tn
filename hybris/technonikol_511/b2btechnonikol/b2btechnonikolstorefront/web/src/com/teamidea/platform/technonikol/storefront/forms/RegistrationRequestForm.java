@@ -13,6 +13,7 @@ public class RegistrationRequestForm
     private String lastName;
     private String company;
     private String inn;
+    private String kpp;
     private String phone;
     private String email;
     private boolean subscribedToSmsAndEmailNotification;
@@ -67,6 +68,18 @@ public class RegistrationRequestForm
 
     public void setInn(String inn) {
         this.inn = inn;
+    }
+
+    @NotEmpty(message = "{registrationRequestForm.kpp.notEmpty}")
+    @Size(min = 9, max = 9, message = "{registrationRequestForm.kpp.wrongSize}")
+    @Length(min = 9, max = 9, message = "{registrationRequestForm.kpp.wrongSize}")
+    @Pattern(regexp = "[0-9]*", message = "{registrationRequestForm.kpp.onlyDigitsAllowed}")
+    public String getKpp() {
+        return kpp;
+    }
+
+    public void setKpp(String kpp) {
+        this.kpp = kpp;
     }
 
     @NotEmpty(message = "{registrationRequestForm.phone.notEmpty}")
