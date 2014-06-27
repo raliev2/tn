@@ -606,7 +606,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			product.put("code", entry.getKey());
 			
 			String baseUnit = "";
-			ProductData productData = productFacade.getProductForCodeAndOptions(productCode,
+			ProductData productData = productFacade.getProductForCodeAndOptions(entry.getKey(),
 					Arrays.asList(ProductOption.BASIC, ProductOption.PRICE));
 			if(productData.getBaseUnit() != null){
 				baseUnit = productData.getBaseUnit().getName();
