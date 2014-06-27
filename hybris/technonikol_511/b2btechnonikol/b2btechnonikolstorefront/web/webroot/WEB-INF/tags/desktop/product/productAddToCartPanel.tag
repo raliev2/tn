@@ -58,7 +58,7 @@
 		size="2" 
 		maxlength="6"
 	/>
-	/ ${product.unit.name}
+	/ ${product.salesUnit.name}
 
     </c:if>
     <input type="hidden" name="productCodePost" value="${product.code}"/>
