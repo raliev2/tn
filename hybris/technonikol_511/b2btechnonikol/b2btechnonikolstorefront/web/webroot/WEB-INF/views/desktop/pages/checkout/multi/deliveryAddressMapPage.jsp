@@ -43,8 +43,8 @@
             });
             var myLatLng = new google.maps.LatLng(points[0]['lat'], points[0]['lng']);
             
-            MYMAP.init('#checkout__map', myLatLng, 4);
-
+            MYMAP.init('#checkout__map', myLatLng, 17);
+            
             MYMAP.placeMarkers();
 
             $('#selectedShopAddress').change(function() {
@@ -58,6 +58,7 @@
                             var myLatLng = new google.maps.LatLng(points[ind]['lat'], points[ind]['lng']);
                         }
                         MYMAP.map.setCenter(myLatLng);
+                        MYMAP.map.setZoom(17);
                     } else {
                         item.setIcon('${themeResourcePath}/images/map-point.png');
                     }
@@ -74,7 +75,9 @@
 
         MYMAP.init = function(selector, latLng, zoom) {
             var myOptions = {
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                zoom: zoom,
+                center: latLng
             }
             this.map = new google.maps.Map($(selector)[0], myOptions);
             this.bounds = new google.maps.LatLngBounds();
@@ -89,10 +92,6 @@
                 var lng = item.lng;
                 if (lat != '' && lng != '') {
                     var point = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
-
-                    // extend the bounds to include the new point
-                    MYMAP.bounds.extend(point);
-
                     if (index == 0) var icon = '${themeResourcePath}/images/map-current-point.png';
                     else icon = '${themeResourcePath}/images/map-point.png';
                     var marker = new google.maps.Marker({
@@ -107,7 +106,6 @@
                         infoWindow.setContent(html);
                         infoWindow.open(MYMAP.map, marker);
                     });
-                    MYMAP.map.fitBounds(MYMAP.bounds);
                 }
             });
         }
