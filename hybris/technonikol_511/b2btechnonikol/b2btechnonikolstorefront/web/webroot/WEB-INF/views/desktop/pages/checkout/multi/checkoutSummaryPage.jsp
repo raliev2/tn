@@ -39,7 +39,7 @@
             </ul>
         </div>
         <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
-        <p>После нажатия на кнопку “Отправить заказ”, мы вышлем Вам письмо с полной информацией о текущем заказе.</p>
+        <p>После нажатия на кнопку &laquo;Подтвердить&raquo;, мы вышлем Вам письмо с полной информацией о текущем заказе.</p>
         <p style="margin:10px 0 20px 0"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
         <form method="post" action="${next_url}" id="js-checkout-summary-form">
