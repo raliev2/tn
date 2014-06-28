@@ -156,10 +156,10 @@ public class CreateOrderJob extends AbstractJobPerformable
 			}
 
 			final Materials materials = new Materials();
-			final MaterialsRow row = new MaterialsRow();
 
 			for (final AbstractOrderEntryModel entry : source.getEntries())
 			{
+				final MaterialsRow row = new MaterialsRow();
 				final Date entryDate = serviceDateFormat.parse(source.getProvidedDeliveryDate());
 				row.setDeliveryDate(serviceDateFormat.format(entryDate));
 				double discountValue = 0;
