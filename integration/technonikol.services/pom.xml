@@ -29,8 +29,8 @@
 			<properties>
 				<package.output.directory>C:\new_tn\tn\hybris\technonikol_511\b2btechnonikol\b2btechnonikolservices\lib\</package.output.directory>
 				<production.environment>false</production.environment>
-				<return.url.deliverydate><![CDATA[http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=DeliveryDateQuery_Out&amp;interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate]]></return.url.deliverydate>
-				<return.url.createorder><![CDATA[http://dpo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=BS_HYB_D&amp;receiverParty=&amp;receiverService=&amp;interface=OrdersCreateRequest_OutSyn&amp;interfaceNamespace=http://tn.ru/po/HYB/Order]]></return.url.createorder>
+				<return.url.deliverydate><![CDATA[http://ppo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BS_HYB_P&receiverParty=&receiverService=&interface=DeliveryDateQuery_Out&interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FDeliveryDate]]></return.url.deliverydate>							          
+				<return.url.createorder><![CDATA[http://ppo.1plt.ru:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=BS_HYB_P&receiverParty=&receiverService=&interface=OrdersCreateRequest_OutSyn&interfaceNamespace=http%3A%2F%2Ftn.ru%2Fpo%2FHYB%2FOrder]]></return.url.createorder>								 
 			</properties>
 		</profile>
 	</profiles>
