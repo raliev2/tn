@@ -234,6 +234,7 @@ $(document).ready(function() {
                     	}                		
                 	})
                 	$(document).find('#roughOrderDate').html(roughOrderDate);
+                	$('.btn_final_submit').removeAttr("disabled");
                 }
             });    	    
     	}

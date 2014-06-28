@@ -39,7 +39,7 @@
             </ul>
         </div>
         <h1 class="checkout__head"><spring:theme code="${currentStep.name}"/></h1>
-        <p>После нажатия на кнопку “Отправить заказ”, мы вышлем Вам письмо с полной информацией о текущем заказе.</p>
+        <p>После нажатия на кнопку &laquo;Подтвердить&raquo;, мы вышлем Вам письмо с полной информацией о текущем заказе.</p>
         <p style="margin:10px 0 20px 0"><span class="g-strong">Появились вопросы?</span> Задайте их оператору по номеру <span class="g-strong"><spring:theme code="common.telephone" /></span>.</p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
         <form method="post" action="${next_url}" id="js-checkout-summary-form">
@@ -163,7 +163,8 @@
                 <p>Прогнозируемая дата доставки заказа:</p> <div id="roughOrderDate"></div>                    
                 <div class="checkout-summary-total__white-line"></div>
                 <div class="checkout-summary-total__button">
-                    <input type="submit" value="Подтвердить" class="button button_big" />
+                    <!--  <input type="submit" value="Подтвердить" class="button button_big btn_final_submit" disabled='true'/> -->
+                    <button type="submit" class="button button_big btn_final_submit" disabled='true'>Подтвердить</button>
                 </div>
                 <div class="checkout-summary-total__white-line"></div>
                 <div>
@@ -172,7 +173,7 @@
                            <h4 class="g-float-left">Адрес доставки</h4>
                         </c:when>
                         <c:otherwise>
-                           <h4 class="g-float-left">Адрес магазина</h4>
+                           <h4 class="g-float-left">Адрес торгового отделения</h4>
                         </c:otherwise>
                     </c:choose>  
                     <c:url value="/checkout/multi/select-address?isPrev=true" var="address_url" />
@@ -251,7 +252,8 @@
                     <label for="agree" class="inline-label">Я согласен с правилами обработки персональных данных на сайте 1Платформа.</label>
                     <div class="checkout-summary-total__white-line"></div>
                     <div class="checkout-summary-total__button">
-                        <input type="submit" value="Подтвердить" class="button button_big" />
+                        <!-- <input type="submit" value="Подтвердить" class="button button_big btn_final_submit" disabled='true' /> -->
+                        <button type="submit" class="button button_big btn_final_submit" disabled='true'>Подтвердить</button>
                     </div>         
                 </div>                
             </div>

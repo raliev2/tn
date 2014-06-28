@@ -2573,4 +2573,9 @@ select.checkout__select {
   background: url(../images/loader.gif);
 }
 
+button[disabled]{
+	opacity:0.2;
+	cursor:default;
+	text-transform: none;
+}
 /*END CHECKOUT*/

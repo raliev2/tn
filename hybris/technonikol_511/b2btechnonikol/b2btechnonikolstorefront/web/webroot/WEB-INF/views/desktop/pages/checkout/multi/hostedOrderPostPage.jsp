@@ -32,8 +32,8 @@
         <p class="g-float-left margin-bottom-5px">Товары в заказе</p>
         <c:url value="/" var="homeUrl"/>
         <a href="${homeUrl}" class="g-link-blue g-float-right checkout__top-link" style="font-size:11px;line-height:22px;">Вернуться на главную страницу</a>
-        <a href="javascript:void(0)" class="g-button-black g-float-right checkout__top-link" style="">Распечатать счет</a>
-        <a href="javascript:void(0)" class="g-button-black g-float-right checkout__top-link" style="">Отправить счет на e-mail</a>
+        <a href="javascript:void(0)" class="g-button-black g-float-right checkout__top-link" style="display: none;">Распечатать счет</a>
+        <a href="javascript:void(0)" class="g-button-black g-float-right checkout__top-link" style="display: none;">Отправить счет на e-mail</a>
         <div class="clearfix"></div>
         <div class="checkout-summary__cart">
             <table class="checkout-summary-cart__table">
@@ -59,7 +59,7 @@
                                 <ycommerce:testId code="cart_product_name">
                                     <a href="${productUrl}" class="g-strong g-link-blue">${entry.product.name}</a>
                                 </ycommerce:testId>
-                                <p>Артикул # ${entry.product.code}</p>
+                                <p>Артикул # ${entry.product.manufacturerCode}</p>
                                 <p>Ваша цена: <format:fromPrice priceData="${entry.basePrice}" /></p>
                             </div>
                         </td>

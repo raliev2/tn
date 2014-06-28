@@ -10,7 +10,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<template:page pageTitle="Адрес магазина">
+<template:page pageTitle="Адрес торгового отделения">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script>
         var points = new Array(
@@ -123,7 +123,7 @@
                 <li class="checkout__step"><a href="javascript:void(0)">Готово</a></li>
             </ul>
         </div>
-        <h1 class="checkout__head"><spring:theme code="Адрес магазина"/></h1>
+        <h1 class="checkout__head"><spring:theme code="Адрес торгового отделения"/></h1>
         <p class="g-strong">Клиентское обслуживание в любое время суток</p>
         <p style="margin-bottom:20px">По вопросам и проблемам с доставкой - звонить на номер <spring:theme code="common.telephone" /></p>
         <c:url value="/checkout/multi${currentStep.next.url}" var="next_url" />
@@ -131,11 +131,11 @@
             <div class="checkout__wrapper clearfix">
                 <div class="checkout__body">
                     <div class="checkout__row">
-                        <label for="selectedShopAddress" class="checkout__label">Выберите адрес магазина</label>
+                        <label for="selectedShopAddress" class="checkout__label">Выберите адрес торгового отделения</label>
                         <select id="selectedShopAddress" name="selectedStore" class="checkout__select">
                             <c:forEach items="${pointsOfService}" var="store" varStatus="varstatus">
                                 <option value="${store.name}" rel="${varstatus.index}" ${store.name == cartData.entries.get(0).deliveryPointOfService.name ? 'selected' :''}>
-                                		${store.address.town} - ${store.address.line1} - ${store.address.postalCode}
+                                		${store.address.town} - ${store.address.line1} - ${store.address.postalCode} - ${store.displayName}
                                 </option>
                             </c:forEach>
                         </select>

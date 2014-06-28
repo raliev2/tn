@@ -2595,3 +2595,9 @@ label {
 .emptyMessage{
 	font-weight: bold;
 }
+
+button[disabled]{
+	opacity:0.2;
+	cursor:default;
+	text-transform: none;
+}
