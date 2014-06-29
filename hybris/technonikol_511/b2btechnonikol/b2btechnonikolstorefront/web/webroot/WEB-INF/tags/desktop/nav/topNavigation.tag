@@ -40,7 +40,7 @@ ul.columns { margin: 0; padding: 0; list-style-type: none; word-spacing: -1ex; }
                 <ul class="item-menu__inner-menu js-inner-menu columns">
                     <li class="inner-menu__item"></li>
                     <li class="inner-menu__item"></li>
-                    <li class="inner-menu__item"><a href="${contextPath}/c/metallocherepica">Металлочерепица</a></li>
+                   
 <li class="inner-menu__item"><a href="${contextPath}/c/ploskie_krovli">Плоские кровли
 </a></li><li class="inner-menu__item"><a href="${contextPath}/c/skatnye_krovli">Скатные кровли
 </a></li><li class="inner-menu__item"><a href="${contextPath}/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли
