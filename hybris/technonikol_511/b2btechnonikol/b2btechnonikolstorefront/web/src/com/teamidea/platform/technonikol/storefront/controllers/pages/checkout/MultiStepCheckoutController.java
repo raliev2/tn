@@ -1016,7 +1016,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		builder.append("Юридическое лицо: " + orderData.getCostCenter().getName());
 		builder.append("\n\n");
 		builder.append("Способ доставки: "
-				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY.getCode()) ? "Доставка курьером"
+				+ (orderData.getDeliveryMethod().getCode().equals(TNDeliveryMethodTypeEnum.DELIVERY.getCode()) ? "Доставка"
 						: "Самовывоз"));
 		builder.append("\n\n");
 		if (orderData.getDeliveryAddress() != null)

@@ -6,4 +6,4 @@
 $lang=ru
 
 UPDATE CMSSite;uid[unique=true];name[lang=$lang];locale[lang=$lang]
- ;firstplatform;"First Platform Website";ru_RU;
+ ;firstplatform;"ТехноНИКОЛЬ 1Платформа";ru_RU;
