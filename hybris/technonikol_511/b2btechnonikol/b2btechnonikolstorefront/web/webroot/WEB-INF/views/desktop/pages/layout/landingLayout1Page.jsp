@@ -24,7 +24,6 @@
             <ul class="prod-categories__list">
             
             
-            <li class="prod-categories-list__item"><a href="${contextPath}/c/metallocherepica">Металлочерепица</a></li>
                         <li class="prod-categories-list__item"><a href="${contextPath}/c/ploskie_krovli">Плоские кровли
                         </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/skatnye_krovli">Скатные кровли
                         </a></li><li class="prod-categories-list__item"><a href="${contextPath}/c/komplektujushhie_dlja_skatnoj_krovli">Комплектующие для скатной кровли

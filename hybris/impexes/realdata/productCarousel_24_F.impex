@@ -21,3 +21,6 @@ UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[l
 
 INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
 ;;Section3Slot-Homepage;Section3 Slot for Homepage;true;tnHomepageProductCarouselComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section3-Homepage;Section3;;Section3Slot-Homepage
