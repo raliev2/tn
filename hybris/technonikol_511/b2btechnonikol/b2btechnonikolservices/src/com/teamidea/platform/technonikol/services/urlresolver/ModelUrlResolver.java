@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.teamidea.platform.technonikol.storefront.urlresolver;
+package com.teamidea.platform.technonikol.services.urlresolver;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -24,6 +24,7 @@ public class ModelUrlResolver
 
 	public static String translitRustoEng(String str)
 	{
+		if (str == null) return str;
 		final SortedMap map = translitGetMap();
 		str = str.toLowerCase();
 		final String[] rus = str.split("");

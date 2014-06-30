@@ -2,7 +2,7 @@
  *
  */
 
-package com.teamidea.platform.technonikol.storefront.urlresolver;
+package com.teamidea.platform.technonikol.services.urlresolver;
 
 import de.hybris.platform.commerceservices.url.impl.DefaultProductModelUrlResolver;
 
