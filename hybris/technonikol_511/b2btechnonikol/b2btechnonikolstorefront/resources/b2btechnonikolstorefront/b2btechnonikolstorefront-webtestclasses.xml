@@ -3,8 +3,13 @@
   <b2btechnonikolstorefront>
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.DefaultCMSComponentControllerTest</testclass>
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductCarouselComponentControllerTest</testclass>
+<<<<<<< HEAD
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.NavigationBarComponentControllerTest</testclass>
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.MiniCartComponentControllerTest</testclass>
+=======
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.MiniCartComponentControllerTest</testclass>
+    <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.NavigationBarComponentControllerTest</testclass>
+>>>>>>> cd14d47a3c75f0a0d8cf8a83050d4aabc1601287
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductFeatureComponentControllerTest</testclass>
     <testclass>com.teamidea.platform.technonikol.storefront.interceptors.i18n.SetLanguageBeforeControllerHandlerTest</testclass>
     <testclass>com.teamidea.platform.technonikol.storefront.controllers.cms.ProductReferencesComponentControllerTest</testclass>

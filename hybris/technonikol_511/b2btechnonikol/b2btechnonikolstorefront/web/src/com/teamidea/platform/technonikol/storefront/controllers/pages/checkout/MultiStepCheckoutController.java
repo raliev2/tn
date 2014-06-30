@@ -26,9 +26,11 @@ import de.hybris.platform.commercefacades.voucher.exceptions.VoucherOperationExc
 import de.hybris.platform.commerceservices.delivery.DeliveryService;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
+import de.hybris.platform.core.Registry;
 import de.hybris.platform.core.model.order.delivery.DeliveryModeModel;
 import de.hybris.platform.cronjob.enums.DayOfWeek;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+import de.hybris.platform.util.config.ConfigIntf;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -395,6 +397,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		if (!StringUtils.isEmpty(isPrev) && !setPaymentMethod(request, model))
 		{
 			setCurrentStep(PAYMENT_METHOD);
+			model.addAttribute("currentStep", currentStep);
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
@@ -749,6 +752,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		if (!setPaymentMethod(request, model))
 		{
 			setCurrentStep(PAYMENT_METHOD);
+			model.addAttribute("currentStep", currentStep);
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
@@ -962,6 +966,20 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 			if (!StringUtils.isEmpty(toCopy) && !StringUtils.equals(to, toCopy))
 			{
 				message.addRecipient(Message.RecipientType.CC, new InternetAddress(toCopy));
+			}
+			
+			// HYB-112: Добавить уведомление о заказах
+			ConfigIntf config = Registry.getCurrentTenant().getConfig();
+			if(config != null){
+				Boolean isSendToApprovers = Boolean.valueOf(config.getParameter("b2btechnonikolstorefront.send.create.order.notification"));
+				if(isSendToApprovers){
+					message.addRecipient(Message.RecipientType.CC, new InternetAddress("sofya.belousova@tstn.ru"));
+					message.addRecipient(Message.RecipientType.CC, new InternetAddress("mariya.sigaeva@tstn.ru"));
+					message.addRecipient(Message.RecipientType.CC, new InternetAddress("svetlana.yakovleva@tstn.ru"));
+					message.addRecipient(Message.RecipientType.CC, new InternetAddress("Asya.Shepeleva@tstn.ru"));
+					
+				}
+				
 			}
 
 			// Set Subject: header field

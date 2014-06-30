@@ -86,7 +86,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 	{
 
 		final FlexibleSearchQuery query = new FlexibleSearchQuery(
-				"SELECT {o:PK} FROM {Order AS o JOIN OrderStatus as os ON {o:status} = {os:PK}} WHERE {os:code} NOT IN ('SENT_TO_SERVER_OK','SENT_TO_SERVER_ERROR')");
+				"SELECT {o:PK} FROM {Order AS o JOIN OrderStatus as os ON {o:status} = {os:PK}} WHERE {os:code} NOT IN ('SENT_TO_SERVER_OK')");
 		//"WHERE {os:code} = 'ASSIGNED_TO_ADMIN'"); //TODO after fixing status in which order is created (problems with approvers/permissions and etc)
 		final SearchResult<OrderModel> orders = flexibleSearchService.search(query);
 		return orders.getResult();
