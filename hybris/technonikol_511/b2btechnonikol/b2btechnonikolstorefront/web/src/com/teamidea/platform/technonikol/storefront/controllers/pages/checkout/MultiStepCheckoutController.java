@@ -395,6 +395,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		if (!StringUtils.isEmpty(isPrev) && !setPaymentMethod(request, model))
 		{
 			setCurrentStep(PAYMENT_METHOD);
+			model.addAttribute("currentStep", currentStep);
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
@@ -749,6 +750,7 @@ public class MultiStepCheckoutController extends AbstractCheckoutController
 		if (!setPaymentMethod(request, model))
 		{
 			setCurrentStep(PAYMENT_METHOD);
+			model.addAttribute("currentStep", currentStep);
 			GlobalMessages.addErrorMessage(model, "checkout.multi.paymentMethod.notprovided");
 			loadPageDataInModel(model);
 			return currentStep.getView();
