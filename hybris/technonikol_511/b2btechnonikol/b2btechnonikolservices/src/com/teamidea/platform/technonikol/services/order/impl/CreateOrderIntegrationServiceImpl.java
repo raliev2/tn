@@ -4,6 +4,7 @@
 package com.teamidea.platform.technonikol.services.order.impl;
 
 import javax.annotation.PostConstruct;
+import javax.xml.ws.WebServiceException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,17 +47,17 @@ public class CreateOrderIntegrationServiceImpl implements CreateOrderIntegration
 	 * technonikol.ws.orders.Order)
 	 */
 	@Override
-	public SendOrderSAPResponse ordersCreateRequestOutSyn(final Order order)
+	public SendOrderSAPResponse ordersCreateRequestOutSyn(final Order order) throws WebServiceException
 	{
 		SendOrderSAPResponse response = null;
 		try
 		{
 			response = client.ordersCreateRequestOutSyn(order);
 		}
-		catch (final Exception exception)
+		catch (WebServiceException exception)
 		{
 			LOG.error("Error while trying to create order with number = " + order.getNumber(), exception);
-			return null;
+			throw exception;
 		}
 
 		return response;
