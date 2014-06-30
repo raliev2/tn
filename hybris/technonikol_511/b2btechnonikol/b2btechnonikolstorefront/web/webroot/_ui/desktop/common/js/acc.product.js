@@ -2,7 +2,7 @@ function checkProduct(url) {
     $.ajax({
         type : 'get',
         data : {
-            count: $("#popup-qty").val()
+            count: $(".popup-qty")[1].value
         },
         url: url,
         dataType: 'html',
@@ -190,6 +190,7 @@ ACC.product = {
         $('.checkInStockPopup').click(function() {
         	$clone = $('#checkInStockPopup').clone();
         	$clone.modal();
+        	$(".popup-qty").mask("999999", {placeholder: ' ' });
         });
 
 	}
