@@ -16,8 +16,6 @@ import org.apache.log4j.Logger;
 
 import ru.technonikol.ws.orders.MaterialsRow;
 import ru.technonikol.ws.orders.Order.Materials;
-import ru.technonikol.ws.orders.SendOrderSAPResponse;
-
 import com.teamidea.platform.technonikol.services.order.CreateOrderIntegrationService;
 
 import de.hybris.platform.core.enums.OrderStatus;
@@ -62,6 +60,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 			try {
 				integrationOrder = convert(order);
 			} catch (final ConversionException ex) {
+				LOG.error("Error when trying to convert de.hybris.platform.core.model.order.OrderModel to ru.technonikol.ws.orders.Order", ex);
 				order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
 				modelService.save(order);
 				continue;
