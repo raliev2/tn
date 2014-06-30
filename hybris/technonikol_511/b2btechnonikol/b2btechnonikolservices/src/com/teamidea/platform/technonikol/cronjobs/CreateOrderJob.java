@@ -146,6 +146,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 
 			target.setPaymentType(source.getPaymentMethod().getCode());
 
+			LOG.debug("User uid: " + source.getUser().getUid());
 			target.setIDPartner(getPartnerID(source.getUser()));
 			target.setNumber(source.getCode());
 			target.setWarehouseGUID("");
