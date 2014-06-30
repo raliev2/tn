@@ -202,7 +202,7 @@
 		</init-param>
 		<init-param>
 			<param-name>cache</param-name>
-			<param-value>false</param-value>
+			<param-value>${css.cache}</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
