@@ -5,7 +5,7 @@ jQuery.fn.outerHTML = function(s) {
 };
 (function( $ ) {
     $.fn.modal = function() {
-        /*$('.modal-window-content').html(''); IE fix */
+        $('.modal-window-content').html(''); 
         $(this).css('display','block');
         $('.modal-window').click(function() {
             $(this).hide();

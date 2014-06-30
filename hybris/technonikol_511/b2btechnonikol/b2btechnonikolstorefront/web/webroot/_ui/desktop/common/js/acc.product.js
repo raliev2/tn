@@ -188,7 +188,8 @@ ACC.product = {
 		});
 
         $('.checkInStockPopup').click(function() {
-            $('#checkInStockPopup').modal();
+        	$clone = $('#checkInStockPopup').clone();
+        	$clone.modal();
         });
 
 	}
