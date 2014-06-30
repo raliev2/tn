@@ -91,7 +91,7 @@
         </property>
     </bean>
     
-    	<alias name="defaultCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
+    <alias name="defaultCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
 	<bean id="defaultCategoryModelUrlResolver" class="com.teamidea.platform.technonikol.services.urlresolver.CategoryModelUrlResolver">
 		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="commerceCategoryService" ref="commerceCategoryService"/>

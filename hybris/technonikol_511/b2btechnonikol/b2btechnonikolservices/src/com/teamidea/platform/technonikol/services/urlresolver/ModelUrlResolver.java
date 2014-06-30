@@ -25,7 +25,7 @@ public class ModelUrlResolver
 	public static String translitRustoEng(String str)
 	{
 		if (str == null) return str;
-		final SortedMap map = translitGetMap();
+		final SortedMap<String,String> map = translitGetMap();
 		str = str.toLowerCase();
 		final String[] rus = str.split("");
 		String key = "";
@@ -45,7 +45,7 @@ public class ModelUrlResolver
 		return result;
 	}
 
-	public static SortedMap translitGetMap()
+	public static SortedMap<String, String> translitGetMap()
 	{
 		final SortedMap<String, String> map = new TreeMap<String, String>();
 		for (int i = 0; i < rusAlphabet.length; i++)
