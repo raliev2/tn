@@ -50,5 +50,12 @@
  		<property name="defaultPattern" value="/{category-path}/{product-name}/p/{product-code}"/>
 	    <property name="threadContextService" ref="threadContextService"></property>
 	</bean>
+	
+	<alias name="defaultPageTitleResolver" alias="pageTitleResolver" />
+	<bean id="defaultPageTitleResolver" class="com.teamidea.platform.technonikol.storefront.title.DefaultPageTitleResolver">
+		<property name="cmsSiteService" ref="cmsSiteService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="productService" ref="productService"/>	
+	</bean>
 
 </beans>
