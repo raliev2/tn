@@ -49,12 +49,14 @@
         <property name="freeTextQueryBuilders">
             <list>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
-                    <property name="propertyName" value="ean"/>
+                    <property name="propertyName" value="manufacturerCode"/>
                     <property name="boost" value="100" />
+                    <property name="specialProperty" value="true"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="code"/>
                     <property name="boost" value="90"/>
+                    <property name="specialProperty" value="true"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="name"/>
