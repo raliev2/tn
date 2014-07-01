@@ -55,7 +55,9 @@ public class UrlEncoderFilter extends OncePerRequestFilter
 		{
 			LOG.debug(" The incoming URL : [" + request.getRequestURL().toString() + "]");
 		}
+		request.setAttribute("originalContextPath", StringUtils.isBlank(request.getContextPath())? "/":request.getContextPath());
 		final List<UrlEncoderData> urlEncodingAttributes = getUrlEncoderFacade().variablesForUrlEncoding();
+		
 		if (urlEncodingAttributes != null && !urlEncodingAttributes.isEmpty())
 		{
 			final HttpSession session = request.getSession(false);
