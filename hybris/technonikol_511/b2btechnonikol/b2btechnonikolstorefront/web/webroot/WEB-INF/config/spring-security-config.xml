@@ -204,8 +204,8 @@
 	<bean id="loginAuthenticationSuccessHandler"
 		  class="com.teamidea.platform.technonikol.storefront.security.StorefrontAuthenticationSuccessHandler">
 		<property name="customerFacade" ref="customerFacade"/>
-		<property name="defaultTargetUrl" value="/my-account"/>
-		<property name="useReferer" value="true"/>
+		<property name="defaultTargetUrl" value="/"/>
+		<property name="useReferer" value="false"/>
 		<property name="requestCache" ref="httpSessionRequestCache"/>
 		<property name="uiExperienceService" ref="uiExperienceService"/>
 		<property name="sessionService" ref="sessionService"/>
