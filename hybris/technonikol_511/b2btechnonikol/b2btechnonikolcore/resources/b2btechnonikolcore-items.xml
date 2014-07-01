@@ -62,7 +62,8 @@
 		
 		<enumtype code="OrderStatus" autocreate="false" generate="true" dynamic="true">
     		<value code="SENT_TO_SERVER_OK" />
-    		<value code="SENT_TO_SERVER_ERROR" />			
+    		<value code="SENT_TO_SERVER_ERROR" />	
+    		<value code="RESEND_TO_SERVER" />			
 		</enumtype>
 	</enumtypes>
 

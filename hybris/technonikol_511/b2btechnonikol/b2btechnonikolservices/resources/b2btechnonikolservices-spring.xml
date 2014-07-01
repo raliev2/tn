@@ -92,4 +92,21 @@
             </list>
         </property>
     </bean>
+    
+    <alias name="defaultCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
+	<bean id="defaultCategoryModelUrlResolver" class="com.teamidea.platform.technonikol.services.urlresolver.CategoryModelUrlResolver">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="pattern" value="/{category-path}/c/{category-code}"/>
+	    <property name="threadContextService" ref="threadContextService"></property>
+	</bean>
+	
+	<alias name="defaultProductModelUrlResolver" alias="productModelUrlResolver" />
+	<bean id="defaultProductModelUrlResolver" class="com.teamidea.platform.technonikol.services.urlresolver.ProductModelUrlResolver">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+ 		<property name="defaultPattern" value="/{category-path}/{product-name}/p/{product-code}"/>
+	    <property name="threadContextService" ref="threadContextService"></property>
+	</bean>
+	
 </beans>

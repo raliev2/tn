@@ -3,6 +3,21 @@
  */
 package com.teamidea.platform.technonikol.cronjobs;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.ws.WebServiceException;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.log4j.Logger;
+
+import ru.technonikol.ws.orders.MaterialsRow;
+import ru.technonikol.ws.orders.Order.Materials;
+import com.teamidea.platform.technonikol.services.order.CreateOrderIntegrationService;
+
 import de.hybris.platform.core.enums.OrderStatus;
 import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.OrderModel;
@@ -18,19 +33,6 @@ import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.util.DiscountValue;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
-
-import ru.technonikol.ws.orders.MaterialsRow;
-import ru.technonikol.ws.orders.Order.Materials;
-import ru.technonikol.ws.orders.SendOrderSAPResponse;
-
-import com.teamidea.platform.technonikol.services.order.CreateOrderIntegrationService;
 
 
 /**
@@ -52,30 +54,35 @@ public class CreateOrderJob extends AbstractJobPerformable
 
 		final List<OrderModel> orders = getAssignedToAdminOrders();
 
-		for (final OrderModel order : orders)
-		{
+		for (final OrderModel order : orders) {
 			ru.technonikol.ws.orders.Order integrationOrder = null;
-			try
-			{
+			// convert order
+			try {
 				integrationOrder = convert(order);
-			}
-			catch (final ConversionException ex)
-			{
+			} catch (final ConversionException ex) {
+				LOG.error("Error when trying to convert de.hybris.platform.core.model.order.OrderModel to ru.technonikol.ws.orders.Order", ex);
 				order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
 				modelService.save(order);
 				continue;
 			}
-			final SendOrderSAPResponse response = createOrderIntegrationService.ordersCreateRequestOutSyn(integrationOrder);
-			if (response != null)
-			{
-				order.setStatus(OrderStatus.SENT_TO_SERVER_OK);
-				modelService.save(order);
+			// send to service
+			try {
+				createOrderIntegrationService.ordersCreateRequestOutSyn(integrationOrder);
+			} catch (WebServiceException exception) {
+				// if service is unavailable
+				if (exception.getCause() instanceof ConnectException
+						|| exception.getCause() instanceof SocketTimeoutException) {
+					order.setStatus(OrderStatus.RESEND_TO_SERVER);
+					modelService.save(order);
+					continue;
+				// service data processing errors
+				} else {
+					order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
+					modelService.save(order);
+				}
 			}
-			else
-			{
-				order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
-				modelService.save(order);
-			}
+			order.setStatus(OrderStatus.SENT_TO_SERVER_OK);
+			modelService.save(order);
 		}
 
 		LOG.info("CreateOrderJob is done ");
@@ -86,7 +93,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 	{
 
 		final FlexibleSearchQuery query = new FlexibleSearchQuery(
-				"SELECT {o:PK} FROM {Order AS o JOIN OrderStatus as os ON {o:status} = {os:PK}} WHERE {os:code} NOT IN ('SENT_TO_SERVER_OK')");
+				"SELECT {o:PK} FROM {Order AS o JOIN OrderStatus as os ON {o:status} = {os:PK}} WHERE {os:code} NOT IN ('SENT_TO_SERVER_OK', 'SENT_TO_SERVER_ERROR')");
 		//"WHERE {os:code} = 'ASSIGNED_TO_ADMIN'"); //TODO after fixing status in which order is created (problems with approvers/permissions and etc)
 		final SearchResult<OrderModel> orders = flexibleSearchService.search(query);
 		return orders.getResult();
@@ -139,6 +146,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 
 			target.setPaymentType(source.getPaymentMethod().getCode());
 
+			LOG.debug("User uid: " + source.getUser().getUid());
 			target.setIDPartner(getPartnerID(source.getUser()));
 			target.setNumber(source.getCode());
 			target.setWarehouseGUID("");

@@ -19,7 +19,7 @@
             <sec:AuthorizationType>Basic</sec:AuthorizationType>
         </http:authorization>
 
-        <http:client AutoRedirect="true" Connection="Keep-Alive"/>
+        <http:client AutoRedirect="true" Connection="Keep-Alive" ConnectionTimeout="30000" ReceiveTimeout="60000"/>
     </http:conduit>
 
     <bean id="proxyFactoryDeliveryDate"
