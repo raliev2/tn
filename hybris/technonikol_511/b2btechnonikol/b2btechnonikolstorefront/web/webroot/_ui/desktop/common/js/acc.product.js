@@ -2,7 +2,7 @@ function checkProduct(url) {
     $.ajax({
         type : 'get',
         data : {
-            count: $(".popup-qty")[1].value
+            count: $(".clone-popup-qty").val()
         },
         url: url,
         dataType: 'html',
@@ -17,7 +17,7 @@ function checkProduct(url) {
     });
 }
 function addToCartAfterCheck() {
-    $("#qty").val($(".popup-qty")[1].value);
+    $("#qty").val($(".clone-popup-qty").val());
     $('.add_to_cart_button').click();
     $('.modal-window').hide();
 }
@@ -191,6 +191,7 @@ ACC.product = {
         	$(".check-in-stock__result_text").html('');
             $(".check-in-stock__result").hide();
         	$clone = $('#checkInStockPopup').clone();
+        	$clone.find(".popup-qty").addClass("clone-popup-qty");
         	$clone.modal();
             $(".popup-qty").keydown(function (e) {
                 // Allow: backspace, delete, tab, escape, enter and .
