@@ -2,7 +2,7 @@ function checkProduct(url) {
     $.ajax({
         type : 'get',
         data : {
-            count: $("#popup-qty").val()
+            count: $(".clone-popup-qty").val()
         },
         url: url,
         dataType: 'html',
@@ -17,7 +17,7 @@ function checkProduct(url) {
     });
 }
 function addToCartAfterCheck() {
-    $("#qty").val($("#popup-qty").val());
+    $("#qty").val($(".clone-popup-qty").val());
     $('.add_to_cart_button').click();
     $('.modal-window').hide();
 }
@@ -188,7 +188,33 @@ ACC.product = {
 		});
 
         $('.checkInStockPopup').click(function() {
-            $('#checkInStockPopup').modal();
+        	$(".check-in-stock__result_text").html('');
+            $(".check-in-stock__result").hide();
+        	$clone = $('#checkInStockPopup').clone();
+        	$clone.find(".popup-qty").addClass("clone-popup-qty");
+        	$clone.find(".g-input").addClass("clone-popup-qty");
+        	$clone.find(".g-button-black").addClass("clone-popup-qty");
+        	$clone.modal();
+            $(".g-input.clone-popup-qty").keyup(function (e) {
+                if (e.keyCode == 13) {
+                	$(".g-button-black.clone-popup-qty").click();
+                }
+            });
+            $(".popup-qty").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                     // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) || 
+                     // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                         // let it happen, don't do anything
+                         return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
         });
 
 	}
@@ -197,12 +223,6 @@ ACC.product = {
 
 $(document).ready(function() {
 	ACC.product.bindAll();
-	
-    $(".g-input").keyup(function (e) {
-        if (e.keyCode == 13) {
-        	$(".g-button-black").click();
-        }
-    });
 	
 	var productsInfo = '';
 	var total = $(this).find('.js-cart-entry').length;
@@ -223,6 +243,11 @@ $(document).ready(function() {
                 },
                 success: function(data){
                     $('#check-loading .loading-stock').remove();
+                    if(data.text){
+                    	$('#check-loading').append(data.text);
+                    	$('.btn_final_submit').removeAttr("disabled");
+                    	return;
+                    }
                 	var productInfo = data.productInfo;
                 	var roughOrderDate = data.roughOrderDate;
                 	$('.js-cart-entry').each(function(index,item) {

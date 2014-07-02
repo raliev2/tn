@@ -7,8 +7,19 @@ import de.hybris.platform.commerceservices.search.solrfacetsearch.querybuilder.i
 import de.hybris.platform.solrfacetsearch.config.IndexedProperty;
 import de.hybris.platform.solrfacetsearch.search.SearchQuery;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import javax.annotation.Nullable;
+
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.util.ClientUtils;
+
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 
 
 /**
@@ -21,25 +32,61 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 	private static final String TEXT_FIELD = "text";
 	private static final String BOOST_OPERATOR = "^";
 
+	private boolean specialProperty = false;
+
 	private static final String[] suffixOp = new String[]
 	{ "", "*", "~" };
 	private static final double[] boostDiv = new double[]
 	{ 1D, 2D, 4D };
+	private static final String[] specialSuffixOp = new String[]
+	{ "" };
+	private static final double[] specialBoostDiv = new double[]
+	{ 0.5D };
 
 	@Override
 	protected void addFreeTextQuery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String fullText,
 			final String[] textWords, final int boost)
 	{
-		addFreeTextQuery(searchQuery, indexedProperty, fullText, boost * 2.0D);
+		// Для спец.свойств не кидаем в запрос выражение для полного текста - только одиночные слова
+		if (!specialProperty)
+		{
+			addFreeTextQuery(searchQuery, indexedProperty, fullText, boost * 2.0D);
+		}
 
-		if ((textWords == null) || (textWords.length <= 1))
+		if (textWords == null)
 		{
 			return;
 		}
 
+		final Collection<String> words = removeCommas(textWords);
+		// В случае обычного свойства и одиночного слова выходим.
+		if (!specialProperty && words.size() == 1)
+		{
+			return;
+		}
+
+		if (specialProperty)
+		{
+			addSingleWordsExpressionSpecial(searchQuery, indexedProperty, words, boost);
+		}
+		else
+		{
+			addSingleWordsExpression(searchQuery, indexedProperty, words, boost);
+		}
+	}
+
+	/**
+	 * @param searchQuery
+	 * @param indexedProperty
+	 * @param textWords
+	 * @param boost
+	 */
+	private void addSingleWordsExpression(final SearchQuery searchQuery, final IndexedProperty indexedProperty,
+			final Collection<String> textWords, final int boost)
+	{
 		final StringBuilder subquery = new StringBuilder();
 		subquery.append("(");
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < suffixOp.length; i++)
 		{
 			if (i > 0)
 			{
@@ -62,6 +109,74 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 		addFreeTextSubquery(searchQuery, indexedProperty, subquery.toString());
 	}
 
+	/**
+	 * @param searchQuery
+	 * @param indexedProperty
+	 * @param textWords
+	 * @param boost
+	 */
+	private void addSingleWordsExpressionSpecial(final SearchQuery searchQuery, final IndexedProperty indexedProperty,
+			final Collection<String> textWords, final int boost)
+	{
+		final StringBuilder subquery = new StringBuilder();
+		subquery.append("(");
+		for (int i = 0; i < specialSuffixOp.length; i++)
+		{
+			if (i > 0)
+			{
+				subquery.append(" OR ");
+			}
+			subquery.append("(");
+			boolean firstWord = true;
+			for (final String word : textWords)
+			{
+				if (!firstWord)
+				{
+					subquery.append(" OR ");
+				}
+				firstWord = false;
+				appendFreeTextQuery(subquery, word, specialSuffixOp[i], boost / specialBoostDiv[i]);
+			}
+			subquery.append(")");
+		}
+		subquery.append(")");
+		addFreeTextSubquery(searchQuery, indexedProperty, subquery.toString());
+	}
+
+	/**
+	 * Трансформируем исходный массив в слов/выражений в список слов
+	 * 
+	 * @param textWords
+	 * @return
+	 */
+	private Collection<String> removeCommas(final String[] textWords)
+	{
+		// трансформация выражений в отдельные слова
+		final Collection<Collection<String>> dirtyWords = Collections2.transform(Arrays.asList(textWords),
+				new Function<String, Collection<String>>()
+				{
+					@Override
+					@Nullable
+					public Collection<String> apply(@Nullable final String dirtyWord)
+					{
+						return Arrays.asList(dirtyWord.split("[;., ]"));
+					}
+				});
+
+		// трансформация в одноуровневую коллекцию
+		final Collection<String> words = Lists.newArrayList(Iterables.concat(dirtyWords));
+
+		// удаляем слова пустышки и однобуквенные
+		return Collections2.filter(words, new Predicate<String>()
+		{
+			@Override
+			public boolean apply(@Nullable final String value)
+			{
+				return value != null && value.length() > 1;
+			}
+		});
+	}
+
 	private void appendFreeTextQuery(final StringBuilder subquery, final String value, final String suffixOp, final double boost)
 	{
 		subquery.append(ClientUtils.escapeQueryChars(value)).append(suffixOp != null ? suffixOp : "").append(BOOST_OPERATOR)
@@ -82,7 +197,6 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 		}
 	}
 
-
 	@Override
 	protected void addFreeTextQuery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String value,
 			final double boost)
@@ -90,7 +204,7 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 		final String field = indexedProperty.getName();
 		if (!(indexedProperty.isFacet()))
 		{
-			if ("text".equalsIgnoreCase(indexedProperty.getType()))
+			if (TEXT_FIELD.equalsIgnoreCase(indexedProperty.getType()))
 			{
 				//addFreeTextQuery(searchQuery, field, value.toLowerCase(), "", boost);
 				addFreeTextQuery(searchQuery, field, value.toLowerCase(), "*", boost / 2.0D);
@@ -113,14 +227,8 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 	protected void addFreeTextQuery(final SearchQuery searchQuery, final String field, final String value, final String suffixOp,
 			final double boost)
 	{
-		if (field.toString().equals("code"))
-		{
-			searchQuery.searchInField(field, prepareLong(value, suffixOp) + BOOST_OPERATOR + boost, SearchQuery.Operator.OR);
-		}
-		else
-		{
-			searchQuery.searchInField(field, prepareLong(value, suffixOp) + BOOST_OPERATOR + boost, SearchQuery.Operator.AND);
-		}
+		searchQuery.searchInField(field, prepareLong(value, suffixOp) + BOOST_OPERATOR + boost,
+				specialProperty ? SearchQuery.Operator.OR : SearchQuery.Operator.AND);
 	}
 
 	private String prepareLong(final String value, final String suffixOp)
@@ -151,56 +259,14 @@ public class TechnonikolFreeTextQueryBuilder extends DefaultFreeTextQueryBuilder
 		return ClientUtils.escapeQueryChars(value.trim()) + suffixOp;
 	}
 
-	//	protected Set<String> getFreeTextQueryValues(final IndexedProperty indexedProperty, final String value, final double boost)
-	//	{
-	//		final Set<String> values = new TreeSet<String>();
-	//		final String escapedValue = "\"" + ClientUtils.escapeQueryChars(String.valueOf(value.toLowerCase())) + "\"";
-	//		if (!indexedProperty.isFacet())
-	//		{
-	//			if (TEXT_FIELD.equalsIgnoreCase(indexedProperty.getType()))
-	//			{
-	//				values.add(escapedValue + "" + BOOST_OPERATOR + boost);
-	//				values.add(escapedValue + "*" + BOOST_OPERATOR + boost / 2.0D);
-	//				values.add(escapedValue + "~" + BOOST_OPERATOR + boost / 4.0D);
-	//			}
-	//			else
-	//			{
-	//				values.add(escapedValue + "" + BOOST_OPERATOR + boost);
-	//				values.add(escapedValue + "*" + BOOST_OPERATOR + boost / 2.0D);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			LOG.warn("Not searching " + indexedProperty
-	//					+ ". Free text search not available in facet property. Configure an additional text property for searching.");
-	//		}
-	//		return values;
-	//	}
-	//
-	//	@Override
-	//	protected void addFreeTextQuery(final SearchQuery searchQuery, final IndexedProperty indexedProperty, final String fullText,
-	//			final String[] textWords, final int boost)
-	//	{
-	//		final String field = indexedProperty.getName();
-	//		final Set<String> fullTextValues = getFreeTextQueryValues(indexedProperty, fullText, boost * 2.0D);
-	//
-	//		final QueryField fullTextQueryField = new QueryField(field, fullTextValues, SearchQuery.Operator.AND);
-	//		addQueryField(searchQuery, fullTextQueryField);
-	//
-	//		if ((textWords != null) && (textWords.length > 1))
-	//		{
-	//			final Set<String> textWordsValues = new TreeSet<String>();
-	//			for (final String word : textWords)
-	//			{
-	//				textWordsValues.addAll(getFreeTextQueryValues(indexedProperty, word, boost));
-	//			}
-	//			final QueryField textWordsQueryField = new QueryField(field, textWordsValues, SearchQuery.Operator.AND);
-	//			addQueryField(searchQuery, textWordsQueryField);
-	//		}
-	//	}
-	//
-	//	private void addQueryField(final SearchQuery searchQuery, final QueryField fullTextQueryField)
-	//	{
-	//		searchQuery.getAllFields().add(fullTextQueryField);
-	//	}
+	public boolean isSpecialProperty()
+	{
+		return specialProperty;
+	}
+
+	public void setSpecialProperty(final boolean specialProperty)
+	{
+		this.specialProperty = specialProperty;
+	}
+
 }

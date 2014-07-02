@@ -71,8 +71,8 @@
     <!-- 
     <c:url value="/checkout/multi${currentStep.previous.url}" var="prev_url"/>
      -->
-    <form method="get" action="${prev_url}" id="spmForm">
-        <div class="g-float-right checkout__back" style="left:975px; position:absolute; bottom:425px;"><a href="javascript:void(0)" class="g-link-blue" onclick="$('#spmForm').submit()">Назад</a></div>
+    <form method="get" action="${prev_url}" id="spmForm" >
+        <div class="g-float-right checkout__back" style="position:relative; top:10px; right:385px;"><a href="javascript:void(0)" class="g-link-blue" onclick="$('#spmForm').submit()">Назад</a></div>
     	<input id="hiddenInput" type="hidden" name="selectedPaymentMethod" />    
     	<input id="isPrev" type="hidden" name="isPrev" value="true"/>   
     </form>

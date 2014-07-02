@@ -23,9 +23,9 @@ import javax.validation.constraints.NotNull;
  */
 public class UpdateQuantityForm
 {
-	@NotNull(message = "{basket.error.quantity.notNull}")
-	@Min(value = 0, message = "{basket.error.quantity.invalid}")
-	@Digits(fraction = 0, integer = 10, message = "{basket.error.quantity.invalid}")
+	@NotNull(message = "{basket.error.item.quantity.notNull}")
+	@Min(value = 0, message = "{basket.error.item.quantity.invalid}")
+	@Digits(fraction = 0, integer = 10, message = "{basket.error.item.quantity.invalid}")
 	private Long quantity;
 
 	public void setQuantity(final Long quantity)

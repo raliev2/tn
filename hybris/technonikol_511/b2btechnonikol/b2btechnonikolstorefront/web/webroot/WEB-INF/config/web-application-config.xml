@@ -35,20 +35,10 @@
 	<import resource="classpath:/acceleratorcms/spring/web-spring-context.xml"/>
 	<import resource="spring-cms-config.xml"/>
 
-	<alias name="defaultCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
-	<bean id="defaultCategoryModelUrlResolver" class="com.teamidea.platform.technonikol.storefront.urlresolver.CategoryModelUrlResolver">
-		<property name="baseSiteService" ref="baseSiteService"/>
+	<alias name="defaultPageTitleResolver" alias="pageTitleResolver" />
+	<bean id="defaultPageTitleResolver" class="com.teamidea.platform.technonikol.storefront.title.DefaultPageTitleResolver">
+		<property name="cmsSiteService" ref="cmsSiteService"/>
 		<property name="commerceCategoryService" ref="commerceCategoryService"/>
-		<property name="pattern" value="/{category-path}/c/{category-code}"/>
-	    <property name="threadContextService" ref="threadContextService"></property>
+		<property name="productService" ref="productService"/>	
 	</bean>
-	
-	<alias name="defaultProductModelUrlResolver" alias="productModelUrlResolver" />
-	<bean id="defaultProductModelUrlResolver" class="com.teamidea.platform.technonikol.storefront.urlresolver.ProductModelUrlResolver">
-		<property name="baseSiteService" ref="baseSiteService"/>
-		<property name="commerceCategoryService" ref="commerceCategoryService"/>
- 		<property name="defaultPattern" value="/{category-path}/{product-name}/p/{product-code}"/>
-	    <property name="threadContextService" ref="threadContextService"></property>
-	</bean>
-
 </beans>

@@ -65,7 +65,13 @@ public class DeliveryDateSoapClientDemo
 					if(!StringUtils.isEmpty(ekn)
 							&& !StringUtils.isEmpty(count)
 							&& !StringUtils.isEmpty(datePost)){
-						client.deliveryDateQueryOut(ekn, count, datePost);						
+						try{
+							client.deliveryDateQueryOut(ekn, count, datePost);	
+						}
+						catch(Exception ex){
+							System.out.println("Error while trying to get delivery date");
+							ex.printStackTrace();
+						}
 					}
 				
 					break;

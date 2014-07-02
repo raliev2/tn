@@ -40,8 +40,8 @@
 	
 	<bean id="createOrderIntegrationService" class="com.teamidea.platform.technonikol.services.order.impl.CreateOrderIntegrationServiceImpl" />
 	
-	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.CreateOrderJob" parent="abstractJobPerformable">
-        <property name="createOrderIntegrationService" ref="createOrderIntegrationService"/>	
+	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.order.CreateOrderJobPerformable" parent="abstractJobPerformable">	
+		<property name="createOrderIntegrationService" ref="createOrderIntegrationService" />
 	</bean>
 	
 	<alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>
@@ -49,12 +49,14 @@
         <property name="freeTextQueryBuilders">
             <list>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
-                    <property name="propertyName" value="ean"/>
+                    <property name="propertyName" value="manufacturerCode"/>
                     <property name="boost" value="100" />
+                    <property name="specialProperty" value="true"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="code"/>
                     <property name="boost" value="90"/>
+                    <property name="specialProperty" value="true"/>
                 </bean>
                 <bean class="com.teamidea.platform.technonikol.facades.search.solrfacetsearch.querybuilder.TechnonikolFreeTextQueryBuilder">
                     <property name="propertyName" value="name"/>
@@ -90,4 +92,21 @@
             </list>
         </property>
     </bean>
+    
+    <alias name="defaultCategoryModelUrlResolver" alias="categoryModelUrlResolver" />
+	<bean id="defaultCategoryModelUrlResolver" class="com.teamidea.platform.technonikol.services.urlresolver.CategoryModelUrlResolver">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+		<property name="pattern" value="/{category-path}/c/{category-code}"/>
+	    <property name="threadContextService" ref="threadContextService"></property>
+	</bean>
+	
+	<alias name="defaultProductModelUrlResolver" alias="productModelUrlResolver" />
+	<bean id="defaultProductModelUrlResolver" class="com.teamidea.platform.technonikol.services.urlresolver.ProductModelUrlResolver">
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commerceCategoryService" ref="commerceCategoryService"/>
+ 		<property name="defaultPattern" value="/{category-path}/{product-name}/p/{product-code}"/>
+	    <property name="threadContextService" ref="threadContextService"></property>
+	</bean>
+	
 </beans>
