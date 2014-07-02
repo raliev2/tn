@@ -243,6 +243,11 @@ $(document).ready(function() {
                 },
                 success: function(data){
                     $('#check-loading .loading-stock').remove();
+                    if(data.text){
+                    	$('#check-loading').append(data.text);
+                    	$('.btn_final_submit').removeAttr("disabled");
+                    	return;
+                    }
                 	var productInfo = data.productInfo;
                 	var roughOrderDate = data.roughOrderDate;
                 	$('.js-cart-entry').each(function(index,item) {
