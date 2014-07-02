@@ -40,8 +40,8 @@
 	
 	<bean id="createOrderIntegrationService" class="com.teamidea.platform.technonikol.services.order.impl.CreateOrderIntegrationServiceImpl" />
 	
-	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.CreateOrderJob" parent="abstractJobPerformable">
-        <property name="createOrderIntegrationService" ref="createOrderIntegrationService"/>	
+	<bean id="createOrderJob" class="com.teamidea.platform.technonikol.cronjobs.order.CreateOrderJobPerformable" parent="abstractJobPerformable">	
+		<property name="createOrderIntegrationService" ref="createOrderIntegrationService" />
 	</bean>
 	
 	<alias name="tnCommerceSearchTextPopulator" alias="commerceSearchTextPopulator"/>

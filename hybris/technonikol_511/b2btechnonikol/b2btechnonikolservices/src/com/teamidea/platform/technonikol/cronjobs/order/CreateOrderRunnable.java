@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.teamidea.platform.technonikol.cronjobs;
+package com.teamidea.platform.technonikol.cronjobs.order;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -13,9 +10,12 @@ import javax.xml.ws.WebServiceException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Scope;
 
 import ru.technonikol.ws.orders.MaterialsRow;
 import ru.technonikol.ws.orders.Order.Materials;
+
 import com.teamidea.platform.technonikol.services.order.CreateOrderIntegrationService;
 
 import de.hybris.platform.core.enums.OrderStatus;
@@ -23,82 +23,68 @@ import de.hybris.platform.core.model.order.AbstractOrderEntryModel;
 import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.core.model.security.PrincipalGroupModel;
 import de.hybris.platform.core.model.user.UserModel;
-import de.hybris.platform.cronjob.enums.CronJobResult;
-import de.hybris.platform.cronjob.enums.CronJobStatus;
-import de.hybris.platform.cronjob.model.CronJobModel;
 import de.hybris.platform.ordersplitting.model.WarehouseModel;
-import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
-import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
-import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
-import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.util.DiscountValue;
 
-
-/**
- * @author Marina
- * 
- */
-public class CreateOrderJob extends AbstractJobPerformable
-{
-
-	private static final Logger LOG = Logger.getLogger(CreateOrderJob.class);
+@Configurable("createOrderRunnable")
+@Scope("prototype")
+public class CreateOrderRunnable implements Runnable {
+	
+	private static final Logger LOG = Logger.getLogger(CreateOrderRunnable.class);
+	
+	private OrderModel order;
 
 	private CreateOrderIntegrationService createOrderIntegrationService;
+    private ModelService modelService;
+    
+    private static final String TN_CONTRACTOR = "TNContractor";
+    private static final String TN_PARTNER = "TNPartner";
+    
+    public CreateOrderRunnable(){
+    	
+    }
+    
+    public CreateOrderRunnable(OrderModel order, CreateOrderIntegrationService createOrderIntegrationService, ModelService modelService){
+    	this.order = order;
+    	this.createOrderIntegrationService =createOrderIntegrationService;
+    	this.modelService = modelService;
+    }
 
 	@Override
-	public PerformResult perform(final CronJobModel model)
-
-	{
-		LOG.info("CreateOrderJob started ");
-
-		final List<OrderModel> orders = getAssignedToAdminOrders();
-
-		for (final OrderModel order : orders) {
-			ru.technonikol.ws.orders.Order integrationOrder = null;
-			// convert order
-			try {
-				integrationOrder = convert(order);
-			} catch (final ConversionException ex) {
-				LOG.error("Error when trying to convert de.hybris.platform.core.model.order.OrderModel to ru.technonikol.ws.orders.Order", ex);
+	public void run() {		
+		ru.technonikol.ws.orders.Order integrationOrder = null;
+		// convert order
+		try {
+			integrationOrder = convert(order);
+		} catch (final ConversionException ex) {
+			LOG.error("Error when trying to convert de.hybris.platform.core.model.order.OrderModel to ru.technonikol.ws.orders.Order", ex);
+			order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
+			modelService.save(order);
+			return;
+		}
+		// send to service
+		try {
+			createOrderIntegrationService.ordersCreateRequestOutSyn(integrationOrder);
+		} catch (WebServiceException exception) {
+			// if service is unavailable
+			if (exception.getCause() instanceof ConnectException
+					|| exception.getCause() instanceof SocketTimeoutException) {
+				order.setStatus(OrderStatus.RESEND_TO_SERVER);
+				modelService.save(order);
+				return;
+			// service data processing errors
+			} else {
 				order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
 				modelService.save(order);
-				continue;
 			}
-			// send to service
-			try {
-				createOrderIntegrationService.ordersCreateRequestOutSyn(integrationOrder);
-			} catch (WebServiceException exception) {
-				// if service is unavailable
-				if (exception.getCause() instanceof ConnectException
-						|| exception.getCause() instanceof SocketTimeoutException) {
-					order.setStatus(OrderStatus.RESEND_TO_SERVER);
-					modelService.save(order);
-					continue;
-				// service data processing errors
-				} else {
-					order.setStatus(OrderStatus.SENT_TO_SERVER_ERROR);
-					modelService.save(order);
-				}
-			}
-			order.setStatus(OrderStatus.SENT_TO_SERVER_OK);
-			modelService.save(order);
+			return;
 		}
-
-		LOG.info("CreateOrderJob is done ");
-		return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+		order.setStatus(OrderStatus.SENT_TO_SERVER_OK);
+		modelService.save(order);
 	}
-
-	public List<OrderModel> getAssignedToAdminOrders()
-	{
-
-		final FlexibleSearchQuery query = new FlexibleSearchQuery(
-				"SELECT {o:PK} FROM {Order AS o JOIN OrderStatus as os ON {o:status} = {os:PK}} WHERE {os:code} NOT IN ('SENT_TO_SERVER_OK', 'SENT_TO_SERVER_ERROR')");
-		//"WHERE {os:code} = 'ASSIGNED_TO_ADMIN'"); //TODO after fixing status in which order is created (problems with approvers/permissions and etc)
-		final SearchResult<OrderModel> orders = flexibleSearchService.search(query);
-		return orders.getResult();
-	}
-
+	
 	public ru.technonikol.ws.orders.Order convert(final OrderModel source) throws ConversionException
 	{
 		final ru.technonikol.ws.orders.Order target = new ru.technonikol.ws.orders.Order();
@@ -139,10 +125,6 @@ public class CreateOrderJob extends AbstractJobPerformable
 			target.setConstructionType("1"); //TODO no data now
 
 			target.setDate(serviceDateFormat.format(source.getCreationtime()));
-			/*
-			 * if (source.getPaymentType() != null) { target.setPaymentType(source.getPaymentType().getType()); } else {
-			 * target.setPaymentType(""); }
-			 */
 
 			target.setPaymentType(source.getPaymentMethod().getCode());
 
@@ -168,8 +150,12 @@ public class CreateOrderJob extends AbstractJobPerformable
 			for (final AbstractOrderEntryModel entry : source.getEntries())
 			{
 				final MaterialsRow row = new MaterialsRow();
-				final Date entryDate = serviceDateFormat.parse(source.getProvidedDeliveryDate());
-				row.setDeliveryDate(serviceDateFormat.format(entryDate));
+				
+				row.setDeliveryDate("");
+				if(source.getProvidedDeliveryDate() != null){
+					final Date entryDate = serviceDateFormat.parse(source.getProvidedDeliveryDate());
+					row.setDeliveryDate(serviceDateFormat.format(entryDate));					
+				}
 				double discountValue = 0;
 				for (final DiscountValue discount : entry.getDiscountValues())
 				{
@@ -200,11 +186,11 @@ public class CreateOrderJob extends AbstractJobPerformable
 	{
 		for (final PrincipalGroupModel group : user.getGroups())
 		{
-			if (group.getItemtype().contains("TNContractor"))
+			if (group.getItemtype().contains(TN_CONTRACTOR))
 			{
 				for (final PrincipalGroupModel innerGroup : group.getGroups())
 				{
-					if (innerGroup.getItemtype().contains("TNPartner"))
+					if (innerGroup.getItemtype().contains(TN_PARTNER))
 					{
 						return innerGroup.getUid();
 					}
@@ -212,7 +198,7 @@ public class CreateOrderJob extends AbstractJobPerformable
 			}
 			else
 			{
-				if (group.getItemtype().contains("TNPartner"))
+				if (group.getItemtype().contains(TN_PARTNER))
 				{
 					return group.getUid();
 				}
@@ -221,13 +207,46 @@ public class CreateOrderJob extends AbstractJobPerformable
 		return "";
 	}
 
-	public CreateOrderIntegrationService getCreateOrderIntegrationService()
-	{
+	/**
+	 * @return the order
+	 */
+	public OrderModel getOrder() {
+		return order;
+	}
+
+	/**
+	 * @param order the order to set
+	 */
+	public void setOrder(OrderModel order) {
+		this.order = order;
+	}
+
+	/**
+	 * @return the createOrderIntegrationService
+	 */
+	public CreateOrderIntegrationService getCreateOrderIntegrationService() {
 		return createOrderIntegrationService;
 	}
 
-	public void setCreateOrderIntegrationService(final CreateOrderIntegrationService createOrderIntegrationService)
-	{
+	/**
+	 * @param createOrderIntegrationService the createOrderIntegrationService to set
+	 */
+	public void setCreateOrderIntegrationService(
+			CreateOrderIntegrationService createOrderIntegrationService) {
 		this.createOrderIntegrationService = createOrderIntegrationService;
+	}
+
+	/**
+	 * @return the modelService
+	 */
+	public ModelService getModelService() {
+		return modelService;
+	}
+
+	/**
+	 * @param modelService the modelService to set
+	 */
+	public void setModelService(ModelService modelService) {
+		this.modelService = modelService;
 	}
 }
