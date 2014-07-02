@@ -243,6 +243,10 @@ $(document).ready(function() {
                 },
                 success: function(data){
                     $('#check-loading .loading-stock').remove();
+                    if(data.text){
+                    	$('#check-loading').append(data.text);
+                    	return;
+                    }
                 	var productInfo = data.productInfo;
                 	var roughOrderDate = data.roughOrderDate;
                 	$('.js-cart-entry').each(function(index,item) {
